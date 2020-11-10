@@ -18,3 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::group(['prefix' => 'system-admin'], function () {
+
+    Route::get('/', 'System\HomeController@index')->name('system-admin');
+
+});
