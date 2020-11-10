@@ -1,6 +1,6 @@
 @extends('layouts.system-admin')
 
-@section('title', 'Trang chủ')
+@section('title', 'Chi tiết công ty')
 
 @section('sidebar')
     @parent
@@ -14,24 +14,24 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Company</th>
-            <th scope="col">Plan</th>
+            <th scope="col">Business Plan</th>
+            <th scope="col">Description</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td></td>
-            <td>Lampart</td>
-            <td>Business</td>
+            <td>Premium</td>
+            <td>Full access</td>
             <td>
                 <button type="button" class="btn btn-primary">Details</button>
             </td>
         </tr>
         <tr>
             <td></td>
-            <td>Wakka</td>
-            <td>Premium</td>
+            <td>Gold</td>
+            <td>Half access</td>
             <td>
                 <button type="button" class="btn btn-primary">Details</button>
             </td>
@@ -39,3 +39,4 @@
         </tbody>
     </table>
 @endsection
+

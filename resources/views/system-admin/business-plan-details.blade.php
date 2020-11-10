@@ -1,21 +1,20 @@
 @extends('layouts.system-admin')
 
-@section('title', 'Chi tiết công ty')
+@section('title', 'Business Plan details')
 
 @section('sidebar')
     @parent
 
-    <p>This is appended to the master sidebar.</p>
 
 @endsection
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Company Details</h5>
+        <h5 class="card-header">Business Plan Details</h5>
         <div class="card-body">
             <form>
                 <div class="form-group">
-                    <label>Company name</label>
+                    <label>Business Plan name</label>
                     <input class="form-control" placeholder="Lampart">
                 </div>
                 <div class="form-group">
