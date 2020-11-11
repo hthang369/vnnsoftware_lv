@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 class BusinessPlanController extends Controller
 {
     public function index() {
-        return view('/system-admin/business-plan');
+        return view('/business-plan/list');
     }
 
     public function detail($id) {
-        return view('/system-admin/business-plan-detail');
+        return view('/business-plan/detail');
     }
 }
 

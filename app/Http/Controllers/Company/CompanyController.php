@@ -9,6 +9,6 @@ class CompanyController extends Controller
 {
     public function companyDetails()
     {
-        return view('\system-admin\company-details');
+        return view('\company\details');
     }
 }

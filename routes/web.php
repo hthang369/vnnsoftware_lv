@@ -22,8 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'system-admin'], function () {
 
-    Route::get('/', 'System\SystemHomeController@index')->name('system-admin');
-    Route::get('/company-details', 'Company\CompanyController@companyDetails')->name('system-admin-company-details');
-    Route::get('/business-plan', 'BusinessPlan\BusinessPlanController@index')->name('system-admin-business-plan');
-    Route::get('/business-plan/detail/{id}', 'BusinessPlan\BusinessPlanController@detail')->name('system-admin-business-plan-detail');
+    Route::get('/', 'System\SystemHomeController@index')->name('business-plan');
+    Route::get('/company-details', 'Company\CompanyController@companyDetails')->name('business-plan-company-details');
+    Route::get('/business-plan', 'BusinessPlan\BusinessPlanController@index')->name('business-plan-business-plan');
+    Route::get('/business-plan/detail/{id}', 'BusinessPlan\BusinessPlanController@detail')->name('business-plan-business-plan-detail');
 });
