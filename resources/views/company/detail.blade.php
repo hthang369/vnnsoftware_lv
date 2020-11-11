@@ -15,28 +15,24 @@
         <div class="card-body">
             <form>
                 <div class="form-group">
-                    <label>Company name</label>
-                    <input class="form-control" placeholder="Lampart">
+                    <strong>Company name:</strong>
+                    <label>Premium</label>
                 </div>
                 <div class="form-group">
-                    <label>Business plan</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>Premium</option>
-                        <option>Gold</option>
-                        <option>Silver</option>
-                    </select>
+                    <strong>Business plan:</strong>
+                    <label>Gold</label>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input class="form-control" placeholder="lampart@gmail.com">
+                    <strong>Email:</strong>
+                    <label>lampart@gmail.com</label>
                 </div>
                 <div class="form-group">
-                    <label>Address</label>
-                    <input class="form-control" placeholder="abc/123">
+                    <strong>Address:</strong>
+                    <label>bv/123</label>
                 </div>
                 <div class="form-group">
-                    <label>Phone</label>
-                    <input class="form-control" placeholder="4875559892">
+                    <strong>Phone:</strong>
+                    <label>444555666</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>

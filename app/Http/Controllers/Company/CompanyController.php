@@ -3,12 +3,24 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function companyDetails()
+    public function index()
     {
-        return view('\company\details');
+        return view('/company/list');
+    }
+
+    public function companyDetail()
+    {
+        return view('/company/detail');
+    }
+
+    public function newForm() {
+        return view('/company/add_form');
+    }
+
+    public function updateForm() {
+        return view('/company/update_form');
     }
 }

@@ -33,7 +33,7 @@
                     <strong>Phone:</strong>
                     <label>ggggggggggggggggggggggg</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Edit</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>

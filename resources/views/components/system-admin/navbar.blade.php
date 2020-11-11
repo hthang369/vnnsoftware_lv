@@ -1,6 +1,6 @@
 <nav style="background-color: #6351ce;" class="navbar navbar-expand-lg ">
     <img style="width:5rem;" src="{{ URL::to('/') }}/images/logo.png">
-    <a class="text-light navbar-brand" href="#">Laka Management Tool</a>
+    <a class="text-light navbar-brand" href="{{ URL::to('/system-admin/company') }}">Laka Management Tool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

@@ -21,9 +21,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['prefix' => 'system-admin'], function () {
-
-    Route::get('/', 'System\SystemHomeController@index')->name('business-plan');
-    Route::get('/company-details', 'Company\CompanyController@companyDetails')->name('business-plan-company-details');
-    Route::get('/business-plan', 'BusinessPlan\BusinessPlanController@index')->name('business-plan-business-plan');
-    Route::get('/business-plan/detail/{id}', 'BusinessPlan\BusinessPlanController@detail')->name('business-plan-business-plan-detail');
+    // company route
+    Route::get('/company', 'Company\CompanyController@index')->name('company');
+    Route::get('/company/detail/{id}', 'Company\CompanyController@companyDetail')->name('company-detail');
+    Route::get('/company/new', 'Company\CompanyController@newForm')->name('company-new');
+    Route::get('/company/update/{id}', 'Company\CompanyController@updateForm')->name('company-update');
+    // business plan route
+    Route::get('/business-plan', 'BusinessPlan\BusinessPlanController@index')->name('business-plan');
+    Route::get('/business-plan/detail/{id}', 'BusinessPlan\BusinessPlanController@businessDetail')->name('business-plan-detail');
+    Route::get('/business-plan/new', 'BusinessPlan\BusinessPlanController@newForm')->name('business-plan-new');
+    Route::get('/business-plan/update/{id}', 'BusinessPlan\BusinessPlanController@updateForm')->name('business-plan-update');
 });

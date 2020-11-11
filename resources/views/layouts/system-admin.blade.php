@@ -10,10 +10,17 @@
         #page-container {
             position: relative;
             min-height: 100vh;
+            display: block;
+            overflow: auto;
         }
 
         .container {
-            padding-bottom: 2.5rem; /* Footer height */
+
+
+            position: relative;
+            min-height: 100vh;
+            display: block;
+            overflow: auto;
         }
 
         .footer {
