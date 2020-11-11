@@ -17,6 +17,13 @@ use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
+
+    public function index()
+    {
+        return view('/user-management/list');
+    }
+
+
     public function login(Request $request)
     {
         $rules = [
@@ -43,5 +50,17 @@ class UserController extends Controller
             return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors(['passcsscfsword' => 'fsdsfsdfdsf']);
         }
 
+    }
+
+    public function newForm() {
+        return view('/user-management/add_form');
+    }
+
+    public function register(Request $request)
+    {
+
+        if (count(User::where('email', $request->input('email'))->get()) >= 1) {
+            print_r('trung'); exit;
+        }
     }
 }
