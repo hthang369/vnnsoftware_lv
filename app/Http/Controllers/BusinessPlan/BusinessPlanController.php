@@ -10,6 +10,10 @@ class BusinessPlanController extends Controller
     public function index() {
         return view('/system-admin/business-plan');
     }
+
+    public function detail($id) {
+        return view('/system-admin/business-plan-detail');
+    }
 }
 
 
