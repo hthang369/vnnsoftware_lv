@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserMysqlRepository extends MyRepository implements UserRepositoryInterface
 {
+
+    public function getUserById($id)
+    {
+        return User::find($id);
+    }
     /**
      * @param $data
      *

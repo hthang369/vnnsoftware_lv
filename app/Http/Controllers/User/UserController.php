@@ -66,11 +66,22 @@ class UserController extends Controller
         return view('/user-management/add_form');
     }
 
+    public function updateForm($id)
+    {
+        $user = $this->userService->getUserById($id);
+
+        if (is_null($user)) {
+            abort(404,'Page not found');
+        }
+
+        return view('/user-management/add_form')->with('user', $user);
+    }
+
     public function register(Request $request)
     {
-//        print_r($request->all()); exit;
 
         $validator = $this->userService->ruleCreate($request->all());
+
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
@@ -79,16 +90,24 @@ class UserController extends Controller
         $input['password'] = Hash::make('password');
 
         try {
-            DB::beginTransaction();
 
             $user = $this->userService->create($input);
-
-            DB::commit();
+            return $this->toViewDetail($user);
         } catch (\Exception $ex) {
-            DB::rollBack();
-            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+//            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
         }
 
-        return redirect()->intended('detail');
     }
+
+    public function detail($id)
+    {
+        $user = $this->userService->getUserById($id);
+
+        if (is_null($user)) {
+            abort(404,'Page not found');
+        }
+
+        return view('/user-management/detail')->with('user', $user);
+    }
+
 }

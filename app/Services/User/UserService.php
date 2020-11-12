@@ -21,6 +21,11 @@ class UserService extends MyService
 
     }
 
+    public function getUserById($id)
+    {
+        return $this->userRepo->getUserById($id);
+    }
+
     public function Create($input)
     {
         return $this->userRepo->Create($input);

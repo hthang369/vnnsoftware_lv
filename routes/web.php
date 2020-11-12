@@ -37,7 +37,7 @@ Route::group(['prefix' => 'system-admin'], function () {
     // user management route
     Route::get('user-management', 'User\UserController@index')->name('user-management.list');
     Route::get('user-management/detail/{id}', 'User\UserController@detail')->name('user-management.detail');
-    Route::get('user-management/update/{id}', 'User\UserController@updateForm')->name('user-management.form.update');
+    Route::get('user-management/update/{id}', 'User\UserController@updateForm')->name('user-management.update.form');
     Route::post('user-management/update/{id}', 'User\UserController@update')->name('user-management.update');
     Route::get('user-management/new', 'User\UserController@newForm')->name('user-management.new');
     Route::post('user-management/new', 'User\UserController@register')->name('user-management.register');

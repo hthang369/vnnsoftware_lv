@@ -10,14 +10,14 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Company</h5>
+        <h5 class="card-header">User management</h5>
         <div class="card-body">
             <form method="POST">
                 @csrf
                 <div class="form-group required">
                     <label>Name</label>
                     <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
-                    @error('email')
+                    @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
