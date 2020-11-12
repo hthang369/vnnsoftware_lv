@@ -46,10 +46,10 @@ class UserService extends MyService
     public function ruleCreate($request)
     {
         return $validator = Validator::make($request, [
-            'name' => 'required',
-            'company' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
+            'name' => 'required',
+            'role' => 'required',
         ]);
     }
 

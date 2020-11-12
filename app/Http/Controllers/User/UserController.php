@@ -10,13 +10,23 @@ namespace App\Http\Controllers\User;
 
 
 use App\Http\Controllers\Controller;
+use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Redirect;
 use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
+
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
 
     public function index()
     {
@@ -27,8 +37,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $rules = [
-//            'email' => 'required|email|exists:user.email',
-            'email' => 'required|email',
+            'email' => 'required|email|exists:users',
             'password' => 'required',
         ];
 
@@ -52,15 +61,34 @@ class UserController extends Controller
 
     }
 
-    public function newForm() {
+    public function newForm()
+    {
         return view('/user-management/add_form');
     }
 
     public function register(Request $request)
     {
+//        print_r($request->all()); exit;
 
-        if (count(User::where('email', $request->input('email'))->get()) >= 1) {
-            print_r('trung'); exit;
+        $validator = $this->userService->ruleCreate($request->all());
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
         }
+
+        $input = $request->all();
+        $input['password'] = Hash::make('password');
+
+        try {
+            DB::beginTransaction();
+
+            $user = $this->userService->create($input);
+
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+        }
+
+        return redirect()->intended('detail');
     }
 }
