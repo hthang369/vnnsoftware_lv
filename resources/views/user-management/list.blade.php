@@ -7,42 +7,34 @@
 @endsection
 
 @section('content')
-    <table class="table table-hover">
+    <table class="table table-hover" style="table-layout: fixed; word-break: break-word">
         <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col"></th>
             <th scope="col">Name</th>
-            <th scope="col">Address</th>
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
+            <th scope="col">Address</th>
             <th scope="col">Role</th>
-            <th scope="col"></th>
+            <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td></td>
-            <td>Lampart</td>
-            <td>abc/123</td>
-            <td>lampart@gmail</td>
-            <td>11158796</td>
-            <td>Premium</td>
-            <td>
-                <button type="button" class="btn btn-primary">Details</button>
-                <button type="button" class="btn btn-danger">Delete</button>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Lampart</td>
-            <td>abc/123</td>
-            <td>lampart@gmail</td>
-            <td>11158796</td>
-            <td>system-admin</td>
-            <td>
-                <button type="button" class="btn btn-primary">Details</button>
-            </td>
-        </tr>
+        @foreach($list as $i => $user)
+            <tr>
+                <td>{{$i + 1}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->phone}}</td>
+                <td>{{$user->address}}</td>
+                <td>{{$user->role}}</td>
+                <td>
+                    <a class="btn btn-primary" href="/system-admin/user-management/detail/{{$user->id}}" role="button">Detail</a>
+                    <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">Update</a>
+                    <a class="btn btn-danger" href="/system-admin/user-management/delete/{{$user->id}}" role="button">Delete</a>
+                </td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 @endsection

@@ -54,7 +54,7 @@ class UserService extends MyService
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'name' => 'required',
-            'role' => 'required',
+            'role_id' => 'required',
         ]);
     }
 
@@ -156,7 +156,7 @@ class UserService extends MyService
     // insert for sync_data version
     public function getAllUser()
     {
-        return DB::select('call usp_get_list_user_by_contact(?,?)', ["", Auth::id()]);
+        return $this->userRepo->getAllUser();
     }
 
     public function getCurrentUser()

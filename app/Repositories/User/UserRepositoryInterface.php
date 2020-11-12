@@ -4,6 +4,7 @@ namespace App\Repositories\User;
 interface UserRepositoryInterface
 {
     public function getUserById($id);
+    public function getAllUser();
     public function getUser($data);
     public function updateInfoUser($user_id, $update_data);
     public function Create($input);

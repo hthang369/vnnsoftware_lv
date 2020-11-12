@@ -41,7 +41,7 @@
         @endcomponent
     @show
 
-    <div class="container m-0 pl-0">
+    <div class="container-fluid m-0 pl-0">
         <div class="row">
             <!-- Sidebar -->
             <div class="col-lg-3">

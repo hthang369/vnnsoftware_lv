@@ -15,6 +15,11 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
     {
         return User::find($id);
     }
+
+    public function getAllUser()
+    {
+        return User::all();
+    }
     /**
      * @param $data
      *

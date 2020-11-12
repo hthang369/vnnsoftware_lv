@@ -4,8 +4,6 @@
 
 @section('sidebar')
     @parent
-
-
 @endsection
 
 @section('content')
@@ -16,7 +14,7 @@
                 @csrf
                 <div class="form-group required">
                     <label>Name</label>
-                    <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
+                    <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name" value="{!! !empty($user) ? $user->name : old('name') !!}" autocomplete="name" autofocus>
                     @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -34,7 +32,7 @@
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input class="form-control @error('email') is-invalid @enderror" type="text" placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="email">
+                    <input class="form-control @error('email') is-invalid @enderror" type="text" placeholder="Email" name="email" value="{!! !empty($user) ? $user->email : old('email') !!}" autocomplete="email">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -43,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label>Phone</label>
-                    <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone" name="phone" value="{{ old('phone') }}" autocomplete="phone">
+                    <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone" name="phone" value="{!! !empty($user) ? $user->phone : old('phone') !!}" autocomplete="phone">
                     @error('phone')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -52,7 +50,7 @@
                 </div>
                 <div class="form-group">
                     <label>Address</label>
-                    <input class="form-control @error('address') is-invalid @enderror" type="text" placeholder="Address" name="address" value="{{ old('address') }}" autocomplete="address">
+                    <input class="form-control @error('address') is-invalid @enderror" type="text" placeholder="Address" name="address" value="{!! !empty($user) ? $user->address : old('address') !!}" autocomplete="address">
                     @error('address')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -61,14 +59,14 @@
                 </div>
                 <div class="form-group">
                     <label>Role</label>
-                    <select class="form-control" id="exampleFormControlSelect1" name="role" value="{{ old('role') }}">
-                        <option value="1"  {{ old('role') == 1 ? 'selected' : '' }}>
+                    <select class="form-control" id="exampleFormControlSelect1" name="role_id" value="{!! !empty($user) ? $user->role_id : old('role_id') !!}">
+                        <option value="1"  {{ (!empty($user) ? $user->role_id : old('role_id')) == 1 ? 'selected' : '' }}>
                             Item 1
                         </option>
-                        <option value="2" {{ old('role') == 2 ? 'selected' : '' }}>
+                        <option value="2" {{ (!empty($user) ? $user->role_id : old('role_id')) == 2 ? 'selected' : '' }}>
                             Item 2
                         </option>
-                        <option value="3" {{ old('role') == 3 ? 'selected' : '' }}>
+                        <option value="3" {{ (!empty($user) ? $user->role_id : old('role_id')) == 3 ? 'selected' : '' }}>
                             Item 3
                         </option>
                     </select>

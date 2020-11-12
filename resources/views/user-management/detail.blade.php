@@ -1,6 +1,6 @@
 @extends('layouts.system-admin')
 
-@section('title', 'Chi tiết công ty')
+@section('title', 'User Details')
 
 @section('sidebar')
     @parent
