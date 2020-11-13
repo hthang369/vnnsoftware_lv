@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
+    const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
-    const STATUS_NOT_ACTIVE = 2;
 
     private $userService;
 
@@ -65,7 +65,7 @@ class UserController extends Controller
 
     public function newForm()
     {
-        return view('/user-management/add_form');
+        return view('/user-management/add_form')->with('isNew', true);
     }
 
     public function updateForm($id)
@@ -126,7 +126,7 @@ class UserController extends Controller
             abort(404,'Page not found');
         }
 
-        return redirect()->intended('/system-admin/user-management/detail/11');
+        return redirect()->intended('/system-admin/user-management/detail/' . $id);
     }
 
     public function detail($id)
