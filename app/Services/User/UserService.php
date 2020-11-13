@@ -51,14 +51,17 @@ class UserService extends MyService
     public function ruleCreateUpdate($request, $id = null)
     {
         $ruleEmail = 'required|email|max:255|unique:users';
+        $rulePassword = 'max:255';
 
         if ($id != null) {
             $ruleEmail = $ruleEmail . ',id,' . $id;
+        } else {
+            $rulePassword = $rulePassword . '|required';
         }
 
         return $validator = Validator::make($request, [
             'email' => $ruleEmail,
-            'password' => 'required|max:255',
+            'password' => $rulePassword,
             'name' => 'required|max:255',
             'role_id' => 'required|max:255',
             'phone' => 'max:255',

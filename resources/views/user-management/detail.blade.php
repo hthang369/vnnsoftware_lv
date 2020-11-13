@@ -30,6 +30,10 @@
                 <strong>Role:</strong>
                 <label>{{$user->role_id}}</label>
             </div>
+            <div class="form-group">
+                <strong>Status:</strong>
+                <label>{{$user->status == 0 ? 'Inactive' : 'Active'}}</label>
+            </div>
             <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">Update</a>
         </div>
     </div>
