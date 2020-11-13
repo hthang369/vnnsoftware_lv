@@ -48,13 +48,21 @@ class UserService extends MyService
     }
 
 
-    public function ruleCreate($request)
+    public function ruleCreateUpdate($request, $id = null)
     {
+        $ruleEmail = 'required|email|max:255|unique:users';
+
+        if ($id != null) {
+            $ruleEmail = $ruleEmail . ',id,' . $id;
+        }
+
         return $validator = Validator::make($request, [
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'name' => 'required',
-            'role_id' => 'required',
+            'email' => $ruleEmail,
+            'password' => 'required|max:255',
+            'name' => 'required|max:255',
+            'role_id' => 'required|max:255',
+            'phone' => 'max:255',
+            'address' => 'max:255',
         ]);
     }
 
@@ -162,5 +170,10 @@ class UserService extends MyService
     public function getCurrentUser()
     {
         return Auth::user();
+    }
+
+    public function delete($id)
+    {
+        return $this->userRepo->delete($id);
     }
 }

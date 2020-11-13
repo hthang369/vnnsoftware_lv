@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
+    const STATUS_ACTIVE = 1;
+    const STATUS_NOT_ACTIVE = 2;
 
     private $userService;
 
@@ -80,7 +82,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
 
-        $validator = $this->userService->ruleCreate($request->all());
+        $validator = $this->userService->ruleCreateUpdate($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -101,22 +103,30 @@ class UserController extends Controller
 
     public function update($id, Request $request)
     {
-        $validator = $this->userService->ruleCreate($request->all());
+        $user = $this->userService->getUserById($id);
+
+        if (is_null($user)) {
+            abort(404,'Page not found');
+        }
+
+        $validator = $this->userService->ruleCreateUpdate($request->all(), $id);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
 
-        $input = $request->all();
+        $input = request()->except(['_token']);
         $input['password'] = Hash::make('password');
 
         try {
 
             $user = $this->userService->update($id, $input);
         } catch (\Exception $ex) {
-//            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+            print_r($ex->getMessage()); exit;
+            abort(404,'Page not found');
         }
 
+        return redirect()->intended('/system-admin/user-management/detail/11');
     }
 
     public function detail($id)
@@ -130,4 +140,22 @@ class UserController extends Controller
         return view('/user-management/detail')->with('user', $user);
     }
 
+    public function delete($id)
+    {
+        $user = $this->userService->getUserById($id);
+
+        if (is_null($user)) {
+            abort(404,'Page not found');
+        }
+
+        try {
+
+            $this->userService->delete($id);
+        } catch (\Exception $ex) {
+            print_r($ex->getMessage()); exit;
+            abort(404,'Page not found');
+        }
+
+        return redirect()->intended('/system-admin/user-management');
+    }
 }

@@ -13,4 +13,5 @@ interface UserRepositoryInterface
     public function getListUserWithNameOrEmail($input, $userId);
     public function checkPassword($id, $current);
     public function changePassword($id, $new);
+    public function delete($id);
 }

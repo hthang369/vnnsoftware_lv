@@ -119,4 +119,9 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
     {
         return User::where('id', $id)->update(['password' => $new]);
     }
+
+    public function delete($id)
+    {
+        return User::where('id', $id)->delete();
+    }
 }
