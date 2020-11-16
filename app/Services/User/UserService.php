@@ -21,6 +21,11 @@ class UserService extends MyService
 
     }
 
+    public function getUserById($id)
+    {
+        return $this->userRepo->getUserById($id);
+    }
+
     public function Create($input)
     {
         return $this->userRepo->Create($input);
@@ -43,13 +48,24 @@ class UserService extends MyService
     }
 
 
-    public function ruleCreate($request)
+    public function ruleCreateUpdate($request, $id = null)
     {
+        $ruleEmail = 'required|email|max:255|unique:users';
+        $rulePassword = 'max:255';
+
+        if ($id != null) {
+            $ruleEmail = $ruleEmail . ',id,' . $id;
+        } else {
+            $rulePassword = $rulePassword . '|required';
+        }
+
         return $validator = Validator::make($request, [
-            'name' => 'required',
-            'company' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
+            'email' => $ruleEmail,
+            'password' => $rulePassword,
+            'name' => 'required|max:255',
+            'role_id' => 'required|max:255',
+            'phone' => 'max:255',
+            'address' => 'max:255',
         ]);
     }
 
@@ -151,11 +167,16 @@ class UserService extends MyService
     // insert for sync_data version
     public function getAllUser()
     {
-        return DB::select('call usp_get_list_user_by_contact(?,?)', ["", Auth::id()]);
+        return $this->userRepo->getAllUser();
     }
 
     public function getCurrentUser()
     {
         return Auth::user();
+    }
+
+    public function delete($id)
+    {
+        return $this->userRepo->delete($id);
     }
 }

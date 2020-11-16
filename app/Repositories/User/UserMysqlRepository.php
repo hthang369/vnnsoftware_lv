@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Hash;
 
 class UserMysqlRepository extends MyRepository implements UserRepositoryInterface
 {
+
+    public function getUserById($id)
+    {
+        return User::find($id);
+    }
+
+    public function getAllUser()
+    {
+        return User::all();
+    }
     /**
      * @param $data
      *
@@ -108,5 +118,10 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
     public function changePassword($id, $new)
     {
         return User::where('id', $id)->update(['password' => $new]);
+    }
+
+    public function delete($id)
+    {
+        return User::where('id', $id)->delete();
     }
 }

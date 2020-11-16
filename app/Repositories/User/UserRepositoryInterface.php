@@ -3,6 +3,8 @@ namespace App\Repositories\User;
 
 interface UserRepositoryInterface
 {
+    public function getUserById($id);
+    public function getAllUser();
     public function getUser($data);
     public function updateInfoUser($user_id, $update_data);
     public function Create($input);
@@ -11,4 +13,5 @@ interface UserRepositoryInterface
     public function getListUserWithNameOrEmail($input, $userId);
     public function checkPassword($id, $current);
     public function changePassword($id, $new);
+    public function delete($id);
 }
