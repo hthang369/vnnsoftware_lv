@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use App\Services\Company\CompanyService;
+use Illuminate\Support\Facades\Hash;
 
 class CompanyController extends Controller
 {
@@ -42,7 +43,7 @@ class CompanyController extends Controller
     public function register(Request $request)
     {
 
-        $validator = $this->userService->ruleCreateUpdate($request->all());
+        $validator = $this->companyService->ruleCreateUpdate($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -53,8 +54,8 @@ class CompanyController extends Controller
 
         try {
 
-            $user = $this->userService->create($input);
-            return $this->detail($user->id);
+            $company = $this->companyService->create($input);
+            return $this->detail($company->id);
         } catch (\Exception $ex) {
 //            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
         }

@@ -16,23 +16,23 @@
             <form>
                 <div class="form-group">
                     <strong>Company name:</strong>
-                    <label>Premium</label>
+                    <label>{{$company->name}}</label>
                 </div>
                 <div class="form-group">
                     <strong>Business plan:</strong>
-                    <label>Gold</label>
+                    <label>{{$company->business_plan_id}}</label>
                 </div>
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <label>lampart@gmail.com</label>
+                    <label>{{$company->email}}</label>
                 </div>
                 <div class="form-group">
                     <strong>Address:</strong>
-                    <label>bv/123</label>
+                    <label>{{$company->address}}</label>
                 </div>
                 <div class="form-group">
                     <strong>Phone:</strong>
-                    <label>444555666</label>
+                    <label>{{$company->phone}}</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
