@@ -28,7 +28,9 @@
             </div>
             <div class="form-group">
                 <strong>Role:</strong>
-                <label>{{$user->role_id}}</label>
+                @foreach($user->roles as $role)
+                    <span class="badge badge-danger">{{$role->name}}</span>
+                @endforeach
             </div>
             <div class="form-group">
                 <strong>Status:</strong>

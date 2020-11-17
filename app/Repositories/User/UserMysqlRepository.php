@@ -13,7 +13,9 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
 
     public function getUserById($id)
     {
-        return User::find($id);
+        //return User::find($id)->with('roles');
+        return User::with('roles')->get()->find($id);
+
     }
 
     public function getAllUser()
