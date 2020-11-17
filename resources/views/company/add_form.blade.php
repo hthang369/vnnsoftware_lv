@@ -4,40 +4,83 @@
 
 @section('sidebar')
     @parent
-
-
 @endsection
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Company</h5>
+        <h5 class="card-header">Business plan</h5>
         <div class="card-body">
-            <form>
-                <div class="form-group">
-                    <label>Company name</label>
-                    <input class="form-control" placeholder="Company name">
-                </div>
-                <div class="form-group">
-                    <label>Address</label>
-                    <input class="form-control" placeholder="Address">
+            <form method="POST">
+                @csrf
+                <div class="form-group required">
+                    <label>Name</label>
+                    <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name" value="{!! isset($isNew) ? old('name') : (old('name') ? old('name') : $company->name) !!}" autocomplete="name" autofocus>
+                    @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input class="form-control" placeholder="Email">
+                    <input class="form-control @error('email')
+                        is-invalid @enderror" type="text"
+                           placeholder="Email" name="email"
+                           value="{!! isset($isNew) ? old('email') : (old('email') ? old('email') : $company->email) !!}" autocomplete="email">
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Phone</label>
-                    <input class="form-control" placeholder="Phone number">
+                    <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone" name="phone" value="{!! isset($isNew) ? old('phone') : (old('phone') ? old('phone') : $company->phone) !!}" autocomplete="phone">
+                    @error('phone')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <label>Business plan</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>Premium</option>
-                        <option>Gold</option>
-                        <option>Silver</option>
-                    </select>
+                    <label>Address</label>
+                    <input class="form-control @error('address') is-invalid @enderror" type="text" placeholder="Address" name="address" value="{!! isset($isNew) ? old('address') : (old('address') ? old('address') : $company->address) !!}" autocomplete="address">
+                    @error('address')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
-                <button type="submit" class="btn btn-primary">New</button>
+                <div class="form-group">
+                    <label>Role</label>
+                    @if(isset($isNew))
+                        <select class="form-control" id="exampleFormControlSelect1" name="business_plan_id" value="{{ old('business_plan_id') }}">
+                            <option value="1"  {{ old('business_plan_id') == 1 ? 'selected' : '' }}>
+                                Item 1
+                            </option>
+                            <option value="2" {{ old('business_plan_id') == 2 ? 'selected' : '' }}>
+                                Item 2
+                            </option>
+                            <option value="3" {{ old('business_plan_id') == 3 ? 'selected' : '' }}>
+                                Item 3
+                            </option>
+                        </select>
+                    @else
+                        <select class="form-control" id="exampleFormControlSelect1" name="business_plan_id" value="{{ old('business_plan_id') ? old('business_plan_id') : $company->business_plan_id }}">
+                            <option value="1"  {{ (old('business_plan_id') ? old('business_plan_id') : $company->business_plan_id) == 1 ? 'selected' : '' }}>
+                                Item 1
+                            </option>
+                            <option value="2" {{ (old('business_plan_id') ? old('business_plan_id') : $company->business_plan_id) == 2 ? 'selected' : '' }}>
+                                Item 2
+                            </option>
+                            <option value="3" {{ (old('business_plan_id') ? old('business_plan_id') : $company->business_plan_id) == 3 ? 'selected' : '' }}>
+                                Item 3
+                            </option>
+                        </select>
+                    @endif
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>
     </div>

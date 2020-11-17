@@ -34,20 +34,16 @@ class CompanyService extends MyService
 
     public function ruleCreateUpdate($request, $id = null)
     {
-        $ruleEmail = 'required|email|max:255|unique:Companys';
-        $rulePassword = 'max:255';
+        $ruleEmail = 'required|email|max:255|unique:company';
 
         if ($id != null) {
             $ruleEmail = $ruleEmail . ',id,' . $id;
-        } else {
-            $rulePassword = $rulePassword . '|required';
         }
 
         return $validator = Validator::make($request, [
             'email' => $ruleEmail,
-            'password' => $rulePassword,
             'name' => 'required|max:255',
-            'role_id' => 'required|max:255',
+            'business_plan_id' => 'required|max:255',
             'phone' => 'max:255',
             'address' => 'max:255',
         ]);
@@ -65,6 +61,6 @@ class CompanyService extends MyService
 
     public function delete($id)
     {
-        return $this->CompanyRepo->delete($id);
+        return $this->companyRepo->delete($id);
     }
 }

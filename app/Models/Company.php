@@ -11,5 +11,14 @@ class Company extends Model
 
     protected $table = 'company';
 
+    protected $fillable = [
+        'name', 'email', 'phone', 'business_plan_id', 'address'
+    ];
+
     protected $softDelete = true;
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role', 'role_user');
+    }
 }
