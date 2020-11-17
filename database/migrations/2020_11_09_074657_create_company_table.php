@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompaniesTable extends Migration
+class CreateCompanyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,6 +21,7 @@ class CreateCompaniesTable extends Migration
             $table->string('phone');
             $table->integer('business_plan_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
