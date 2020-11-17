@@ -63,9 +63,9 @@ class UserService extends MyService
             'email' => $ruleEmail,
             'password' => $rulePassword,
             'name' => 'required|max:255',
-            'role_id' => 'required|max:255',
             'phone' => 'max:255',
             'address' => 'max:255',
+            'role' => 'required'
         ]);
     }
 
@@ -167,7 +167,7 @@ class UserService extends MyService
     // insert for sync_data version
     public function getAllUser()
     {
-        return $this->userRepo->getAllUser();
+        return User::with('roles')->get();
     }
 
     public function getCurrentUser()

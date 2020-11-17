@@ -13,7 +13,7 @@
             <th scope="col">#</th>
             <th scope="col">Business Plan</th>
             <th scope="col">Description</th>
-            <th scope="col"></th>
+            <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -30,7 +30,9 @@
             <td>Gold</td>
             <td>Half access</td>
             <td>
-                <button type="button" class="btn btn-primary">Details</button>
+                <a class="btn btn-info" href="/system-admin/user-management/detail/{{$user->id}}" role="button">Detail</a>
+                <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">Update</a>
+                <a class="btn btn-danger" href="/system-admin/user-management/delete/{{$user->id}}" role="button">Delete</a>
             </td>
         </tr>
         </tbody>

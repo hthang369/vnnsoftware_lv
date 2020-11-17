@@ -10,7 +10,10 @@ namespace App\Http\Controllers\User;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Services\Role\RoleService;
 use App\Services\User\UserService;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,10 +26,12 @@ class UserController extends Controller
     const STATUS_ACTIVE = 1;
 
     private $userService;
+    private $roleService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, RoleService $roleService)
     {
         $this->userService = $userService;
+        $this->roleService = $roleService;
     }
 
     public function index()
@@ -65,23 +70,31 @@ class UserController extends Controller
 
     public function newForm()
     {
-        return view('/user-management/add_form')->with('isNew', true);
+        return view('/user-management/add_form',
+            ['roles' => $this->roleService->getAllRole(), 'user' => new User()])->with('isNew', true);
     }
 
     public function updateForm($id)
     {
         $user = $this->userService->getUserById($id);
-
+        $userRoleIds = array();
         if (is_null($user)) {
             abort(404,'Page not found');
         }
 
-        return view('/user-management/add_form')->with('user', $user);
+        foreach ($user->roles as $key => $value)
+        {
+            array_push($userRoleIds, $value->id);
+        }
+        return view('/user-management/add_form',
+            [
+                'roles' => $this->roleService->getAllRole(),
+                'userRoleIds' => $userRoleIds
+            ])->with('user', $user);
     }
 
     public function register(Request $request)
     {
-
         $validator = $this->userService->ruleCreateUpdate($request->all());
 
         if ($validator->fails()) {
@@ -92,11 +105,11 @@ class UserController extends Controller
         $input['password'] = Hash::make('password');
 
         try {
-
             $user = $this->userService->create($input);
+            $user->roles()->attach($request->role);
             return $this->detail($user->id);
         } catch (\Exception $ex) {
-//            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
         }
 
     }
@@ -115,11 +128,12 @@ class UserController extends Controller
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
 
-        $input = request()->except(['_token']);
+        $input = request()->except(['_token', 'role']);
         $input['password'] = Hash::make('password');
 
         try {
-
+            $user->roles()->detach();
+            $user->roles()->attach($request->role);
             $user = $this->userService->update($id, $input);
         } catch (\Exception $ex) {
             print_r($ex->getMessage()); exit;

@@ -32,7 +32,10 @@
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input class="form-control @error('email') is-invalid @enderror" type="text" placeholder="Email" name="email" value="{!! isset($isNew) ? old('email') : (old('email') ? old('email') : $user->email) !!}" autocomplete="email">
+                    <input class="form-control @error('email')
+                        is-invalid @enderror" type="text"
+                           placeholder="Email" name="email"
+                           value="{!! isset($isNew) ? old('email') : (old('email') ? old('email') : $user->email) !!}" autocomplete="email">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -59,54 +62,30 @@
                 </div>
                 <div class="form-group">
                     <label>Role</label>
-                    @if(isset($isNew))
-                        <select class="form-control" id="exampleFormControlSelect1" name="role_id" value="{{ old('role_id') }}">
-                            <option value="1"  {{ old('role_id') == 1 ? 'selected' : '' }}>
-                                Item 1
-                            </option>
-                            <option value="2" {{ old('role_id') == 2 ? 'selected' : '' }}>
-                                Item 2
-                            </option>
-                            <option value="3" {{ old('role_id') == 3 ? 'selected' : '' }}>
-                                Item 3
-                            </option>
-                        </select>
-                    @else
-                        <select class="form-control" id="exampleFormControlSelect1" name="role_id" value="{{ old('role_id') ? old('role_id') : $user->role_id }}">
-                            <option value="1"  {{ (old('role_id') ? old('role_id') : $user->role_id) == 1 ? 'selected' : '' }}>
-                                Item 1
-                            </option>
-                            <option value="2" {{ (old('role_id') ? old('role_id') : $user->role_id) == 2 ? 'selected' : '' }}>
-                                Item 2
-                            </option>
-                            <option value="3" {{ (old('role_id') ? old('role_id') : $user->role_id) == 3 ? 'selected' : '' }}>
-                                Item 3
-                            </option>
-                        </select>
-                    @endif
+                    <div class="form-group">
+                        @if(isset($isNew))
+                        @foreach($roles as $role)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="role[]" value="{{$role->id}}">
+                                <label class="form-check-label" >{{$role->name}}</label>
+                            </div>
+                        @endforeach
+                        @else
+                            @foreach($roles as $role)
+                                <div class="form-check form-check-inline">
+                                    <input {{in_array($role->id, $userRoleIds) ? 'checked' : ''}} class="form-check-input" type="checkbox" name="role[]" value="{{$role->id}}">
+                                    <label class="form-check-label" >{{$role->name}}</label>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    @error('role')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
-                <div class="form-group">
-                    <label>Status</label>
-                    @if(isset($isNew))
-                        <select class="form-control" id="exampleFormControlSelect2" name="status" value="{{ old('status') }}">
-                            <option value="0"  {{ old('status') == 0 ? 'selected' : '' }}>
-                                Inactive
-                            </option>
-                            <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>
-                                Active
-                            </option>
-                        </select>
-                    @else
-                        <select class="form-control" id="exampleFormControlSelect1" name="status" value="{{ old('status') ? old('status') : $user->status }}">
-                            <option value="0"  {{ (old('status') ? old('status') : $user->status) == 0 ? 'selected' : '' }}>
-                                Inactive
-                            </option>
-                            <option value="1" {{ (old('status') ? old('status') : $user->status) == 1 ? 'selected' : '' }}>
-                                Active
-                            </option>
-                        </select>
-                    @endif
-                </div>
+
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>

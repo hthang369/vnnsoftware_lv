@@ -40,4 +40,9 @@ class User extends Authenticatable
     ];
 
     protected $softDelete = true;
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role', 'role_user');
+    }
 }
