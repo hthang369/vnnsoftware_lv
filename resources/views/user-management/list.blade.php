@@ -42,12 +42,16 @@
                     <td>
                         <a class="btn btn-info" href="/system-admin/user-management/detail/{{$user->id}}" role="button">Detail</a>
                         <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">Update</a>
-                        <a class="btn btn-danger" href="/system-admin/user-management/delete/{{$user->id}}" role="button">Delete</a>
+                        <a onclick="return confirm('Are you sure you want to delete this user?');"
+                           class="btn btn-danger"
+                           href="/system-admin/user-management/delete/{{$user->id}}"
+                           role="button">Delete</a>
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     @endif
+    </div>
 @endsection
 

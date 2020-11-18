@@ -31,8 +31,11 @@ Route::group(['prefix' => 'system-admin'], function () {
     // business plan route
     Route::get('/business-plan', 'BusinessPlan\BusinessPlanController@index')->name('business-plan.list');
     Route::get('/business-plan/detail/{id}', 'BusinessPlan\BusinessPlanController@businessDetail')->name('business-plan.detail');
-    Route::get('/business-plan/new', 'BusinessPlan\BusinessPlanController@newForm')->name('business-plan.new');
-    Route::get('/business-plan/update/{id}', 'BusinessPlan\BusinessPlanController@updateForm')->name('business-plan.update');
+    Route::get('/business-plan/new', 'BusinessPlan\BusinessPlanController@newForm')->name('business-plan.new.form');
+    Route::post('business-plan/new', 'BusinessPlan\BusinessPlanController@new')->name('business-plan.new');
+    Route::get('/business-plan/update/{id}', 'BusinessPlan\BusinessPlanController@updateForm')->name('business-plan.update.form');
+    Route::post('/business-plan/update/{id}', 'BusinessPlan\BusinessPlanController@update')->name('business-plan.update');
+    Route::get('/business-plan/delete/{id}', 'BusinessPlan\BusinessPlanController@delete')->name('business-plan.delete');
 
     // user management route
     Route::get('user-management', 'User\UserController@index')->name('user-management.list');

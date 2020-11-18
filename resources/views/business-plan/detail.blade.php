@@ -15,25 +15,17 @@
             <form>
                 <div class="form-group">
                     <strong>Business Plan name:</strong>
-                    <label>ssssssssssssssssss</label>
+                    <label>{{$businessPlan->name}}</label>
                 </div>
                 <div class="form-group">
                     <strong>Business plan:</strong>
-                    <label>ttttttttttttttt</label>
+                    <label>{{$businessPlan->description}}</label>
                 </div>
                 <div class="form-group">
-                    <strong>Email:</strong>
-                    <label>yyyyyyyyyyyyyyyyyy</label>
+                    <strong>Maximum storage file:</strong>
+                    <label>{{$businessPlan->maximum_storage_file}}</label>
                 </div>
-                <div class="form-group">
-                    <strong>Address:</strong>
-                    <label>uuuuuuuuuuuuuuuuuuuu</label>
-                </div>
-                <div class="form-group">
-                    <strong>Phone:</strong>
-                    <label>ggggggggggggggggggggggg</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$businessPlan->id}}" role="button">Update</a>
             </form>
         </div>
     </div>

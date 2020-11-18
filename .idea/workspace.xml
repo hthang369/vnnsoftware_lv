@@ -143,7 +143,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/company" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Repositories/BusinessPlan" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -152,11 +152,12 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Document\laka-management-tool\resources\views\company" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Document\laka-management-tool\app\Models" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Document\laka-management-tool\app\Repositories\BusinessPlan" />
+      <recent name="D:\Document\laka-management-tool\resources\views\company" />
     </key>
   </component>
   <component name="RunManager">
@@ -185,6 +186,8 @@
       <workItem from="1605487570342" duration="3387000" />
       <workItem from="1605517576642" duration="2980000" />
       <workItem from="1605575537053" duration="3321000" />
+      <workItem from="1605593021834" duration="11430000" />
+      <workItem from="1605661177647" duration="863000" />
     </task>
     <servers />
   </component>
@@ -192,18 +195,22 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2081" y="318" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605169065150">
+    <state x="2081" y="318" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605585324831">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="2081" y="318" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1605169065150" />
+    <state x="2081" y="318" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1605585324831" />
     <state x="2131" y="200" key="#com.intellij.ide.util.MemberChooser" timestamp="1605169775429">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="2131" y="200" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1605169775429" />
-    <state x="2160" y="439" key="NewPhpFileDialog" timestamp="1605169712559">
+    <state x="1790" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1605582247627">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="2160" y="439" key="NewPhpFileDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1605169712559" />
+    <state x="1790" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1605582247627" />
+    <state x="2160" y="439" key="NewPhpFileDialog" timestamp="1605585335701">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2160" y="439" key="NewPhpFileDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1605585335701" />
     <state x="1827" y="165" key="SettingsEditor" timestamp="1605517388546">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
@@ -224,5 +231,16 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="1989" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1605163679423" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Repositories/User/UserRepositoryInterface.php</url>
+          <line>15</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
