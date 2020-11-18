@@ -64,7 +64,7 @@ class CompanyController extends Controller
             $company = $this->companyService->create($input);
             return redirect()->intended('/system-admin/company/detail/' . $company->id);
         } catch (\Exception $ex) {
-//            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+            abort(500);
         }
     }
 
@@ -87,7 +87,7 @@ class CompanyController extends Controller
         try {
             $company = $this->companyService->update($id, $input);
         } catch (\Exception $ex) {
-            abort(404,'Page not found');
+            abort(500);
         }
 
         return redirect()->intended('/system-admin/company/detail/' . $id);
@@ -105,7 +105,7 @@ class CompanyController extends Controller
 
             $this->companyService->delete($id);
         } catch (\Exception $ex) {
-            abort(404,'Page not found');
+            abort(500);
         }
 
         return redirect()->intended('/system-admin/company');
