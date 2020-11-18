@@ -8,80 +8,76 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Business plan</h5>
-        <div class="card-body">
-            <form method="POST">
-                @csrf
-                <div class="form-group required">
-                    <label>Name</label>
-                    <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name" value="{!! isset($isNew) ? old('name') : (old('name') ? old('name') : $company->name) !!}" autocomplete="name" autofocus>
-                    @error('name')
-                    <span class="invalid-feedback" role="alert">
+        <h5 class="card-header">Company</h5>
+        @if(is_null($listBusinessPlan))
+            rong nha
+        @else
+            <div class="card-body">
+                <form method="POST">
+                    @csrf
+                    <div class="form-group required">
+                        <label>Name</label>
+                        <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name" value="{!! isset($isNew) ? old('name') : (old('name') ? old('name') : $company->name) !!}" autocomplete="name" autofocus>
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input class="form-control @error('email')
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input class="form-control @error('email')
                         is-invalid @enderror" type="text"
-                           placeholder="Email" name="email"
-                           value="{!! isset($isNew) ? old('email') : (old('email') ? old('email') : $company->email) !!}" autocomplete="email">
-                    @error('email')
-                    <span class="invalid-feedback" role="alert">
+                               placeholder="Email" name="email"
+                               value="{!! isset($isNew) ? old('email') : (old('email') ? old('email') : $company->email) !!}" autocomplete="email">
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone" name="phone" value="{!! isset($isNew) ? old('phone') : (old('phone') ? old('phone') : $company->phone) !!}" autocomplete="phone">
-                    @error('phone')
-                    <span class="invalid-feedback" role="alert">
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone" name="phone" value="{!! isset($isNew) ? old('phone') : (old('phone') ? old('phone') : $company->phone) !!}" autocomplete="phone">
+                        @error('phone')
+                        <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label>Address</label>
-                    <input class="form-control @error('address') is-invalid @enderror" type="text" placeholder="Address" name="address" value="{!! isset($isNew) ? old('address') : (old('address') ? old('address') : $company->address) !!}" autocomplete="address">
-                    @error('address')
-                    <span class="invalid-feedback" role="alert">
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input class="form-control @error('address') is-invalid @enderror" type="text" placeholder="Address" name="address" value="{!! isset($isNew) ? old('address') : (old('address') ? old('address') : $company->address) !!}" autocomplete="address">
+                        @error('address')
+                        <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label>Role</label>
-                    @if(isset($isNew))
-                        <select class="form-control" id="exampleFormControlSelect1" name="business_plan_id" value="{{ old('business_plan_id') }}">
-                            <option value="1"  {{ old('business_plan_id') == 1 ? 'selected' : '' }}>
-                                Item 1
-                            </option>
-                            <option value="2" {{ old('business_plan_id') == 2 ? 'selected' : '' }}>
-                                Item 2
-                            </option>
-                            <option value="3" {{ old('business_plan_id') == 3 ? 'selected' : '' }}>
-                                Item 3
-                            </option>
-                        </select>
-                    @else
-                        <select class="form-control" id="exampleFormControlSelect1" name="business_plan_id" value="{{ old('business_plan_id') ? old('business_plan_id') : $company->business_plan_id }}">
-                            <option value="1"  {{ (old('business_plan_id') ? old('business_plan_id') : $company->business_plan_id) == 1 ? 'selected' : '' }}>
-                                Item 1
-                            </option>
-                            <option value="2" {{ (old('business_plan_id') ? old('business_plan_id') : $company->business_plan_id) == 2 ? 'selected' : '' }}>
-                                Item 2
-                            </option>
-                            <option value="3" {{ (old('business_plan_id') ? old('business_plan_id') : $company->business_plan_id) == 3 ? 'selected' : '' }}>
-                                Item 3
-                            </option>
-                        </select>
-                    @endif
-                </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        @if(isset($isNew))
+                            <select class="form-control" id="exampleFormControlSelect1" name="business_plan_id" value="{{ old('business_plan_id') }}">
+                                @foreach($listBusinessPlan as $i => $businessPlan)
+                                    <option value="{{$businessPlan->id}}" {{ old('business_plan_id') == $businessPlan->id ? 'selected' : '' }}>
+                                        {{$businessPlan->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        @else
+                            <select class="form-control" id="exampleFormControlSelect1" name="business_plan_id" value="{{ old('business_plan_id') ? old('business_plan_id') : $company->business_plan_id }}">
+                                @foreach($listBusinessPlan as $i => $businessPlan)
+                                    <option value="{{$businessPlan->id}}" {{ (old('business_plan_id') ? old('business_plan_id') : $company->business_plan_id) == $businessPlan->id ? 'selected' : '' }}>
+                                        {{$businessPlan->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        @endif
+                    </div>
 
-                <button type="submit" class="btn btn-primary">Save</button>
-            </form>
-        </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        @endif
     </div>
 @endsection

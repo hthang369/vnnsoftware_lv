@@ -21,6 +21,10 @@ class CompanyService extends MyService
     {
         return $this->companyRepo->getById($id);
     }
+    public function getDetailById($id)
+    {
+        return $this->companyRepo->getDetailById($id);
+    }
 
     public function Create($input)
     {

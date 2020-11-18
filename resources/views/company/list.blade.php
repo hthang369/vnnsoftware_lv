@@ -34,7 +34,7 @@
                     <td>{{$company->email}}</td>
                     <td>{{$company->phone}}</td>
                     <td>{{$company->address}}</td>
-                    <td>{{$company->business_plan_id}}</td>
+                    <td>{{$company->business_plan_name}}</td>
                     <td>
                         <a class="btn btn-info" href="/system-admin/company/detail/{{$company->id}}" role="button">Detail</a>
                         <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}" role="button">Update</a>

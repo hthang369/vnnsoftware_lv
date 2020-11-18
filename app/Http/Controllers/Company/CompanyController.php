@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Services\BusinessPlan\BusinessPlanService;
 use App\Services\Company\CompanyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,10 +12,12 @@ class CompanyController extends Controller
 {
 
     private $companyService;
+    private $businessPlanService;
 
-    public function __construct(CompanyService $companyService)
+    public function __construct(CompanyService $companyService, BusinessPlanService $businessPlanService)
     {
         $this->companyService = $companyService;
+        $this->businessPlanService = $businessPlanService;
     }
 
     public function index()
@@ -25,7 +28,7 @@ class CompanyController extends Controller
 
     public function detail($id)
     {
-        $company = $this->companyService->getById($id);
+        $company = $this->companyService->getDetailById($id);
 
         if (is_null($company)) {
             abort(404,'Page not found');
@@ -35,17 +38,20 @@ class CompanyController extends Controller
     }
 
     public function newForm() {
-        return view('/company/add_form')->with('isNew', true);
+        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
+        return view('/company/add_form')->with(['isNew' => true, 'listBusinessPlan' => $listBusinessPlan]);
     }
 
     public function updateForm($id) {
         $company = $this->companyService->getById($id);
 
+        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
+
         if (is_null($company)) {
             abort(404,'Page not found');
         }
 
-        return view('/company/add_form')->with('company', $company);
+        return view('/company/add_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
     }
 
     public function register(Request $request)

@@ -16,9 +16,4 @@ class Company extends Model
     ];
 
     protected $softDelete = true;
-
-    public function roles()
-    {
-        return $this->belongsToMany('App\Models\Role', 'role_user');
-    }
 }

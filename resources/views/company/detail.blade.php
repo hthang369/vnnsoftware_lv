@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <strong>Business plan:</strong>
-                <label>{{$company->business_plan_id}}</label>
+                <label>{{$company->business_plan_name}}</label>
             </div>
             <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}" role="button">Update</a>
         </div>
