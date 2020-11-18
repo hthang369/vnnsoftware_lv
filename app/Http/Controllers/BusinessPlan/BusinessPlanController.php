@@ -30,8 +30,14 @@ class BusinessPlanController extends Controller
 
     public function businessDetail($id)
     {
+        $businessPlan = $this->businessPlanService->getBusinessPlanInfo($id);
+
+        if (is_null($businessPlan)) {
+            abort(404,'Page not found');
+        }
+
         return view('/business-plan/detail',  [
-            'businessPlan' => $this->businessPlanService->getBusinessPlanInfo($id)
+            'businessPlan' => $businessPlan
         ]);
     }
 
