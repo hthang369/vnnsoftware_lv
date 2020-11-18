@@ -9,8 +9,11 @@
 @section('content')
     <div class="card">
         <h5 class="card-header">Company</h5>
-        @if(is_null($listBusinessPlan))
-            rong nha
+        @if(count($listBusinessPlan) == 0)
+            <div class="alert alert-warning">
+                <strong>Do not have Business plan, create Business plan first to create Company</strong>
+            </div>
+            <a class="m-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ Add New Business plan</a>
         @else
             <div class="card-body">
                 <form method="POST">
