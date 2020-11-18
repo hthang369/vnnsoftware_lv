@@ -7,6 +7,7 @@
 @endsection
 
 @section('content')
+    <a class="m-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ Add New</a>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -17,24 +18,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td></td>
-            <td>Premium</td>
-            <td>Full access</td>
-            <td>
-                <button type="button" class="btn btn-primary">Details</button>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Gold</td>
-            <td>Half access</td>
-            <td>
-                <a class="btn btn-info" href="/system-admin/user-management/detail/{{$user->id}}" role="button">Detail</a>
-                <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">Update</a>
-                <a class="btn btn-danger" href="/system-admin/user-management/delete/{{$user->id}}" role="button">Delete</a>
-            </td>
-        </tr>
+        @foreach($businessPlans as $key => $bp)
+            <tr>
+                <td></td>
+                <td>{{$bp->name}}</td>
+                <td>{{$bp->description}}</td>
+                <td>
+                    <a class="btn btn-info" href="/system-admin/business-plan/detail/{{$bp->id}}" role="button">Detail</a>
+                    <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$bp->id}}" role="button">Update</a>
+                    <a onclick="return confirm('Are you sure you want to delete this plan?');"
+                       class="btn btn-danger"
+                       href="/system-admin/business-plan/delete/{{$bp->id}}" role="button">Delete</a>
+                </td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 @endsection

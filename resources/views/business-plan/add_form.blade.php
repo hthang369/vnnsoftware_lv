@@ -12,20 +12,34 @@
     <div class="card">
         <h5 class="card-header">Business Plan</h5>
         <div class="card-body">
-            <form>
+            <form method="POST">
+                @csrf
                 <div class="form-group">
                     <label>Business Plan name</label>
-                    <input class="form-control" placeholder="Business Plan name">
+                    @if(isset($isNew))
+                        <input name="name" class="form-control" placeholder="Business Plan name">
+                    @else
+                        <input name="name" class="form-control" value="{{$businessPlan->name}}" placeholder="Business Plan name">
+                    @endif
                 </div>
                 <div class="form-group">
                     <label>Maximum storage</label>
-                    <input class="form-control" placeholder="Maxium storage">
+                    @if(isset($isNew))
+                        <input name="maximum_storage_file" class="form-control" placeholder="Maxium storage">
+                    @else
+                        <input name="maximum_storage_file" class="form-control" value="{{$businessPlan->maximum_storage_file}}" placeholder="Maxium storage">
+                    @endif
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <input class="form-control" placeholder="Description">
+                    @if(isset($isNew))
+                        <input name="description" class="form-control" placeholder="Description">
+                    @else
+                        <input name="description" class="form-control" value="{{$businessPlan->description}}" placeholder="Description">
+                    @endif
+
                 </div>
-                <button type="submit" class="btn btn-primary">New</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </form>
         </div>
     </div>

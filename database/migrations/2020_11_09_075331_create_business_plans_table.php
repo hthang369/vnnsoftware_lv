@@ -14,7 +14,7 @@ class CreateBusinessPlansTable extends Migration
     public function up()
     {
         Schema::create('business_plan', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('description');
             $table->integer('maximum_storage_file');
