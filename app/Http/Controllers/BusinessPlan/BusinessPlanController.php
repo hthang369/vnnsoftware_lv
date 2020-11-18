@@ -4,13 +4,9 @@ namespace App\Http\Controllers\BusinessPlan;
 
 use App\Http\Controllers\Controller;
 use App\Services\BusinessPlan\BusinessPlanService;
-use App\Services\Role\RoleService;
-use App\Services\User\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use Redirect;
 use Illuminate\Support\Facades\Input;
+use Redirect;
 
 class BusinessPlanController extends Controller
 {
@@ -61,7 +57,7 @@ class BusinessPlanController extends Controller
             $businessPlan = $this->businessPlanService->create($input);
             return $this->businessDetail($businessPlan->id);
         } catch (\Exception $ex) {
-            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+            abort(500);
         }
     }
 
@@ -109,7 +105,7 @@ class BusinessPlanController extends Controller
             $this->businessPlanService->delete($id);
         } catch (\Exception $ex) {
             print_r($ex->getMessage()); exit;
-            abort(404,'Page not found');
+            abort(500);
         }
 
         return redirect()->intended('/system-admin/business-plan');
