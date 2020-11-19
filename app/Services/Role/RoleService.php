@@ -17,9 +17,14 @@ class RoleService extends MyService
         $this->roleRepo = $roleRepo;
     }
 
-    public function Create($input)
+    public function getById($id)
     {
-        return $this->roleRepo->Create($input);
+        return $this->roleRepo->getById($id);
+    }
+
+    public function create($input)
+    {
+        return $this->roleRepo->create($input);
     }
 
     public function update($id, $input)
@@ -27,19 +32,23 @@ class RoleService extends MyService
         return $this->roleRepo->update($id, $input);
     }
 
-    public function updateInfoRole($id, $input)
+    public function ruleCreateUpdate($request, $id = null)
     {
-        return $this->roleRepo->updateInfoRole($id, $input);
+        return $validator = Validator::make($request, [
+            'name' => 'required|max:255',
+            'role_rank' => 'required|max:255',
+            'description' => 'max:255',
+        ]);
     }
 
-    public function getRoleInfo($id)
+    public function getAll()
     {
-        return Role::find($id);
+        return $this->roleRepo->getAll();
     }
 
-    public function getAllRole()
+    public function delete($id)
     {
-        return DB::table('role')->get();
+        return $this->roleRepo->delete($id);
     }
 
 }

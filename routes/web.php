@@ -49,4 +49,13 @@ Route::group(['prefix' => 'system-admin'], function () {
     Route::get('user-management/new', 'User\UserController@newForm')->name('user-management.new');
     Route::post('user-management/new', 'User\UserController@register')->name('user-management.register');
     Route::get('user-management/delete/{id}', 'User\UserController@delete')->name('user-management.delete');
+
+    // role management route
+    Route::get('role', 'Role\RoleController@index')->name('role.list');
+    Route::get('role/detail/{id}', 'Role\RoleController@detail')->name('role.detail');
+    Route::get('role/update/{id}', 'Role\RoleController@updateForm')->name('role.update.form');
+    Route::post('role/update/{id}', 'Role\RoleController@update')->name('role.update');
+    Route::get('role/new', 'Role\RoleController@newForm')->name('role.new');
+    Route::post('role/new', 'Role\RoleController@register')->name('role.register');
+    Route::get('role/delete/{id}', 'Role\RoleController@delete')->name('role.delete');
 });
