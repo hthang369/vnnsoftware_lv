@@ -2,9 +2,9 @@
 
 namespace App\Services\User;
 
+use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Contract\MyService;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
