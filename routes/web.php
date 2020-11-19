@@ -24,10 +24,14 @@ Route::post('register', 'User\UserController@register')->name('user.register');
 
 Route::group(['prefix' => 'system-admin'], function () {
     // company route
-    Route::get('/company', 'Company\CompanyController@index')->name('company.list');
-    Route::get('/company/detail/{id}', 'Company\CompanyController@companyDetail')->name('company.detail');
-    Route::get('/company/new', 'Company\CompanyController@newForm')->name('company.new');
-    Route::get('/company/update/{id}', 'Company\CompanyController@updateForm')->name('company.update');
+    Route::get('company', 'Company\CompanyController@index')->name('company.list');
+    Route::get('company/detail/{id}', 'Company\CompanyController@detail')->name('company.detail');
+    Route::get('company/update/{id}', 'Company\CompanyController@updateForm')->name('company.update.form');
+    Route::post('company/update/{id}', 'Company\CompanyController@update')->name('company.update');
+    Route::get('company/new', 'Company\CompanyController@newForm')->name('company.new');
+    Route::post('company/new', 'Company\CompanyController@register')->name('company.register');
+    Route::get('company/delete/{id}', 'Company\CompanyController@delete')->name('company.delete');
+
     // business plan route
     Route::get('/business-plan', 'BusinessPlan\BusinessPlanController@index')->name('business-plan.list');
     Route::get('/business-plan/detail/{id}', 'BusinessPlan\BusinessPlanController@businessDetail')->name('business-plan.detail');
