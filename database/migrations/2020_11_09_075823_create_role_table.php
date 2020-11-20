@@ -19,6 +19,7 @@ class CreateRoleTable extends Migration
             $table->integer('role_rank');
             $table->string('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
