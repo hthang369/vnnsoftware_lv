@@ -1,6 +1,6 @@
 @extends('layouts.system-admin')
 
-@section('title', 'Company Details')
+@section('title', 'Role Details')
 
 @section('sidebar')
     @parent
@@ -8,29 +8,21 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Company Details</h5>
+        <h5 class="card-header">Role Details</h5>
         <div class="card-body">
             <div class="form-group">
                 <strong>Name:</strong>
-                <label>{{$company->name}}</label>
+                <label>{{$role->name}}</label>
             </div>
             <div class="form-group">
-                <strong>Email:</strong>
-                <label>{{$company->email}}</label>
+                <strong>Role rank:</strong>
+                <label>{{$role->role_rank}}</label>
             </div>
             <div class="form-group">
-                <strong>Phone:</strong>
-                <label>{{$company->phone}}</label>
+                <strong>Description:</strong>
+                <label>{{$role->description}}</label>
             </div>
-            <div class="form-group">
-                <strong>Address:</strong>
-                <label>{{$company->address}}</label>
-            </div>
-            <div class="form-group">
-                <strong>Business plan:</strong>
-                <label>{{$company->business_plan_name}}</label>
-            </div>
-            <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}" role="button">Update</a>
+            <a class="btn btn-primary" href="/system-admin/role/update/{{$role->id}}" role="button">Update</a>
         </div>
     </div>
 @endsection

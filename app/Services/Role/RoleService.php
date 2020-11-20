@@ -7,6 +7,7 @@ use App\Repositories\Role\RoleRepositoryInterface;
 use App\Models\Role;
 use App\Services\Contract\MyService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class RoleService extends MyService
 {
@@ -36,7 +37,7 @@ class RoleService extends MyService
     {
         return $validator = Validator::make($request, [
             'name' => 'required|max:255',
-            'role_rank' => 'required|max:255',
+            'role_rank' => 'required|max:255|numeric',
             'description' => 'max:255',
         ]);
     }
