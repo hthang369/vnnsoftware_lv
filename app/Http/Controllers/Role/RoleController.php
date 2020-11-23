@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\role;
+namespace App\Http\Controllers\Role;
 
 use App\Http\Controllers\Controller;
-use App\Services\role\RoleService;
+use App\Services\Role\RoleService;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
