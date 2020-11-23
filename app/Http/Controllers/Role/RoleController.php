@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\role;
 
 use App\Http\Controllers\Controller;
-use App\Services\BusinessPlan\BusinessPlanService;
 use App\Services\role\RoleService;
 use Illuminate\Http\Request;
 
@@ -11,12 +10,10 @@ class RoleController extends Controller
 {
 
     private $roleService;
-    private $businessPlanService;
 
-    public function __construct(RoleService $roleService, BusinessPlanService $businessPlanService)
+    public function __construct(RoleService $roleService)
     {
         $this->roleService = $roleService;
-        $this->businessPlanService = $businessPlanService;
     }
 
     public function index()
@@ -27,7 +24,7 @@ class RoleController extends Controller
 
     public function detail($id)
     {
-        $role = $this->roleService->getDetailById($id);
+        $role = $this->roleService->getById($id);
 
         if (is_null($role)) {
             abort(404,'Page not found');
@@ -37,20 +34,17 @@ class RoleController extends Controller
     }
 
     public function newForm() {
-        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
-        return view('/role/add_form')->with(['isNew' => true, 'listBusinessPlan' => $listBusinessPlan]);
+        return view('/role/add_form')->with('isNew', true);
     }
 
     public function updateForm($id) {
         $role = $this->roleService->getById($id);
 
-        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
-
         if (is_null($role)) {
             abort(404,'Page not found');
         }
 
-        return view('/role/add_form')->with(['role' => $role, 'listBusinessPlan' => $listBusinessPlan]);
+        return view('/role/add_form')->with('role', $role);
     }
 
     public function register(Request $request)
