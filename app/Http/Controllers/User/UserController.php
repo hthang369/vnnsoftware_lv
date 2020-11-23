@@ -128,9 +128,14 @@ class UserController extends Controller
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
 
-        $input = request()->except(['_token', 'role']);
-        $input['password'] = Hash::make('password');
-
+        if($request['password'] != '')
+        {
+            $input = request()->except(['_token', 'role']);
+            $input['password'] = Hash::make('password');
+        }
+        else
+            $input = request()->except(['_token', 'role', 'password']);
+ 
         try {
             $user->roles()->detach();
             $user->roles()->attach($request->role);
