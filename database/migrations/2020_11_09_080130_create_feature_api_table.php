@@ -18,6 +18,7 @@ class CreateFeatureApiTable extends Migration
             $table->string('feature');
             $table->string('api');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
