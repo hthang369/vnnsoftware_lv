@@ -10,6 +10,11 @@
     <div class="card">
         <h5 class="card-header">User management</h5>
         <div class="card-body">
+            @if(count($roles) == 0)
+                <div class="alert alert-warning">
+                    <strong>Do not have Role, create create Role first to create Company</strong>
+                </div>
+            @else
             <form method="POST">
                 @csrf
                 <div class="form-group required">
@@ -88,6 +93,7 @@
 
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
+                @endif
         </div>
     </div>
 @endsection
