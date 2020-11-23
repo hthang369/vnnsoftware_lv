@@ -58,4 +58,13 @@ Route::group(['prefix' => 'system-admin'], function () {
     Route::get('role/new', 'Role\RoleController@newForm')->name('role.new');
     Route::post('role/new', 'Role\RoleController@register')->name('role.register');
     Route::get('role/delete/{id}', 'Role\RoleController@delete')->name('role.delete');
+
+    // feature-api management route
+    Route::get('feature-api', 'FeatureApi\FeatureApiController@index')->name('feature-api.list');
+    Route::get('feature-api/detail/{id}', 'FeatureApi\FeatureApiController@detail')->name('feature-api.detail');
+    Route::get('feature-api/update/{id}', 'FeatureApi\FeatureApiController@updateForm')->name('feature-api.update.form');
+    Route::post('feature-api/update/{id}', 'FeatureApi\FeatureApiController@update')->name('feature-api.update');
+    Route::get('feature-api/new', 'FeatureApi\FeatureApiController@newForm')->name('feature-api.new');
+    Route::post('feature-api/new', 'FeatureApi\FeatureApiController@register')->name('feature-api.register');
+    Route::get('feature-api/delete/{id}', 'FeatureApi\FeatureApiController@delete')->name('feature-api.delete');
 });
