@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('login', 'User\UserController@login')->name('user.login');
 Route::post('register', 'User\UserController@register')->name('user.register');
 
+
 Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
     // company route
     Route::get('company', 'Company\CompanyController@index')->name('company.list');
