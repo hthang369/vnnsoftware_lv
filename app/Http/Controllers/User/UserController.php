@@ -71,7 +71,7 @@ class UserController extends Controller
     public function newForm()
     {
         return view('/user-management/add_form',
-            ['roles' => $this->roleService->getAllRole(), 'user' => new User()])->with('isNew', true);
+            ['roles' => $this->roleService->getAll(), 'user' => new User()])->with('isNew', true);
     }
 
     public function updateForm($id)
@@ -102,7 +102,7 @@ class UserController extends Controller
         }
 
         $input = $request->all();
-        $input['password'] = Hash::make('password');
+        $input['password'] = Hash::make($input['password']);
 
         try {
             $user = $this->userService->create($input);
