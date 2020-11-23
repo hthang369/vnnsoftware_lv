@@ -88,7 +88,7 @@ class UserController extends Controller
         }
         return view('/user-management/add_form',
             [
-                'roles' => $this->roleService->getAllRole(),
+                'roles' => $this->roleService->getAll(),
                 'userRoleIds' => $userRoleIds
             ])->with('user', $user);
     }
