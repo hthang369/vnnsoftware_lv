@@ -104,6 +104,7 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
+        
         try {
             $user = $this->userService->create($input);
             $user->roles()->attach($request->role);
