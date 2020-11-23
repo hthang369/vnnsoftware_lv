@@ -14,7 +14,7 @@ class CreateRoleHasFeatureApisTable extends Migration
     public function up()
     {
         Schema::create('role_has_feature_api', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->integer('feature_api_id');
             $table->integer('role_id');
             $table->timestamps();
