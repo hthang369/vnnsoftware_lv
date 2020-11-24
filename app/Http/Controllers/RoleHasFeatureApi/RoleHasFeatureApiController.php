@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\RoleHasFeatureApi;
 
 use App\Http\Controllers\Controller;
-use App\Services\BusinessPlan\BusinessPlanService;
+use App\Services\FeatureApi\FeatureApiService;
+use App\Services\Role\RoleService;
 use App\Services\RoleHasFeatureApi\RoleHasFeatureApiService;
 use Illuminate\Http\Request;
 
@@ -11,12 +12,14 @@ class RoleHasFeatureApiController extends Controller
 {
 
     private $roleHasFeatureApiService;
-    private $businessPlanService;
+    private $roleService;
+    private $featureApiService;
 
-    public function __construct(RoleHasFeatureApiService $roleHasFeatureApiService, BusinessPlanService $businessPlanService)
+    public function __construct(RoleHasFeatureApiService $roleHasFeatureApiService, RoleService $roleService, FeatureApiService $featureApiService)
     {
         $this->roleHasFeatureApiService = $roleHasFeatureApiService;
-        $this->businessPlanService = $businessPlanService;
+        $this->roleService = $roleService;
+        $this->featureApiService = $featureApiService;
     }
 
     public function index()
@@ -37,8 +40,9 @@ class RoleHasFeatureApiController extends Controller
     }
 
     public function newForm() {
-        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
-        return view('/role-has-feature-api/add_form')->with(['isNew' => true, 'listBusinessPlan' => $listBusinessPlan]);
+        $listRole = $this->roleService->getAll();
+        $listFeatureApi = $this->featureApiService->getAll();
+        return view('/role-has-feature-api/add_form')->with(['isNew' => true, 'listRole' => $listRole, 'listFeatureApi' => $listFeatureApi]);
     }
 
     public function updateForm($id) {
