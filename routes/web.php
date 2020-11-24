@@ -22,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('login', 'User\UserController@login')->name('user.login');
 Route::post('register', 'User\UserController@register')->name('user.register');
 
-Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'system-admin'], function () {
     // company route
     Route::get('company', 'Company\CompanyController@index')->name('company.list');
     Route::get('company/detail/{id}', 'Company\CompanyController@detail')->name('company.detail');
@@ -67,4 +67,13 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
     Route::get('feature-api/new', 'FeatureApi\FeatureApiController@newForm')->name('feature-api.new');
     Route::post('feature-api/new', 'FeatureApi\FeatureApiController@register')->name('feature-api.register');
     Route::get('feature-api/delete/{id}', 'FeatureApi\FeatureApiController@delete')->name('feature-api.delete');
+
+    // role has feature-api management route
+    Route::get('role-has-feature-api', 'RoleHasFeatureApi\RoleHasFeatureApiController@index')->name('role-has-feature-api.list');
+    Route::get('role-has-feature-api/detail/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@detail')->name('role-has-feature-api.detail');
+    Route::get('role-has-feature-api/update/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@updateForm')->name('role-has-feature-api.update.form');
+    Route::post('role-has-feature-api/update/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@update')->name('role-has-feature-api.update');
+    Route::get('role-has-feature-api/new', 'RoleHasFeatureApi\RoleHasFeatureApiController@newForm')->name('role-has-feature-api.new');
+    Route::post('role-has-feature-api/new', 'RoleHasFeatureApi\RoleHasFeatureApiController@register')->name('role-has-feature-api.register');
+    Route::get('role-has-feature-api/delete/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@delete')->name('role-has-feature-api.delete');
 });
