@@ -40,6 +40,7 @@
 
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
+                <a class="btn btn-danger ml-2" href="{{ route('business-plan.list') }}" role="button">Cancel</a>
             </form>
         </div>
     </div>

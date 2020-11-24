@@ -92,6 +92,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Save</button>
+                <a class="btn btn-danger ml-2" href="{{ route('user-management.list') }}" role="button">Cancel</a>
             </form>
                 @endif
         </div>
