@@ -31,7 +31,7 @@
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a class="btn btn-danger ml-2" href="{{ route('role.list') }}" role="button">Cancel</a>
+                <a class="btn btn-danger ml-2" href="{{ route('feature-api.list') }}" role="button">Cancel</a>
             </form>
         </div>
     </div>
