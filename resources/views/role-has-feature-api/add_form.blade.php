@@ -45,7 +45,26 @@
                             </select>
                         @endif
                     </div>
-
+                    @if(isset($isNew))
+                        @foreach($listFeatureApi as $i => $featureApi)
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck{{$i}}" name="feature_api_id[]" value="{{$featureApi->id}}">
+                                <label class="form-check-label" for="exampleCheck{{$i}}">{{$featureApi->feature}}</label>
+                            </div>
+                        @endforeach
+                    @else
+                        {{--<select class="form-control" id="exampleFormControlSelect1" name="role_id" value="{{ old('role_id') ? old('role_id') : $roleHasFeatureApi->role_id }}">--}}
+                        {{--@foreach($listRole as $i => $role)--}}
+                        {{--<option value="{{$role->id}}" {{ (old('role_id') ? old('role_id') : $roleHasFeatureApi->role_id) == $role->id ? 'selected' : '' }}>--}}
+                        {{--{{$role->name}}--}}
+                        {{--</option>--}}
+                        {{--@endforeach--}}
+                        {{--</select>--}}
+                    @endif
+                    {{--<div class="form-check">--}}
+                    {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                    {{--<label class="form-check-label" for="exampleCheck1">Check me out</label>--}}
+                    {{--</div>--}}
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>

@@ -21,6 +21,11 @@ class RoleHasFeatureApiService extends MyService
         return $this->roleHasFeatureApiRepo->getById($id);
     }
 
+    public function getByRoleIdAndFeatureApiId($role_id, $feature_api_id)
+    {
+        return $this->roleHasFeatureApiRepo->getByRoleIdAndFeatureApiId($role_id, $feature_api_id);
+    }
+
     public function create($input)
     {
         return $this->roleHasFeatureApiRepo->create($input);
@@ -34,8 +39,8 @@ class RoleHasFeatureApiService extends MyService
     public function ruleCreateUpdate($request)
     {
         return $validator = Validator::make($request, [
-            'feature' => 'required|max:255',
-            'api' => 'required|max:255',
+            'role_id' => 'required|exists:role,id',
+            'feature_api_id' => 'required|exists:feature_api,id',
         ]);
     }
 

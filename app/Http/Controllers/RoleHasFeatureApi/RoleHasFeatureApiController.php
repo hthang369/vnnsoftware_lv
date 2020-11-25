@@ -7,6 +7,7 @@ use App\Services\FeatureApi\FeatureApiService;
 use App\Services\Role\RoleService;
 use App\Services\RoleHasFeatureApi\RoleHasFeatureApiService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoleHasFeatureApiController extends Controller
 {
@@ -39,7 +40,7 @@ class RoleHasFeatureApiController extends Controller
         return view('/role-has-feature-api/detail')->with('company', $company);
     }
 
-    public function newForm() {
+    public function setRoleForm() {
         $listRole = $this->roleService->getAll();
         $listFeatureApi = $this->featureApiService->getAll();
         return view('/role-has-feature-api/add_form')->with(['isNew' => true, 'listRole' => $listRole, 'listFeatureApi' => $listFeatureApi]);
@@ -57,7 +58,7 @@ class RoleHasFeatureApiController extends Controller
         return view('/role-has-feature-api/add_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
     }
 
-    public function register(Request $request)
+    public function setRole(Request $request)
     {
 
         $validator = $this->roleHasFeatureApiService->ruleCreateUpdate($request->all());
@@ -65,15 +66,25 @@ class RoleHasFeatureApiController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
-
-        $input = $request->all();
-
         try {
+            $input['role_id'] = $request->input('role_id');
+            DB::beginTransaction();
+            foreach ($request->input('feature_api_id') as $item) {
+                $input['feature_api_id'] = $item;
 
-            $company = $this->roleHasFeatureApiService->create($input);
-            return redirect()->intended('/system-admin/role-has-feature-api/detail/' . $company->id);
+                $check = $this->roleHasFeatureApiService->getByRoleIdAndFeatureApiId($input['role_id'], $input['feature_api_id']);
+
+                if (is_null($check)) {
+                    $this->roleHasFeatureApiService->create($input);
+                }
+            }
+            DB::commit();
+            abort(404);
+//            return redirect()->intended('/system-admin/role-has-feature-api/detail/' . $company->id);
         } catch (\Exception $ex) {
-            abort(500);
+            DB::rollBack();
+//            print_r($input); exit;
+            abort(403);
         }
     }
 
