@@ -66,21 +66,43 @@ class RoleHasFeatureApiController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
+
         try {
             $input['role_id'] = $request->input('role_id');
+            $listOld = $this->roleHasFeatureApiService->getByRoleId($input['role_id']);
+
             DB::beginTransaction();
-            foreach ($request->input('feature_api_id') as $item) {
-                $input['feature_api_id'] = $item;
+            if ($request->has('feature_api_id')) {
+                foreach ($request->input('feature_api_id') as $item) {
+                    $has = false;
+                    foreach ($listOld as $value) {
+                        if ($item == $value['feature_api_id']) {
+                            $has = true;
+                        }
+                    }
 
-                $check = $this->roleHasFeatureApiService->getByRoleIdAndFeatureApiId($input['role_id'], $input['feature_api_id']);
+                    if (!$has) {
+                        $input['feature_api_id'] = $item;
+                        $this->roleHasFeatureApiService->create($input);
+                    }
+                }
+            }
+            foreach ($listOld as $value) {
+                $has = false;
+                if ($request->has('feature_api_id')) {
+                    foreach ($request->input('feature_api_id') as $item) {
+                        if ($item == $value['feature_api_id']) {
+                            $has = true;
+                        }
+                    }
+                }
 
-                if (is_null($check)) {
-                    $this->roleHasFeatureApiService->create($input);
+                if (!$has) {
+                    $this->roleHasFeatureApiService->delete($value['id']);
                 }
             }
             DB::commit();
             abort(404);
-//            return redirect()->intended('/system-admin/role-has-feature-api/detail/' . $company->id);
         } catch (\Exception $ex) {
             DB::rollBack();
 //            print_r($input); exit;

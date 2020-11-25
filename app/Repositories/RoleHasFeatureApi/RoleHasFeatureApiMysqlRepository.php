@@ -12,10 +12,10 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
         return RoleHasFeatureApi::find($id);
     }
 
-    public function getByRoleIdAndFeatureApiId($role_id, $feature_api_id)
+    public function getByRoleId($role_id)
     {
         $roleHasFeatureApi = new RoleHasFeatureApi();
-        return $roleHasFeatureApi->select("*")->where("role_has_feature_api.role_id", $role_id)->where("role_has_feature_api.feature_api_id", $feature_api_id)->whereNull('role_has_feature_api.deleted_at')->first();
+        return $roleHasFeatureApi->select("*")->where("role_has_feature_api.role_id", $role_id)->whereNull('role_has_feature_api.deleted_at')->get();
     }
 
 
