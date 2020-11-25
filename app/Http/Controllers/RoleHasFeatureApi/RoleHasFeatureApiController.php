@@ -23,11 +23,12 @@ class RoleHasFeatureApiController extends Controller
         $this->featureApiService = $featureApiService;
     }
 
-    public function setRoleForm($id) {
+    public function setRoleForm($id)
+    {
         $role = $this->roleService->getById($id);
 
         if (is_null($role)) {
-            abort(404,'Page not found');
+            abort(404, 'Page not found');
         }
         $listFeatureApi = $this->featureApiService->getAll();
 
@@ -48,11 +49,12 @@ class RoleHasFeatureApiController extends Controller
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
 
+
         try {
+            DB::beginTransaction();
             $input['role_id'] = $request->input('role_id');
             $listOldFeatureApi = $this->roleHasFeatureApiService->getByRoleId($input['role_id']);
 
-            DB::beginTransaction();
             if ($request->has('feature_api_id')) {
                 foreach ($request->input('feature_api_id') as $item) {
                     $has = false;
@@ -85,12 +87,10 @@ class RoleHasFeatureApiController extends Controller
                 }
             }
             DB::commit();
-            abort(404);
+            return redirect()->back();
         } catch (\Exception $ex) {
             DB::rollBack();
-//            print_r($input); exit;
-            return redirect()->back();
-            abort(403);
+            abort(500);
         }
     }
 }
