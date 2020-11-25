@@ -23,32 +23,20 @@ class RoleHasFeatureApiController extends Controller
         $this->featureApiService = $featureApiService;
     }
 
-    public function index()
-    {
-        $list = $this->roleHasFeatureApiService->getAll();
-        return view('/role-has-feature-api/list')->with('list', $list);
-    }
-
-    public function detail($id)
-    {
-        $company = $this->roleHasFeatureApiService->getDetailById($id);
-
-        if (is_null($company)) {
-            abort(404,'Page not found');
-        }
-
-        return view('/role-has-feature-api/detail')->with('company', $company);
-    }
-
     public function setRoleForm($id) {
         $role = $this->roleService->getById($id);
 
         if (is_null($role)) {
             abort(404,'Page not found');
         }
-
         $listFeatureApi = $this->featureApiService->getAll();
-        return view('/role-has-feature-api/add_form')->with(['isNew' => true, 'role' => $role, 'listFeatureApi' => $listFeatureApi]);
+
+        $listOldFeatureApi = $this->roleHasFeatureApiService->getByRoleId($id);
+        $arrayOldFeatureApi = [];
+        foreach ($listOldFeatureApi as $item) {
+            array_push($arrayOldFeatureApi, $item['feature_api_id']);
+        }
+        return view('/role-has-feature-api/set_role_form')->with(['arrayOldFeatureApi' => $arrayOldFeatureApi, 'role' => $role, 'listFeatureApi' => $listFeatureApi]);
     }
 
     public function setRole(Request $request)
@@ -62,13 +50,13 @@ class RoleHasFeatureApiController extends Controller
 
         try {
             $input['role_id'] = $request->input('role_id');
-            $listOld = $this->roleHasFeatureApiService->getByRoleId($input['role_id']);
+            $listOldFeatureApi = $this->roleHasFeatureApiService->getByRoleId($input['role_id']);
 
             DB::beginTransaction();
             if ($request->has('feature_api_id')) {
                 foreach ($request->input('feature_api_id') as $item) {
                     $has = false;
-                    foreach ($listOld as $value) {
+                    foreach ($listOldFeatureApi as $value) {
                         if ($item == $value['feature_api_id']) {
                             $has = true;
                             break;
@@ -81,7 +69,7 @@ class RoleHasFeatureApiController extends Controller
                     }
                 }
             }
-            foreach ($listOld as $value) {
+            foreach ($listOldFeatureApi as $value) {
                 $has = false;
                 if ($request->has('feature_api_id')) {
                     foreach ($request->input('feature_api_id') as $item) {
@@ -104,48 +92,5 @@ class RoleHasFeatureApiController extends Controller
             return redirect()->back();
             abort(403);
         }
-    }
-
-    public function update($id, Request $request)
-    {
-        $company = $this->roleHasFeatureApiService->getById($id);
-
-        if (is_null($company)) {
-            abort(404,'Page not found');
-        }
-
-        $validator = $this->roleHasFeatureApiService->ruleCreateUpdate($request->all(), $id);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
-        }
-
-        $input = request()->except(['_token', 'role']);
-
-        try {
-            $company = $this->roleHasFeatureApiService->update($id, $input);
-        } catch (\Exception $ex) {
-            abort(500);
-        }
-
-        return redirect()->intended('/system-admin/role-has-feature-api/detail/' . $id);
-    }
-
-    public function delete($id)
-    {
-        $company = $this->roleHasFeatureApiService->getById($id);
-
-        if (is_null($company)) {
-            abort(404,'Page not found');
-        }
-
-        try {
-
-            $this->roleHasFeatureApiService->delete($id);
-        } catch (\Exception $ex) {
-            abort(500);
-        }
-
-        return redirect()->intended('/system-admin/role-has-feature-api');
     }
 }
