@@ -68,4 +68,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
     Route::get('feature-api/new', 'FeatureApi\FeatureApiController@newForm')->name('feature-api.new');
     Route::post('feature-api/new', 'FeatureApi\FeatureApiController@register')->name('feature-api.register');
     Route::get('feature-api/delete/{id}', 'FeatureApi\FeatureApiController@delete')->name('feature-api.delete');
+
+    // version route
+    Route::get('version', 'Version\VersionController@index')->name('version.list');
 });
