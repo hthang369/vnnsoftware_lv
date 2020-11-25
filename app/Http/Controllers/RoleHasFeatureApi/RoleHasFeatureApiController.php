@@ -40,22 +40,15 @@ class RoleHasFeatureApiController extends Controller
         return view('/role-has-feature-api/detail')->with('company', $company);
     }
 
-    public function setRoleForm() {
-        $listRole = $this->roleService->getAll();
-        $listFeatureApi = $this->featureApiService->getAll();
-        return view('/role-has-feature-api/add_form')->with(['isNew' => true, 'listRole' => $listRole, 'listFeatureApi' => $listFeatureApi]);
-    }
+    public function setRoleForm($id) {
+        $role = $this->roleService->getById($id);
 
-    public function updateForm($id) {
-        $company = $this->roleHasFeatureApiService->getById($id);
-
-        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
-
-        if (is_null($company)) {
+        if (is_null($role)) {
             abort(404,'Page not found');
         }
 
-        return view('/role-has-feature-api/add_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
+        $listFeatureApi = $this->featureApiService->getAll();
+        return view('/role-has-feature-api/add_form')->with(['isNew' => true, 'role' => $role, 'listFeatureApi' => $listFeatureApi]);
     }
 
     public function setRole(Request $request)
@@ -78,6 +71,7 @@ class RoleHasFeatureApiController extends Controller
                     foreach ($listOld as $value) {
                         if ($item == $value['feature_api_id']) {
                             $has = true;
+                            break;
                         }
                     }
 
@@ -93,6 +87,7 @@ class RoleHasFeatureApiController extends Controller
                     foreach ($request->input('feature_api_id') as $item) {
                         if ($item == $value['feature_api_id']) {
                             $has = true;
+                            break;
                         }
                     }
                 }
@@ -106,6 +101,7 @@ class RoleHasFeatureApiController extends Controller
         } catch (\Exception $ex) {
             DB::rollBack();
 //            print_r($input); exit;
+            return redirect()->back();
             abort(403);
         }
     }

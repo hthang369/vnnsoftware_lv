@@ -71,7 +71,7 @@ Route::group(['prefix' => 'system-admin'], function () {
     // role has feature-api management route
     Route::get('role-has-feature-api', 'RoleHasFeatureApi\RoleHasFeatureApiController@index')->name('role-has-feature-api.list');
     Route::get('role-has-feature-api/detail/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@detail')->name('role-has-feature-api.detail');
-    Route::get('role-has-feature-api/set-role', 'RoleHasFeatureApi\RoleHasFeatureApiController@setRoleForm')->name('role-has-feature-api.set-role.form');
-    Route::post('role-has-feature-api/set-role', 'RoleHasFeatureApi\RoleHasFeatureApiController@setRole')->name('role-has-feature-api.set-role');
+    Route::get('role-has-feature-api/set-role/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setRoleForm')->name('role-has-feature-api.set-role.form');
+    Route::post('role-has-feature-api/set-role/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setRole')->name('role-has-feature-api.set-role');
     Route::get('role-has-feature-api/delete/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@delete')->name('role-has-feature-api.delete');
 });

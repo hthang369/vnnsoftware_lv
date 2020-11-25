@@ -7,7 +7,6 @@
 @endsection
 
 @section('content')
-    <a class="m-2 btn btn-primary" href="/system-admin/role-has-feature-api/new" role="button">+ Add New</a>
     @if(count($list) == 0)
         <div class="alert alert-warning">
             <strong>Sorry!</strong> No Item Found.
