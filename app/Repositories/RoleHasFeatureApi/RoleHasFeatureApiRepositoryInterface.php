@@ -1,11 +1,11 @@
 <?php
-namespace App\Repositories\Role;
+namespace App\Repositories\RoleHasFeatureApi;
 
-interface RoleRepositoryInterface
+interface RoleHasFeatureApiRepositoryInterface
 {
     public function getById($id);
+    public function getByRoleId($role_id);
     public function getAll();
-    public function getAllFeature();
     public function create($input);
     public function update($id, $input);
 }

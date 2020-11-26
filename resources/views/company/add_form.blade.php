@@ -58,7 +58,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Role</label>
+                        <label>Business plan</label>
                         @if(isset($isNew))
                             <select class="form-control" id="exampleFormControlSelect1" name="business_plan_id" value="{{ old('business_plan_id') }}">
                                 @foreach($listBusinessPlan as $i => $businessPlan)
