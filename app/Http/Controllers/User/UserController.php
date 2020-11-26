@@ -104,6 +104,7 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
+        
         try {
             $user = $this->userService->create($input);
             $user->roles()->attach($request->role);
@@ -128,8 +129,13 @@ class UserController extends Controller
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
 
-        $input = request()->except(['_token', 'role']);
-        $input['password'] = Hash::make('password');
+        if(strlen($request['password']) != 0)
+        {
+            $input = request()->except(['_token', 'role']);
+            $input['password'] = Hash::make($request['password']);
+        }
+        else
+            $input = request()->except(['_token', 'role', 'password']);
 
         try {
             $user->roles()->detach();

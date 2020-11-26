@@ -22,7 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('login', 'User\UserController@login')->name('user.login');
 Route::post('register', 'User\UserController@register')->name('user.register');
 
-Route::group(['prefix' => 'system-admin'], function () {
+
+Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
     // company route
     Route::get('company', 'Company\CompanyController@index')->name('company.list');
     Route::get('company/detail/{id}', 'Company\CompanyController@detail')->name('company.detail');
@@ -67,6 +68,9 @@ Route::group(['prefix' => 'system-admin'], function () {
     Route::get('feature-api/new', 'FeatureApi\FeatureApiController@newForm')->name('feature-api.new');
     Route::post('feature-api/new', 'FeatureApi\FeatureApiController@register')->name('feature-api.register');
     Route::get('feature-api/delete/{id}', 'FeatureApi\FeatureApiController@delete')->name('feature-api.delete');
+
+    // version route
+    Route::get('version', 'Version\VersionController@index')->name('version.list');
 
     // role has feature-api management route
     Route::get('role-has-feature-api', 'RoleHasFeatureApi\RoleHasFeatureApiController@index')->name('role-has-feature-api.list');

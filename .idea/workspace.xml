@@ -130,6 +130,12 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
     </include_path>
   </component>
   <component name="ProjectId" id="1k83oYf6RKyIAcLRcgWzezsTG00" />
@@ -148,16 +154,17 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Document\laka-management-tool\app\Models" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Document\laka-management-tool\app\Repositories\BusinessPlan" />
       <recent name="D:\Document\laka-management-tool\resources\views\company" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Document\laka-management-tool\app\Http\Controllers\Version" />
+      <recent name="D:\Document\laka-management-tool\app\Models" />
     </key>
   </component>
   <component name="RunManager">
@@ -190,6 +197,10 @@
       <workItem from="1605661177647" duration="7526000" />
       <workItem from="1605765773206" duration="4393000" />
       <workItem from="1606093079481" duration="14173000" />
+      <workItem from="1606179052328" duration="9575000" />
+      <workItem from="1606266699466" duration="595000" />
+      <workItem from="1606268058902" duration="575000" />
+      <workItem from="1606290405149" duration="6112000" />
     </task>
     <servers />
   </component>
@@ -209,26 +220,34 @@
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="1790" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1605582247627" />
+    <state x="2047" y="360" key="FileChooserDialogImpl" timestamp="1606291874929">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2047" y="360" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1606291874929" />
     <state x="2160" y="439" key="NewPhpFileDialog" timestamp="1605585335701">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state x="2160" y="439" key="NewPhpFileDialog/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1605585335701" />
-    <state x="1827" y="165" key="SettingsEditor" timestamp="1605517388546">
+    <state x="1827" y="165" width="998" height="844" key="SettingsEditor" timestamp="1606292000062">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="1827" y="165" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1605517388546" />
-    <state x="2144" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605495264553">
+    <state x="1827" y="165" width="998" height="844" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1606292000062" />
+    <state x="2144" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606291294625">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="2144" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1605495264553" />
-    <state x="2034" y="237" width="583" height="566" key="find.popup" timestamp="1606114026213">
+    <state x="2144" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1606291294625" />
+    <state x="2034" y="237" width="583" height="566" key="find.popup" timestamp="1606297061896">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
-    <state x="2034" y="237" width="583" height="566" key="find.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1606114026213" />
+    <state x="2034" y="237" width="583" height="566" key="find.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1606297061896" />
     <state width="600" height="440" key="javadoc.popup" timestamp="1606111592539">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
     <state width="600" height="440" key="javadoc.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1606111592539" />
+    <state x="1982" y="240" key="run.anything.popup" timestamp="1606125126801">
+      <screen x="1366" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1982" y="240" key="run.anything.popup/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1606125126801" />
     <state x="1989" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1606096114819">
       <screen x="1366" y="0" width="1920" height="1040" />
     </state>
