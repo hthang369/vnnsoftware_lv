@@ -63,7 +63,7 @@ class RoleController extends Controller
         try {
 
             $role = $this->roleService->create($input);
-            return redirect()->intended('/system-admin/role/detail/' . $role->id);
+            return redirect()->intended('/system-admin/role/detail/' . $role->id)->with('saved', true);
         } catch (\Exception $ex) {
             abort(500);
         }
@@ -91,7 +91,7 @@ class RoleController extends Controller
             abort(500);
         }
 
-        return redirect()->intended('/system-admin/role/detail/' . $id);
+        return redirect()->intended('/system-admin/role/detail/' . $id)->with('saved', true);
     }
 
     public function delete($id)
@@ -109,6 +109,6 @@ class RoleController extends Controller
             abort(500);
         }
 
-        return redirect()->intended('/system-admin/role');
+        return redirect()->intended('/system-admin/role')->with('deleted', true);
     }
 }

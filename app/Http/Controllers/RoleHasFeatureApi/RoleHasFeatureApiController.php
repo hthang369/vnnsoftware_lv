@@ -87,7 +87,7 @@ class RoleHasFeatureApiController extends Controller
                 }
             }
             DB::commit();
-            return redirect()->back();
+            return redirect()->back()->with('saved', true);
         } catch (\Exception $ex) {
             DB::rollBack();
             abort(500);

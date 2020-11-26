@@ -61,7 +61,7 @@ class FeatureApiController extends Controller
         try {
 
             $featureApi = $this->featureApiService->create($input);
-            return redirect()->intended('/system-admin/feature-api/detail/' . $featureApi->id);
+            return redirect()->intended('/system-admin/feature-api/detail/' . $featureApi->id)->with('saved', true);
         } catch (\Exception $ex) {
             abort(500);
         }
@@ -89,7 +89,7 @@ class FeatureApiController extends Controller
             abort(500);
         }
 
-        return redirect()->intended('/system-admin/feature-api/detail/' . $id);
+        return redirect()->intended('/system-admin/feature-api/detail/' . $id)->with('saved', true);
     }
 
     public function delete($id)
@@ -107,6 +107,6 @@ class FeatureApiController extends Controller
             abort(500);
         }
 
-        return redirect()->intended('/system-admin/feature-api');
+        return redirect()->intended('/system-admin/feature-api')->with('deleted', true);
     }
 }
