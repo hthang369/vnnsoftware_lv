@@ -30,7 +30,7 @@
             <strong>Sorry!</strong> No Fronted Version Found.
         </div>
     @else
-        <div>Fronted Version     {{$versions['socket_version']}} </div>
+        <div>Fronted Version     {{$versions['frontend_version']}} </div>
     @endif
 
     @if($versions['api_version'] == null)
@@ -38,7 +38,7 @@
             <strong>Sorry!</strong> No Api Version Found.
         </div>
     @else
-        Api Version     {{$versions['socket_version']}}
+        Api Version     {{$versions['api_version']}}
     @endif
     </div>
 @endsection
