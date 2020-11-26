@@ -18,6 +18,7 @@ class CreateRoleHasFeatureApisTable extends Migration
             $table->integer('feature_api_id');
             $table->integer('role_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
