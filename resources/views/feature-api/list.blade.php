@@ -32,7 +32,10 @@
                     <td>
                         <a class="btn btn-info" href="/system-admin/feature-api/detail/{{$featureApi->id}}" role="button">Detail</a>
                         <a class="btn btn-primary" href="/system-admin/feature-api/update/{{$featureApi->id}}" role="button">Update</a>
-                        <a class="btn btn-danger" href="/system-admin/feature-api/delete/{{$featureApi->id}}" role="button">Delete</a>
+                        <a onclick="return confirm('Are you sure you want to delete?');"
+                           class="btn btn-danger"
+                           href="/system-admin/feature-api/delete/{{$featureApi->id}}"
+                           role="button">Delete</a>
                     </td>
                 </tr>
             @endforeach
