@@ -54,6 +54,11 @@ class RoleHasFeatureApiService extends MyService
         return $this->roleHasFeatureApiRepo->delete($id);
     }
 
+    public function deleteByFeatureApiId($id)
+    {
+        return $this->roleHasFeatureApiRepo->deleteByFeatureApiId($id);
+    }
+
     public function checkFeatureApiIsUsed($feature_id)
     {
         return !is_null($this->roleHasFeatureApiRepo->getOneByFeatureId($feature_id));
