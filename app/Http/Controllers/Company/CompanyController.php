@@ -68,7 +68,7 @@ class CompanyController extends Controller
         try {
 
             $company = $this->companyService->create($input);
-            return redirect()->intended('/system-admin/company/detail/' . $company->id);
+            return redirect()->intended('/system-admin/company/detail/' . $company->id)->with('saved', true);
         } catch (\Exception $ex) {
             abort(500);
         }
@@ -96,7 +96,7 @@ class CompanyController extends Controller
             abort(500);
         }
 
-        return redirect()->intended('/system-admin/company/detail/' . $id);
+        return redirect()->intended('/system-admin/company/detail/' . $id)->with('saved', true);
     }
 
     public function delete($id)
@@ -114,6 +114,6 @@ class CompanyController extends Controller
             abort(500);
         }
 
-        return redirect()->intended('/system-admin/company');
+        return redirect()->intended('/system-admin/company')->with('deleted', true);
     }
 }

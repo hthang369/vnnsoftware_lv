@@ -9,6 +9,11 @@
 @section('content')
     <div class="card">
         <h5 class="card-header">Set feature api for role</h5>
+        @if(session()->has('saved'))
+            <div class="alert alert-success">
+                <strong>Saved!</strong>
+            </div>
+        @endif
         @if(count($listFeatureApi) == 0)
             <div class="alert alert-warning">
                 <strong>Do not have Feature api, create Feature api first to create Role has feature api</strong>

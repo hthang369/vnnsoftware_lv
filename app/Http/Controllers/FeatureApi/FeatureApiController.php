@@ -4,16 +4,20 @@ namespace App\Http\Controllers\FeatureApi;
 
 use App\Http\Controllers\Controller;
 use App\Services\FeatureApi\FeatureApiService;
+use App\Services\RoleHasFeatureApi\RoleHasFeatureApiService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FeatureApiController extends Controller
 {
 
     private $featureApiService;
+    private $roleHasFeatureApiService;
 
-    public function __construct(FeatureApiService $featureApiService)
+    public function __construct(FeatureApiService $featureApiService, RoleHasFeatureApiService $roleHasFeatureApiService)
     {
         $this->featureApiService = $featureApiService;
+        $this->roleHasFeatureApiService = $roleHasFeatureApiService;
     }
 
     public function index()
@@ -27,21 +31,23 @@ class FeatureApiController extends Controller
         $featureApi = $this->featureApiService->getById($id);
 
         if (is_null($featureApi)) {
-            abort(404,'Page not found');
+            abort(404, 'Page not found');
         }
 
         return view('/feature-api/detail')->with('featureApi', $featureApi);
     }
 
-    public function newForm() {
+    public function newForm()
+    {
         return view('/feature-api/add_form')->with('isNew', true);
     }
 
-    public function updateForm($id) {
+    public function updateForm($id)
+    {
         $featureApi = $this->featureApiService->getById($id);
 
         if (is_null($featureApi)) {
-            abort(404,'Page not found');
+            abort(404, 'Page not found');
         }
 
         return view('/feature-api/add_form')->with('featureApi', $featureApi);
@@ -61,7 +67,7 @@ class FeatureApiController extends Controller
         try {
 
             $featureApi = $this->featureApiService->create($input);
-            return redirect()->intended('/system-admin/feature-api/detail/' . $featureApi->id);
+            return redirect()->intended('/system-admin/feature-api/detail/' . $featureApi->id)->with('saved', true);
         } catch (\Exception $ex) {
             abort(500);
         }
@@ -72,7 +78,7 @@ class FeatureApiController extends Controller
         $featureApi = $this->featureApiService->getById($id);
 
         if (is_null($featureApi)) {
-            abort(404,'Page not found');
+            abort(404, 'Page not found');
         }
 
         $validator = $this->featureApiService->ruleCreateUpdate($request->all(), $id);
@@ -89,7 +95,7 @@ class FeatureApiController extends Controller
             abort(500);
         }
 
-        return redirect()->intended('/system-admin/feature-api/detail/' . $id);
+        return redirect()->intended('/system-admin/feature-api/detail/' . $id)->with('saved', true);
     }
 
     public function delete($id)
@@ -97,16 +103,19 @@ class FeatureApiController extends Controller
         $featureApi = $this->featureApiService->getById($id);
 
         if (is_null($featureApi)) {
-            abort(404,'Page not found');
+            abort(404, 'Page not found');
         }
 
         try {
-
+            DB::beginTransaction();
             $this->featureApiService->delete($id);
+            $this->roleHasFeatureApiService->deleteByFeatureApiId($featureApi->id);
+            DB::commit();
         } catch (\Exception $ex) {
+            DB::rollBack();
             abort(500);
         }
 
-        return redirect()->intended('/system-admin/feature-api');
+        return redirect()->intended('/system-admin/feature-api')->with('deleted', true);
     }
 }
