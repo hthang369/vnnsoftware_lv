@@ -36,6 +36,7 @@
                 <label>{{$company->business_plan_name}}</label>
             </div>
             <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}" role="button">Update</a>
+            <a class="btn btn-danger ml-2" href="{{ route('company.list') }}" role="button">Cancel</a>
         </div>
     </div>
 @endsection
