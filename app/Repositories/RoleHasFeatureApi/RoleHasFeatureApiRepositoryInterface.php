@@ -8,4 +8,6 @@ interface RoleHasFeatureApiRepositoryInterface
     public function getAll();
     public function create($input);
     public function update($id, $input);
+    public function delete($id);
+    public function getOneByFeatureId($feature_id);
 }

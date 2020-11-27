@@ -39,4 +39,9 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
     {
         return RoleHasFeatureApi::where('id', $id)->delete();
     }
+
+    public function getOneByFeatureId($feature_id)
+    {
+        return RoleHasFeatureApi::where('feature_api_id', $feature_id)->first();
+    }
 }

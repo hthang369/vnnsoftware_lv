@@ -23,6 +23,12 @@ class RoleHasFeatureApiController extends Controller
         $this->featureApiService = $featureApiService;
     }
 
+    public function ajaxCheckIsUsedFeatureApi($feature_id)
+    {
+        $isUsed = $this->roleHasFeatureApiService->checkFeatureApiIsUsed($feature_id);
+        return response()->json(array('isUsed'=> $isUsed), 200);
+    }
+
     public function setRoleForm($id)
     {
         $role = $this->roleService->getById($id);
