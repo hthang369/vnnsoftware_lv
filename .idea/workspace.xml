@@ -158,13 +158,14 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Document\laka-management-tool\public\images" />
+      <recent name="D:\Document\laka-management-tool\app\Http\Controllers\Version" />
+      <recent name="D:\Document\laka-management-tool\app\Models" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Document\laka-management-tool\app\Repositories\BusinessPlan" />
       <recent name="D:\Document\laka-management-tool\resources\views\company" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Document\laka-management-tool\app\Http\Controllers\Version" />
-      <recent name="D:\Document\laka-management-tool\app\Models" />
     </key>
   </component>
   <component name="RunManager">
@@ -202,7 +203,8 @@
       <workItem from="1606268058902" duration="575000" />
       <workItem from="1606290405149" duration="6710000" />
       <workItem from="1606358960968" duration="693000" />
-      <workItem from="1606363527722" duration="449000" />
+      <workItem from="1606363527722" duration="1459000" />
+      <workItem from="1606699704110" duration="2882000" />
     </task>
     <servers />
   </component>
