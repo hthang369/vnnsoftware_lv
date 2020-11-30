@@ -73,9 +73,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
     Route::get('version', 'Version\VersionController@index')->name('version.list');
 
     // role has feature-api management route
-    Route::get('role-has-feature-api', 'RoleHasFeatureApi\RoleHasFeatureApiController@index')->name('role-has-feature-api.list');
-    Route::get('role-has-feature-api/detail/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@detail')->name('role-has-feature-api.detail');
     Route::get('role-has-feature-api/set-role/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setRoleForm')->name('role-has-feature-api.set-role.form');
     Route::post('role-has-feature-api/set-role/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setRole')->name('role-has-feature-api.set-role');
-    Route::get('role-has-feature-api/delete/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@delete')->name('role-has-feature-api.delete');
+    Route::get('role-has-feature-api/ajax-check-is-used-feature-api/{feature_id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@ajaxCheckIsUsedFeatureApi')->name('role-has-feature-api.ajax-check-is-used-feature-api');
 });

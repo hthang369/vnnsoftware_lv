@@ -8,6 +8,11 @@
 
 @section('content')
     <a class="m-2 btn btn-primary" href="/system-admin/role/new" role="button">+ Add New</a>
+    @if(session()->has('deleted'))
+        <div class="alert alert-success">
+            <strong>Deleted!</strong>
+        </div>
+    @endif
     @if(count($list) == 0)
         <div class="alert alert-warning">
             <strong>Sorry!</strong> No Item Found.
@@ -43,7 +48,10 @@
                         <a class="btn btn-info" href="/system-admin/role/detail/{{$role->id}}" role="button">Detail</a>
                         <a class="btn btn-primary" href="/system-admin/role/update/{{$role->id}}" role="button">Update</a>
                         <a class="btn btn-warning" href="/system-admin/role-has-feature-api/set-role/{{$role->id}}" role="button">Set role</a>
-                        <a class="btn btn-danger" href="/system-admin/role/delete/{{$role->id}}" role="button">Delete</a>
+                        <a onclick="return confirm('Are you sure you want to delete?');"
+                           class="btn btn-danger"
+                           href="/system-admin/role/delete/{{$role->id}}"
+                           role="button">Delete</a>
                     </td>
                 </tr>
             @endforeach

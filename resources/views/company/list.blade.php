@@ -8,6 +8,11 @@
 
 @section('content')
     <a class="m-2 btn btn-primary" href="/system-admin/company/new" role="button">+ Add New</a>
+    @if(session()->has('deleted'))
+        <div class="alert alert-success">
+            <strong>Deleted!</strong>
+        </div>
+    @endif
     @if(count($list) == 0)
         <div class="alert alert-warning">
             <strong>Sorry!</strong> No Item Found.
