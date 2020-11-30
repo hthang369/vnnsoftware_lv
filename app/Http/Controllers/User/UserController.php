@@ -104,11 +104,11 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
-        
+
         try {
             $user = $this->userService->create($input);
             $user->roles()->attach($request->role);
-            return $this->detail($user->id);
+            return redirect()->intended('/system-admin/user-management/detail/' . $user->id)->with('saved', true);
         } catch (\Exception $ex) {
             return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
         }

@@ -55,7 +55,7 @@ class BusinessPlanController extends Controller
 
         try {
             $businessPlan = $this->businessPlanService->create($input);
-            return $this->businessDetail($businessPlan->id);
+            return redirect()->intended('/system-admin/business-plan/detail/' . $businessPlan->id)->with('saved', true);
         } catch (\Exception $ex) {
             abort(500);
         }

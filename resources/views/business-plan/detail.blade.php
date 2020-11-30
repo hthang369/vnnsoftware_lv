@@ -11,6 +11,11 @@
 @section('content')
     <div class="card">
         <h5 class="card-header">Business Plan Details</h5>
+        @if(session()->has('saved'))
+            <div class="alert alert-success">
+                <strong>Saved!</strong>
+            </div>
+        @endif
         <div class="card-body">
             <form>
                 <div class="form-group">

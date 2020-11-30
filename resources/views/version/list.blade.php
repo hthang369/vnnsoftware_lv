@@ -14,7 +14,7 @@
             <strong>Sorry!</strong> No Socket Version Found.
         </div>
     @else
-        <div>Socket Version     {{$versions['socket_version']}}</div>
+        <div><span class="badge badge-success">Socket Version </span>    {{$versions['socket_version']}}</div>
     @endif
 
     @if($versions['backend_version'] == null)
@@ -22,7 +22,7 @@
             <strong>Sorry!</strong> No Backend Version  Found.
         </div>
     @else
-        <div>Backend Version     {{$versions['backend_version']}} </div>
+        <div><span class="badge badge-success">Backend Version </span>     {{$versions['backend_version']}} </div>
     @endif
 
     @if($versions['frontend_version'] == null)
@@ -30,7 +30,7 @@
             <strong>Sorry!</strong> No Fronted Version Found.
         </div>
     @else
-        <div>Fronted Version     {{$versions['frontend_version']}} </div>
+        <div><span class="badge badge-success">Fronted Version </span>     {{$versions['frontend_version']}} </div>
     @endif
 
     @if($versions['api_version'] == null)
@@ -38,7 +38,7 @@
             <strong>Sorry!</strong> No Api Version Found.
         </div>
     @else
-        Api Version     {{$versions['api_version']}}
+            <span class="badge badge-success">Api Version </span>      {{$versions['api_version']}}
     @endif
     </div>
 @endsection

@@ -35,7 +35,9 @@
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        <input class="form-control @error('description') is-invalid @enderror" type="text" placeholder="Description" name="description" value="{!! isset($isNew) ? old('description') : (old('description') ? old('description') : $role->description) !!}" autocomplete="description">
+                        <input class="form-control @error('description') is-invalid @enderror" type="text"
+                               placeholder="Description" name="description"
+                               value="{!! isset($isNew) ? old('description') : (old('description') ? old('description') : $role->description) !!}" autocomplete="description">
                         @error('description')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
