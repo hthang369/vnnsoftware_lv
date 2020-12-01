@@ -19,7 +19,7 @@
 
     @if($versions['backend_version'] == null)
         <div class="alert alert-warning">
-            <strong>Sorry!</strong> No Backend Version  Found.
+            <strong>Sorry!</strong> No Backend Version Found.
         </div>
     @else
         <div><span class="badge badge-success">Backend Version </span>     {{$versions['backend_version']}} </div>

@@ -108,7 +108,9 @@ class UserController extends Controller
         try {
             $user = $this->userService->create($input);
             $user->roles()->attach($request->role);
-            return redirect()->intended('/system-admin/user-management/detail/' . $user->id)->with('saved', true);
+            return redirect()
+                ->intended('/system-admin/user-management/detail/' . $user->id)
+                ->with('saved', true);
         } catch (\Exception $ex) {
             return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
         }
@@ -142,7 +144,6 @@ class UserController extends Controller
             $user->roles()->attach($request->role);
             $user = $this->userService->update($id, $input);
         } catch (\Exception $ex) {
-            print_r($ex->getMessage()); exit;
             abort(404,'Page not found');
         }
 
@@ -169,10 +170,8 @@ class UserController extends Controller
         }
 
         try {
-
             $this->userService->delete($id);
         } catch (\Exception $ex) {
-            print_r($ex->getMessage()); exit;
             abort(404,'Page not found');
         }
 
