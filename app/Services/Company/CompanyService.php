@@ -47,7 +47,7 @@ class CompanyService extends MyService
 
     public function newForm() {
         $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
-        return view('/company/add_form')->with(['isNew' => true, 'listBusinessPlan' => $listBusinessPlan]);
+        return view('/company/add_form')->with('listBusinessPlan', $listBusinessPlan);
     }
 
     public function Create(Request $request)
@@ -78,7 +78,7 @@ class CompanyService extends MyService
             abort(404);
         }
 
-        return view('/company/add_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
+        return view('/company/update_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
     }
 
     public function update($id, Request $request)
