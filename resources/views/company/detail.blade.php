@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
                 <strong>Business plan:</strong>
-                <label>{{$company->business_plan_name}}</label>
+                <label>{{$company->business_plan->name}}</label>
             </div>
             <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}" role="button">Update</a>
             <a class="btn btn-danger ml-2" href="{{ route('company.list') }}" role="button">Cancel</a>
