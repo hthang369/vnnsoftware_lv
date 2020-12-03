@@ -32,7 +32,7 @@ class CompanyService extends MyService
         $company = $this->companyRepo->getById($id);
 
         if (is_null($company)) {
-            abort(404);
+            return view('/common/alert_message')->with('message', 'Id invalid!');
         }
 
         $company->business_plan = $company->business_plan();
