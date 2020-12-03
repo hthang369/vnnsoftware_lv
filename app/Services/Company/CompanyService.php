@@ -32,7 +32,7 @@ class CompanyService extends MyService
         $company = $this->companyRepo->getById($id);
 
         if (is_null($company)) {
-            return view('/common/alert_message')->with('message', 'Id invalid!');
+            return view('/common/alert_message')->with('message', __('common.id_not_found'));
         }
 
         $company->business_plan = $company->business_plan();
@@ -65,7 +65,7 @@ class CompanyService extends MyService
             $company = $this->companyRepo->Create($input);
             return redirect()->intended('/system-admin/company/detail/' . $company->id)->with('saved', true);
         } catch (\Exception $ex) {
-            abort(500);
+            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
         }
     }
 
@@ -75,7 +75,7 @@ class CompanyService extends MyService
         $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
 
         if (is_null($company)) {
-            abort(404);
+            return view('/common/alert_message')->with('message', __('common.id_not_found'));
         }
 
         return view('/company/update_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
@@ -86,7 +86,7 @@ class CompanyService extends MyService
         $company = $this->companyRepo->getById($id);
 
         if (is_null($company)) {
-            abort(404);
+            return view('/common/alert_message')->with('message', __('common.id_not_found'));
         }
 
         $validator = $this->ruleUpdate($request->all(), $id);
@@ -100,7 +100,7 @@ class CompanyService extends MyService
         try {
             $this->companyRepo->update($id, $input);
         } catch (\Exception $ex) {
-            abort(500);
+            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
         }
 
         return redirect()->intended('/system-admin/company/detail/' . $id)->with('saved', true);
@@ -121,14 +121,14 @@ class CompanyService extends MyService
         $company = $this->companyRepo->getById($id);
 
         if (is_null($company)) {
-            abort(404);
+            return view('/common/alert_message')->with('message', __('common.id_not_found'));
         }
 
         try {
 
             $this->companyRepo->delete($id);
         } catch (\Exception $ex) {
-            abort(500);
+            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
         }
 
         return redirect()->intended('/system-admin/company')->with('deleted', true);
