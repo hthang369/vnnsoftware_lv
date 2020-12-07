@@ -3,54 +3,107 @@
 namespace App\Services\Company;
 
 use App\Repositories\Company\CompanyRepositoryInterface;
+use App\Services\BusinessPlan\BusinessPlanService;
 use App\Services\Contract\MyService;
 use App\Company;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class CompanyService extends MyService
 {
     private $companyRepo;
+    private $businessPlanService;
 
-    public function __construct(CompanyRepositoryInterface $companyRepo)
+    public function __construct(CompanyRepositoryInterface $companyRepo, BusinessPlanService $businessPlanService)
     {
         $this->companyRepo = $companyRepo;
+        $this->businessPlanService = $businessPlanService;
 
+    }
+
+    public function list()
+    {
+        $list = $this->companyRepo->getAll();
+        return view('/company/list')->with('list', $list);
+    }
+
+    public function detail($id)
+    {
+        $company = $this->companyRepo->getById($id);
+
+        if (is_null($company)) {
+            return view('/common/alert_message')->with('message', __('common.id_not_found'));
+        }
+
+        $company->business_plan = $company->business_plan();
+
+        return view('/company/detail')->with('company', $company);
     }
 
     public function getById($id)
     {
         return $this->companyRepo->getById($id);
     }
-    public function getDetailById($id)
-    {
-        return $this->companyRepo->getDetailById($id);
+
+    public function newForm() {
+        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
+        return view('/company/add_form')->with('listBusinessPlan', $listBusinessPlan);
     }
 
-    public function Create($input)
+    public function Create(Request $request)
     {
-        return $this->companyRepo->Create($input);
-    }
+        $validator = $this->ruleCreate($request->all());
 
-    public function update($id, $input)
-    {
-        return $this->companyRepo->update($id, $input);
-    }
-
-    public function ruleCreateUpdate($request, $id = null)
-    {
-        $ruleEmail = 'required|email|max:255|unique:company';
-
-        if ($id != null) {
-            $ruleEmail = $ruleEmail . ',id,' . $id;
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
         }
 
-        return $validator = Validator::make($request, [
-            'email' => $ruleEmail,
-            'name' => 'required|max:255',
-            'business_plan_id' => 'required|max:255',
-            'phone' => 'max:255',
-            'address' => 'max:255',
-        ]);
+        $input = $request->all();
+
+        try {
+
+            $company = $this->companyRepo->Create($input);
+            return redirect()->intended('/system-admin/company/detail/' . $company->id)->with('saved', true);
+        } catch (\Exception $ex) {
+            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
+        }
+    }
+
+    public function updateForm($id) {
+        $company = $this->companyRepo->getById($id);
+
+        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
+
+        if (is_null($company)) {
+            return view('/common/alert_message')->with('message', __('common.id_not_found'));
+        }
+
+        return view('/company/update_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
+    }
+
+    public function update($id, Request $request)
+    {
+        $company = $this->companyRepo->getById($id);
+
+        if (is_null($company)) {
+            return view('/common/alert_message')->with('message', __('common.id_not_found'));
+        }
+
+        $validator = $this->ruleUpdate($request->all(), $id);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        }
+
+        $input = request()->except(['_token', 'role']);
+
+        try {
+            $this->companyRepo->update($id, $input);
+        } catch (\Exception $ex) {
+            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
+        }
+
+        return redirect()->intended('/system-admin/company/detail/' . $id)->with('saved', true);
     }
 
     public function getCompanyInfo($id)
@@ -65,6 +118,41 @@ class CompanyService extends MyService
 
     public function delete($id)
     {
-        return $this->companyRepo->delete($id);
+        $company = $this->companyRepo->getById($id);
+
+        if (is_null($company)) {
+            return view('/common/alert_message')->with('message', __('common.id_not_found'));
+        }
+
+        try {
+
+            $this->companyRepo->delete($id);
+        } catch (\Exception $ex) {
+            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
+        }
+
+        return redirect()->intended('/system-admin/company')->with('deleted', true);
+    }
+
+    private function ruleCreate($request)
+    {
+        return $validator = Validator::make($request, [
+            'email' => 'required|email|max:255|unique:company',
+            'name' => 'required|max:255|unique:company',
+            'business_plan_id' => 'required|max:255',
+            'phone' => 'max:255',
+            'address' => 'max:255',
+        ]);
+    }
+
+    private function ruleUpdate($request, $id = null)
+    {
+        return $validator = Validator::make($request, [
+            'email' => 'required|email|max:255|unique:company,email,' . $id,
+            'name' => 'required|max:255|unique:company,name,' . $id,
+            'business_plan_id' => 'required|max:255',
+            'phone' => 'max:255',
+            'address' => 'max:255',
+        ]);
     }
 }
