@@ -62,7 +62,7 @@ class BusinessPlanController extends Controller
             $businessPlan = $this->businessPlanService->create($input);
             return redirect()->intended('/system-admin/business-plan/detail/' . $businessPlan->id);
         } catch (\Exception $ex) {
-            abort(500);
+            abort(500, $ex->getMessage());
         }
     }
 
@@ -74,10 +74,10 @@ class BusinessPlanController extends Controller
 
     public function update($id, Request $request)
     {
-        $businessPlan = $this->businessPlanService->getBusinessPlanInfo(45);
+        $businessPlan = $this->businessPlanService->getBusinessPlanInfo($id);
 
         if (is_null($businessPlan)){
-            abort(404, __('custom_message.object_not_found'));
+            abort(400, __('custom_message.business_plan_not_found'));
         }
 
         $validator = $this->businessPlanValidation->updateValidate($request->all());
@@ -90,9 +90,9 @@ class BusinessPlanController extends Controller
 
         try {
             $businessPlan = $this->businessPlanService->update($id, $input);
+
         } catch (\Exception $ex) {
-            print_r($ex->getMessage()); exit;
-            abort(404,'Page not found');
+            abort(400, $ex->getMessage());
         }
 
         return redirect()->intended('/system-admin/business-plan/detail/' . $id);
@@ -100,17 +100,18 @@ class BusinessPlanController extends Controller
 
     public function delete($id)
     {
+//        throw new \Exception('Check validate');
+
         $businessPlan = $this->businessPlanService->getBusinessPlanInfo($id);
 
         if (is_null($businessPlan)) {
-            abort(404,'Object not found');
+            abort(404, __('custom_message.business_plan_not_found'));
         }
 
         try {
-            $this->businessPlanService->delete($id);
+            $this->businessPlanService->delete('sfsdf');
         } catch (\Exception $ex) {
-            print_r($ex->getMessage()); exit;
-            abort(500);
+            abort(400, $ex->getMessage());
         }
 
         return redirect()->intended('/system-admin/business-plan');

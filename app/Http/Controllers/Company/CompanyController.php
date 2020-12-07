@@ -51,7 +51,8 @@ class CompanyController extends Controller
     public function update($id, Request $request)
     {
 
-        return $this->companyService->update($id, $request);
+
+        return redirect()->intended('/system-admin/company/detail/' . $id)->with('saved', true);
 
     }
 
