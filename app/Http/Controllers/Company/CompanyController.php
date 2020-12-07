@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Services\BusinessPlan\BusinessPlanService;
 use App\Services\Company\CompanyService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class CompanyController extends Controller
 {

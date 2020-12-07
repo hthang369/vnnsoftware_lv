@@ -12,7 +12,7 @@ class FeatureApi extends Model
     protected $table = 'feature_api';
 
     protected $fillable = [
-        'feature', 'api'
+        'feature', 'api', 'name'
     ];
 
     protected $softDelete = true;

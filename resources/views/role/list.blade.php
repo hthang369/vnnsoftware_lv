@@ -38,9 +38,9 @@
                     <td>{{$role->role_rank}}</td>
                     <td>{{$role->description}}</td>
                     <td>
-                        @foreach($listFeature as $feature)
-                            @if($feature->id == $role->id)
-                                <span class="badge badge-danger">{{$feature->feature}}</span>
+                        @foreach($listApiName as $apiName)
+                            @if($apiName->id == $role->id)
+                                <span class="badge badge-danger">{{$apiName->feature_api_name}}</span>
                             @endif
                         @endforeach
                     </td>

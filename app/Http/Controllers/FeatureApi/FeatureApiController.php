@@ -118,4 +118,9 @@ class FeatureApiController extends Controller
 
         return redirect()->intended('/system-admin/feature-api')->with('deleted', true);
     }
+
+    public function saveAllRoutesToDB()
+    {
+        return $this->featureApiService->saveAllRoutesToDB();
+    }
 }
