@@ -13,13 +13,6 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
         return Company::find($id);
     }
 
-    public function getDetailById($id)
-    {
-        $company = new Company();
-        return $company->select("company.*", "business_plan.name as business_plan_name")->where("company.id", $id)->whereNull('company.deleted_at')
-            ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id')->first();
-    }
-
     public function getAll()
     {
         $company = new Company();

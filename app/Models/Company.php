@@ -16,4 +16,9 @@ class Company extends Model
     ];
 
     protected $softDelete = true;
+
+    public function business_plan()
+    {
+        return $this->belongsTo('App\Models\BusinessPlan')->first();
+    }
 }

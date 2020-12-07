@@ -25,40 +25,25 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $list = $this->companyService->getAll();
-        return view('/company/list')->with('list', $list);
+        return $this->companyService->list();
     }
 
     public function detail($id)
     {
-        $company = $this->companyService->getDetailById($id);
-
-        if (is_null($company)) {
-            abort(404,'Page not found');
-        }
-
-        return view('/company/detail')->with('company', $company);
+        return $this->companyService->detail($id);
     }
 
     public function newForm() {
-        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
-        return view('/company/add_form')->with(['isNew' => true, 'listBusinessPlan' => $listBusinessPlan]);
+        return $this->companyService->newForm();
     }
 
     public function updateForm($id) {
-        $company = $this->companyService->getById($id);
-
-        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
-
-        if (is_null($company)) {
-            abort(404,'Page not found');
-        }
-
-        return view('/company/add_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
+        return $this->companyService->updateForm($id);
     }
 
     public function register(Request $request)
     {
+<<<<<<< HEAD
 
         $validator = $this->companyValidation->newValidate($request->all());
 
@@ -74,10 +59,14 @@ class CompanyController extends Controller
         } catch (\Exception $ex) {
             abort(500);
         }
+=======
+        return $this->companyService->Create($request);
+>>>>>>> origin/master
     }
 
     public function update($id, Request $request)
     {
+<<<<<<< HEAD
         $company = $this->companyService->getById($id);
 
         if (is_null($company)) {
@@ -99,23 +88,13 @@ class CompanyController extends Controller
         }
 
         return redirect()->intended('/system-admin/company/detail/' . $id)->with('saved', true);
+=======
+        return $this->companyService->update($id, $request);
+>>>>>>> origin/master
     }
 
     public function delete($id)
     {
-        $company = $this->companyService->getById($id);
-
-        if (is_null($company)) {
-            abort(404,'Page not found');
-        }
-
-        try {
-
-            $this->companyService->delete($id);
-        } catch (\Exception $ex) {
-            abort(500);
-        }
-
-        return redirect()->intended('/system-admin/company')->with('deleted', true);
+        return $this->companyService->delete($id);
     }
 }
