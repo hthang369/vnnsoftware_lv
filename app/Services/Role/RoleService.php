@@ -4,9 +4,7 @@ namespace App\Services\Role;
 
 
 use App\Repositories\Role\RoleRepositoryInterface;
-use App\Models\Role;
 use App\Services\Contract\MyService;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class RoleService extends MyService

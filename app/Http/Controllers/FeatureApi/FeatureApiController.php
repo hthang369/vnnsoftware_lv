@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FeatureApi;
 use App\Http\Controllers\Controller;
 use App\Services\FeatureApi\FeatureApiService;
 use App\Services\RoleHasFeatureApi\RoleHasFeatureApiService;
+use App\Validations\FeatureApiValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,11 +14,16 @@ class FeatureApiController extends Controller
 
     private $featureApiService;
     private $roleHasFeatureApiService;
+    private $featureApiValidation;
 
-    public function __construct(FeatureApiService $featureApiService, RoleHasFeatureApiService $roleHasFeatureApiService)
+    public function __construct(
+        FeatureApiService $featureApiService,
+        RoleHasFeatureApiService $roleHasFeatureApiService,
+        FeatureApiValidation $featureApiValidation)
     {
         $this->featureApiService = $featureApiService;
         $this->roleHasFeatureApiService = $roleHasFeatureApiService;
+        $this->featureApiValidation = $featureApiValidation;
     }
 
     public function index()
@@ -39,7 +45,7 @@ class FeatureApiController extends Controller
 
     public function newForm()
     {
-        return view('/feature-api/add_form')->with('isNew', true);
+        return view('/feature-api/add_form');
     }
 
     public function updateForm($id)
@@ -55,8 +61,7 @@ class FeatureApiController extends Controller
 
     public function register(Request $request)
     {
-
-        $validator = $this->featureApiService->ruleCreateUpdate($request->all());
+        $validator = $this->featureApiValidation->newValidate($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -81,7 +86,7 @@ class FeatureApiController extends Controller
             abort(404, 'Page not found');
         }
 
-        $validator = $this->featureApiService->ruleCreateUpdate($request->all(), $id);
+        $validator = $this->featureApiValidation->newValidate($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());

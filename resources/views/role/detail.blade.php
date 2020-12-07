@@ -28,7 +28,7 @@
                 <label>{{$role->description}}</label>
             </div>
             <a class="btn btn-primary" href="/system-admin/role/update/{{$role->id}}" role="button">Update</a>
-            <a class="btn btn-danger ml-2" href="{{ route('role.list') }}" role="button">Cancel</a>
+            <a class="btn btn-danger ml-2" href="{{ route('role.list') }}" role="button">Back</a>
         </div>
     </div>
 @endsection

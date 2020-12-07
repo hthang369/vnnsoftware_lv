@@ -4,17 +4,22 @@ namespace App\Http\Controllers\BusinessPlan;
 
 use App\Http\Controllers\Controller;
 use App\Services\BusinessPlan\BusinessPlanService;
+use App\Validations\BusinessPlanValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
+
 
 class BusinessPlanController extends Controller
 {
     private $businessPlanService;
 
-    public function __construct(BusinessPlanService $businessPlanService)
+    private $businessPlanValidation;
+
+    public function __construct(BusinessPlanService $businessPlanService, BusinessPlanValidation $businessPlanValidation)
     {
         $this->businessPlanService = $businessPlanService;
+        $this->businessPlanValidation = $businessPlanValidation;
     }
 
     public function index()
@@ -29,7 +34,7 @@ class BusinessPlanController extends Controller
         $businessPlan = $this->businessPlanService->getBusinessPlanInfo($id);
 
         if (is_null($businessPlan)) {
-            abort(404,'Page not found');
+            abort(404, __('object_not_found'));
         }
 
         return view('/business-plan/detail',  [
@@ -45,7 +50,7 @@ class BusinessPlanController extends Controller
 
     public function new(Request $request)
     {
-        $validator = $this->businessPlanService->ruleCreateUpdate($request->all());
+        $validator = $this->businessPlanValidation->newValidate($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -55,7 +60,7 @@ class BusinessPlanController extends Controller
 
         try {
             $businessPlan = $this->businessPlanService->create($input);
-            return redirect()->intended('/system-admin/business-plan/detail/' . $businessPlan->id)->with('saved', true);
+            return redirect()->intended('/system-admin/business-plan/detail/' . $businessPlan->id);
         } catch (\Exception $ex) {
             abort(500);
         }
@@ -69,13 +74,13 @@ class BusinessPlanController extends Controller
 
     public function update($id, Request $request)
     {
-        $businessPlan = $this->businessPlanService->getBusinessPlanInfo($id);
+        $businessPlan = $this->businessPlanService->getBusinessPlanInfo(45);
 
-        if (is_null($businessPlan)) {
-            abort(404,'Page not found');
+        if (is_null($businessPlan)){
+            abort(404, __('custom_message.object_not_found'));
         }
 
-        $validator = $this->businessPlanService->ruleCreateUpdate($request->all(), $id);
+        $validator = $this->businessPlanValidation->updateValidate($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());

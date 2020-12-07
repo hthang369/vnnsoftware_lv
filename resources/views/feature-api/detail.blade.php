@@ -24,6 +24,7 @@
                 <label>{{$featureApi->api}}</label>
             </div>
             <a class="btn btn-primary" href="/system-admin/feature-api/update/{{$featureApi->id}}" role="button">Update</a>
+            <a class="btn btn-danger ml-2" href="{{ route('feature-api.list') }}" role="button">Back</a>
         </div>
     </div>
 @endsection

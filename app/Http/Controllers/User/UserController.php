@@ -14,6 +14,7 @@ use App\Models\Role;
 use App\Services\Role\RoleService;
 use App\Services\User\UserService;
 use App\Models\User;
+use App\Validations\UserValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,11 +28,13 @@ class UserController extends Controller
 
     private $userService;
     private $roleService;
+    private $userValidate;
 
-    public function __construct(UserService $userService, RoleService $roleService)
+    public function __construct(UserService $userService, RoleService $roleService, UserValidation $userValidate)
     {
         $this->userService = $userService;
         $this->roleService = $roleService;
+        $this->userValidate = $userValidate;
     }
 
     public function index()
@@ -43,19 +46,8 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $rules = [
-            'email' => 'required|email|exists:users',
-            'password' => 'required',
-        ];
 
-        $messages = [
-            'email.required' => 'The email is required.',
-            'email.email' => 'The email needs to have a valid format.',
-            'email.exists' => 'The email is not registered in the system.',
-        ];
-
-
-        $this->validate($request, $rules, $messages);
+        $this->userValidate->loginValidate($request);
 
         $credentials = $request->only('email', 'password');
 
@@ -63,7 +55,9 @@ class UserController extends Controller
             $user = Auth::user();
             return redirect()->intended('home');
         } else {
-            return redirect()->back()->withInput($request->only('email', 'remember'))->withErrors(['passcsscfsword' => 'fsdsfsdfdsf']);
+            return redirect()->back()
+                ->withInput($request->only('email', 'remember'))
+                ->withErrors(['passcsscfsword' => 'fsdsfsdfdsf']);
         }
 
     }
@@ -71,7 +65,7 @@ class UserController extends Controller
     public function newForm()
     {
         return view('/user-management/add_form',
-            ['roles' => $this->roleService->getAll(), 'user' => new User()])->with('isNew', true);
+            ['roles' => $this->roleService->getAll(), 'user' => new User()]);
     }
 
     public function updateForm($id)
@@ -95,7 +89,7 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        $validator = $this->userService->ruleCreateUpdate($request->all());
+        $validator = $this->userValidate->newValidate($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -125,7 +119,7 @@ class UserController extends Controller
             abort(404,'Page not found');
         }
 
-        $validator = $this->userService->ruleCreateUpdate($request->all(), $id);
+        $validator = $this->userValidate->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());

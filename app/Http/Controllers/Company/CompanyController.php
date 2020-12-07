@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Company;
 use App\Http\Controllers\Controller;
 use App\Services\BusinessPlan\BusinessPlanService;
 use App\Services\Company\CompanyService;
+use App\Validations\CompanyValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,11 +14,13 @@ class CompanyController extends Controller
 
     private $companyService;
     private $businessPlanService;
+    private $companyValidation;
 
-    public function __construct(CompanyService $companyService, BusinessPlanService $businessPlanService)
+    public function __construct(CompanyService $companyService, BusinessPlanService $businessPlanService, CompanyValidation $companyValidation)
     {
         $this->companyService = $companyService;
         $this->businessPlanService = $businessPlanService;
+        $this->companyValidation = $companyValidation;
     }
 
     public function index()
@@ -57,7 +60,7 @@ class CompanyController extends Controller
     public function register(Request $request)
     {
 
-        $validator = $this->companyService->ruleCreateUpdate($request->all());
+        $validator = $this->companyValidation->newValidate($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -66,9 +69,8 @@ class CompanyController extends Controller
         $input = $request->all();
 
         try {
-
             $company = $this->companyService->create($input);
-            return redirect()->intended('/system-admin/company/detail/' . $company->id)->with('saved', true);
+            return redirect()->intended('/system-admin/company/detail/' . $company->id);
         } catch (\Exception $ex) {
             abort(500);
         }
@@ -82,7 +84,7 @@ class CompanyController extends Controller
             abort(404,'Page not found');
         }
 
-        $validator = $this->companyService->ruleCreateUpdate($request->all(), $id);
+        $validator = $this->companyValidation->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());

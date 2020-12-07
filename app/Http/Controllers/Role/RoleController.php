@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Role;
 
 use App\Http\Controllers\Controller;
 use App\Services\Role\RoleService;
+use App\Validations\RoleValidation;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -11,9 +12,12 @@ class RoleController extends Controller
 
     private $roleService;
 
-    public function __construct(RoleService $roleService)
+    private $roleValidation;
+
+    public function __construct(RoleService $roleService, RoleValidation $roleValidation)
     {
         $this->roleService = $roleService;
+        $this->roleValidation = $roleValidation;
     }
 
     public function index()
@@ -36,7 +40,7 @@ class RoleController extends Controller
     }
 
     public function newForm() {
-        return view('/role/add_form')->with('isNew', true);
+        return view('/role/add_form');
     }
 
     public function updateForm($id) {
@@ -52,7 +56,7 @@ class RoleController extends Controller
     public function register(Request $request)
     {
 
-        $validator = $this->roleService->ruleCreateUpdate($request->all());
+        $validator = $this->roleValidation->newValidate($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -77,7 +81,7 @@ class RoleController extends Controller
             abort(404,'Page not found');
         }
 
-        $validator = $this->roleService->ruleCreateUpdate($request->all(), $id);
+        $validator = $this->roleValidation->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());

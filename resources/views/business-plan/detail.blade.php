@@ -31,6 +31,7 @@
                     <label>{{$businessPlan->maximum_storage_file}}</label>
                 </div>
                 <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$businessPlan->id}}" role="button">Update</a>
+                <a class="btn btn-danger ml-2" href="{{ route('business-plan.list') }}" role="button">Back</a>
             </form>
         </div>
     </div>
