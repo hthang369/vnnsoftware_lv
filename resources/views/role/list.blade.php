@@ -26,7 +26,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Role rank</th>
                 <th scope="col">Description</th>
-                <th scope="col">Feature</th>
+                <th scope="col">Permission</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -38,16 +38,16 @@
                     <td>{{$role->role_rank}}</td>
                     <td>{{$role->description}}</td>
                     <td>
-                        @foreach($listFeature as $feature)
-                            @if($feature->id == $role->id)
-                                <span class="badge badge-danger">{{$feature->feature}}</span>
+                        @foreach($listApiName as $apiName)
+                            @if($apiName->id == $role->id)
+                                <span class="badge badge-danger">{{$apiName->feature_api_name}}</span>
                             @endif
                         @endforeach
                     </td>
                     <td>
                         <a class="btn btn-info" href="/system-admin/role/detail/{{$role->id}}" role="button">Detail</a>
                         <a class="btn btn-primary" href="/system-admin/role/update/{{$role->id}}" role="button">Update</a>
-                        <a class="btn btn-warning" href="/system-admin/role-has-feature-api/set-role/{{$role->id}}" role="button">Set role</a>
+                        <a class="btn btn-warning" href="/system-admin/role-has-feature-api/set-role/{{$role->id}}" role="button">Set permission</a>
                         <a onclick="return confirm('Are you sure you want to delete?');"
                            class="btn btn-danger"
                            href="/system-admin/role/delete/{{$role->id}}"

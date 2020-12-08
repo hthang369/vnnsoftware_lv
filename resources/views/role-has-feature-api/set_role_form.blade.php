@@ -31,8 +31,8 @@
                     </div>
                     @foreach($listFeatureApi as $i => $featureApi)
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck{{$i}}" name="feature_api_id[]" value="{{$featureApi->id}}" {{in_array($featureApi->id, $arrayOldFeatureApi) ? 'checked' : ''}}>
-                            <label class="form-check-label" for="exampleCheck{{$i}}">{{$featureApi->feature}}</label>
+                            <input type="checkbox" class="form-check-input" id="exampleCheck{{$i}}" name="feature_api_name[]" value="{{$featureApi->name}}" {{in_array($featureApi->name, $arrayOldFeatureApi) ? 'checked' : ''}}>
+                            <label class="form-check-label" for="exampleCheck{{$i}}">{{$featureApi->name}}</label>
                         </div>
                     @endforeach
                     <button type="submit" class="btn btn-primary">Save</button>

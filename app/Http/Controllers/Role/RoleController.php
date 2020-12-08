@@ -23,9 +23,9 @@ class RoleController extends Controller
     public function index()
     {
         $list = $this->roleService->getAll();
-        $listFeature = $this->roleService->getAllFeature();
+        $listApiName = $this->roleService->getAllFeatureApiName();
 
-        return view('/role/list')->with(['list' => $list, 'listFeature' => $listFeature]);
+        return view('/role/list')->with(['list' => $list, 'listApiName' => $listApiName]);
     }
 
     public function detail($id)

@@ -7,7 +7,6 @@ use App\Services\BusinessPlan\BusinessPlanService;
 use App\Services\Company\CompanyService;
 use App\Validations\CompanyValidation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class CompanyController extends Controller
 {

@@ -41,7 +41,7 @@ class RoleHasFeatureApiController extends Controller
         $listOldFeatureApi = $this->roleHasFeatureApiService->getByRoleId($id);
         $arrayOldFeatureApi = [];
         foreach ($listOldFeatureApi as $item) {
-            array_push($arrayOldFeatureApi, $item['feature_api_id']);
+            array_push($arrayOldFeatureApi, $item['feature_api_name']);
         }
         return view('/role-has-feature-api/set_role_form')->with(['arrayOldFeatureApi' => $arrayOldFeatureApi, 'role' => $role, 'listFeatureApi' => $listFeatureApi]);
     }
@@ -61,27 +61,27 @@ class RoleHasFeatureApiController extends Controller
             $input['role_id'] = $request->input('role_id');
             $listOldFeatureApi = $this->roleHasFeatureApiService->getByRoleId($input['role_id']);
 
-            if ($request->has('feature_api_id')) {
-                foreach ($request->input('feature_api_id') as $item) {
+            if ($request->has('feature_api_name')) {
+                foreach ($request->input('feature_api_name') as $item) {
                     $has = false;
                     foreach ($listOldFeatureApi as $value) {
-                        if ($item == $value['feature_api_id']) {
+                        if ($item == $value['feature_api_name']) {
                             $has = true;
                             break;
                         }
                     }
 
                     if (!$has) {
-                        $input['feature_api_id'] = $item;
+                        $input['feature_api_name'] = $item;
                         $this->roleHasFeatureApiService->create($input);
                     }
                 }
             }
             foreach ($listOldFeatureApi as $value) {
                 $has = false;
-                if ($request->has('feature_api_id')) {
-                    foreach ($request->input('feature_api_id') as $item) {
-                        if ($item == $value['feature_api_id']) {
+                if ($request->has('feature_api_name')) {
+                    foreach ($request->input('feature_api_name') as $item) {
+                        if ($item == $value['feature_api_name']) {
                             $has = true;
                             break;
                         }

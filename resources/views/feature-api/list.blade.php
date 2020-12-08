@@ -12,6 +12,7 @@
 
 @section('content')
     <a class="m-2 btn btn-primary" href="/system-admin/feature-api/new" role="button">+ Add New</a>
+    <a class="m-2 btn btn-outline-danger" href="/system-admin/feature-api/save-all-to-db" role="button">Sync with DB</a>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
             <strong>Deleted!</strong>
@@ -29,6 +30,7 @@
                 <th scope="col">No</th>
                 <th scope="col">Feature</th>
                 <th scope="col">Api</th>
+                <th scope="col">Name</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -38,6 +40,7 @@
                     <td>{{$i + 1}}</td>
                     <td>{{$featureApi->feature}}</td>
                     <td>{{$featureApi->api}}</td>
+                    <td>{{$featureApi->name}}</td>
                     <td>
                         <a class="btn btn-info" href="/system-admin/feature-api/detail/{{$featureApi->id}}" role="button">Detail</a>
                         <a class="btn btn-primary" href="/system-admin/feature-api/update/{{$featureApi->id}}" role="button">Update</a>
