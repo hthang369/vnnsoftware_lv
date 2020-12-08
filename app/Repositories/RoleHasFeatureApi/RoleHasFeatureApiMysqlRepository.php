@@ -18,6 +18,11 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
         return $roleHasFeatureApi->select("*")->where("role_has_feature_api.role_id", $role_id)->whereNull('role_has_feature_api.deleted_at')->get();
     }
 
+//    public function getAllByFeatureApiName()
+//    {
+//        $roleHasFeatureApi = new RoleHasFeatureApi();
+//        return $roleHasFeatureApi->select("feature_api_name")->distinct()->whereNull('deleted_at')->groupBy('feature_api_name')->get();
+//    }
 
     public function getAll()
     {
@@ -44,6 +49,11 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
     {
         return RoleHasFeatureApi::where('feature_api_id', $id)->delete();
     }
+
+//    public function deleteByFeatureApiName($name)
+//    {
+//        return RoleHasFeatureApi::where('feature_api_name', $name)->delete();
+//    }
 
     public function getOneByFeatureId($feature_id)
     {

@@ -53,9 +53,9 @@ class RoleService extends MyService
         return $this->roleRepo->getAll();
     }
 
-    public function getAllFeature()
+    public function getAllFeatureApiName()
     {
-        return $this->roleRepo->getAllFeature();
+        return $this->roleRepo->getAllFeatureApiName();
     }
 
     public function delete($id)

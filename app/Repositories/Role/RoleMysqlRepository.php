@@ -18,15 +18,15 @@ class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterfac
         return Role::all();
     }
 
-    public function getAllFeature()
+    public function getAllFeatureApiName()
     {
         $role = new Role();
-        return $role->select('role.id', 'feature_api.feature')
+        return $role->select('role.id', 'role_has_feature_api.feature_api_name')
             ->whereNull('role.deleted_at')
             ->whereNull('role_has_feature_api.deleted_at')
             ->whereNull('feature_api.deleted_at')
             ->join('role_has_feature_api', 'role.id', '=', 'role_has_feature_api.role_id')
-            ->join('feature_api', 'role_has_feature_api.feature_api_id', '=', 'feature_api.id')
+            ->join('feature_api', 'role_has_feature_api.feature_api_name', '=', 'feature_api.name')
             ->get();
     }
 

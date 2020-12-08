@@ -33,4 +33,9 @@ class FeatureApiMysqlRepository extends MyRepository implements FeatureApiReposi
     {
         return FeatureApi::where('id', $id)->delete();
     }
+
+    public function deleteAll()
+    {
+        return FeatureApi::truncate();
+    }
 }
