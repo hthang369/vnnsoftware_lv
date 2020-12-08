@@ -6,6 +6,7 @@ use App\Repositories\Company\CompanyRepositoryInterface;
 use App\Services\BusinessPlan\BusinessPlanService;
 use App\Services\Contract\MyService;
 use App\Company;
+use App\Validations\CompanyValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,12 +14,16 @@ class CompanyService extends MyService
 {
     private $companyRepo;
     private $businessPlanService;
+    private $companyValidation;
 
-    public function __construct(CompanyRepositoryInterface $companyRepo, BusinessPlanService $businessPlanService)
+    public function __construct(
+        CompanyRepositoryInterface $companyRepo,
+        BusinessPlanService $businessPlanService,
+        CompanyValidation $companyValidation)
     {
         $this->companyRepo = $companyRepo;
         $this->businessPlanService = $businessPlanService;
-
+        $this->companyValidation = $companyValidation;
     }
 
     public function list()
@@ -32,7 +37,7 @@ class CompanyService extends MyService
         $company = $this->companyRepo->getById($id);
 
         if (is_null($company)) {
-            return view('/common/alert_message')->with('message', __('common.id_not_found'));
+            abort(400, __('custom_message.company_not_found'));
         }
 
         $company->business_plan = $company->business_plan();
@@ -52,7 +57,7 @@ class CompanyService extends MyService
 
     public function Create(Request $request)
     {
-        $validator = $this->ruleCreate($request->all());
+        $validator = $this->companyValidation->newValidate($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -61,11 +66,10 @@ class CompanyService extends MyService
         $input = $request->all();
 
         try {
-
             $company = $this->companyRepo->Create($input);
             return redirect()->intended('/system-admin/company/detail/' . $company->id)->with('saved', true);
         } catch (\Exception $ex) {
-            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
+            abort(500, $ex->getMessage());
         }
     }
 
@@ -75,7 +79,7 @@ class CompanyService extends MyService
         $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
 
         if (is_null($company)) {
-            return view('/common/alert_message')->with('message', __('common.id_not_found'));
+            abort(400, __('custom_message.company_not_found'));
         }
 
         return view('/company/update_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
@@ -86,10 +90,10 @@ class CompanyService extends MyService
         $company = $this->companyRepo->getById($id);
 
         if (is_null($company)) {
-            return view('/common/alert_message')->with('message', __('common.id_not_found'));
+            abort(400, __('custom_message.company_not_found'));
         }
 
-        $validator = $this->ruleUpdate($request->all(), $id);
+        $validator = $this->companyValidation->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -100,7 +104,7 @@ class CompanyService extends MyService
         try {
             $this->companyRepo->update($id, $input);
         } catch (\Exception $ex) {
-            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
+            abort(500, $ex->getMessage());
         }
 
         return redirect()->intended('/system-admin/company/detail/' . $id)->with('saved', true);
@@ -121,38 +125,16 @@ class CompanyService extends MyService
         $company = $this->companyRepo->getById($id);
 
         if (is_null($company)) {
-            return view('/common/alert_message')->with('message', __('common.id_not_found'));
+            abort(400, __('custom_message.company_not_found'));
         }
 
         try {
-
             $this->companyRepo->delete($id);
         } catch (\Exception $ex) {
-            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
+            abort(500, $ex->getMessage());
         }
 
         return redirect()->intended('/system-admin/company')->with('deleted', true);
     }
 
-    private function ruleCreate($request)
-    {
-        return $validator = Validator::make($request, [
-            'email' => 'required|email|max:255|unique:company',
-            'name' => 'required|max:255|unique:company',
-            'business_plan_id' => 'required|max:255',
-            'phone' => 'max:255',
-            'address' => 'max:255',
-        ]);
-    }
-
-    private function ruleUpdate($request, $id = null)
-    {
-        return $validator = Validator::make($request, [
-            'email' => 'required|email|max:255|unique:company,email,' . $id,
-            'name' => 'required|max:255|unique:company,name,' . $id,
-            'business_plan_id' => 'required|max:255',
-            'phone' => 'max:255',
-            'address' => 'max:255',
-        ]);
-    }
 }

@@ -16,7 +16,10 @@ class CompanyController extends Controller
     private $businessPlanService;
     private $companyValidation;
 
-    public function __construct(CompanyService $companyService, BusinessPlanService $businessPlanService, CompanyValidation $companyValidation)
+    public function __construct(
+        CompanyService $companyService,
+        BusinessPlanService $businessPlanService,
+        CompanyValidation $companyValidation)
     {
         $this->companyService = $companyService;
         $this->businessPlanService = $businessPlanService;
@@ -51,8 +54,7 @@ class CompanyController extends Controller
     public function update($id, Request $request)
     {
 
-
-        return redirect()->intended('/system-admin/company/detail/' . $id)->with('saved', true);
+        return $this->companyService->update($id, $request);
 
     }
 

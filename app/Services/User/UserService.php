@@ -5,6 +5,8 @@ namespace App\Services\User;
 use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Contract\MyService;
+use App\Services\Role\RoleService;
+use App\Validations\UserValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,11 +16,72 @@ use Illuminate\Support\Facades\Validator;
 class UserService extends MyService
 {
     private $userRepo;
+    private $userValidate;
+    private $roleService;
 
-    public function __construct(UserRepositoryInterface $userRepo)
+    public function __construct(UserRepositoryInterface $userRepo, UserValidation $userValidate, RoleService $roleService)
     {
         $this->userRepo = $userRepo;
+        $this->userValidate = $userValidate;
+        $this->roleService = $roleService;
+    }
 
+    public function index()
+    {
+        $list = $this->getAllUser();
+        return view('/user-management/list')->with('list', $list);
+    }
+
+    public function login(Request $request)
+    {
+        $this->userValidate->loginValidate($request);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            return redirect()->intended('home');
+        } else {
+            return redirect()->back()
+                ->withInput($request->only('email', 'remember'))
+                ->withErrors(['passcsscfsword' => 'fsdsfsdfdsf']);
+        }
+    }
+
+    public function newForm()
+    {
+        return view('/user-management/add_form',
+            ['roles' => $this->roleService->getAll(), 'user' => new User()]);
+    }
+
+    public function updateForm($id)
+    {
+        $user = $this->getUserById($id);
+        $userRoleIds = array();
+        if (is_null($user)) {
+            abort(404,'Page not found');
+        }
+
+        foreach ($user->roles as $key => $value)
+        {
+            array_push($userRoleIds, $value->id);
+        }
+        return view('/user-management/add_form',
+            [
+                'roles' => $this->roleService->getAll(),
+                'userRoleIds' => $userRoleIds
+            ])->with('user', $user);
+    }
+
+    public function detailForm($id){
+
+        $user = $this->getUserById($id);
+
+        if (is_null($user)) {
+            abort(404,'Page not found');
+        }
+
+        return view('/user-management/detail')->with('user', $user);
     }
 
     public function getUserById($id)
@@ -26,14 +89,60 @@ class UserService extends MyService
         return $this->userRepo->getUserById($id);
     }
 
-    public function Create($input)
+    public function Create(Request $request)
     {
-        return $this->userRepo->Create($input);
+        $validator = $this->userValidate->newValidate($request->all());
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        }
+
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+
+        try {
+            $user = $this->userRepo->Create($input);
+            $user->roles()->attach($request->role);
+            return redirect()
+                ->intended('/system-admin/user-management/detail/' . $user->id)
+                ->with('saved', true);
+        } catch (\Exception $ex) {
+            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+        }
     }
 
-    public function update($id, $input)
+    public function update($id, Request $request)
     {
-        return $this->userRepo->update($id, $input);
+       // return $this->userRepo->update($id, $input);
+        $user = $this->getUserById($id);
+
+        if (is_null($user)) {
+            abort(404,'Page not found');
+        }
+
+        $validator = $this->userValidate->updateValidate($request->all(), $id);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        }
+
+        if(strlen($request['password']) != 0)
+        {
+            $input = request()->except(['_token', 'role']);
+            $input['password'] = Hash::make($request['password']);
+        }
+        else
+            $input = request()->except(['_token', 'role', 'password']);
+
+        try {
+            $user->roles()->detach();
+            $user->roles()->attach($request->role);
+            $user = $this->userRepo->update($id, $input);
+        } catch (\Exception $ex) {
+            abort(404,'Page not found');
+        }
+
+        return redirect()->intended('/system-admin/user-management/detail/' . $id);
     }
 
     public function getUserIdWithEmail($email)
@@ -46,9 +155,6 @@ class UserService extends MyService
         $query = DB::select('call usp_get_list_user_by_contact(?,?)', [$input ?? "", $userId]);
         return $query;
     }
-
-
-
 
     public function getAllEmail()
     {
@@ -83,6 +189,19 @@ class UserService extends MyService
 
     public function delete($id)
     {
-        return $this->userRepo->delete($id);
+        $user = $this->getUserById($id);
+
+        if (is_null($user)) {
+            abort(404,'Page not found');
+        }
+
+        try {
+            $this->userRepo->delete($id);
+        } catch (\Exception $ex) {
+            abort(404,'Page not found');
+        }
+
+        return redirect()->intended('/system-admin/user-management');
+
     }
 }

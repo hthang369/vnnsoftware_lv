@@ -16,6 +16,14 @@ class RoleService extends MyService
         $this->roleRepo = $roleRepo;
     }
 
+    public function index()
+    {
+        $list = $this->getAll();
+        $listFeature = $this->getAllFeature();
+
+        return view('/role/list')->with(['list' => $list, 'listFeature' => $listFeature]);
+    }
+
     public function getById($id)
     {
         return $this->roleRepo->getById($id);

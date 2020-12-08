@@ -30,7 +30,10 @@ class UserController extends Controller
     private $roleService;
     private $userValidate;
 
-    public function __construct(UserService $userService, RoleService $roleService, UserValidation $userValidate)
+    public function __construct(
+        UserService $userService,
+        RoleService $roleService,
+        UserValidation $userValidate)
     {
         $this->userService = $userService;
         $this->roleService = $roleService;
@@ -39,136 +42,41 @@ class UserController extends Controller
 
     public function index()
     {
-        $list = $this->userService->getAllUser();
-        return view('/user-management/list')->with('list', $list);
+        return $this->userService->index();
     }
-
 
     public function login(Request $request)
     {
-
-        $this->userValidate->loginValidate($request);
-
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            return redirect()->intended('home');
-        } else {
-            return redirect()->back()
-                ->withInput($request->only('email', 'remember'))
-                ->withErrors(['passcsscfsword' => 'fsdsfsdfdsf']);
-        }
-
+        return $this->userService->login($request);
     }
 
     public function newForm()
     {
-        return view('/user-management/add_form',
-            ['roles' => $this->roleService->getAll(), 'user' => new User()]);
+        return $this->userService->newForm();
     }
 
     public function updateForm($id)
     {
-        $user = $this->userService->getUserById($id);
-        $userRoleIds = array();
-        if (is_null($user)) {
-            abort(404,'Page not found');
-        }
-
-        foreach ($user->roles as $key => $value)
-        {
-            array_push($userRoleIds, $value->id);
-        }
-        return view('/user-management/add_form',
-            [
-                'roles' => $this->roleService->getAll(),
-                'userRoleIds' => $userRoleIds
-            ])->with('user', $user);
+       return $this->userService->updateForm($id);
     }
 
     public function register(Request $request)
     {
-        $validator = $this->userValidate->newValidate($request->all());
-
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
-        }
-
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
-
-
-        try {
-            $user = $this->userService->create($input);
-            $user->roles()->attach($request->role);
-            return redirect()
-                ->intended('/system-admin/user-management/detail/' . $user->id)
-                ->with('saved', true);
-        } catch (\Exception $ex) {
-            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
-        }
-
+        return $this->userService->Create($request);
     }
 
     public function update($id, Request $request)
     {
-        $user = $this->userService->getUserById($id);
-
-        if (is_null($user)) {
-            abort(404,'Page not found');
-        }
-
-        $validator = $this->userValidate->updateValidate($request->all(), $id);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
-        }
-
-        if(strlen($request['password']) != 0)
-        {
-            $input = request()->except(['_token', 'role']);
-            $input['password'] = Hash::make($request['password']);
-        }
-        else
-            $input = request()->except(['_token', 'role', 'password']);
-
-        try {
-            $user->roles()->detach();
-            $user->roles()->attach($request->role);
-            $user = $this->userService->update($id, $input);
-        } catch (\Exception $ex) {
-            abort(404,'Page not found');
-        }
-
-        return redirect()->intended('/system-admin/user-management/detail/' . $id);
+        return $this->userService->update($id, $request);
     }
 
     public function detail($id)
     {
-        $user = $this->userService->getUserById($id);
-
-        if (is_null($user)) {
-            abort(404,'Page not found');
-        }
-
-        return view('/user-management/detail')->with('user', $user);
+       return $this->userService->detailForm($id);
     }
 
     public function delete($id)
     {
-        $user = $this->userService->getUserById($id);
-
-        if (is_null($user)) {
-            abort(404,'Page not found');
-        }
-
-        try {
-            $this->userService->delete($id);
-        } catch (\Exception $ex) {
-            abort(404,'Page not found');
-        }
-
-        return redirect()->intended('/system-admin/user-management');
+        return $this->userService->delete($id);
     }
 }

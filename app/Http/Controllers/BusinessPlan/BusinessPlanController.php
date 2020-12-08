@@ -24,97 +24,35 @@ class BusinessPlanController extends Controller
 
     public function index()
     {
-        return view('/business-plan/list', [
-            'businessPlans' => $this->businessPlanService->getAllBusinessPlan()
-        ]);
+        return $this->businessPlanService->list();
     }
 
-    public function businessDetail($id)
+    public function detailForm($id)
     {
-        $businessPlan = $this->businessPlanService->getBusinessPlanInfo($id);
-
-        if (is_null($businessPlan)) {
-            abort(404, __('object_not_found'));
-        }
-
-        return view('/business-plan/detail',  [
-            'businessPlan' => $businessPlan
-        ]);
+        return $this->businessPlanService->detailForm($id);
     }
 
     public function newForm() {
-        return view('/business-plan/add_form', [
-
-        ])->with('isNew', true);
+        return $this->businessPlanService->newForm();
     }
 
     public function new(Request $request)
     {
-        $validator = $this->businessPlanValidation->newValidate($request->all());
-
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
-        }
-
-        $input = $request->all();
-
-        try {
-            $businessPlan = $this->businessPlanService->create($input);
-            return redirect()->intended('/system-admin/business-plan/detail/' . $businessPlan->id);
-        } catch (\Exception $ex) {
-            abort(500, $ex->getMessage());
-        }
+       return $this->businessPlanService->create($request);
     }
 
     public function updateForm($id) {
-        return view('/business-plan/add_form', [
-            'businessPlan' => $this->businessPlanService->getBusinessPlanInfo($id)
-        ]);
+        return $this->businessPlanService->updateForm($id);
     }
 
     public function update($id, Request $request)
     {
-        $businessPlan = $this->businessPlanService->getBusinessPlanInfo($id);
-
-        if (is_null($businessPlan)){
-            abort(400, __('custom_message.business_plan_not_found'));
-        }
-
-        $validator = $this->businessPlanValidation->updateValidate($request->all());
-
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
-        }
-
-        $input = request()->except(['_token', 'role']);
-
-        try {
-            $businessPlan = $this->businessPlanService->update($id, $input);
-
-        } catch (\Exception $ex) {
-            abort(400, $ex->getMessage());
-        }
-
-        return redirect()->intended('/system-admin/business-plan/detail/' . $id);
+        return $this->businessPlanService->update($id, $request);
     }
 
     public function delete($id)
     {
-//        throw new \Exception('Check validate');
-
-        $businessPlan = $this->businessPlanService->getBusinessPlanInfo($id);
-
-        if (is_null($businessPlan)) {
-            abort(404, __('custom_message.business_plan_not_found'));
-        }
-
-        try {
-            $this->businessPlanService->delete('sfsdf');
-        } catch (\Exception $ex) {
-            abort(400, $ex->getMessage());
-        }
-
-        return redirect()->intended('/system-admin/business-plan');
+        return $this->businessPlanService->delete($id);
     }
 }
 

@@ -38,7 +38,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
     // business plan route
     Route::group(['prefix' => 'business-plan'], function () {
         Route::get('/', 'BusinessPlan\BusinessPlanController@index')->name('business-plan.list');
-        Route::get('detail/{id}', 'BusinessPlan\BusinessPlanController@businessDetail')->name('business-plan.detail');
+        Route::get('detail/{id}', 'BusinessPlan\BusinessPlanController@detailForm')->name('business-plan.detail');
         Route::get('new', 'BusinessPlan\BusinessPlanController@newForm')->name('business-plan.new.form');
         Route::post('new', 'BusinessPlan\BusinessPlanController@new')->name('business-plan.new');
         Route::get('update/{id}', 'BusinessPlan\BusinessPlanController@updateForm')->name('business-plan.update.form');

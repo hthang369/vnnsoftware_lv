@@ -30,7 +30,7 @@ class BusinessPlanMysqlRepository extends MyRepository implements BusinessPlanRe
         }
     }
 
-    public function getAllBusinessPlan($data)
+    public function getAllBusinessPlan()
     {
         return BusinessPlan::all();
     }

@@ -18,7 +18,7 @@ class UserValidation implements ValidationInterface {
             'email' => 'required|email|max:255|unique:users,email,' . $id,
             'password' =>'min:6|max:255',
             'name' => 'required|max:255',
-            'phone' => 'max:255|numeric',
+            'phone' => 'numeric',
             'address' => 'max:255',
             'role' => 'required'
         ]);
@@ -30,7 +30,7 @@ class UserValidation implements ValidationInterface {
             'email' => 'required|email|max:255|unique:users',
             'password' => 'min:6|max:255|required',
             'name' => 'required|max:255',
-            'phone' => 'max:255|numeric',
+            'phone' => 'numeric',
             'address' => 'max:255',
             'role' => 'required'
         ]);
