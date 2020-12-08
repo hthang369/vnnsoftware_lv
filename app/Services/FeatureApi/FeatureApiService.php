@@ -83,7 +83,8 @@ class FeatureApiService extends MyService
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
-            abort(500);
+            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
         }
+        return redirect()->intended('/system-admin/feature-api')->with('saved', true);
     }
 }

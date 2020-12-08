@@ -15,15 +15,18 @@
             </div>
         @endif
         <div class="card-body">
-            <div class="form-group">
-                <strong>Feature:</strong>
-                <label>{{$featureApi->feature}}</label>
-            </div>
+            {{--<div class="form-group">--}}
+                {{--<strong>Feature:</strong>--}}
+                {{--<label>{{$featureApi->feature}}</label>--}}
+            {{--</div>--}}
             <div class="form-group">
                 <strong>Api:</strong>
                 <label>{{$featureApi->api}}</label>
             </div>
-            <a class="btn btn-primary" href="/system-admin/feature-api/update/{{$featureApi->id}}" role="button">Update</a>
+            <div class="form-group">
+                <strong>Name:</strong>
+                <label>{{$featureApi->name}}</label>
+            </div>
             <a class="btn btn-danger ml-2" href="{{ route('feature-api.list') }}" role="button">Back</a>
         </div>
     </div>

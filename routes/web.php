@@ -85,8 +85,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
 
     // role has feature-api management route
     Route::group(['prefix' => 'role-has-feature-api'], function () {
-        Route::get('set-{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setRoleForm')->name('role-has-feature-api.set-role.form');
-        Route::post('set-{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setRole')->name('role-has-feature-api.set-role');
+        Route::get('set-permission/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setPermissionForm')->name('role-has-feature-api.set-permission.form');
+        Route::post('set-permission/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setPermission')->name('role-has-feature-api.set-permission');
         Route::get('ajax-check-is-used-feature-api/{feature_id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@ajaxCheckIsUsedFeatureApi')->name('role-has-feature-api.ajax-check-is-used-feature-api');
     });
 });
