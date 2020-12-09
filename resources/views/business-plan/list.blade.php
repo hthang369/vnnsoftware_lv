@@ -7,6 +7,9 @@
 @endsection
 
 @section('content')
+    <div class="alert alert-primary" role="alert">
+        <h1>@lang('custom_title.business_plan')</h1>
+    </div>
     <a class="m-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ Add New</a>
     <table class="table table-hover">
         <thead>

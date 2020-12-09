@@ -6,4 +6,5 @@ return [
     'role' => 'Role',
     'feature_api' => 'Feature api',
     'version' => 'Version',
+    'business_plan' => 'Business plan',
     ];
