@@ -11,6 +11,9 @@
 @endsection
 
 @section('content')
+    <div class="alert alert-primary" role="alert">
+        <h1>@lang('custom_title.feature_api')</h1>
+    </div>
     <a class="m-2 btn btn-primary" href="/system-admin/feature-api/new" role="button">+ Add New</a>
     <a class="m-2 btn btn-outline-danger" href="/system-admin/feature-api/save-all-to-db" role="button">Sync with DB</a>
     @if(session()->has('deleted'))
@@ -27,11 +30,11 @@
         <table class="table table-hover" style="table-layout: fixed; word-break: break-word">
             <thead>
             <tr>
-                <th scope="col">No</th>
-                <th scope="col">Feature</th>
-                <th scope="col">Api</th>
-                <th scope="col">Name</th>
-                <th scope="col">Action</th>
+                <th scope="col">@lang('custom_label.index')</th>
+                <th scope="col">@lang('custom_label.feature')</th>
+                <th scope="col">@lang('custom_label.api')</th>
+                <th scope="col">@lang('custom_label.name')</th>
+                <th scope="col">@lang('custom_label.action')</th>
             </tr>
             </thead>
             <tbody>

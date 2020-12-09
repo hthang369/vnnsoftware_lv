@@ -22,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('login', 'User\UserController@login')->name('user.login');
 Route::post('register', 'User\UserController@register')->name('user.register');
 
-
+//, 'middleware' => ['auth']
 Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
     // company route
     Route::group(['prefix' => 'company'], function () {

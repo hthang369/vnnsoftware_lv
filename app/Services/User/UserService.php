@@ -59,7 +59,7 @@ class UserService extends MyService
         $user = $this->getUserById($id);
         $userRoleIds = array();
         if (is_null($user)) {
-            abort(404,'Page not found');
+            abort(400,__('custom_message.user_not_found'));
         }
 
         foreach ($user->roles as $key => $value)
@@ -78,7 +78,7 @@ class UserService extends MyService
         $user = $this->getUserById($id);
 
         if (is_null($user)) {
-            abort(404,'Page not found');
+            abort(400,__('custom_message.user_not_found'));
         }
 
         return view('/user-management/detail')->with('user', $user);
@@ -117,7 +117,7 @@ class UserService extends MyService
         $user = $this->getUserById($id);
 
         if (is_null($user)) {
-            abort(404,'Page not found');
+            abort(400, __('custom_message.user_not_found'));
         }
 
         $validator = $this->userValidate->updateValidate($request->all(), $id);
@@ -139,7 +139,7 @@ class UserService extends MyService
             $user->roles()->attach($request->role);
             $user = $this->userRepo->update($id, $input);
         } catch (\Exception $ex) {
-            abort(404,'Page not found');
+            abort(400, $ex->getMessage());
         }
 
         return redirect()->intended('/system-admin/user-management/detail/' . $id);
@@ -192,13 +192,13 @@ class UserService extends MyService
         $user = $this->getUserById($id);
 
         if (is_null($user)) {
-            abort(404,'Page not found');
+            abort(400,__('custom_message.user_not_found'));
         }
 
         try {
             $this->userRepo->delete($id);
         } catch (\Exception $ex) {
-            abort(404,'Page not found');
+            abort(400,$ex->getMessage());
         }
 
         return redirect()->intended('/system-admin/user-management');

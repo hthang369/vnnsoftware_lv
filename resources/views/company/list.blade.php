@@ -7,6 +7,9 @@
 @endsection
 
 @section('content')
+    <div class="alert alert-primary" role="alert">
+        <h1>@lang('custom_title.company')</h1>
+    </div>
     <a class="m-2 btn btn-primary" href="/system-admin/company/new" role="button">+ Add New</a>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
@@ -22,13 +25,13 @@
         <table class="table table-hover" style="table-layout: fixed; word-break: break-word">
             <thead>
             <tr>
-                <th scope="col">No</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Address</th>
-                <th scope="col">Business plan</th>
-                <th scope="col">Action</th>
+                <th scope="col">@lang('custom_label.index')</th>
+                <th scope="col">@lang('custom_label.name')</th>
+                <th scope="col">@lang('custom_label.email')</th>
+                <th scope="col">@lang('custom_label.phone')</th>
+                <th scope="col">@lang('custom_label.address')</th>
+                <th scope="col">@lang('custom_label.business_plan')</th>
+                <th scope="col">@lang('custom_label.action')</th>
             </tr>
             </thead>
             <tbody>

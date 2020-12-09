@@ -12,12 +12,10 @@ class RoleController extends Controller
 
     private $roleService;
 
-    private $roleValidation;
 
-    public function __construct(RoleService $roleService, RoleValidation $roleValidation)
+    public function __construct(RoleService $roleService)
     {
         $this->roleService = $roleService;
-        $this->roleValidation = $roleValidation;
     }
 
     public function index()
@@ -27,89 +25,30 @@ class RoleController extends Controller
 
     public function detail($id)
     {
-        $role = $this->roleService->getById($id);
-
-        if (is_null($role)) {
-            abort(404,'Page not found');
-        }
-
-        return view('/role/detail')->with('role', $role);
+        return $this->roleService->detail($id);
     }
 
     public function newForm() {
-        return view('/role/add_form');
+        return $this->roleService->newForm();
     }
 
     public function updateForm($id) {
-        $role = $this->roleService->getById($id);
 
-        if (is_null($role)) {
-            abort(404,'Page not found');
-        }
-
-        return view('/role/add_form')->with('role', $role);
+        return $this->roleService->updateForm($id);
     }
 
     public function register(Request $request)
     {
-
-        $validator = $this->roleValidation->newValidate($request->all());
-
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
-        }
-
-        $input = $request->all();
-
-        try {
-
-            $role = $this->roleService->create($input);
-            return redirect()->intended('/system-admin/role/detail/' . $role->id)->with('saved', true);
-        } catch (\Exception $ex) {
-            abort(500);
-        }
+        return $this->roleService->create($request);
     }
 
     public function update($id, Request $request)
     {
-        $role = $this->roleService->getById($id);
-
-        if (is_null($role)) {
-            abort(404,'Page not found');
-        }
-
-        $validator = $this->roleValidation->updateValidate($request->all(), $id);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
-        }
-
-        $input = request()->except(['_token', 'role']);
-
-        try {
-            $role = $this->roleService->update($id, $input);
-        } catch (\Exception $ex) {
-            abort(500);
-        }
-
-        return redirect()->intended('/system-admin/role/detail/' . $id)->with('saved', true);
+        return $this->roleService->update($id, $request);
     }
 
     public function delete($id)
     {
-        $role = $this->roleService->getById($id);
-
-        if (is_null($role)) {
-            abort(404,'Page not found');
-        }
-
-        try {
-
-            $this->roleService->delete($id);
-        } catch (\Exception $ex) {
-            abort(500);
-        }
-
-        return redirect()->intended('/system-admin/role')->with('deleted', true);
+        return $this->roleService->delete($id);
     }
 }

@@ -95,7 +95,7 @@ class BusinessPlanService extends MyService
         $businessPlan = $this->getBusinessPlanInfo($id);
 
         if (is_null($businessPlan)) {
-            abort(404, __('custom_message.business_plan_not_found'));
+            abort(400, __('custom_message.business_plan_not_found'));
         }
 
         try {
@@ -127,7 +127,6 @@ class BusinessPlanService extends MyService
 
     public function getAllBusinessPlan()
     {
-
         return DB::table('business_plan')->get();
     }
 

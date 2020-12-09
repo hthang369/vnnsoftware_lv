@@ -7,6 +7,10 @@
 @endsection
 
 @section('content')
+    <div class="alert alert-primary" role="alert">
+        <h1>@lang('custom_title.user')</h1>
+    </div>
+
     <a class="m-2 btn btn-primary" href="/system-admin/user-management/new" role="button">+ Add New</a>
     @if(count($list) == 0)
         <div class="alert alert-warning">
@@ -17,13 +21,13 @@
         <table class="table table-hover" style="table-layout: fixed; word-break: break-word">
             <thead>
             <tr>
-                <th scope="col"></th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Address</th>
-                <th scope="col">Role</th>
-                <th scope="col">Action</th>
+                <th scope="col">@lang('custom_label.index')</th>
+                <th scope="col">@lang('custom_label.name')</th>
+                <th scope="col">@lang('custom_label.email')</th>
+                <th scope="col">@lang('custom_label.phone')</th>
+                <th scope="col">@lang('custom_label.address')</th>
+                <th scope="col">@lang('custom_label.role')</th>
+                <th scope="col">@lang('custom_label.action')</th>
             </tr>
             </thead>
             <tbody>

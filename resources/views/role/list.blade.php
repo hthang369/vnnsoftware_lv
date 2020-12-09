@@ -7,6 +7,9 @@
 @endsection
 
 @section('content')
+    <div class="alert alert-primary" role="alert">
+        <h1>@lang('custom_title.role')</h1>
+    </div>
     <a class="m-2 btn btn-primary" href="/system-admin/role/new" role="button">+ Add New</a>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
@@ -22,12 +25,12 @@
         <table class="table table-hover" style="table-layout: fixed; word-break: break-word">
             <thead>
             <tr>
-                <th scope="col">No</th>
-                <th scope="col">Name</th>
-                <th scope="col">Role rank</th>
-                <th scope="col">Description</th>
-                <th scope="col">Permission</th>
-                <th scope="col">Action</th>
+                <th scope="col">@lang('custom_label.index')</th>
+                <th scope="col">@lang('custom_label.name')</th>
+                <th scope="col">@lang('custom_label.role_rank')</th>
+                <th scope="col">@lang('custom_label.description')</th>
+                <th scope="col">@lang('custom_label.permission')</th>
+                <th scope="col">@lang('custom_label.action')</th>
             </tr>
             </thead>
             <tbody>
