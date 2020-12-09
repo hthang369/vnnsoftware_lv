@@ -89,4 +89,12 @@ Route::group(['prefix' => 'system-admin'], function () {
         Route::post('set-permission/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setPermission')->name('role-has-feature-api.set-permission');
         Route::get('ajax-check-is-used-feature-api/{feature_id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@ajaxCheckIsUsedFeatureApi')->name('role-has-feature-api.ajax-check-is-used-feature-api');
     });
+
+    // approval api token route
+    Route::group(['prefix' => 'approval-api-token'], function () {
+        Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('approval-api-token.list');
+        Route::get('approval-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@approvalToken')->name('approval-api-token.approval-token');
+        Route::get('stop-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@stopToken')->name('approval-api-token.stop-token');
+        Route::get('delete-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@deleteToken')->name('approval-api-token.delete-token');
+    });
 });
