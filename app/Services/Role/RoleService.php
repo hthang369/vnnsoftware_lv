@@ -57,6 +57,19 @@ class RoleService extends MyService
     public function register(Request $request)
     {
 
+        return $this->roleRepo->getById($id);
+    }
+
+    public function list()
+    {
+        $list = $this->roleRepo->getAll();
+        $listApiName = $this->roleRepo->getAllFeatureApiName();
+
+        return view('/role/list')->with(['list' => $list, 'listApiName' => $listApiName]);
+    }
+
+    public function create(Request $request)
+    {
         $validator = $this->roleValidation->newValidate($request->all());
 
         if ($validator->fails()) {
@@ -97,6 +110,46 @@ class RoleService extends MyService
         }
 
         return redirect()->intended('/system-admin/role/detail/' . $id)->with('saved', true);
+
+    }
+
+    public function register(Request $request)
+    {
+
+        $validator = $this->roleValidation->newValidate($request->all());
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        }
+
+        $input = $request->all();
+
+        try {
+
+            $role = $this->roleRepo->create($input);
+            return redirect()->intended('/system-admin/role/detail/' . $role->id)->with('saved', true);
+        } catch (\Exception $ex) {
+            abort(500);
+        }
+    }
+
+    public function ruleCreateUpdate($request, $id = null)
+    {
+        return $validator = Validator::make($request, [
+            'name' => 'required|max:255',
+            'role_rank' => 'required|max:255|numeric',
+            'description' => 'max:255',
+        ]);
+    }
+
+    public function getAll()
+    {
+        return $this->roleRepo->getAll();
+    }
+
+    public function getAllFeatureApiName()
+    {
+        return $this->roleRepo->getAllFeatureApiName();
     }
 
     public function delete($id)
