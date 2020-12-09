@@ -21,14 +21,14 @@ class ApprovalApiTokenController extends Controller
         return $this->approvalApiTokenService->list();
     }
 
-    public function approvalToken(Request $request)
+    public function approvalToken($id)
     {
-        return $this->approvalApiTokenService->approvalToken($request);
+        return $this->approvalApiTokenService->approvalToken($id);
     }
 
-    public function stopToken($id, Request $request)
+    public function stopToken($id)
     {
-        return $this->approvalApiTokenService->stopToken($id, $request);
+        return $this->approvalApiTokenService->stopToken($id);
     }
 
     public function deleteToken($id)

@@ -14,27 +14,42 @@ class ApprovalApiTokenService
 
     public function list()
     {
-//        $url = env('API_ADDRESS') . '/api/v1/api-token/get-list-approval';
-//        $request = null;
-//        $method = "GET";
-//        $authID = Auth::id();
-//        $infoRoom = $this->sendRequestToAPI($url, $method, $request, $authID);
-        $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
-//        dd(json_decode($json, true)); exit;
-        return view('/approval-api-token/list')->with('json', json_decode($json, true));
-        return ($infoRoom->getBody());
+        $url = env('API_ADDRESS') . '/api/v1/api-token/get-list-approval';
+        $request = null;
+        $method = "GET";
+        $authID = Auth::id();
+        $infoRoom = $this->sendRequestToAPI($url, $method, $request, $authID);
+        return view('/system-admin/approval-api-token/list')->with('json', $infoRoom->getBody());
     }
 
-    public function approvalToken(Request $request)
+    public function approvalToken($id)
     {
+        $url = env('API_ADDRESS') . '/api/v1/api-token/approve-token';
+        $request  = ['id' => $id];
+        $method   = "POST";
+        $authID   = Auth::id();
+        $infoRoom = $this->sendRequestToAPI($url, $method, $request, $authID);
+        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
     }
 
-    public function stopToken($id, Request $request)
+    public function stopToken($id)
     {
+        $url = env('API_ADDRESS') . '/api/v1/api-token/stop-token';
+        $request  = ['id' => $id];
+        $method   = "POST";
+        $authID   = Auth::id();
+        $infoRoom = $this->sendRequestToAPI($url, $method, $request, $authID);
+        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
     }
 
     public function deleteToken($id)
     {
+        $url = env('API_ADDRESS') . '/api/v1/api-token/delete-token';
+        $request  = ['id' => $id];
+        $method   = "POST";
+        $authID   = Auth::id();
+        $infoRoom = $this->sendRequestToAPI($url, $method, $request, $authID);
+        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
     }
 
     private function sendRequestToAPI(string $string, $method, $request, $userID)
@@ -43,8 +58,9 @@ class ApprovalApiTokenService
         $options = [
             'form_params' => $request,
             'headers' => [
-                'userid' => $userID,
-                'secret' => md5(config('sns_config.secretToken')),
+//                'userid' => $userID,
+                'token' => 'test-token',
+//                'secret' => md5(config('sns_config.secretToken')),
             ],
         ];
 
