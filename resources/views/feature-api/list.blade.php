@@ -11,11 +11,16 @@
 @endsection
 
 @section('content')
-    <a class="m-2 btn btn-primary" href="/system-admin/feature-api/new" role="button">+ Add New</a>
+    {{--<a class="m-2 btn btn-primary" href="/system-admin/feature-api/new" role="button">+ Add New</a>--}}
     <a class="m-2 btn btn-outline-danger" href="/system-admin/feature-api/save-all-to-db" role="button">Sync with DB</a>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
             <strong>Deleted!</strong>
+        </div>
+    @endif
+    @if(session()->has('saved'))
+        <div class="alert alert-success">
+            <strong>Saved!</strong>
         </div>
     @endif
     @if(count($list) == 0)
@@ -23,37 +28,37 @@
             <strong>Sorry!</strong> No Item Found.
         </div>
     @else
-
-        <table class="table table-hover" style="table-layout: fixed; word-break: break-word">
-            <thead>
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">Feature</th>
-                <th scope="col">Api</th>
-                <th scope="col">Name</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($list as $i => $featureApi)
+        <div class="table-responsive-sm">
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <td>{{$i + 1}}</td>
-                    <td>{{$featureApi->feature}}</td>
-                    <td>{{$featureApi->api}}</td>
-                    <td>{{$featureApi->name}}</td>
-                    <td>
-                        <a class="btn btn-info" href="/system-admin/feature-api/detail/{{$featureApi->id}}" role="button">Detail</a>
-                        <a class="btn btn-primary" href="/system-admin/feature-api/update/{{$featureApi->id}}" role="button">Update</a>
-                        <button onclick="return callAjaxCheckDelete({{$featureApi->id}});"
-                                type="button"
-                                class="btn btn-danger"
-                                role="button">Delete
-                        </button>
-                    </td>
+                    <th scope="col">No</th>
+                    {{--<th scope="col">Feature</th>--}}
+                    <th scope="col">Api</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Action</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach($list as $i => $featureApi)
+                    <tr>
+                        <td>{{$i + 1}}</td>
+                        {{--                    <td>{{$featureApi->feature}}</td>--}}
+                        <td>{{$featureApi->api}}</td>
+                        <td>{{$featureApi->name}}</td>
+                        <td>
+                            <a class="btn btn-info m-1" href="/system-admin/feature-api/detail/{{$featureApi->id}}" role="button">Detail</a>
+                            <button onclick="return callAjaxCheckDelete({{$featureApi->id}});"
+                                    type="button"
+                                    class="btn btn-danger m-1"
+                                    role="button">Delete
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
         <script>
             function callAjaxCheckDelete(id) {
                 $(".custom-delete").click(function () {
