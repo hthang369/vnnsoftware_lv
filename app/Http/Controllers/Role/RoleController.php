@@ -12,7 +12,6 @@ class RoleController extends Controller
 
     private $roleService;
 
-
     public function __construct(RoleService $roleService)
     {
         $this->roleService = $roleService;

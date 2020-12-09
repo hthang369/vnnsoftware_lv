@@ -29,7 +29,7 @@ class RoleHasFeatureApiController extends Controller
         return response()->json(array('isUsed'=> $isUsed), 200);
     }
 
-    public function setRoleForm($id)
+    public function setPermissionForm($id)
     {
         $role = $this->roleService->getById($id);
 
@@ -46,7 +46,7 @@ class RoleHasFeatureApiController extends Controller
         return view('/role-has-feature-api/set_role_form')->with(['arrayOldFeatureApi' => $arrayOldFeatureApi, 'role' => $role, 'listFeatureApi' => $listFeatureApi]);
     }
 
-    public function setRole(Request $request)
+    public function setPermission(Request $request)
     {
 
         $validator = $this->roleHasFeatureApiService->ruleCreateUpdate($request->all());

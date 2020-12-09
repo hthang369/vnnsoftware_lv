@@ -58,6 +58,14 @@ class RoleService extends MyService
         return $this->roleRepo->getById($id);
     }
 
+    public function list()
+    {
+        $list = $this->roleRepo->getAll();
+        $listApiName = $this->roleRepo->getAllFeatureApiName();
+
+        return view('/role/list')->with(['list' => $list, 'listApiName' => $listApiName]);
+    }
+
     public function create(Request $request)
     {
         //return $this->roleRepo->create($input);
@@ -83,14 +91,39 @@ class RoleService extends MyService
         $role = $this->getById($id);
 
         if (is_null($role)) {
-            abort(400,__('custom_message.role_plan_not_found'));
+    }
+
+    public function updateForm($id)
+    {
+        $role = $this->roleRepo->getById($id);
+
+        if (is_null($role)) {
+            abort(404, 'Page not found');
         }
 
-        $validator = $this->roleValidation->updateValidate($request->all(), $id);
+        return view('/role/update_form')->with('role', $role);
+    }
+
+    public function register(Request $request)
+    {
+
+        $validator = $this->roleValidation->newValidate($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
+
+        $input = $request->all();
+
+        try {
+
+            $role = $this->roleRepo->create($input);
+            return redirect()->intended('/system-admin/role/detail/' . $role->id)->with('saved', true);
+        } catch (\Exception $ex) {
+            abort(500);
+        }
+    }
+
 
         $input = request()->except(['_token', 'role']);
 

@@ -40,9 +40,6 @@ class CompanyController extends Controller
 
     public function register(Request $request)
     {
-
-       
-
         return $this->companyService->Create($request);
     }
 
