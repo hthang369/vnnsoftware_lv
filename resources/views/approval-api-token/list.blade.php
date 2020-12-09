@@ -17,7 +17,7 @@
             <strong>Saved!</strong>
         </div>
     @endif
-    @if( 0)
+    @if(count($json) == 0)
         <div class="alert alert-warning">
             <strong>Sorry!</strong> No Item Found.
         </div>
@@ -34,7 +34,7 @@
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
-                <tbody>{{var_dump($json)}}
+                <tbody>
                 @foreach($json as $i => $item)
                     <tr>
                         <td>{{$i + 1}}</td>
@@ -43,9 +43,9 @@
                         <td>{{$item['request_approval_status']}}</td>
                         <td>{{$item['request_approval_timestamp']}}</td>
                         <td>
-                            <a class="btn btn-info m-1" href="/system-admin/company/detail/{{$item['id']}}" role="button">Approval token</a>
-                            <a class="btn btn-primary m-1" href="/system-admin/company/update/{{$item['id']}}" role="button">Stop token</a>
-                            <a class="btn btn-danger m-1" href="/system-admin/company/delete/{{$item['id']}}" role="button">Delete token</a>
+                            <a class="btn btn-info m-1" href="/system-admin/approval-api-token/approval-token/{{$item['id']}}" role="button">Approval token</a>
+                            <a class="btn btn-primary m-1" href="/system-admin/approval-api-token/stop-token/{{$item['id']}}" role="button">Stop token</a>
+                            <a class="btn btn-danger m-1" href="/system-admin/approval-api-token/delete-token/{{$item['id']}}" role="button">Delete token</a>
                         </td>
                     </tr>
                 @endforeach
