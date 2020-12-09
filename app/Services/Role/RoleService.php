@@ -33,7 +33,7 @@ class RoleService extends MyService
         $role = $this->getById($id);
 
         if (is_null($role)) {
-            abort(400,__('custom_message.role_plan_not_found'));
+            abort(400,__('custom_message.role_not_found'));
         }
 
         return view('/role/detail')->with('role', $role);
@@ -47,7 +47,7 @@ class RoleService extends MyService
         $role = $this->getById($id);
 
         if (is_null($role)) {
-            abort(400,__('custom_message.role_plan_not_found'));
+            abort(400,__('custom_message.role_not_found'));
         }
 
         return view('/role/add_form')->with('role', $role);
@@ -68,7 +68,6 @@ class RoleService extends MyService
 
     public function create(Request $request)
     {
-        //return $this->roleRepo->create($input);
         $validator = $this->roleValidation->newValidate($request->all());
 
         if ($validator->fails()) {
@@ -91,17 +90,18 @@ class RoleService extends MyService
         $role = $this->getById($id);
 
         if (is_null($role)) {
-    }
+            abort(400, __('custom_message.role_not_found'));
+        }
+        $input = request()->except(['_token', 'role']);
 
-    public function updateForm($id)
-    {
-        $role = $this->roleRepo->getById($id);
-
-        if (is_null($role)) {
-            abort(404, 'Page not found');
+        try {
+            $role = $this->roleRepo->update($id, $input);
+        } catch (\Exception $ex) {
+            abort(400,$ex->getMessage());
         }
 
-        return view('/role/update_form')->with('role', $role);
+        return redirect()->intended('/system-admin/role/detail/' . $id)->with('saved', true);
+
     }
 
     public function register(Request $request)
@@ -122,18 +122,6 @@ class RoleService extends MyService
         } catch (\Exception $ex) {
             abort(500);
         }
-    }
-
-
-        $input = request()->except(['_token', 'role']);
-
-        try {
-            $role = $this->roleRepo->update($id, $input);
-        } catch (\Exception $ex) {
-            abort(400,$ex->getMessage());
-        }
-
-        return redirect()->intended('/system-admin/role/detail/' . $id)->with('saved', true);
     }
 
     public function ruleCreateUpdate($request, $id = null)
@@ -160,7 +148,7 @@ class RoleService extends MyService
         $role = $this->getById($id);
 
         if (is_null($role)) {
-            abort(400,__('custom_message.role_plan_not_found'));
+            abort(400, __('custom_message.role_not_found'));
         }
 
         try {
