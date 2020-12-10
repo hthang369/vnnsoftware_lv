@@ -7,5 +7,4 @@ interface RoleRepositoryInterface
     public function getAll();
     public function getAllFeatureApiName();
     public function create($input);
-    public function update($id, $input);
 }

@@ -4,15 +4,18 @@ namespace App\Services\FeatureApi;
 
 use App\Repositories\FeatureApi\FeatureApiRepositoryInterface;
 use App\Services\Contract\MyService;
+use App\Services\RoleHasFeatureApi\RoleHasFeatureApiService;
 use Illuminate\Support\Facades\DB;
 
 class FeatureApiService extends MyService
 {
     private $featureApiRepo;
+    private $roleHasFeatureApiService;
 
-    public function __construct(FeatureApiRepositoryInterface $featureApiRepo)
+    public function __construct(FeatureApiRepositoryInterface $featureApiRepo, RoleHasFeatureApiService $roleHasFeatureApiService)
     {
         $this->featureApiRepo = $featureApiRepo;
+        $this->roleHasFeatureApiService = $roleHasFeatureApiService;
     }
 
     public function list()
@@ -23,7 +26,7 @@ class FeatureApiService extends MyService
 
     public function delete($id)
     {
-        $featureApi = $this->getById($id);
+        $featureApi = $this->featureApiRepo->getById($id);
 
         if (is_null($featureApi)) {
             abort(400, __('custom_message.feature_api_not_found'));
@@ -31,8 +34,8 @@ class FeatureApiService extends MyService
 
         try {
             DB::beginTransaction();
-            $this->featureApiRepo->delete($id);
-            $this->roleHasFeatureApiService->deleteByFeatureApiId($featureApi->id);
+            $featureApi->delete();
+            $this->roleHasFeatureApiService->deleteByFeatureApiName($featureApi->name);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();

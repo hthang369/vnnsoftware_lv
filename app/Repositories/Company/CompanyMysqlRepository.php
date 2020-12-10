@@ -20,19 +20,10 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
             ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id')->get();
     }
 
-    public function Create($input)
+    public function create($input)
     {
-        return Company::create($input);
-    }
-
-    public function update($id, $input)
-    {
-        return Company::where('id', $id)
-            ->update($input);
-    }
-
-    public function delete($id)
-    {
-        return Company::where('id', $id)->delete();
+        $company = new Company($input);
+        $company->save();
+        return $company;
     }
 }
