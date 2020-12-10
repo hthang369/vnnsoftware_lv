@@ -12,7 +12,7 @@ class CompanyValidation implements ValidationInterface
             'email' => 'required|email|max:255|unique:company',
             'name' => 'required|max:255|unique:company',
             'business_plan_id' => 'required|max:255',
-            'phone' => 'numeric',
+            'phone' => 'max:255',
             'address' => 'max:255',
         ]);
     }
@@ -23,7 +23,7 @@ class CompanyValidation implements ValidationInterface
             'email' => 'required|email|max:255|unique:company,email,' . $id,
             'name' => 'required|max:255|unique:company,name,' . $id,
             'business_plan_id' => 'required|max:255',
-            'phone' => 'numeric',
+            'phone' => 'max:255',
             'address' => 'max:255',
         ]);
     }

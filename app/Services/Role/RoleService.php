@@ -2,7 +2,6 @@
 
 namespace App\Services\Role;
 
-
 use App\Repositories\Role\RoleRepositoryInterface;
 use App\Services\Contract\MyService;
 use App\Validations\RoleValidation;
@@ -32,7 +31,7 @@ class RoleService extends MyService
         $role = $this->roleRepo->getById($id);
 
         if (is_null($role)) {
-            abort(400,__('custom_message.role_plan_not_found'));
+            abort(400, __('custom_message.role_plan_not_found'));
         }
 
         return view('/role/detail')->with('role', $role);
@@ -48,43 +47,10 @@ class RoleService extends MyService
         $role = $this->roleRepo->getById($id);
 
         if (is_null($role)) {
-            abort(400,__('custom_message.role_plan_not_found'));
+            abort(400, __('custom_message.role_plan_not_found'));
         }
 
         return view('/role/update_form')->with('role', $role);
-    }
-
-    public function register(Request $request)
-    {
-
-        return $this->roleRepo->getById($id);
-    }
-
-    public function list()
-    {
-        $list = $this->roleRepo->getAll();
-        $listApiName = $this->roleRepo->getAllFeatureApiName();
-
-        return view('/role/list')->with(['list' => $list, 'listApiName' => $listApiName]);
-    }
-
-    public function create(Request $request)
-    {
-        $validator = $this->roleValidation->newValidate($request->all());
-
-        if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
-        }
-
-        $input = $request->all();
-
-        try {
-
-            $role = $this->roleRepo->create($input);
-            return redirect()->intended('/system-admin/role/detail/' . $role->id)->with('saved', true);
-        } catch (\Exception $ex) {
-            abort(400,$ex->getMessage());
-        }
     }
 
     public function update($id, Request $request)
@@ -92,7 +58,7 @@ class RoleService extends MyService
         $role = $this->roleRepo->getById($id);
 
         if (is_null($role)) {
-            abort(400,__('custom_message.role_plan_not_found'));
+            abort(400, __('custom_message.role_plan_not_found'));
         }
 
         $validator = $this->roleValidation->updateValidate($request->all(), $id);
@@ -106,7 +72,7 @@ class RoleService extends MyService
         try {
             $role = $this->roleRepo->update($id, $input);
         } catch (\Exception $ex) {
-            abort(400,$ex->getMessage());
+            abort(400, $ex->getMessage());
         }
 
         return redirect()->intended('/system-admin/role/detail/' . $id)->with('saved', true);
@@ -133,38 +99,19 @@ class RoleService extends MyService
         }
     }
 
-    public function ruleCreateUpdate($request, $id = null)
-    {
-        return $validator = Validator::make($request, [
-            'name' => 'required|max:255',
-            'role_rank' => 'required|max:255|numeric',
-            'description' => 'max:255',
-        ]);
-    }
-
-    public function getAll()
-    {
-        return $this->roleRepo->getAll();
-    }
-
-    public function getAllFeatureApiName()
-    {
-        return $this->roleRepo->getAllFeatureApiName();
-    }
-
     public function delete($id)
     {
         $role = $this->roleRepo->getById($id);
 
         if (is_null($role)) {
-            abort(400,__('custom_message.role_plan_not_found'));
+            abort(400, __('custom_message.role_plan_not_found'));
         }
 
         try {
 
             $this->roleRepo->delete($id);
         } catch (\Exception $ex) {
-            abort(400,$ex->getMessage());
+            abort(400, $ex->getMessage());
         }
 
         return redirect()->intended('/system-admin/role')->with('deleted', true);
