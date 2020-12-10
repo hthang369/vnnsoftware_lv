@@ -2,7 +2,6 @@
 
 namespace App\Services\ApprovalApiToken;
 
-
 use Illuminate\Support\Facades\Auth;
 
 class ApprovalApiTokenService
@@ -64,6 +63,16 @@ class ApprovalApiTokenService
     public function stopToken($id)
     {
         $url = env('API_ADDRESS') . '/api/v1/api-token/stop-token';
+        $request = ['id' => $id];
+        $method = "POST";
+        $authID = Auth::id();
+        $infoRoom = $this->sendRequestToAPI($url, $method, $request, $authID);
+        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
+    }
+
+    public function reopenToken($id)
+    {
+        $url = env('API_ADDRESS') . '/api/v1/api-token/reopen-token';
         $request = ['id' => $id];
         $method = "POST";
         $authID = Auth::id();
