@@ -15,7 +15,7 @@
         <h1>@lang('custom_title.feature_api')</h1>
     </div>
     {{--<a class="m-2 btn btn-primary" href="/system-admin/feature-api/new" role="button">+ Add New</a>--}}
-    <a class="m-2 btn btn-outline-danger" href="/system-admin/feature-api/save-all-to-db" role="button">Sync with DB</a>
+    <a class="m-2 btn btn-outline-danger" onclick="return confirm('Are you sure you want to Sync?');" href="/system-admin/feature-api/save-all-to-db" role="button">Sync with DB</a>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
             <strong>Deleted!</strong>
