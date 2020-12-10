@@ -15,52 +15,11 @@ class FeatureApiService extends MyService
 {
     private $featureApiRepo;
     private $roleHasFeatureApiRepo;
-    private $roleHasFeatureApiService;
-    private $featureApiValidation;
 
-    public function __construct(
-        FeatureApiRepositoryInterface $featureApiRepo,
-        RoleHasFeatureApiMysqlRepository $roleHasFeatureApiRepo,
-        FeatureApiValidation $featureApiValidation,
-        RoleHasFeatureApiService $roleHasFeatureApiService)
+    public function __construct(FeatureApiRepositoryInterface $featureApiRepo, RoleHasFeatureApiMysqlRepository $roleHasFeatureApiRepo)
     {
         $this->featureApiRepo = $featureApiRepo;
         $this->roleHasFeatureApiRepo = $roleHasFeatureApiRepo;
-        $this->featureApiValidation = $featureApiValidation;
-        $this->roleHasFeatureApiService = $roleHasFeatureApiService;
-    }
-
-    public function index()
-    {
-        $list = $this->getAll();
-        return view('/feature-api/list')->with('list', $list);
-    }
-
-    public function detail($id)
-    {
-        $featureApi = $this->getById($id);
-
-        if (is_null($featureApi)) {
-            abort(400, __('custom_message.feature_api_not_found'));
-        }
-
-        return view('/feature-api/detail')->with('featureApi', $featureApi);
-    }
-
-    public function newForm()
-    {
-        return view('/feature-api/add_form');
-    }
-
-    public function updateForm($id)
-    {
-        $featureApi = $this->getById($id);
-
-        if (is_null($featureApi)) {
-            abort(400, __('custom_message.feature_api_not_found'));
-        }
-
-        return view('/feature-api/add_form')->with('featureApi', $featureApi);
     }
 
     public function getById($id)
@@ -156,6 +115,22 @@ class FeatureApiService extends MyService
         $routeCollection = \Route::getRoutes();
         try {
             DB::beginTransaction();
+//        $listRoleHasFeatureApiWithName = $this->roleHasFeatureApiRepo->getAllByFeatureApiName();
+        try {
+            DB::beginTransaction();
+//            foreach ($listRoleHasFeatureApiWithName as $item) {
+//                $has = false;
+//                foreach ($routeCollection as $value) {
+//                    $value->getName();
+//                    if ($item->feature_api_name == $value->getName()) {
+//                        $has = true;
+//                        break;
+//                    }
+//                }
+//                if (!$has) {
+//                    $this->roleHasFeatureApiRepo->deleteByFeatureApiName($item->feature_api_name);
+//                }
+//            }
 
             $this->featureApiRepo->deleteAll();
             foreach ($routeCollection as $value) {
@@ -167,7 +142,8 @@ class FeatureApiService extends MyService
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
-            abort(400,$ex->getMessage());
+            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
         }
+        return redirect()->intended('/system-admin/feature-api')->with('saved', true);
     }
 }

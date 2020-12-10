@@ -80,4 +80,9 @@ class FeatureApiController extends Controller
     {
         return $this->featureApiService->saveAllRoutesToDB();
     }
+
+    public function saveAllRoutesToDB()
+    {
+        return $this->featureApiService->saveAllRoutesToDB();
+    }
 }

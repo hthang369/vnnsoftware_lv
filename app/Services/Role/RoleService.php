@@ -7,7 +7,6 @@ use App\Repositories\Role\RoleRepositoryInterface;
 use App\Services\Contract\MyService;
 use App\Validations\RoleValidation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class RoleService extends MyService
 {
@@ -20,17 +19,17 @@ class RoleService extends MyService
         $this->roleValidation = $roleValidation;
     }
 
-    public function index()
+    public function list()
     {
-        $list = $this->getAll();
-        $listApiName = $this->getAllFeatureApiName();
+        $list = $this->roleRepo->getAll();
+        $listApiName = $this->roleRepo->getAllFeatureApiName();
 
         return view('/role/list')->with(['list' => $list, 'listApiName' => $listApiName]);
     }
 
     public function detail($id)
     {
-        $role = $this->getById($id);
+        $role = $this->roleRepo->getById($id);
 
         if (is_null($role)) {
             abort(400,__('custom_message.role_plan_not_found'));
@@ -39,28 +38,25 @@ class RoleService extends MyService
         return view('/role/detail')->with('role', $role);
     }
 
-    public function newForm() {
+    public function newForm()
+    {
         return view('/role/add_form');
     }
 
-    public function updateForm($id) {
-        $role = $this->getById($id);
+    public function updateForm($id)
+    {
+        $role = $this->roleRepo->getById($id);
 
         if (is_null($role)) {
             abort(400,__('custom_message.role_plan_not_found'));
         }
 
-        return view('/role/add_form')->with('role', $role);
+        return view('/role/update_form')->with('role', $role);
     }
 
-    public function getById($id)
+    public function register(Request $request)
     {
-        return $this->roleRepo->getById($id);
-    }
 
-    public function create(Request $request)
-    {
-        //return $this->roleRepo->create($input);
         $validator = $this->roleValidation->newValidate($request->all());
 
         if ($validator->fails()) {
@@ -78,9 +74,9 @@ class RoleService extends MyService
         }
     }
 
-    public function update($id, $request)
+    public function update($id, Request $request)
     {
-        $role = $this->getById($id);
+        $role = $this->roleRepo->getById($id);
 
         if (is_null($role)) {
             abort(400,__('custom_message.role_plan_not_found'));
@@ -103,34 +99,16 @@ class RoleService extends MyService
         return redirect()->intended('/system-admin/role/detail/' . $id)->with('saved', true);
     }
 
-    public function ruleCreateUpdate($request, $id = null)
-    {
-        return $validator = Validator::make($request, [
-            'name' => 'required|max:255',
-            'role_rank' => 'required|max:255|numeric',
-            'description' => 'max:255',
-        ]);
-    }
-
-    public function getAll()
-    {
-        return $this->roleRepo->getAll();
-    }
-
-    public function getAllFeatureApiName()
-    {
-        return $this->roleRepo->getAllFeatureApiName();
-    }
-
     public function delete($id)
     {
-        $role = $this->getById($id);
+        $role = $this->roleRepo->getById($id);
 
         if (is_null($role)) {
             abort(400,__('custom_message.role_plan_not_found'));
         }
 
         try {
+
             $this->roleRepo->delete($id);
         } catch (\Exception $ex) {
             abort(400,$ex->getMessage());
@@ -138,5 +116,4 @@ class RoleService extends MyService
 
         return redirect()->intended('/system-admin/role')->with('deleted', true);
     }
-
 }
