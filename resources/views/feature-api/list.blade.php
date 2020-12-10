@@ -11,10 +11,9 @@
 @endsection
 
 @section('content')
-<div class="alert alert-primary" role="alert">
+    <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.feature_api')</h1>
     </div>
-    {{--<a class="m-2 btn btn-primary" href="/system-admin/feature-api/new" role="button">+ Add New</a>--}}
     <a class="m-2 btn btn-outline-danger" onclick="return confirm('Are you sure you want to Sync?');" href="/system-admin/feature-api/save-all-to-db" role="button">Sync with DB</a>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
@@ -36,21 +35,18 @@
                 <thead>
                 <tr>
                     <th scope="col">@lang('custom_label.index')</th>
-                <th scope="col">@lang('custom_label.feature')</th>
-                <th scope="col">@lang('custom_label.api')</th>
-                <th scope="col">@lang('custom_label.name')</th>
-                <th scope="col">@lang('custom_label.action')</th>
+                    <th scope="col">@lang('custom_label.api')</th>
+                    <th scope="col">@lang('custom_label.name')</th>
+                    <th scope="col">@lang('custom_label.action')</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($list as $i => $featureApi)
                     <tr>
                         <td>{{$i + 1}}</td>
-                        {{--                    <td>{{$featureApi->feature}}</td>--}}
                         <td>{{$featureApi->api}}</td>
                         <td>{{$featureApi->name}}</td>
                         <td>
-                            <a class="btn btn-info m-1" href="/system-admin/feature-api/detail/{{$featureApi->id}}" role="button">Detail</a>
                             <button onclick="return callAjaxCheckDelete({{$featureApi->id}});"
                                     type="button"
                                     class="btn btn-danger m-1"
