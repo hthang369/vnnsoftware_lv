@@ -47,39 +47,41 @@
                         <td>{{$featureApi->api}}</td>
                         <td>{{$featureApi->name}}</td>
                         <td>
-                            <button onclick="return callAjaxCheckDelete({{$featureApi->id}});"
-                                    type="button"
-                                    class="btn btn-danger m-1"
-                                    role="button">Delete
-                            </button>
+                            <a onclick="return confirm('Are you sure you want to delete this Feature api?');"
+                               {{--<button onclick="return callAjaxCheckDelete({{$featureApi->id}});"--}}
+                               type="button"
+                               class="btn btn-danger m-1"
+                               href="/system-admin/feature-api/delete/{{$featureApi->id}}"
+                               role="button">Delete
+                            </a>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
-        <script>
-            function callAjaxCheckDelete(id) {
-                $(".custom-delete").click(function () {
-                    window.location.href = "{{Request::root()}}" + "/system-admin/feature-api/delete/" + id;
-                });
+        {{--<script>--}}
+        {{--function callAjaxCheckDelete(id) {--}}
+        {{--$(".custom-delete").click(function () {--}}
+        {{--window.location.href = "{{Request::root()}}" + "/system-admin/feature-api/delete/" + id;--}}
+        {{--});--}}
 
-                let mess = 'Are you sure you want to delete?';
-                $.ajax({
-                    type: 'GET',
-                    async: false,
-                    url: '/system-admin/role-has-feature-api/ajax-check-is-used-feature-api/' + id,
-                    success: function (data) {
-                        if (data.isUsed) {
-                            mess = 'Data is in use, are you sure you want to delete it?';
-                        }
-                        $(".modal-body").text(mess);
-                    }
-                }).done(function () {
-                    $('#exampleModal').modal('show');
-                });
-            }
-        </script>
+        {{--let mess = 'Are you sure you want to delete?';--}}
+        {{--$.ajax({--}}
+        {{--type: 'GET',--}}
+        {{--async: false,--}}
+        {{--url: '/system-admin/role-has-feature-api/ajax-check-is-used-feature-api/' + id,--}}
+        {{--success: function (data) {--}}
+        {{--if (data.isUsed) {--}}
+        {{--mess = 'Data is in use, are you sure you want to delete it?';--}}
+        {{--}--}}
+        {{--$(".modal-body").text(mess);--}}
+        {{--}--}}
+        {{--}).done(function () {--}}
+        {{--$('#exampleModal').modal('show');--}}
+        {{--});--}}
+        {{--}--}}
+        {{--</script>--}}
     @endif
 @endsection
 

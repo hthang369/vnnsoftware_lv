@@ -20,18 +20,9 @@ class FeatureApiMysqlRepository extends MyRepository implements FeatureApiReposi
 
     public function create($input)
     {
-        return FeatureApi::create($input);
-    }
-
-    public function update($id, $input)
-    {
-        return FeatureApi::where('id', $id)
-            ->update($input);
-    }
-
-    public function delete($id)
-    {
-        return FeatureApi::where('id', $id)->delete();
+        $featureApi = new FeatureApi($input);
+        $featureApi->save();
+        return $featureApi;
     }
 
     public function deleteAll()

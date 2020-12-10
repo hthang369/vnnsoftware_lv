@@ -61,7 +61,7 @@ class CompanyService extends MyService
         $input = $request->all();
 
         try {
-            $company = $this->companyRepo->Create($input);
+            $company = $this->companyRepo->create($input);
             return redirect()->intended('/system-admin/company/detail/' . $company->id)->with('saved', true);
         } catch (\Exception $ex) {
             abort(500, $ex->getMessage());
@@ -98,7 +98,7 @@ class CompanyService extends MyService
         $input = request()->except(['_token', 'role']);
 
         try {
-            $this->companyRepo->update($id, $input);
+            $company->update($input);
         } catch (\Exception $ex) {
             abort(500, $ex->getMessage());
         }
@@ -115,7 +115,7 @@ class CompanyService extends MyService
         }
 
         try {
-            $this->companyRepo->delete($id);
+            $company->delete();
         } catch (\Exception $ex) {
             abort(500, $ex->getMessage());
         }

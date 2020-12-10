@@ -7,11 +7,11 @@ use App\Repositories\MyRepository;
 
 class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterface
 {
+
     public function getById($id)
     {
         return Role::find($id);
     }
-
 
     public function getAll()
     {
@@ -32,17 +32,8 @@ class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterfac
 
     public function create($input)
     {
-        return Role::create($input);
-    }
-
-    public function update($id, $input)
-    {
-        return Role::where('id', $id)
-            ->update($input);
-    }
-
-    public function delete($id)
-    {
-        return Role::where('id', $id)->delete();
+        $role = new Role($input);
+        $role->save();
+        return $role;
     }
 }

@@ -45,15 +45,15 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
         return RoleHasFeatureApi::where('id', $id)->delete();
     }
 
-    public function deleteByFeatureApiId($id)
-    {
-        return RoleHasFeatureApi::where('feature_api_id', $id)->delete();
-    }
-
-//    public function deleteByFeatureApiName($name)
+//    public function deleteByFeatureApiId($id)
 //    {
-//        return RoleHasFeatureApi::where('feature_api_name', $name)->delete();
+//        return RoleHasFeatureApi::where('feature_api_id', $id)->delete();
 //    }
+
+    public function deleteByFeatureApiName($name)
+    {
+        return RoleHasFeatureApi::where('feature_api_name', $name)->delete();
+    }
 
     public function getOneByFeatureId($feature_id)
     {
