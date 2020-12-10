@@ -6,4 +6,5 @@ return [
     'role' => 'Role',
     'feature_api' => 'Feature api',
     'version' => 'Version',
+    'approval_api_token' => 'Approval api token',
     ];

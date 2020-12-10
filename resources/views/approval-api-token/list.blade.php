@@ -7,6 +7,9 @@
 @endsection
 
 @section('content')
+    <div class="alert alert-primary" role="alert">
+        <h1>@lang('custom_title.approval_api_token')</h1>
+    </div>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
             <strong>Deleted!</strong>
@@ -43,9 +46,9 @@
                         <td>{{$status[$item['request_approval_status']]}}</td>
                         <td>{{Carbon\Carbon::createFromTimestamp($item['request_approval_timestamp'])->toDateTimeString()}}</td>
                         <td>
-                            <a class="btn btn-info m-1" href="/system-admin/approval-api-token/approval-token/{{$item['id']}}" role="button">Approval token</a>
-                            <a class="btn btn-primary m-1" href="/system-admin/approval-api-token/stop-token/{{$item['id']}}" role="button">Stop token</a>
-                            <a class="btn btn-danger m-1" href="/system-admin/approval-api-token/delete-token/{{$item['id']}}" role="button">Delete token</a>
+                            <a class="btn btn-info m-1" href="/system-admin/approval-api-token/approval-token/{{$item['id']}}" role="button">Approval</a>
+                            <a class="btn btn-primary m-1" href="/system-admin/approval-api-token/stop-token/{{$item['id']}}" role="button">Stop</a>
+                            <a class="btn btn-danger m-1" href="/system-admin/approval-api-token/delete-token/{{$item['id']}}" role="button">Delete</a>
                         </td>
                     </tr>
                 @endforeach
