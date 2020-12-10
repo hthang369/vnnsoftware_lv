@@ -30,6 +30,11 @@ return [
     'feature' => 'Feature',
     'api' => 'Api',
     'feature_api' => 'Feature api',
+    // approval api token
+    'id' => 'Id',
+    'request_approval_status' => 'Request approval status',
+    'request_approval_timestamp' => 'Request approval timestamp',
+    'approval_api_token' => 'Approval api token',
     // version
     'socket_version' => 'Socket Version',
     'backend_version' => 'Backend Version',

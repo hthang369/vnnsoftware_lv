@@ -26,12 +26,12 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Request approval status</th>
-                    <th scope="col">Request approval timestamp</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">@lang('custom_label.index')</th>
+                    <th scope="col">@lang('custom_label.id')</th>
+                    <th scope="col">@lang('custom_label.name')</th>
+                    <th scope="col">@lang('custom_label.request_approval_status')</th>
+                    <th scope="col">@lang('custom_label.request_approval_timestamp')</th>
+                    <th scope="col">@lang('custom_label.action')</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,7 +41,7 @@
                         <td>{{$item['id']}}</td>
                         <td>{{$item['name']}}</td>
                         <td>{{$item['request_approval_status']}}</td>
-                        <td>{{$item['request_approval_timestamp']}}</td>
+                        <td>{{Carbon\Carbon::createFromTimestamp($item['request_approval_timestamp'])->toDateTimeString()}}</td>
                         <td>
                             <a class="btn btn-info m-1" href="/system-admin/approval-api-token/approval-token/{{$item['id']}}" role="button">Approval token</a>
                             <a class="btn btn-primary m-1" href="/system-admin/approval-api-token/stop-token/{{$item['id']}}" role="button">Stop token</a>
