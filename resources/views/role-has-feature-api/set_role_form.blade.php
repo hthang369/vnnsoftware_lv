@@ -14,6 +14,11 @@
                 <strong>Saved!</strong>
             </div>
         @endif
+        @if(session()->has('mess'))
+            <div class="alert alert-danger">
+                <strong>Inaccurate data!</strong>
+            </div>
+        @endif
         @if(count($listFeatureApi) == 0)
             <div class="alert alert-warning">
                 <strong>Do not have Feature api, create Feature api first to create Role has feature api</strong>

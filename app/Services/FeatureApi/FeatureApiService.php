@@ -156,6 +156,22 @@ class FeatureApiService extends MyService
         $routeCollection = \Route::getRoutes();
         try {
             DB::beginTransaction();
+//        $listRoleHasFeatureApiWithName = $this->roleHasFeatureApiRepo->getAllByFeatureApiName();
+        try {
+            DB::beginTransaction();
+//            foreach ($listRoleHasFeatureApiWithName as $item) {
+//                $has = false;
+//                foreach ($routeCollection as $value) {
+//                    $value->getName();
+//                    if ($item->feature_api_name == $value->getName()) {
+//                        $has = true;
+//                        break;
+//                    }
+//                }
+//                if (!$has) {
+//                    $this->roleHasFeatureApiRepo->deleteByFeatureApiName($item->feature_api_name);
+//                }
+//            }
 
             $this->featureApiRepo->deleteAll();
             foreach ($routeCollection as $value) {
@@ -167,7 +183,8 @@ class FeatureApiService extends MyService
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
-            abort(400,$ex->getMessage());
+            return view('/common/alert_message')->with('message', __('common.error_connecting_database'));
         }
+        return redirect()->intended('/system-admin/feature-api')->with('saved', true);
     }
 }

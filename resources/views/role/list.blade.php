@@ -21,15 +21,18 @@
             <strong>Sorry!</strong> No Item Found.
         </div>
     @else
-
-        <table class="table table-hover" style="table-layout: fixed; word-break: break-word">
-            <thead>
-            <tr>
-                <th scope="col">@lang('custom_label.index')</th>
+        <div class="table-responsive-sm">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">@lang('custom_label.index')</th>
                 <th scope="col">@lang('custom_label.name')</th>
                 <th scope="col">@lang('custom_label.role_rank')</th>
                 <th scope="col">@lang('custom_label.description')</th>
                 <th scope="col">@lang('custom_label.permission')</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">@lang('custom_label.action')</th>
                 </tr>
                 </thead>
                 <tbody>

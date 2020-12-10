@@ -19,7 +19,7 @@ class RoleController extends Controller
 
     public function index()
     {
-        return $this->roleService->index();
+        return $this->roleService->list();
     }
 
     public function detail($id)
@@ -27,18 +27,20 @@ class RoleController extends Controller
         return $this->roleService->detail($id);
     }
 
-    public function newForm() {
+    public function newForm()
+    {
         return $this->roleService->newForm();
     }
 
-    public function updateForm($id) {
-
+    public function updateForm($id)
+    {
         return $this->roleService->updateForm($id);
     }
 
     public function register(Request $request)
     {
-        return $this->roleService->create($request);
+
+        return $this->roleService->register($request);
     }
 
     public function update($id, Request $request)
