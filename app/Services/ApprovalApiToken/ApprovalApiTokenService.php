@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ApprovalApiTokenService
 {
+    const STATUS = [1 => 'Not accepted', 2 => 'Accepted', 3 => 'Paused'];
 
     private $json = [
         [
@@ -47,7 +48,7 @@ class ApprovalApiTokenService
 //        $authID = Auth::id();
 //        $infoRoom = $this->sendRequestToAPI($url, $method, $request, $authID);
 //        return view('/system-admin/approval-api-token/list')->with('json', $infoRoom->getBody());
-        return view('/approval-api-token/list')->with('json', $this->json);
+        return view('/approval-api-token/list')->with(['json' => $this->json, 'status' => self::STATUS]);
     }
 
     public function approvalToken($id)

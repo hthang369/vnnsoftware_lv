@@ -40,7 +40,7 @@
                         <td>{{$i + 1}}</td>
                         <td>{{$item['id']}}</td>
                         <td>{{$item['name']}}</td>
-                        <td>{{$item['request_approval_status']}}</td>
+                        <td>{{$status[$item['request_approval_status']]}}</td>
                         <td>{{Carbon\Carbon::createFromTimestamp($item['request_approval_timestamp'])->toDateTimeString()}}</td>
                         <td>
                             <a class="btn btn-info m-1" href="/system-admin/approval-api-token/approval-token/{{$item['id']}}" role="button">Approval token</a>
