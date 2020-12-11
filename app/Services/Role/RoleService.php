@@ -29,6 +29,7 @@ class RoleService extends MyService
     public function detail($id)
     {
         $role = $this->roleRepo->getById($id);
+        $role->role_has_feature_api = $role->role_has_feature_api();
 
         if (is_null($role)) {
             abort(400, __('custom_message.role_plan_not_found'));
