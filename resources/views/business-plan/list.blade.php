@@ -8,7 +8,7 @@
 
 @section('content')
     <a class="m-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ Add New</a>
-    <table class="table table-hover">
+    <table class="table-responsive table table-bordered table-hover table-striped bg-light">
         <thead>
         <tr>
             <th scope="col">@lang('custom_label.index')</th>
@@ -26,8 +26,7 @@
                 <td>
                     <a class="btn btn-info" href="/system-admin/business-plan/detail/{{$bp->id}}" role="button">Detail</a>
                     <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$bp->id}}" role="button">Update</a>
-                    <a onclick="return confirm('Are you sure you want to delete this plan?');
-"
+                    <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
                        class="btn btn-danger"
                        href="/system-admin/business-plan/delete/{{$bp->id}}" role="button">Delete</a>
                 </td>

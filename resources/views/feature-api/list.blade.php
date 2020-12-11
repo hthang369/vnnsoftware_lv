@@ -30,7 +30,7 @@
             <strong>Sorry!</strong> No Item Found.
         </div>
     @else
-        <table class="table table-hover table-responsive">
+        <table class="table-responsive table table-bordered table-hover table-striped bg-light">
             <thead>
             <tr>
                 <th scope="col">@lang('custom_label.index')</th>
@@ -46,7 +46,7 @@
                     <td>{{$featureApi->api}}</td>
                     <td>{{$featureApi->name}}</td>
                     <td>
-                        <a onclick="return confirm('Are you sure you want to delete this Feature api?');"
+                        <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
                            {{--<button onclick="return callAjaxCheckDelete({{$featureApi->id}});"--}}
                            type="button"
                            class="btn btn-danger m-1"

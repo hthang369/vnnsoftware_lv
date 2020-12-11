@@ -6,4 +6,5 @@ return [
     'user_not_found' => 'User not found!',
     'role_not_found' => 'Role not found!',
     'feature_api_not_found' => 'Feature api not found!',
+    'confirm_delete' => 'Are you sure you want to delete?',
 ];

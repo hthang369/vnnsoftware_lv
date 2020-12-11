@@ -17,8 +17,7 @@
             <strong>Sorry!</strong> No Item Found.
         </div>
     @else
-
-        <table class="table table-hover" style="table-layout: fixed; word-break: break-word">
+        <table class="table-responsive table table-bordered table-hover table-striped bg-light">
             <thead>
             <tr>
                 <th scope="col">@lang('custom_label.index')</th>
@@ -46,7 +45,7 @@
                     <td>
                         <a class="btn btn-info" href="/system-admin/user-management/detail/{{$user->id}}" role="button">Detail</a>
                         <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">Update</a>
-                        <a onclick="return confirm('Are you sure you want to delete this user?');"
+                        <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
                            class="btn btn-danger"
                            href="/system-admin/user-management/delete/{{$user->id}}"
                            role="button">Delete</a>
@@ -55,7 +54,7 @@
             @endforeach
             </tbody>
         </table>
-    @endif
-    </div>
+        @endif
+        </div>
 @endsection
 
