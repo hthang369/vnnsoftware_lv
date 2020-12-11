@@ -12,7 +12,7 @@ class BusinessPlanValidation implements ValidationInterface {
         return $validator = Validator::make($request, [
             'name' => 'required|max:190',
             'maximum_storage' => 'max:190|numeric',
-            'description' => 'required|max:190',
+            'description' => 'required|max:500',
         ]);
     }
 
@@ -21,7 +21,7 @@ class BusinessPlanValidation implements ValidationInterface {
         return $validator = Validator::make($request, [
             'name' => 'required|max:190',
             'maximum_storage' => 'max:190|numeric',
-            'description' => 'required|max:190',
+            'description' => 'required|max:500',
         ]);
     }
 }
