@@ -97,7 +97,7 @@ class RoleService extends MyService
             $role = $this->roleRepo->create($input);
             return redirect()->intended('/system-admin/role/detail/' . $role->id)->with('saved', true);
         } catch (\Exception $ex) {
-            abort(500);
+            abort(400, $ex->getMessage());
         }
     }
 
