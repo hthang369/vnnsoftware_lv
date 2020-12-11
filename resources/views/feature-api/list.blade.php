@@ -30,7 +30,7 @@
             <strong>Sorry!</strong> No Item Found.
         </div>
     @else
-        <table class="table-responsive table table-bordered table-hover table-striped bg-light">
+        <table class="table-responsive table table-bordered table-hover table-striped bg-light w-100">
             <thead>
             <tr>
                 <th scope="col">@lang('custom_label.index')</th>

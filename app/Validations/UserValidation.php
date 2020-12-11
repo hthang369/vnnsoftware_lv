@@ -15,11 +15,11 @@ class UserValidation implements ValidationInterface {
     public function updateValidate($request, $id = null)
     {
         return $validator = Validator::make($request, [
-            'email' => 'required|email|max:255|unique:users,email,' . $id,
-            'password' =>'min:6|max:255',
-            'name' => 'required|max:255',
+            'email' => 'required|email|max:190|unique:users,email,' . $id,
+            'password' =>'min:6|max:190',
+            'name' => 'required|max:190',
             'phone' => 'numeric',
-            'address' => 'max:255',
+            'address' => 'max:190',
             'role' => 'required'
         ]);
     }
@@ -27,11 +27,11 @@ class UserValidation implements ValidationInterface {
     public function newValidate($request)
     {
         return $validator = Validator::make($request, [
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'min:6|max:255|required',
-            'name' => 'required|max:255',
+            'email' => 'required|email|max:190|unique:users',
+            'password' => 'min:6|max:190|required',
+            'name' => 'required|max:190',
             'phone' => 'numeric',
-            'address' => 'max:255',
+            'address' => 'max:190',
             'role' => 'required'
         ]);
     }

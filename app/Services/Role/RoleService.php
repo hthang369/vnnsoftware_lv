@@ -20,7 +20,7 @@ class RoleService extends MyService
 
     public function list()
     {
-        $list = $this->roleRepo->getAll();
+        $list = $this->roleRepo->getAllPaginate();
         $listApiName = $this->roleRepo->getAllFeatureApiName();
 
         return view('/role/list')->with(['list' => $list, 'listApiName' => $listApiName]);
