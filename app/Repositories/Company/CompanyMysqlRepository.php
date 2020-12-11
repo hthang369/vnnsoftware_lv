@@ -13,11 +13,11 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
         return Company::find($id);
     }
 
-    public function getAll()
+    public function getAllPaginate()
     {
-        $company = new Company();
-        return $company->select("company.*", "business_plan.name as business_plan_name")->whereNull('company.deleted_at')
-            ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id')->get();
+        return Company::select("company.*", "business_plan.name as business_plan_name")
+            ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id')
+            ->paginate(config('constants.pagination.items_per_page'));
     }
 
     public function create($input)

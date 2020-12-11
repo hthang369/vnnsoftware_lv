@@ -20,7 +20,7 @@
                     @csrf
                     <div class="form-group required">
                         <label>Name</label>
-                        <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name" value="{!! old('name') ? old('name') : $company->name !!}" autocomplete="name" autofocus>
+                        <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name" name="name" value="{{ old('name') ? old('name') : $company->name }}" autocomplete="name" autofocus>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -32,7 +32,7 @@
                         <input class="form-control @error('email')
                         is-invalid @enderror" type="text"
                                placeholder="Email" name="email"
-                               value="{!! old('email') ? old('email') : $company->email !!}" autocomplete="email">
+                               value="{{ old('email') ? old('email') : $company->email }}" autocomplete="email">
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <label>Phone</label>
-                        <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone" name="phone" value="{!! old('phone') ? old('phone') : $company->phone !!}" autocomplete="phone">
+                        <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone" name="phone" value="{{ old('phone') ? old('phone') : $company->phone }}" autocomplete="phone">
                         @error('phone')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="form-group">
                         <label>Address</label>
-                        <input class="form-control @error('address') is-invalid @enderror" type="text" placeholder="Address" name="address" value="{!! old('address') ? old('address') : $company->address !!}" autocomplete="address">
+                        <input class="form-control @error('address') is-invalid @enderror" type="text" placeholder="Address" name="address" value="{{ old('address') ? old('address') : $company->address }}" autocomplete="address">
                         @error('address')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

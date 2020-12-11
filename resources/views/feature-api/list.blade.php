@@ -30,8 +30,8 @@
             <strong>Sorry!</strong> No Item Found.
         </div>
     @else
-        <div class="table-responsive-sm">
-            <table class="table table-hover">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped bg-light">
                 <thead>
                 <tr>
                     <th scope="col">@lang('custom_label.index')</th>
@@ -43,11 +43,11 @@
                 <tbody>
                 @foreach($list as $i => $featureApi)
                     <tr>
-                        <td>{{$i + 1}}</td>
+                        <td>{{($list->currentPage() - 1) * $list->perPage() + ($i + 1)}}</td>
                         <td>{{$featureApi->api}}</td>
                         <td>{{$featureApi->name}}</td>
                         <td>
-                            <a onclick="return confirm('Are you sure you want to delete this Feature api?');"
+                            <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
                                {{--<button onclick="return callAjaxCheckDelete({{$featureApi->id}});"--}}
                                type="button"
                                class="btn btn-danger m-1"
@@ -60,6 +60,7 @@
                 </tbody>
             </table>
         </div>
+        {{ $list->links() }}
         {{--<script>--}}
         {{--function callAjaxCheckDelete(id) {--}}
         {{--$(".custom-delete").click(function () {--}}

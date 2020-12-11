@@ -27,7 +27,7 @@ class CompanyService extends MyService
 
     public function list()
     {
-        $list = $this->companyRepo->getAll();
+        $list = $this->companyRepo->getAllPaginate();
         return view('/company/list')->with('list', $list);
     }
 

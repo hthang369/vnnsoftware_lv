@@ -25,8 +25,8 @@
             <strong>Sorry!</strong> No Item Found.
         </div>
     @else
-        <div class="table-responsive-sm">
-            <table class="table table-hover">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped bg-light">
                 <thead>
                 <tr>
                     <th scope="col">@lang('custom_label.index')</th>
@@ -64,7 +64,7 @@
                             @endif
                         </td>
                         <td>
-                            <a class="btn btn-danger m-1" href="/system-admin/approval-api-token/delete-token/{{$item['id']}}" role="button">Delete</a>
+                            <a class="btn btn-danger m-1" onclick="return confirm('@lang('custom_message.confirm_delete')');" href="/system-admin/approval-api-token/delete-token/{{$item['id']}}" role="button">Delete</a>
                         </td>
                     </tr>
                 @endforeach
