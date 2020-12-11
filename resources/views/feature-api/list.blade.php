@@ -30,34 +30,36 @@
             <strong>Sorry!</strong> No Item Found.
         </div>
     @else
-        <table class="table-responsive table table-bordered table-hover table-striped bg-light w-100">
-            <thead>
-            <tr>
-                <th scope="col">@lang('custom_label.index')</th>
-                <th scope="col">@lang('custom_label.api')</th>
-                <th scope="col">@lang('custom_label.name')</th>
-                <th scope="col">@lang('custom_label.action')</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($list as $i => $featureApi)
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped bg-light">
+                <thead>
                 <tr>
-                    <td>{{($list->currentPage() - 1) * $list->perPage() + ($i + 1)}}</td>
-                    <td>{{$featureApi->api}}</td>
-                    <td>{{$featureApi->name}}</td>
-                    <td>
-                        <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
-                           {{--<button onclick="return callAjaxCheckDelete({{$featureApi->id}});"--}}
-                           type="button"
-                           class="btn btn-danger m-1"
-                           href="/system-admin/feature-api/delete/{{$featureApi->id}}"
-                           role="button">Delete
-                        </a>
-                    </td>
+                    <th scope="col">@lang('custom_label.index')</th>
+                    <th scope="col">@lang('custom_label.api')</th>
+                    <th scope="col">@lang('custom_label.name')</th>
+                    <th scope="col">@lang('custom_label.action')</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach($list as $i => $featureApi)
+                    <tr>
+                        <td>{{($list->currentPage() - 1) * $list->perPage() + ($i + 1)}}</td>
+                        <td>{{$featureApi->api}}</td>
+                        <td>{{$featureApi->name}}</td>
+                        <td>
+                            <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
+                               {{--<button onclick="return callAjaxCheckDelete({{$featureApi->id}});"--}}
+                               type="button"
+                               class="btn btn-danger m-1"
+                               href="/system-admin/feature-api/delete/{{$featureApi->id}}"
+                               role="button">Delete
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
         {{ $list->links() }}
         {{--<script>--}}
         {{--function callAjaxCheckDelete(id) {--}}
