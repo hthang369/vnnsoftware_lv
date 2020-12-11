@@ -6,6 +6,7 @@ use App\Repositories\Role\RoleRepositoryInterface;
 use App\Services\Contract\MyService;
 use App\Validations\RoleValidation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoleService extends MyService
 {
@@ -29,7 +30,7 @@ class RoleService extends MyService
     public function detail($id)
     {
         $role = $this->roleRepo->getById($id);
-        $role->role_has_feature_api = $role->role_has_feature_api();
+        $role->role_has_feature_api = $role->role_has_feature_api()->get();
 
         if (is_null($role)) {
             abort(400, __('custom_message.role_plan_not_found'));
@@ -107,11 +108,15 @@ class RoleService extends MyService
         if (is_null($role)) {
             abort(400, __('custom_message.role_plan_not_found'));
         }
-
+        DB::beginTransaction();
         try {
 
             $role->delete();
+            $role->role_has_feature_api()->delete();
+            $role->role_user()->delete();
+            DB::commit();
         } catch (\Exception $ex) {
+            DB::rollBack();
             abort(400, $ex->getMessage());
         }
 

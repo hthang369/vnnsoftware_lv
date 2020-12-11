@@ -24,6 +24,11 @@ class Role extends Model
 
     public function role_has_feature_api()
     {
-        return $this->hasMany('App\Models\RoleHasFeatureApi')->whereNull('deleted_at')->get();
+        return $this->hasMany('App\Models\RoleHasFeatureApi')->whereNull('deleted_at');
+    }
+
+    public function role_user()
+    {
+        return $this->hasMany('App\Models\RoleUser');
     }
 }

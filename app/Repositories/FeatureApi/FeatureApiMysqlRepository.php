@@ -12,6 +12,10 @@ class FeatureApiMysqlRepository extends MyRepository implements FeatureApiReposi
         return FeatureApi::find($id);
     }
 
+    public function getAll()
+    {
+        return FeatureApi::all();
+    }
 
     public function getAllPaginate()
     {
