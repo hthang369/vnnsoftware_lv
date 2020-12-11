@@ -30,36 +30,35 @@
             <strong>Sorry!</strong> No Item Found.
         </div>
     @else
-        <div class="table-responsive-sm">
-            <table class="table table-hover">
-                <thead>
+        <table class="table table-hover table-responsive">
+            <thead>
+            <tr>
+                <th scope="col">@lang('custom_label.index')</th>
+                <th scope="col">@lang('custom_label.api')</th>
+                <th scope="col">@lang('custom_label.name')</th>
+                <th scope="col">@lang('custom_label.action')</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($list as $i => $featureApi)
                 <tr>
-                    <th scope="col">@lang('custom_label.index')</th>
-                    <th scope="col">@lang('custom_label.api')</th>
-                    <th scope="col">@lang('custom_label.name')</th>
-                    <th scope="col">@lang('custom_label.action')</th>
+                    <td>{{($list->currentPage() - 1) * $list->perPage() + ($i + 1)}}</td>
+                    <td>{{$featureApi->api}}</td>
+                    <td>{{$featureApi->name}}</td>
+                    <td>
+                        <a onclick="return confirm('Are you sure you want to delete this Feature api?');"
+                           {{--<button onclick="return callAjaxCheckDelete({{$featureApi->id}});"--}}
+                           type="button"
+                           class="btn btn-danger m-1"
+                           href="/system-admin/feature-api/delete/{{$featureApi->id}}"
+                           role="button">Delete
+                        </a>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                @foreach($list as $i => $featureApi)
-                    <tr>
-                        <td>{{$i + 1}}</td>
-                        <td>{{$featureApi->api}}</td>
-                        <td>{{$featureApi->name}}</td>
-                        <td>
-                            <a onclick="return confirm('Are you sure you want to delete this Feature api?');"
-                               {{--<button onclick="return callAjaxCheckDelete({{$featureApi->id}});"--}}
-                               type="button"
-                               class="btn btn-danger m-1"
-                               href="/system-admin/feature-api/delete/{{$featureApi->id}}"
-                               role="button">Delete
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
+            @endforeach
+            </tbody>
+        </table>
+        {{ $list->links() }}
         {{--<script>--}}
         {{--function callAjaxCheckDelete(id) {--}}
         {{--$(".custom-delete").click(function () {--}}

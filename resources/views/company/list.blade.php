@@ -21,8 +21,7 @@
             <strong>Sorry!</strong> No Item Found.
         </div>
     @else
-
-        <table class="table table-hover" style="table-layout: fixed; word-break: break-word">
+        <table class="table table-hover table-responsive">
             <thead>
             <tr>
                 <th scope="col">@lang('custom_label.index')</th>
@@ -37,7 +36,7 @@
             <tbody>
             @foreach($list as $i => $company)
                 <tr>
-                    <td>{{$i + 1}}</td>
+                    <td>{{($list->currentPage() - 1) * $list->perPage() + ($i + 1)}}</td>
                     <td>{{$company->name}}</td>
                     <td>{{$company->email}}</td>
                     <td>{{$company->phone}}</td>
@@ -52,6 +51,7 @@
             @endforeach
             </tbody>
         </table>
+        {{ $list->links() }}
     @endif
 @endsection
 

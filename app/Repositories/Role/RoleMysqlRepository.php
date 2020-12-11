@@ -15,7 +15,7 @@ class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterfac
 
     public function getAll()
     {
-        return Role::all();
+        return Role::paginate(config('constants.pagination.items_per_page'));
     }
 
     public function getAllFeatureApiName()
