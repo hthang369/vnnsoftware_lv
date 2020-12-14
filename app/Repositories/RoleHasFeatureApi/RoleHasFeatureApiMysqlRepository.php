@@ -15,7 +15,12 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
     public function getByRoleId($role_id)
     {
         $roleHasFeatureApi = new RoleHasFeatureApi();
-        return $roleHasFeatureApi->select("*")->where("role_has_feature_api.role_id", $role_id)->whereNull('role_has_feature_api.deleted_at')->get();
+        return $roleHasFeatureApi->select("role_has_feature_api.*")
+            ->join('feature_api', 'role_has_feature_api.feature_api_name', '=', 'feature_api.name')
+            ->where("role_has_feature_api.role_id", $role_id)
+            ->whereNull('role_has_feature_api.deleted_at')
+            ->whereNull('feature_api.deleted_at')
+            ->get();
     }
 
 //    public function getAllByFeatureApiName()
@@ -31,13 +36,9 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
 
     public function create($input)
     {
-        return RoleHasFeatureApi::create($input);
-    }
-
-    public function update($id, $input)
-    {
-        return RoleHasFeatureApi::where('id', $id)
-            ->update($input);
+        $roleHasFeatureApi = new RoleHasFeatureApi($input);
+        $roleHasFeatureApi->save();
+        return $roleHasFeatureApi;
     }
 
     public function delete($id)
@@ -45,15 +46,15 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
         return RoleHasFeatureApi::where('id', $id)->delete();
     }
 
-    public function deleteByFeatureApiId($id)
-    {
-        return RoleHasFeatureApi::where('feature_api_id', $id)->delete();
-    }
-
-//    public function deleteByFeatureApiName($name)
+//    public function deleteByFeatureApiId($id)
 //    {
-//        return RoleHasFeatureApi::where('feature_api_name', $name)->delete();
+//        return RoleHasFeatureApi::where('feature_api_id', $id)->delete();
 //    }
+
+    public function deleteByFeatureApiName($name)
+    {
+        return RoleHasFeatureApi::where('feature_api_name', $name)->delete();
+    }
 
     public function getOneByFeatureId($feature_id)
     {

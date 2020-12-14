@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Models\User;
+use App\Repositories\Role\RoleRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Contract\MyService;
 use App\Services\Role\RoleService;
@@ -17,13 +18,13 @@ class UserService extends MyService
 {
     private $userRepo;
     private $userValidate;
-    private $roleService;
+    private $roleRepo;
 
-    public function __construct(UserRepositoryInterface $userRepo, UserValidation $userValidate, RoleService $roleService)
+    public function __construct(UserRepositoryInterface $userRepo, UserValidation $userValidate, RoleRepositoryInterface $roleRepo)
     {
         $this->userRepo = $userRepo;
         $this->userValidate = $userValidate;
-        $this->roleService = $roleService;
+        $this->roleRepo = $roleRepo;
     }
 
     public function index()
@@ -51,7 +52,7 @@ class UserService extends MyService
     public function newForm()
     {
         return view('/user-management/add_form',
-            ['roles' => $this->roleService->getAll(), 'user' => new User()]);
+            ['roles' => $this->roleRepo->getAll(), 'user' => new User()]);
     }
 
     public function updateForm($id)
@@ -68,7 +69,7 @@ class UserService extends MyService
         }
         return view('/user-management/add_form',
             [
-                'roles' => $this->roleService->getAll(),
+                'roles' => $this->roleRepo->getAll(),
                 'userRoleIds' => $userRoleIds
             ])->with('user', $user);
     }

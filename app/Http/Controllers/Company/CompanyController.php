@@ -3,21 +3,17 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
-use App\Services\BusinessPlan\BusinessPlanService;
 use App\Services\Company\CompanyService;
-use App\Validations\CompanyValidation;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
 
     private $companyService;
-    private $businessPlanService;
 
-    public function __construct(CompanyService $companyService, BusinessPlanService $businessPlanService)
+    public function __construct(CompanyService $companyService)
     {
         $this->companyService = $companyService;
-        $this->businessPlanService = $businessPlanService;
     }
 
     public function index()
@@ -40,7 +36,7 @@ class CompanyController extends Controller
 
     public function register(Request $request)
     {
-        return $this->companyService->Create($request);
+        return $this->companyService->create($request);
     }
 
     public function update($id, Request $request)

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\ApprovalApiToken;
 
 use App\Http\Controllers\Controller;
 use App\Services\ApprovalApiToken\ApprovalApiTokenService;
-use Illuminate\Http\Request;
 
 class ApprovalApiTokenController extends Controller
 {
@@ -29,6 +28,11 @@ class ApprovalApiTokenController extends Controller
     public function stopToken($id)
     {
         return $this->approvalApiTokenService->stopToken($id);
+    }
+
+    public function reopenToken($id)
+    {
+        return $this->approvalApiTokenService->reopenToken($id);
     }
 
     public function deleteToken($id)

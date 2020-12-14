@@ -16,7 +16,7 @@
                     <label>Name</label>
                     <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name"
                            name="name"
-                           value="{!! old('name') !!}"
+                           value="{{ old('name') }}"
                            autocomplete="name" autofocus>
                     @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                     <input class="form-control @error('role_rank')
                         is-invalid @enderror" type="text"
                            placeholder="Role rank" name="role_rank"
-                           value="{!! old('role_rank') !!}"
+                           value="{{ old('role_rank') }}"
                            autocomplete="role_rank">
                     @error('role_rank')
                     <span class="invalid-feedback" role="alert">
@@ -39,10 +39,9 @@
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <input class="form-control @error('description') is-invalid @enderror" type="text"
-                           placeholder="Description" name="description"
-                           value="{!! old('description') !!}"
-                           autocomplete="description">
+                    <textarea class="form-control @error('description') is-invalid @enderror" type="text"
+                              placeholder="Description" name="description"
+                              autocomplete="description">{{ old('description') }}</textarea>
                     @error('description')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

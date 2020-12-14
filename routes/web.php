@@ -71,11 +71,6 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
     // feature-api management route
     Route::group(['prefix' => 'feature-api'], function () {
         Route::get('/', 'FeatureApi\FeatureApiController@index')->name('feature-api.list');
-        Route::get('detail/{id}', 'FeatureApi\FeatureApiController@detail')->name('feature-api.detail');
-        Route::get('update/{id}', 'FeatureApi\FeatureApiController@updateForm')->name('feature-api.update.form');
-        Route::post('update/{id}', 'FeatureApi\FeatureApiController@update')->name('feature-api.update');
-        Route::get('new', 'FeatureApi\FeatureApiController@newForm')->name('feature-api.new');
-        Route::post('new', 'FeatureApi\FeatureApiController@register')->name('feature-api.register');
         Route::get('delete/{id}', 'FeatureApi\FeatureApiController@delete')->name('feature-api.delete');
         Route::get('save-all-to-db', 'FeatureApi\FeatureApiController@saveAllRoutesToDB')->name('feature-api.saveAllRoutesToDB');
     });
@@ -95,6 +90,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
         Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('approval-api-token.list');
         Route::get('approval-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@approvalToken')->name('approval-api-token.approval-token');
         Route::get('stop-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@stopToken')->name('approval-api-token.stop-token');
+        Route::get('reopen-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@reopenToken')->name('approval-api-token.reopen-token');
         Route::get('delete-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@deleteToken')->name('approval-api-token.delete-token');
     });
 });

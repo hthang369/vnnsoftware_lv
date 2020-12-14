@@ -24,6 +24,12 @@
                 <label>{{$role->role_rank}}</label>
             </div>
             <div class="form-group">
+                <strong>Permission:</strong>
+                @foreach($role->role_has_feature_api as $roleHasFeatureApi)
+                    <span class="badge badge-danger">{{$roleHasFeatureApi->feature_api_name}}</span>
+                @endforeach
+            </div>
+            <div class="form-group">
                 <strong>Description:</strong>
                 <label>{{$role->description}}</label>
             </div>
