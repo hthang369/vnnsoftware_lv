@@ -31,10 +31,9 @@
                 <div class="form-group">
                     <label>Description</label>
                     <textarea name="description" class="form-control"
-                              value="{!! request()->id
+                              placeholder="Description">{!! request()->id
                                 ? (old('description') ? old('description') : $businessPlan->description)
-                                : old('description') !!}"
-                              placeholder="Description"></textarea>
+                                : old('description') !!}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
                 <a class="btn btn-danger ml-2" href="{{ route('business-plan.list') }}" role="button">Cancel</a>

@@ -41,8 +41,7 @@
                     <label>Description</label>
                     <textarea class="form-control @error('description') is-invalid @enderror" type="text"
                               placeholder="Description" name="description"
-                              value="{{ old('description') }}"
-                              autocomplete="description"></textarea>
+                              autocomplete="description">{{ old('description') }}</textarea>
                     @error('description')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
