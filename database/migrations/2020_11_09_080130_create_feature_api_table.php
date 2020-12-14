@@ -18,7 +18,6 @@ class CreateFeatureApiTable extends Migration
             $table->string('feature')->nullable();
             $table->string('api')->nullable();
             $table->string('name')->nullable();
-            $table->integer('version');
             $table->timestamps();
             $table->softDeletes();
         });

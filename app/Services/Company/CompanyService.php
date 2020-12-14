@@ -8,7 +8,6 @@ use App\Services\Contract\MyService;
 use App\Company;
 use App\Validations\CompanyValidation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class CompanyService extends MyService
 {
@@ -28,7 +27,7 @@ class CompanyService extends MyService
 
     public function list()
     {
-        $list = $this->companyRepo->getAll();
+        $list = $this->companyRepo->getAllPaginate();
         return view('/company/list')->with('list', $list);
     }
 
@@ -45,17 +44,13 @@ class CompanyService extends MyService
         return view('/company/detail')->with('company', $company);
     }
 
-    public function getById($id)
+    public function newForm()
     {
-        return $this->companyRepo->getById($id);
-    }
-
-    public function newForm() {
         $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
         return view('/company/add_form')->with('listBusinessPlan', $listBusinessPlan);
     }
 
-    public function Create(Request $request)
+    public function create(Request $request)
     {
         $validator = $this->companyValidation->newValidate($request->all());
 
@@ -66,14 +61,15 @@ class CompanyService extends MyService
         $input = $request->all();
 
         try {
-            $company = $this->companyRepo->Create($input);
+            $company = $this->companyRepo->create($input);
             return redirect()->intended('/system-admin/company/detail/' . $company->id)->with('saved', true);
         } catch (\Exception $ex) {
             abort(500, $ex->getMessage());
         }
     }
 
-    public function updateForm($id) {
+    public function updateForm($id)
+    {
         $company = $this->companyRepo->getById($id);
 
         $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
@@ -102,22 +98,12 @@ class CompanyService extends MyService
         $input = request()->except(['_token', 'role']);
 
         try {
-            $this->companyRepo->update($id, $input);
+            $company->update($input);
         } catch (\Exception $ex) {
             abort(500, $ex->getMessage());
         }
 
         return redirect()->intended('/system-admin/company/detail/' . $id)->with('saved', true);
-    }
-
-    public function getCompanyInfo($id)
-    {
-        return Company::find($id);
-    }
-
-    public function getAll()
-    {
-        return $this->companyRepo->getAll();
     }
 
     public function delete($id)
@@ -129,7 +115,7 @@ class CompanyService extends MyService
         }
 
         try {
-            $this->companyRepo->delete($id);
+            $company->delete();
         } catch (\Exception $ex) {
             abort(500, $ex->getMessage());
         }
