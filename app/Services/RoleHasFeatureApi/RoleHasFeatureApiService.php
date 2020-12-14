@@ -30,9 +30,9 @@ class RoleHasFeatureApiService extends MyService
         return $this->roleHasFeatureApiRepo->getByRoleId($role_id);
     }
 
-    public function deleteByFeatureApiId($id)
+    public function deleteByFeatureApiName($name)
     {
-        return $this->roleHasFeatureApiRepo->deleteByFeatureApiId($id);
+        return $this->roleHasFeatureApiRepo->deleteByFeatureApiName($name);
     }
 
     public function ajaxCheckIsUsedFeatureApi($feature_id)
@@ -46,7 +46,7 @@ class RoleHasFeatureApiService extends MyService
         $role = $this->roleRepo->getById($id);
 
         if (is_null($role)) {
-            abort(404, 'Page not found');
+            abort(400, __('custom_message.role_plan_not_found'));
         }
         $listFeatureApi = $this->featureApiMysqlRepository->getAll();
 
@@ -107,7 +107,7 @@ class RoleHasFeatureApiService extends MyService
             return redirect()->back()->with('saved', true);
         } catch (\Exception $ex) {
             DB::rollBack();
-            abort(500);
+            abort(400, $ex->getMessage());
         }
     }
 }

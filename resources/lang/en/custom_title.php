@@ -7,4 +7,5 @@ return [
     'feature_api' => 'Feature api',
     'version' => 'Version',
     'business_plan' => 'Business plan',
+    'approval_api_token' => 'Approval api token',
     ];
