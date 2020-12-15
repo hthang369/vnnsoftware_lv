@@ -18,13 +18,13 @@ class UserService extends MyService
 {
     private $userRepo;
     private $userValidate;
-    private $roleRepo;
+    private $roleService;
 
-    public function __construct(UserRepositoryInterface $userRepo, UserValidation $userValidate, RoleRepositoryInterface $roleRepo)
+    public function __construct(UserRepositoryInterface $userRepo, UserValidation $userValidate, RoleService $roleService)
     {
         $this->userRepo = $userRepo;
         $this->userValidate = $userValidate;
-        $this->roleRepo = $roleRepo;
+        $this->roleService = $roleService;
     }
 
     public function index()
@@ -52,7 +52,7 @@ class UserService extends MyService
     public function newForm()
     {
         return view('/user-management/add_form',
-            ['roles' => $this->roleRepo->getAll(), 'user' => new User()]);
+            ['roles' => $this->roleService->getAll(), 'user' => new User()]);
     }
 
     public function updateForm($id)
@@ -69,7 +69,7 @@ class UserService extends MyService
         }
         return view('/user-management/add_form',
             [
-                'roles' => $this->roleRepo->getAll(),
+                'roles' => $this->roleService->getAll(),
                 'userRoleIds' => $userRoleIds
             ])->with('user', $user);
     }

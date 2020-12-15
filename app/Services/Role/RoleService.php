@@ -91,7 +91,7 @@ class RoleService extends MyService
         $input = request()->except(['_token', 'role']);
 
         try {
-            $role->update($input);
+            $role = $this->roleRepo->update($id, $input);
         } catch (\Exception $ex) {
             abort(400, $ex->getMessage());
         }
@@ -118,6 +118,25 @@ class RoleService extends MyService
         } catch (\Exception $ex) {
             abort(400, $ex->getMessage());
         }
+    }
+
+    public function ruleCreateUpdate($request, $id = null)
+    {
+        return $validator = Validator::make($request, [
+            'name' => 'required|max:255',
+            'role_rank' => 'required|max:255|numeric',
+            'description' => 'max:255',
+        ]);
+    }
+
+    public function getAll()
+    {
+        return $this->roleRepo->getAll();
+    }
+
+    public function getAllFeatureApiName()
+    {
+        return $this->roleRepo->getAllFeatureApiName();
     }
 
     public function delete($id)
