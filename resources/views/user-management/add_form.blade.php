@@ -8,18 +8,18 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">User management</h5>
+        <h5 class="card-header">@lang('custom_title.user')</h5>
         <div class="card-body">
             @if(count($roles) == 0)
                 <div class="alert alert-warning">
-                    <strong>Do not have Role, create create Role first to create Company</strong>
+                    <strong>@lang('custom_message.alert_no_role')</strong>
                 </div>
             @else
                 <form method="POST">
                     @csrf
                     <div class="form-group required">
-                        <label>Name</label>
-                        <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name"
+                        <label>@lang('custom_label.name')</label>
+                        <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="@lang('custom_label.name')"
                                name="name"
                                value="{{ request()->id ?(old('name') ? old('name') : $user->name) :  old('name') }}"
                                autocomplete="name" autofocus>
@@ -31,9 +31,9 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
+                        <label>@lang('custom_label.password')</label>
                         <input class="form-control @error('password') is-invalid @enderror" type="password"
-                               placeholder="Password" name="password" value="{{ old('password') }}"
+                               placeholder="@lang('custom_label.name')" name="password" value="{{ old('password') }}"
                                autocomplete="password">
                         @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -42,10 +42,10 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
+                        <label>@lang('custom_label.email')</label>
                         <input class="form-control @error('email')
                             is-invalid @enderror" type="text"
-                               placeholder="Email" name="email"
+                               placeholder="@lang('custom_label.email')" name="email"
                                value="{{ request()->id ? (old('email') ? old('email') : $user->email) : old('email') }}"
                                autocomplete="email">
                         @error('email')
@@ -55,8 +55,8 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Phone</label>
-                        <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone"
+                        <label>@lang('custom_label.phone')</label>
+                        <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="@lang('custom_label.phone')"
                                name="phone"
                                value="{{ request()->id ? (old('phone') ? old('phone') : $user->phone) : old('phone') }}"
                                autocomplete="phone">
@@ -67,9 +67,9 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Address</label>
+                        <label>@lang('custom_label.address')</label>
                         <input class="form-control @error('address') is-invalid @enderror" type="text"
-                               placeholder="Address" name="address"
+                               placeholder="@lang('custom_label.address')" name="address"
                                value="{{ request()->id ? (old('address') ? old('address') : $user->address) : old('address')}}"
                                autocomplete="address">
                         @error('address')
@@ -79,7 +79,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Role</label>
+                        <label>@lang('custom_label.role')</label>
                         <div class="form-group">
                             @if(request()->id)
                                 @foreach($roles as $role)
@@ -107,8 +107,8 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-danger ml-2" href="{{ route('user-management.list') }}" role="button">Cancel</a>
+                    <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
+                    <a class="btn btn-danger ml-2" href="{{ route('user-management.list') }}" role="button">@lang('custom_label.cancel')</a>
                 </form>
 
         </div>

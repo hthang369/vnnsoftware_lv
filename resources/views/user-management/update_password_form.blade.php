@@ -40,7 +40,7 @@
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a class="btn btn-danger ml-2" href="{{ route('user-management.list') }}" role="button">Cancel</a>
+                <a class="btn btn-danger ml-2" href="{{ route('user-management.list') }}" role="button">@lang('custom_label.cancel')</a>
             </form>
         </div>
     </div>

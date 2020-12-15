@@ -19,11 +19,11 @@
         <div class="card-body">
             <form>
                 <div class="form-group">
-                    <strong>Business Plan name:</strong>
+                    <strong>@lang('custom_label.name'):</strong>
                     <label>{{$businessPlan->name}}</label>
                 </div>
                 <div class="form-group">
-                    <strong>Business plan:</strong>
+                    <strong>@lang('custom_label.description'):</strong>
                     <label>{{$businessPlan->description}}</label>
                 </div>
                 <div class="form-group">
@@ -31,7 +31,7 @@
                     <label>{{$businessPlan->maximum_storage_file}}</label>
                 </div>
                 <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$businessPlan->id}}" role="button">@lang('custom_label.update')</a>
-                <a class="btn btn-danger ml-2" href="{{ route('business-plan.list') }}" role="button">Back</a>
+                <a class="btn btn-danger ml-2" href="{{ route('business-plan.list') }}" role="button">@lang('custom_label.back')</a>
             </form>
         </div>
     </div>

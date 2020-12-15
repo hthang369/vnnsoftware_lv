@@ -14,6 +14,10 @@ return [
     'phone' => 'Phone',
     // address
     'address' => 'Address',
+    // password
+    'password' => 'Password',
+    // password
+    'status' => 'Status',
 
 
     // business plan

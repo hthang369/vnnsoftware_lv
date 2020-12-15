@@ -46,7 +46,7 @@
                         <td>
                             <a class="btn btn-info" href="/system-admin/company/detail/{{$company->id}}" role="button">@lang('custom_label.detail')</a>
                             <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}" role="button">@lang('custom_label.update')</a>
-                            <a onclick="return confirm('@lang('custom_message.confirm_delete')');" class="btn btn-danger" href="/system-admin/company/delete/{{$company->id}}" role="button">Delete</a>
+                            <a onclick="return confirm('@lang('custom_message.confirm_delete')');" class="btn btn-danger" href="/system-admin/company/delete/{{$company->id}}" role="button">@lang('custom_label.delete')</a>
                         </td>
                     </tr>
                 @endforeach

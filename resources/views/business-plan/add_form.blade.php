@@ -10,15 +10,15 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Business Plan</h5>
+        <h5 class="card-header">@lang('custom_title.business_plan')</h5>
         <div class="card-body">
             <form method="POST">
                 @csrf
                 <div class="form-group">
-                    <label>Business Plan name</label>
+                    <label>@lang('custom_label.name')</label>
                     <input name="name" class="form-control"
                            value="{!! request()->id ? (old('name') ? old('name') : $businessPlan->name) : old('name')!!}"
-                           placeholder="Business Plan name">
+                           placeholder="@lang('custom_label.name')">
                 </div>
                 <div class="form-group">
                     <label>Maximum storage</label>
@@ -29,14 +29,14 @@
                            placeholder="Maxium storage">
                 </div>
                 <div class="form-group">
-                    <label>Description</label>
+                    <label>@lang('custom_label.description')</label>
                     <textarea name="description" class="form-control"
-                              placeholder="Description">{!! request()->id
+                              placeholder="@lang('custom_label.description')">{!! request()->id
                                 ? (old('description') ? old('description') : $businessPlan->description)
                                 : old('description') !!}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a class="btn btn-danger ml-2" href="{{ route('business-plan.list') }}" role="button">Cancel</a>
+                <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
+                <a class="btn btn-danger ml-2" href="{{ route('business-plan.list') }}" role="button">@lang('custom_label.cancel')</a>
             </form>
         </div>
     </div>
