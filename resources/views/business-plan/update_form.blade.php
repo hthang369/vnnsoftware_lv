@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Business Plan</h5>
+        <h5 class="card-header">@lang('custom_title.business_plan')</h5>
         <div class="card-body">
             <form>
                 <div class="form-group">

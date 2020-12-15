@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Business Plan Details</h5>
+        <h5 class="card-header">@lang('custom_title.business_plan_detail')</h5>
         @if(session()->has('saved'))
             <div class="alert alert-success">
                 <strong>@lang('custom_message.saved')</strong>

@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Company Details</h5>
+        <h5 class="card-header">@lang('custom_title.company_detail')</h5>
         @if(session()->has('saved'))
             <div class="alert alert-success">
                 <strong>@lang('custom_message.saved')</strong>
