@@ -10,7 +10,7 @@
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.business_plan')</h1>
     </div>
-    <a class="m-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ Add New</a>
+    <a class="my-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ @lang('custom_label.add_new')</a>
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped bg-light">
             <thead>
@@ -28,8 +28,8 @@
                     <td>{{$bp->name}}</td>
                     <td>{{$bp->description}}</td>
                     <td>
-                        <a class="btn btn-info" href="/system-admin/business-plan/detail/{{$bp->id}}" role="button">Detail</a>
-                        <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$bp->id}}" role="button">Update</a>
+                        <a class="btn btn-info" href="/system-admin/business-plan/detail/{{$bp->id}}" role="button">@lang('custom_label.detail')</a>
+                        <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$bp->id}}" role="button">@lang('custom_label.update')</a>
                         <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
                            class="btn btn-danger"
                            href="/system-admin/business-plan/delete/{{$bp->id}}" role="button">Delete</a>

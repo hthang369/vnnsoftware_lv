@@ -11,10 +11,10 @@
         <h1>@lang('custom_title.user')</h1>
     </div>
 
-    <a class="m-2 btn btn-primary" href="/system-admin/user-management/new" role="button">+ Add New</a>
+    <a class="my-2 btn btn-primary" href="/system-admin/user-management/new" role="button">+ @lang('custom_label.add_new')</a>
     @if(count($list) == 0)
         <div class="alert alert-warning">
-            <strong>Sorry!</strong> No Item Found.
+            @lang('custom_message.no_item_found')
         </div>
     @else
         <div class="table-responsive">
@@ -44,12 +44,12 @@
                             @endforeach
                         </td>
                         <td>
-                            <a class="btn btn-info" href="/system-admin/user-management/detail/{{$user->id}}" role="button">Detail</a>
-                            <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">Update</a>
+                            <a class="btn btn-info" href="/system-admin/user-management/detail/{{$user->id}}" role="button">@lang('custom_label.detail')</a>
+                            <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">@lang('custom_label.update')</a>
                             <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
                                class="btn btn-danger"
                                href="/system-admin/user-management/delete/{{$user->id}}"
-                               role="button">Delete</a>
+                               role="button">@lang('custom_label.delete')</a>
                         </td>
                     </tr>
                 @endforeach

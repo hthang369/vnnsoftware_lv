@@ -14,6 +14,10 @@ return [
     'phone' => 'Phone',
     // address
     'address' => 'Address',
+    // password
+    'password' => 'Password',
+    // password
+    'status' => 'Status',
 
 
     // business plan
@@ -39,5 +43,14 @@ return [
     'backend_version' => 'Backend Version',
     'frontend_version' => 'Frontend Version',
     'api_version' => 'Api Version',
+
+    // Action
+    'delete' => 'Delete',
+    'add_new' => 'Add New',
+    'update' => 'Update',
+    'detail' => 'Detail',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'set_permission' => 'Set permission',
 
 ];

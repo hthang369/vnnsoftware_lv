@@ -13,8 +13,8 @@
             <form method="POST">
                 @csrf
                 <div class="form-group required">
-                    <label>Name</label>
-                    <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name"
+                    <label>@lang('custom_label.name')</label>
+                    <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="@lang('custom_label.name')"
                            name="name"
                            value="{{ old('name') ? old('name') : $role->name }}"
                            autocomplete="name" autofocus>
@@ -25,10 +25,10 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Role rank</label>
+                    <label>@lang('custom_label.role_rank')</label>
                     <input class="form-control @error('role_rank')
                         is-invalid @enderror" type="text"
-                           placeholder="Role rank" name="role_rank"
+                           placeholder="@lang('custom_label.role_rank')" name="role_rank"
                            value="{{ old('role_rank') ? old('role_rank') : $role->role_rank }}"
                            autocomplete="role_rank">
                     @error('role_rank')
@@ -38,9 +38,9 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Description</label>
+                    <label>@lang('custom_label.description')</label>
                     <textarea class="form-control @error('description') is-invalid @enderror" type="text"
-                              placeholder="Description" name="description"
+                              placeholder="@lang('custom_label.description')" name="description"
                               autocomplete="description">{{ old('description') ? old('description') : $role->description }}</textarea>
                     @error('description')
                     <span class="invalid-feedback" role="alert">
@@ -48,8 +48,8 @@
                     </span>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a class="btn btn-danger ml-2" href="{{ route('role.list') }}" role="button">Cancel</a>
+                <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
+                <a class="btn btn-danger ml-2" href="{{ route('role.list') }}" role="button">@lang('custom_label.cancel')</a>
             </form>
         </div>
     </div>

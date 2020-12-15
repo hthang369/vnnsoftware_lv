@@ -10,15 +10,15 @@
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.role')</h1>
     </div>
-    <a class="m-2 btn btn-primary" href="/system-admin/role/new" role="button">+ Add New</a>
+    <a class="my-2 btn btn-primary" href="/system-admin/role/new" role="button">+ @lang('custom_label.add_new')</a>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
-            <strong>Deleted!</strong>
+            <strong>@lang('custom_message.deleted')</strong>
         </div>
     @endif
     @if(count($list) == 0)
         <div class="alert alert-warning">
-            <strong>Sorry!</strong> No Item Found.
+            @lang('custom_message.no_item_found')
         </div>
     @else
         <div class="table-responsive">
@@ -48,13 +48,13 @@
                             @endforeach
                         </td>
                         <td>
-                            <a class="btn btn-info m-1" href="/system-admin/role/detail/{{$role->id}}" role="button">Detail</a>
-                            <a class="btn btn-primary m-1" href="/system-admin/role/update/{{$role->id}}" role="button">Update</a>
-                            <a class="btn btn-warning m-1" href="/system-admin/role-has-feature-api/set-permission/{{$role->id}}" role="button">Set permission</a>
+                            <a class="btn btn-info m-1" href="/system-admin/role/detail/{{$role->id}}" role="button">@lang('custom_label.detail')</a>
+                            <a class="btn btn-primary m-1" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
+                            <a class="btn btn-warning m-1" href="/system-admin/role-has-feature-api/set-permission/{{$role->id}}" role="button">@lang('custom_label.set_permission')</a>
                             <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
                                class="btn btn-danger m-1"
                                href="/system-admin/role/delete/{{$role->id}}"
-                               role="button">Delete</a>
+                               role="button">@lang('custom_label.delete')</a>
                         </td>
                     </tr>
                 @endforeach

@@ -13,15 +13,15 @@
             <div class="alert alert-warning">
                 <strong>Do not have Business plan, create Business plan first to create Company</strong>
             </div>
-            <a class="m-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ Add New Business
+            <a class="my-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ @lang('custom_label.update') Business
                 plan</a>
         @else
             <div class="card-body">
                 <form method="POST">
                     @csrf
                     <div class="form-group required">
-                        <label>Name</label>
-                        <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="Name"
+                        <label>@lang('custom_label.name')</label>
+                        <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="@lang('custom_label.name')"
                                name="name"
                                value="{{ old('name') }}"
                                autocomplete="name" autofocus>
@@ -32,10 +32,10 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
+                        <label>@lang('custom_label.email')</label>
                         <input class="form-control @error('email')
                             is-invalid @enderror" type="text"
-                               placeholder="Email" name="email"
+                               placeholder="@lang('custom_label.email')" name="email"
                                value="{{ old('email')  }}"
                                autocomplete="email">
                         @error('email')
@@ -45,8 +45,8 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Phone</label>
-                        <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="Phone"
+                        <label>@lang('custom_label.phone')</label>
+                        <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="@lang('custom_label.phone')"
                                name="phone"
                                value="{{ old('phone') }}"
                                autocomplete="phone">
@@ -57,9 +57,9 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Address</label>
+                        <label>@lang('custom_label.address')</label>
                         <input class="form-control @error('address') is-invalid @enderror" type="text"
-                               placeholder="Address" name="address"
+                               placeholder="@lang('custom_label.address')" name="address"
                                value="{{ old('address') }}"
                                autocomplete="address">
                         @error('address')
@@ -69,7 +69,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Business plan</label>
+                        <label>@lang('custom_label.business_plan')</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="business_plan_id"
                                 value="{{ old('business_plan_id') }}">
                             @foreach($listBusinessPlan as $i => $businessPlan)
@@ -80,8 +80,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-danger ml-2" href="{{ route('company.list') }}" role="button">Cancel</a>
+                    <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
+                    <a class="btn btn-danger ml-2" href="{{ route('company.list') }}" role="button">@lang('custom_label.cancel')</a>
                 </form>
             </div>
         @endif
