@@ -55,6 +55,25 @@ class RoleService extends MyService
         return view('/role/update_form')->with('role', $role);
     }
 
+    public function create(Request $request)
+    {
+        $validator = $this->roleValidation->newValidate($request->all());
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        }
+
+        $input = $request->all();
+
+        try {
+
+            $role = $this->roleRepo->create($input);
+            return redirect()->intended('/system-admin/role/detail/' . $role->id)->with('saved', true);
+        } catch (\Exception $ex) {
+            abort(400,$ex->getMessage());
+        }
+    }
+
     public function update($id, Request $request)
     {
         $role = $this->roleRepo->getById($id);

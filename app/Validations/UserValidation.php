@@ -52,4 +52,19 @@ class UserValidation implements ValidationInterface {
 
         $this->validate($request, $rules, $messages);
     }
+
+    public function changePasswordValidate($request)
+    {
+        $rules = [
+            'newPassword' => 'same:confirmPassword',
+            'confirmPassword' => 'same:newPassword',
+        ];
+
+        $messages = [
+            'same' => 'The :attribute and :other must match.',
+        ];
+
+
+        $this->validate($request, $rules, $messages);
+    }
 }
