@@ -20,7 +20,7 @@ class FeatureApiService extends MyService
 
     public function list()
     {
-        $list = $this->featureApiRepo->getAllPaginate();
+        $list = $this->featureApiRepo->getAll();
         return view('/feature-api/list')->with('list', $list);
     }
 

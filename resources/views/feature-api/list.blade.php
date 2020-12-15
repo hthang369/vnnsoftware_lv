@@ -43,7 +43,7 @@
                 <tbody>
                 @foreach($list as $i => $featureApi)
                     <tr>
-                        <td>{{($list->currentPage() - 1) * $list->perPage() + ($i + 1)}}</td>
+                        <td>{{($i + 1)}}</td>
                         <td>{{$featureApi->api}}</td>
                         <td>{{$featureApi->name}}</td>
                         <td>
@@ -60,7 +60,6 @@
                 </tbody>
             </table>
         </div>
-        {{ $list->links() }}
         {{--<script>--}}
         {{--function callAjaxCheckDelete(id) {--}}
         {{--$(".custom-delete").click(function () {--}}
