@@ -55,6 +55,9 @@ class FeatureApiService extends MyService
                 $input = [];
                 $input['api'] = $value->uri();
                 $input['name'] = $value->getName();
+                if ($input['name'] == '') {
+                    $input['name'] = $input['api'] . '-' . rand();
+                }
                 $this->featureApiRepo->create($input);
             }
             DB::commit();
