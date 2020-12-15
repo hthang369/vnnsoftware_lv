@@ -12,18 +12,30 @@ class FeatureApiService extends MyService
     private $featureApiRepo;
     private $roleHasFeatureApiService;
 
+    /**
+     * FeatureApiService constructor.
+     * @param FeatureApiRepositoryInterface $featureApiRepo
+     * @param RoleHasFeatureApiService $roleHasFeatureApiService
+     */
     public function __construct(FeatureApiRepositoryInterface $featureApiRepo, RoleHasFeatureApiService $roleHasFeatureApiService)
     {
         $this->featureApiRepo = $featureApiRepo;
         $this->roleHasFeatureApiService = $roleHasFeatureApiService;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function list()
     {
         $list = $this->featureApiRepo->getAll();
         return view('/feature-api/list')->with('list', $list);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id)
     {
         $featureApi = $this->featureApiRepo->getById($id);
@@ -45,6 +57,9 @@ class FeatureApiService extends MyService
         return redirect()->intended('/system-admin/feature-api')->with('deleted', true);
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function saveAllRoutesToDB()
     {
         $routeCollection = \Route::getRoutes();

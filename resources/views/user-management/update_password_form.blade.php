@@ -20,6 +20,22 @@
             <form action="{{ route('user-management.update-password') }}" method="POST" >
                 @csrf
                 <div class="form-group">
+                    <label>Current password</label>
+                    <input name="currentPassword" type="password"
+                           class="form-control @error('currentPassword') is-invalid @enderror" placeholder="Current password">
+                    @error('currentPassword')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+
+                    @if(session()->has('wrongCurrentPassword'))
+                        <div class="alert alert-danger">
+                            <strong>@lang('custom_message.wrong_password')</strong>
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
                     <label>New password</label>
                     <input name="newPassword" type="password"
                            class="form-control @error('newPassword') is-invalid @enderror" placeholder="New password">

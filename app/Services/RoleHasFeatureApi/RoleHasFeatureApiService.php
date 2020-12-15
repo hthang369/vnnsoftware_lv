@@ -17,6 +17,13 @@ class RoleHasFeatureApiService extends MyService
     private $featureApiMysqlRepository;
     private $roleHasFeatureApiValidation;
 
+    /**
+     * RoleHasFeatureApiService constructor.
+     * @param RoleHasFeatureApiRepositoryInterface $roleHasFeatureApiRepo
+     * @param RoleRepositoryInterface $roleRepo
+     * @param FeatureApiMysqlRepository $featureApiMysqlRepository
+     * @param RoleHasFeatureApiValidation $roleHasFeatureApiValidation
+     */
     public function __construct(RoleHasFeatureApiRepositoryInterface $roleHasFeatureApiRepo, RoleRepositoryInterface $roleRepo, FeatureApiMysqlRepository $featureApiMysqlRepository, RoleHasFeatureApiValidation $roleHasFeatureApiValidation)
     {
         $this->roleHasFeatureApiRepo = $roleHasFeatureApiRepo;
@@ -25,22 +32,38 @@ class RoleHasFeatureApiService extends MyService
         $this->roleHasFeatureApiValidation = $roleHasFeatureApiValidation;
     }
 
+    /**
+     * @param $role_id
+     * @return mixed
+     */
     public function getByRoleId($role_id)
     {
         return $this->roleHasFeatureApiRepo->getByRoleId($role_id);
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function deleteByFeatureApiName($name)
     {
         return $this->roleHasFeatureApiRepo->deleteByFeatureApiName($name);
     }
 
+    /**
+     * @param $feature_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function ajaxCheckIsUsedFeatureApi($feature_id)
     {
         $isUsed = !is_null($this->roleHasFeatureApiRepo->getOneByFeatureId($feature_id));
         return response()->json(array('isUsed' => $isUsed), 200);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function setPermissionForm($id)
     {
         $role = $this->roleRepo->getById($id);
@@ -58,6 +81,10 @@ class RoleHasFeatureApiService extends MyService
         return view('/role-has-feature-api/set_role_form')->with(['arrayOldFeatureApi' => $arrayOldFeatureApi, 'role' => $role, 'listFeatureApi' => $listFeatureApi]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function setPermission(Request $request)
     {
 

@@ -17,12 +17,20 @@ class BusinessPlanService extends MyService
     private $businessPLanRepo;
     private $businessPlanValidation;
 
+    /**
+     * BusinessPlanService constructor.
+     * @param BusinessPlanRepositoryInterface $roleRepo
+     * @param BusinessPlanValidation $businessPlanValidation
+     */
     public function __construct(BusinessPlanRepositoryInterface $roleRepo, BusinessPlanValidation $businessPlanValidation)
     {
         $this->businessPLanRepo = $roleRepo;
         $this->businessPlanValidation = $businessPlanValidation;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function list()
     {
         return view('/business-plan/list', [
@@ -30,6 +38,10 @@ class BusinessPlanService extends MyService
         ]);
     }
 
+    /**
+     * @param $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function create( $request)
     {
         $validator = $this->businessPlanValidation->newValidate($request->all());
@@ -48,6 +60,11 @@ class BusinessPlanService extends MyService
         }
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id, Request $request)
     {
         $businessPlan = $this->getBusinessPlanInfo($id);
@@ -74,11 +91,20 @@ class BusinessPlanService extends MyService
         //return $this->businessPLanRepo->update($id, $input);
     }
 
+    /**
+     * @param $id
+     * @param $input
+     * @return mixed
+     */
     public function updateInfoBusinessPlan($id, $input)
     {
         return $this->businessPLanRepo->updateInfoBusinessPlan($id, $input);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getBusinessPlanInfo($id)
     {
         $businessPlan = BusinessPlan::find($id);
@@ -90,6 +116,10 @@ class BusinessPlanService extends MyService
         return $businessPlan;
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id){
 
         $businessPlan = $this->getBusinessPlanInfo($id);
@@ -107,29 +137,48 @@ class BusinessPlanService extends MyService
         return redirect()->intended('/system-admin/business-plan');
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function newForm() {
         return view('/business-plan/add_form', [
 
         ])->with('isNew', true);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function detailForm($id) {
         return view('/business-plan/detail',  [
             'businessPlan' => $this->getBusinessPlanInfo($id)
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function updateForm($id) {
         return view('/business-plan/add_form', [
             'businessPlan' => $this->getBusinessPlanInfo($id)
         ]);
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function getAllBusinessPlan()
     {
         return DB::table('business_plan')->get();
     }
 
+    /**
+     * @param $request
+     * @param null $id
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     public function ruleCreateUpdate($request, $id = null)
     {
         return $validator = Validator::make($request, [

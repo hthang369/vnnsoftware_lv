@@ -30,6 +30,12 @@ class UserController extends Controller
     private $roleService;
     private $userValidate;
 
+    /**
+     * UserController constructor.
+     * @param UserService $userService
+     * @param RoleService $roleService
+     * @param UserValidation $userValidate
+     */
     public function __construct(
         UserService $userService,
         RoleService $roleService,
@@ -40,51 +46,90 @@ class UserController extends Controller
         $this->userValidate = $userValidate;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return $this->userService->index();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login(Request $request)
     {
         return $this->userService->login($request);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function newForm()
     {
         return $this->userService->newForm();
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function updateForm($id)
     {
        return $this->userService->updateForm($id);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function updatePasswordForm($id)
     {
         return $this->userService->updatePasswordForm($id);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function register(Request $request)
     {
         return $this->userService->Create($request);
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id, Request $request)
     {
         return $this->userService->update($id, $request);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function detail($id)
     {
        return $this->userService->detailForm($id);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id)
     {
         return $this->userService->delete($id);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updatePassword(Request $request){
         return $this->userService->changePassword($request);
     }

@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Validator;
 
 class CompanyValidation implements ValidationInterface
 {
+    /**
+     * @param $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     public function newValidate($request)
     {
         return $validator = Validator::make($request, [
@@ -17,6 +21,11 @@ class CompanyValidation implements ValidationInterface
         ]);
     }
 
+    /**
+     * @param $request
+     * @param null $id
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     public function updateValidate($request, $id = null)
     {
         return $validator = Validator::make($request, [

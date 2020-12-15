@@ -16,4 +16,5 @@ return [
     'alert_no_role' => 'Do not have Role, create create Role first to create User',
     'inaccurate_data' => 'Inaccurate data!',
     'no_item_found' => '<strong>Sorry!</strong> No Item Found.',
+    'wrong_password' => 'Wrong password!',
 ];

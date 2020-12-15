@@ -15,6 +15,12 @@ class CompanyService extends MyService
     private $businessPlanService;
     private $companyValidation;
 
+    /**
+     * CompanyService constructor.
+     * @param CompanyRepositoryInterface $companyRepo
+     * @param BusinessPlanService $businessPlanService
+     * @param CompanyValidation $companyValidation
+     */
     public function __construct(
         CompanyRepositoryInterface $companyRepo,
         BusinessPlanService $businessPlanService,
@@ -25,12 +31,19 @@ class CompanyService extends MyService
         $this->companyValidation = $companyValidation;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function list()
     {
         $list = $this->companyRepo->getAllPaginate();
         return view('/company/list')->with('list', $list);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function detail($id)
     {
         $company = $this->companyRepo->getById($id);
@@ -44,12 +57,19 @@ class CompanyService extends MyService
         return view('/company/detail')->with('company', $company);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function newForm()
     {
         $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
         return view('/company/add_form')->with('listBusinessPlan', $listBusinessPlan);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function create(Request $request)
     {
         $validator = $this->companyValidation->newValidate($request->all());
@@ -68,6 +88,10 @@ class CompanyService extends MyService
         }
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function updateForm($id)
     {
         $company = $this->companyRepo->getById($id);
@@ -81,6 +105,11 @@ class CompanyService extends MyService
         return view('/company/update_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id, Request $request)
     {
         $company = $this->companyRepo->getById($id);
@@ -106,6 +135,10 @@ class CompanyService extends MyService
         return redirect()->intended('/system-admin/company/detail/' . $id)->with('saved', true);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id)
     {
         $company = $this->companyRepo->getById($id);

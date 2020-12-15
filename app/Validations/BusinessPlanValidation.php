@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Validator;
 
 class BusinessPlanValidation implements ValidationInterface {
 
+    /**
+     * @param $request
+     * @param null $id
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     public function updateValidate($request, $id = NULL)
     {
         return $validator = Validator::make($request, [
@@ -16,6 +21,10 @@ class BusinessPlanValidation implements ValidationInterface {
         ]);
     }
 
+    /**
+     * @param $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     public function newValidate($request)
     {
         return $validator = Validator::make($request, [
