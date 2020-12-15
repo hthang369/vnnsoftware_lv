@@ -4,6 +4,7 @@ namespace App\Repositories\RoleHasFeatureApi;
 
 use App\Models\RoleHasFeatureApi;
 use App\Repositories\MyRepository;
+use Illuminate\Support\Facades\DB;
 
 class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFeatureApiRepositoryInterface
 {
@@ -59,5 +60,19 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
     public function getOneByFeatureId($feature_id)
     {
         return RoleHasFeatureApi::where('feature_api_id', $feature_id)->first();
+    }
+
+    public function getListFeatureApiNameByUserId($user_id)
+    {
+        return DB::table('role_has_feature_api')->select("role_has_feature_api.feature_api_name")
+            ->join('role', 'role.id', '=', 'role_has_feature_api.role_id')
+            ->join('role_user', 'role_user.role_id', '=', 'role.id')
+            ->join('users', 'users.id', '=', 'role_user.user_id')
+            ->where("users.id", $user_id)
+            ->whereNull('role_has_feature_api.deleted_at')
+            ->whereNull('role.deleted_at')
+            ->whereNull('users.deleted_at')
+            ->distinct()
+            ->get();
     }
 }
