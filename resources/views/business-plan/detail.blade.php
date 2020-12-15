@@ -13,7 +13,7 @@
         <h5 class="card-header">Business Plan Details</h5>
         @if(session()->has('saved'))
             <div class="alert alert-success">
-                <strong>Saved!</strong>
+                <strong>@lang('custom_message.saved')</strong>
             </div>
         @endif
         <div class="card-body">
@@ -30,7 +30,7 @@
                     <strong>Maximum storage file:</strong>
                     <label>{{$businessPlan->maximum_storage_file}}</label>
                 </div>
-                <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$businessPlan->id}}" role="button">Update</a>
+                <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$businessPlan->id}}" role="button">@lang('custom_label.update')</a>
                 <a class="btn btn-danger ml-2" href="{{ route('business-plan.list') }}" role="button">Back</a>
             </form>
         </div>

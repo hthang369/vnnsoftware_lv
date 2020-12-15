@@ -8,4 +8,8 @@ return [
     'feature_api_not_found' => 'Feature api not found!',
     'confirm_delete' => 'Are you sure you want to delete?',
     'update_password_success' => 'Password updated!',
+    'feature_confirm_sync' => 'Are you sure you want to Sync?',
+    'deleted' => 'Deleted!',
+    'saved' => 'Saved!',
+    'no_item_found' => '<strong>Sorry!</strong> No Item Found.',
 ];

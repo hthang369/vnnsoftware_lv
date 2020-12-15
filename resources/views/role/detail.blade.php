@@ -11,7 +11,7 @@
         <h5 class="card-header">Role Details</h5>
         @if(session()->has('saved'))
             <div class="alert alert-success">
-                <strong>Saved!</strong>
+                <strong>@lang('custom_message.saved')</strong>
             </div>
         @endif
         <div class="card-body">
@@ -33,7 +33,7 @@
                 <strong>Description:</strong>
                 <label>{{$role->description}}</label>
             </div>
-            <a class="btn btn-primary" href="/system-admin/role/update/{{$role->id}}" role="button">Update</a>
+            <a class="btn btn-primary" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
             <a class="btn btn-danger ml-2" href="{{ route('role.list') }}" role="button">Back</a>
         </div>
     </div>

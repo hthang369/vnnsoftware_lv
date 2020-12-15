@@ -13,7 +13,7 @@
             <div class="alert alert-warning">
                 <strong>Do not have Business plan, create Business plan first to create Company</strong>
             </div>
-            <a class="m-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ Add New Business
+            <a class="my-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ @lang('custom_label.update') Business
                 plan</a>
         @else
             <div class="card-body">

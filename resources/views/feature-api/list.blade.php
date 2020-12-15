@@ -14,20 +14,20 @@
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.feature_api')</h1>
     </div>
-    <a class="m-2 btn btn-outline-danger" onclick="return confirm('Are you sure you want to Sync?');" href="/system-admin/feature-api/save-all-to-db" role="button">Sync with DB</a>
+    <a class="my-2 btn btn-outline-danger" onclick="return confirm('@lang('custom_message.feature_confirm_sync')');" href="/system-admin/feature-api/save-all-to-db" role="button">Sync with DB</a>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
-            <strong>Deleted!</strong>
+            <strong>@lang('custom_message.deleted')</strong>
         </div>
     @endif
     @if(session()->has('saved'))
         <div class="alert alert-success">
-            <strong>Saved!</strong>
+            <strong>@lang('custom_message.saved')</strong>
         </div>
     @endif
     @if(count($list) == 0)
         <div class="alert alert-warning">
-            <strong>Sorry!</strong> No Item Found.
+            @lang('custom_message.no_item_found')
         </div>
     @else
         <div class="table-responsive">
@@ -52,7 +52,7 @@
                                type="button"
                                class="btn btn-danger m-1"
                                href="/system-admin/feature-api/delete/{{$featureApi->id}}"
-                               role="button">Delete
+                               role="button">@lang('custom_label.delete')
                             </a>
                         </td>
                     </tr>

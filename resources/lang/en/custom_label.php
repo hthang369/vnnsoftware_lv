@@ -40,4 +40,13 @@ return [
     'frontend_version' => 'Frontend Version',
     'api_version' => 'Api Version',
 
+    // Action
+    'delete' => 'Delete',
+    'add_new' => 'Add New',
+    'update' => 'Update',
+    'detail' => 'Detail',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'set_permission' => 'Set permission',
+
 ];

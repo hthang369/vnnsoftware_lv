@@ -11,7 +11,7 @@
         <h5 class="card-header">Set feature api for role</h5>
         @if(session()->has('saved'))
             <div class="alert alert-success">
-                <strong>Saved!</strong>
+                <strong>@lang('custom_message.saved')</strong>
             </div>
         @endif
         @if(session()->has('mess'))
@@ -23,7 +23,7 @@
             <div class="alert alert-warning">
                 <strong>Do not have Feature api, create Feature api first to create Role has feature api</strong>
             </div>
-            <a class="m-2 btn btn-primary" href="/system-admin/feature-api/new" role="button">+ Add New Feature api</a>
+            <a class="my-2 btn btn-primary" href="/system-admin/feature-api/new" role="button">+ @lang('custom_label.add_new') Feature api</a>
         @endif
         @if(count($listFeatureApi) > 0)
             <div class="card-body">

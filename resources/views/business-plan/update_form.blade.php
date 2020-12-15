@@ -25,8 +25,8 @@
                     <label>Description</label>
                     <input class="form-control" placeholder="Description">
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-primary">@lang('custom_label.update')</button>
+                <button type="button" class="btn btn-danger">@lang('custom_label.delete')</button>
             </form>
         </div>
     </div>

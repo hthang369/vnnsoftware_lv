@@ -12,12 +12,12 @@
     </div>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
-            <strong>Deleted!</strong>
+            <strong>@lang('custom_message.deleted')</strong>
         </div>
     @endif
     @if(session()->has('saved'))
         <div class="alert alert-success">
-            <strong>Saved!</strong>
+            <strong>@lang('custom_message.saved')</strong>
         </div>
     @endif
     @if(session()->has('error'))
@@ -27,7 +27,7 @@
     @endif
     @if(count($data) == 0)
         <div class="alert alert-warning">
-            <strong>Sorry!</strong> No Item Found.
+            @lang('custom_message.no_item_found')
         </div>
     @else
         <div class="table-responsive">
