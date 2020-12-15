@@ -85,6 +85,25 @@ class UserService extends MyService
         return view('/user-management/detail')->with('user', $user);
     }
 
+    public function updatePasswordForm($id)
+    {
+        $user = $this->getUserById($id);
+        $userRoleIds = array();
+        if (is_null($user)) {
+            abort(400,__('custom_message.user_not_found'));
+        }
+
+        foreach ($user->roles as $key => $value)
+        {
+            array_push($userRoleIds, $value->id);
+        }
+        return view('/user-management/update_password_form',
+            [
+                'roles' => $this->roleService->getAll(),
+                'userRoleIds' => $userRoleIds
+            ])->with('user', $user);
+    }
+
     public function getUserById($id)
     {
         return $this->userRepo->getUserById($id);
@@ -167,9 +186,21 @@ class UserService extends MyService
         return $this->userRepo->checkPassword($id, $current);
     }
 
-    public function changePassword($id, $new)
+    public function changePassword(Request $request)
     {
-        return $this->userRepo->changePassword($id, $new);
+        $validator = $this->userValidate->changePasswordValidate($request);
+
+        $input = $request->all();
+        $input['newPassword'] = Hash::make($input['newPassword']);
+
+        try {
+            $this->userRepo->changePassword(Auth::id(), $input['newPassword']);
+            return redirect()
+                ->intended('/system-admin/user-management/update-password/' . Auth::id())
+                ->with('success', true);
+        } catch (\Exception $ex) {
+            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+        }
     }
 
     public function getUserInfo($id)

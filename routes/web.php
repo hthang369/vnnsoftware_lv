@@ -52,6 +52,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
         Route::get('detail/{id}', 'User\UserController@detail')->name('user-management.detail');
         Route::get('update/{id}', 'User\UserController@updateForm')->name('user-management.update.form');
         Route::post('update/{id}', 'User\UserController@update')->name('user-management.update');
+        Route::get('update-password/{id}', 'User\UserController@updatePasswordForm')->name('user-management.update-password.form');
+        Route::post('update-password', 'User\UserController@updatePassword')->name('user-management.update-password');
         Route::get('new', 'User\UserController@newForm')->name('user-management.new');
         Route::post('new', 'User\UserController@register')->name('user-management.register');
         Route::get('delete/{id}', 'User\UserController@delete')->name('user-management.delete');

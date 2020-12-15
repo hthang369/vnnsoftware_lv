@@ -1,0 +1,47 @@
+@extends('layouts.system-admin')
+
+@section('title', ' ')
+
+@section('sidebar')
+    @parent
+
+
+@endsection
+
+@section('content')
+    @if(session()->has('success'))
+        <div class="alert alert-success">
+            <strong>@lang('custom_message.update_password_success')</strong>
+        </div>
+    @endif
+    <div class="card">
+        <h5 class="card-header">Update your password</h5>
+        <div class="card-body">
+            <form action="{{ route('user-management.update-password') }}" method="POST" >
+                @csrf
+                <div class="form-group">
+                    <label>New password</label>
+                    <input name="newPassword" type="password"
+                           class="form-control @error('newPassword') is-invalid @enderror" placeholder="New password">
+                    @error('newPassword')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>Confirm password</label>
+                    <input name="confirmPassword" type="password"
+                           class="form-control @error('confirmPassword') is-invalid @enderror form-control" placeholder="Confirm password">
+                    @error('confirmPassword')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a class="btn btn-danger ml-2" href="{{ route('user-management.list') }}" role="button">Cancel</a>
+            </form>
+        </div>
+    </div>
+@endsection

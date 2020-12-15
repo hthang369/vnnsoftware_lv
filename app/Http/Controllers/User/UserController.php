@@ -60,6 +60,11 @@ class UserController extends Controller
        return $this->userService->updateForm($id);
     }
 
+    public function updatePasswordForm($id)
+    {
+        return $this->userService->updatePasswordForm($id);
+    }
+
     public function register(Request $request)
     {
         return $this->userService->Create($request);
@@ -78,5 +83,9 @@ class UserController extends Controller
     public function delete($id)
     {
         return $this->userService->delete($id);
+    }
+
+    public function updatePassword(Request $request){
+        return $this->userService->changePassword($request);
     }
 }
