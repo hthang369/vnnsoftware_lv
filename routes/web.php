@@ -95,6 +95,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
         Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('approval-api-token.list');
         Route::get('approval-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@approvalToken')->name('approval-api-token.approval-token');
         Route::get('stop-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@stopToken')->name('approval-api-token.stop-token');
+        Route::get('reopen-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@reopenToken')->name('approval-api-token.reopen-token');
         Route::get('delete-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@deleteToken')->name('approval-api-token.delete-token');
     });
 });
