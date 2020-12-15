@@ -13,7 +13,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger custom-delete">Delete</button>
+                <button type="button" class="btn btn-danger custom-delete">@lang('custom_label.delete')</button>
             </div>
         </div>
     </div>

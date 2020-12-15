@@ -52,16 +52,16 @@
                         <td>{{Carbon\Carbon::createFromTimestamp($item['request_approval_timestamp'])->toDateTimeString()}}</td>
                         <td>
                             @if($status[$item['request_approval_status']] == 'Not accepted')
-                                <a class="btn btn-info m-1" href="/system-admin/approval-api-token/approval-token/{{$item['id']}}" role="button">Accept</a>
+                                <a class="btn btn-info m-1" href="/system-admin/approval-api-token/approval-token/{{$item['id']}}" role="button">@lang('custom_label.accept')</a>
                             @endif
                             @if($status[$item['request_approval_status']] == 'Accepted')
-                                <a class="btn btn-primary m-1" href="/system-admin/approval-api-token/stop-token/{{$item['id']}}" role="button">Pause</a>
+                                <a class="btn btn-primary m-1" href="/system-admin/approval-api-token/stop-token/{{$item['id']}}" role="button">@lang('custom_label.pause')</a>
                             @endif
                             @if($status[$item['request_approval_status']] == 'Paused')
-                                <a class="btn btn-info m-1" href="/system-admin/approval-api-token/approval-token/{{$item['id']}}" role="button">Accept</a>
+                                <a class="btn btn-info m-1" href="/system-admin/approval-api-token/approval-token/{{$item['id']}}" role="button">@lang('custom_label.accept')</a>
                                 {{--<a class="btn btn-primary m-1" href="/system-admin/approval-api-token/reopen-token/{{$item['id']}}" role="button">Reopen</a>--}}
                             @endif
-                            <a class="btn btn-danger m-1" onclick="return confirm('@lang('custom_message.confirm_delete')');" href="/system-admin/approval-api-token/delete-token/{{$item['id']}}" role="button">Delete</a>
+                            <a class="btn btn-danger m-1" onclick="return confirm('@lang('custom_message.confirm_delete')');" href="/system-admin/approval-api-token/delete-token/{{$item['id']}}" role="button">@lang('custom_label.delete')</a>
                         </td>
                     </tr>
                 @endforeach

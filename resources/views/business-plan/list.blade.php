@@ -32,7 +32,7 @@
                         <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$bp->id}}" role="button">@lang('custom_label.update')</a>
                         <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
                            class="btn btn-danger"
-                           href="/system-admin/business-plan/delete/{{$bp->id}}" role="button">Delete</a>
+                           href="/system-admin/business-plan/delete/{{$bp->id}}" role="button">@lang('custom_label.delete')</a>
                     </td>
                 </tr>
             @endforeach

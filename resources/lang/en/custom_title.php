@@ -2,11 +2,15 @@
 return [
 
     'company' => 'Company',
+    'company_detail' => 'Company Details',
     'user' => 'User',
+    'user_detail' => 'User Details',
     'role' => 'Role',
+    'role_detail' => 'Role Details',
     'feature_api' => 'Feature api',
     'version' => 'Version',
     'business_plan' => 'Business plan',
+    'business_plan_detail' => 'Business plan details',
     'approval_api_token' => 'Approval api token',
     'set_permission_for_role' => 'Set permission for role',
     ];

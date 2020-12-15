@@ -8,13 +8,12 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Add company</h5>
+        <h5 class="card-header">@lang('custom_title.company')</h5>
         @if(count($listBusinessPlan) == 0)
             <div class="alert alert-warning">
-                <strong>Do not have Business plan, create Business plan first to create Company</strong>
+                <strong>@lang('custom_message.alert_no_business_plan')</strong>
             </div>
-            <a class="my-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ @lang('custom_label.update') Business
-                plan</a>
+            <a class="my-2 btn btn-primary" href="/system-admin/business-plan/new" role="button">+ @lang('custom_label.add_new') @lang('custom_title.business_plan')</a>
         @else
             <div class="card-body">
                 <form method="POST">

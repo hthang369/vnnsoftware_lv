@@ -51,6 +51,8 @@ return [
     'detail' => 'Detail',
     'save' => 'Save',
     'cancel' => 'Cancel',
+    'pause' => 'Pause',
+    'accept' => 'Accept',
     'set_permission' => 'Set permission',
 
 ];

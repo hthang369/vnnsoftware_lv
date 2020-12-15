@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Role</h5>
+        <h5 class="card-header">@lang('custom_title.role')</h5>
         <div class="card-body">
             <form method="POST">
                 @csrf
