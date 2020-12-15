@@ -55,6 +55,25 @@ class RoleService extends MyService
         return view('/role/update_form')->with('role', $role);
     }
 
+    public function create(Request $request)
+    {
+        $validator = $this->roleValidation->newValidate($request->all());
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        }
+
+        $input = $request->all();
+
+        try {
+
+            $role = $this->roleRepo->create($input);
+            return redirect()->intended('/system-admin/role/detail/' . $role->id)->with('saved', true);
+        } catch (\Exception $ex) {
+            abort(400,$ex->getMessage());
+        }
+    }
+
     public function update($id, Request $request)
     {
         $role = $this->roleRepo->getById($id);
@@ -72,7 +91,7 @@ class RoleService extends MyService
         $input = request()->except(['_token', 'role']);
 
         try {
-            $role->update($input);
+            $role = $this->roleRepo->update($id, $input);
         } catch (\Exception $ex) {
             abort(400, $ex->getMessage());
         }
@@ -99,6 +118,25 @@ class RoleService extends MyService
         } catch (\Exception $ex) {
             abort(400, $ex->getMessage());
         }
+    }
+
+    public function ruleCreateUpdate($request, $id = null)
+    {
+        return $validator = Validator::make($request, [
+            'name' => 'required|max:255',
+            'role_rank' => 'required|max:255|numeric',
+            'description' => 'max:255',
+        ]);
+    }
+
+    public function getAll()
+    {
+        return $this->roleRepo->getAll();
+    }
+
+    public function getAllFeatureApiName()
+    {
+        return $this->roleRepo->getAllFeatureApiName();
     }
 
     public function delete($id)
