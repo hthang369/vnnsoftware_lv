@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Validator;
 class RoleHasFeatureApiValidation
 {
 
+    /**
+     * @param $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     public function updateValidate($request)
     {
         return $validator = Validator::make($request, [

@@ -8,4 +8,5 @@ return [
     'feature_api_not_found' => 'Feature api not found!',
     'confirm_delete' => 'Are you sure you want to delete?',
     'update_password_success' => 'Password updated!',
+    'wrong_password' => 'Wrong password!'
 ];

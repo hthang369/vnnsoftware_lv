@@ -13,12 +13,20 @@ class RoleService extends MyService
     private $roleRepo;
     private $roleValidation;
 
+    /**
+     * RoleService constructor.
+     * @param RoleRepositoryInterface $roleRepo
+     * @param RoleValidation $roleValidation
+     */
     public function __construct(RoleRepositoryInterface $roleRepo, RoleValidation $roleValidation)
     {
         $this->roleRepo = $roleRepo;
         $this->roleValidation = $roleValidation;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function list()
     {
         $list = $this->roleRepo->getAllPaginate();
@@ -27,6 +35,10 @@ class RoleService extends MyService
         return view('/role/list')->with(['list' => $list, 'listApiName' => $listApiName]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function detail($id)
     {
         $role = $this->roleRepo->getById($id);
@@ -39,11 +51,18 @@ class RoleService extends MyService
         return view('/role/detail')->with('role', $role);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function newForm()
     {
         return view('/role/add_form');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function updateForm($id)
     {
         $role = $this->roleRepo->getById($id);
@@ -55,6 +74,10 @@ class RoleService extends MyService
         return view('/role/update_form')->with('role', $role);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function create(Request $request)
     {
         $validator = $this->roleValidation->newValidate($request->all());
@@ -74,6 +97,11 @@ class RoleService extends MyService
         }
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id, Request $request)
     {
         $role = $this->roleRepo->getById($id);
@@ -100,6 +128,10 @@ class RoleService extends MyService
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function register(Request $request)
     {
 
@@ -120,6 +152,11 @@ class RoleService extends MyService
         }
     }
 
+    /**
+     * @param $request
+     * @param null $id
+     * @return mixed
+     */
     public function ruleCreateUpdate($request, $id = null)
     {
         return $validator = Validator::make($request, [
@@ -129,16 +166,26 @@ class RoleService extends MyService
         ]);
     }
 
+    /**
+     * @return mixed
+     */
     public function getAll()
     {
         return $this->roleRepo->getAll();
     }
 
+    /**
+     * @return mixed
+     */
     public function getAllFeatureApiName()
     {
         return $this->roleRepo->getAllFeatureApiName();
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id)
     {
         $role = $this->roleRepo->getById($id);

@@ -30,6 +30,15 @@
             width: 100%;
             height: 2.5rem; /* Footer height */
         }
+
+        table {
+            table-layout: fixed;
+        }
+
+        table th, table td {
+            overflow: hidden;
+        }
+
     </style>
 </head>
 <body>

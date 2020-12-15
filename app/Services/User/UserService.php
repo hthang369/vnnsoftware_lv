@@ -20,6 +20,12 @@ class UserService extends MyService
     private $userValidate;
     private $roleService;
 
+    /**
+     * UserService constructor.
+     * @param UserRepositoryInterface $userRepo
+     * @param UserValidation $userValidate
+     * @param RoleService $roleService
+     */
     public function __construct(UserRepositoryInterface $userRepo, UserValidation $userValidate, RoleService $roleService)
     {
         $this->userRepo = $userRepo;
@@ -27,12 +33,19 @@ class UserService extends MyService
         $this->roleService = $roleService;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $list = $this->getAllUser();
         return view('/user-management/list')->with('list', $list);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login(Request $request)
     {
         $this->userValidate->loginValidate($request);
@@ -49,12 +62,19 @@ class UserService extends MyService
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function newForm()
     {
         return view('/user-management/add_form',
             ['roles' => $this->roleService->getAll(), 'user' => new User()]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function updateForm($id)
     {
         $user = $this->getUserById($id);
@@ -74,6 +94,10 @@ class UserService extends MyService
             ])->with('user', $user);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function detailForm($id){
 
         $user = $this->getUserById($id);
@@ -85,6 +109,10 @@ class UserService extends MyService
         return view('/user-management/detail')->with('user', $user);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function updatePasswordForm($id)
     {
         $user = $this->getUserById($id);
@@ -104,11 +132,19 @@ class UserService extends MyService
             ])->with('user', $user);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getUserById($id)
     {
         return $this->userRepo->getUserById($id);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function Create(Request $request)
     {
         $validator = $this->userValidate->newValidate($request->all());
@@ -131,6 +167,11 @@ class UserService extends MyService
         }
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id, Request $request)
     {
        // return $this->userRepo->update($id, $input);
@@ -165,60 +206,106 @@ class UserService extends MyService
         return redirect()->intended('/system-admin/user-management/detail/' . $id);
     }
 
+    /**
+     * @param $email
+     * @return mixed
+     */
     public function getUserIdWithEmail($email)
     {
         return $this->userRepo->getUserIdWithEmail($email);
     }
 
+    /**
+     * @param $input
+     * @param $userId
+     * @return array
+     */
     public function getListUserWithNameOrEmail($input, $userId)
     {
         $query = DB::select('call usp_get_list_user_by_contact(?,?)', [$input ?? "", $userId]);
         return $query;
     }
 
+    /**
+     * @return User[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function getAllEmail()
     {
         return User::all('email', 'id', 'icon_img', 'cover_img', 'company');
     }
 
+    /**
+     * @param $id
+     * @param $current
+     * @return mixed
+     */
     public function checkPassword($id, $current)
     {
         return $this->userRepo->checkPassword($id, $current);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function changePassword(Request $request)
     {
-        $validator = $this->userValidate->changePasswordValidate($request);
+
 
         $input = $request->all();
-        $input['newPassword'] = Hash::make($input['newPassword']);
+        if($this->checkPassword(Auth::id(), $input['currentPassword']))
+        {
+            $validator = $this->userValidate->changePasswordValidate($request);
 
-        try {
-            $this->userRepo->changePassword(Auth::id(), $input['newPassword']);
+            $input['newPassword'] = Hash::make($input['newPassword']);
+
+            try {
+                $this->userRepo->changePassword(Auth::id(), $input['newPassword']);
+                return redirect()
+                    ->intended('/system-admin/user-management/update-password/' . Auth::id())
+                    ->with('success', true);
+            } catch (\Exception $ex) {
+                return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+            }
+        }
+        else
+        {
             return redirect()
                 ->intended('/system-admin/user-management/update-password/' . Auth::id())
-                ->with('success', true);
-        } catch (\Exception $ex) {
-            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+                ->with('wrongCurrentPassword', true);
         }
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getUserInfo($id)
     {
         return User::find($id);
     }
 
     // insert for sync_data version
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function getAllUser()
     {
         return User::with('roles')->get();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     public function getCurrentUser()
     {
         return Auth::user();
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id)
     {
         $user = $this->getUserById($id);

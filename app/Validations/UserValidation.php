@@ -12,6 +12,11 @@ class UserValidation implements ValidationInterface {
 
     use ValidatesRequests;
 
+    /**
+     * @param $request
+     * @param null $id
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     public function updateValidate($request, $id = null)
     {
         return $validator = Validator::make($request, [
@@ -24,6 +29,10 @@ class UserValidation implements ValidationInterface {
         ]);
     }
 
+    /**
+     * @param $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     public function newValidate($request)
     {
         return $validator = Validator::make($request, [
@@ -36,6 +45,10 @@ class UserValidation implements ValidationInterface {
         ]);
     }
 
+    /**
+     * @param $request
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function loginValidate($request)
     {
         $rules = [
@@ -53,10 +66,14 @@ class UserValidation implements ValidationInterface {
         $this->validate($request, $rules, $messages);
     }
 
+    /**
+     * @param $request
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function changePasswordValidate($request)
     {
         $rules = [
-            'newPassword' => 'same:confirmPassword',
+            'newPassword' => 'same:confirmPassword|required',
             'confirmPassword' => 'same:newPassword',
         ];
 
