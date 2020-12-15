@@ -20,7 +20,7 @@ class FeatureApiService extends MyService
 
     public function list()
     {
-        $list = $this->featureApiRepo->getAllPaginate();
+        $list = $this->featureApiRepo->getAll();
         return view('/feature-api/list')->with('list', $list);
     }
 
@@ -55,6 +55,9 @@ class FeatureApiService extends MyService
                 $input = [];
                 $input['api'] = $value->uri();
                 $input['name'] = $value->getName();
+                if ($input['name'] == '') {
+                    $input['name'] = $input['api'] . '-' . rand();
+                }
                 $this->featureApiRepo->create($input);
             }
             DB::commit();

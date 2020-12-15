@@ -17,11 +17,6 @@ class FeatureApiMysqlRepository extends MyRepository implements FeatureApiReposi
         return FeatureApi::all();
     }
 
-    public function getAllPaginate()
-    {
-        return FeatureApi::paginate(config('constants.pagination.items_per_page'));
-    }
-
     public function create($input)
     {
         $featureApi = new FeatureApi($input);

@@ -17,7 +17,7 @@ class CreateFeatureApiTable extends Migration
             $table->bigIncrements('id');
             $table->string('feature')->nullable();
             $table->string('api')->nullable();
-            $table->string('name')->nullable();
+            $table->string('name')->unique();
             $table->timestamps();
             $table->softDeletes();
         });
