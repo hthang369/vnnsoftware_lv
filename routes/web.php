@@ -30,7 +30,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('detail/{id}', 'Company\CompanyController@detail')->name('company.detail');
         Route::get('update/{id}', 'Company\CompanyController@updateForm')->name('company.update.form');
         Route::post('update/{id}', 'Company\CompanyController@update')->name('company.update');
-        Route::get('new', 'Company\CompanyController@newForm')->name('company.new');
+        Route::get('new', 'Company\CompanyController@newForm')->name('company.register.form');
         Route::post('new', 'Company\CompanyController@register')->name('company.register');
         Route::get('delete/{id}', 'Company\CompanyController@delete')->name('company.delete');
     });

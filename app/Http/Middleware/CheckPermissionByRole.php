@@ -6,6 +6,7 @@ use App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiRepositoryInterface;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 class CheckPermissionByRole
 {
@@ -33,6 +34,13 @@ class CheckPermissionByRole
 
             foreach ($listFeatureApiName as $item) {
                 if ($currentRouteName == $item->feature_api_name) {
+                    $permission = [];
+                    foreach ($listFeatureApiName as $value) {
+                        array_push($permission, $value->feature_api_name);
+                    }
+
+                    View::share('permission', $permission);
+
                     return $next($request);
                 }
             }

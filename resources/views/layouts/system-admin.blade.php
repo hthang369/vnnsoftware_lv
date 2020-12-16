@@ -52,7 +52,7 @@
     <div class="container-fluid m-0 pl-0">
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-lg-3">
+            <div class="col-lg-2 pr-0">
                 @section('sidebar')
                     @component('components.system-admin.sidebar')
 
@@ -60,8 +60,8 @@
                 @show
             </div>
             <!-- Main content -->
-            <div class="col-lg-9">
-                <div class="mt-2 container">
+            <div class="col-lg-10 px-0">
+                <div class="mt-2 container-fluid">
                     @yield('content')
                 </div>
             </div>
