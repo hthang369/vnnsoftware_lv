@@ -23,14 +23,14 @@ Route::post('login', 'User\UserController@login')->name('user.login');
 Route::post('register', 'User\UserController@register')->name('user.register');
 
 //, 'middleware' => ['auth']
-Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']], function () {
     // company route
     Route::group(['prefix' => 'company'], function () {
         Route::get('/', 'Company\CompanyController@index')->name('company.list');
         Route::get('detail/{id}', 'Company\CompanyController@detail')->name('company.detail');
         Route::get('update/{id}', 'Company\CompanyController@updateForm')->name('company.update.form');
         Route::post('update/{id}', 'Company\CompanyController@update')->name('company.update');
-        Route::get('new', 'Company\CompanyController@newForm')->name('company.new');
+        Route::get('new', 'Company\CompanyController@newForm')->name('company.register.form');
         Route::post('new', 'Company\CompanyController@register')->name('company.register');
         Route::get('delete/{id}', 'Company\CompanyController@delete')->name('company.delete');
     });
