@@ -23,7 +23,7 @@ Route::post('login', 'User\UserController@login')->name('user.login');
 Route::post('register', 'User\UserController@register')->name('user.register');
 
 //, 'middleware' => ['auth']
-Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']], function () {
+Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
     // company route
     Route::group(['prefix' => 'company'], function () {
         Route::get('/', 'Company\CompanyController@index')->name('company.list');
@@ -94,5 +94,16 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('stop-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@stopToken')->name('approval-api-token.stop-token');
         Route::get('reopen-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@reopenToken')->name('approval-api-token.reopen-token');
         Route::get('delete-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@deleteToken')->name('approval-api-token.delete-token');
+    });
+
+    // top menu route
+    Route::group(['prefix' => 'top-menu'], function () {
+        Route::get('/', 'TopMenu\TopMenuController@index')->name('top-menu.list');
+        Route::get('detail/{id}', 'TopMenu\TopMenuController@detail')->name('top-menu.detail');
+        Route::get('update/{id}', 'TopMenu\TopMenuController@updateForm')->name('top-menu.update.form');
+        Route::post('update/{id}', 'TopMenu\TopMenuController@update')->name('top-menu.update');
+        Route::get('new', 'TopMenu\TopMenuController@newForm')->name('top-menu.register.form');
+        Route::post('new', 'TopMenu\TopMenuController@register')->name('top-menu.register');
+        Route::get('delete/{id}', 'TopMenu\TopMenuController@delete')->name('top-menu.delete');
     });
 });

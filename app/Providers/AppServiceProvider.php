@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\BusinessPlan\BusinessPlanRepositoryInterface', 'App\Repositories\BusinessPlan\BusinessPlanMysqlRepository');
         $this->app->bind('App\Repositories\FeatureApi\FeatureApiRepositoryInterface', 'App\Repositories\FeatureApi\FeatureApiMysqlRepository');
         $this->app->bind('App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiRepositoryInterface', 'App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiMysqlRepository');
+        $this->app->bind('App\Repositories\TopMenu\TopMenuRepositoryInterface', 'App\Repositories\TopMenu\TopMenuMysqlRepository');
     }
 
     /**
