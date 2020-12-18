@@ -13,6 +13,11 @@ class TopMenuMysqlRepository extends MyRepository implements TopMenuRepositoryIn
         return TopMenu::find($id);
     }
 
+    public function getAll()
+    {
+        return TopMenu::all();
+    }
+
     public function getAllPaginate()
     {
         return TopMenu::paginate(config('constants.pagination.items_per_page'));

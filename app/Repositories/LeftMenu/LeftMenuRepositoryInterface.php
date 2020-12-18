@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Repositories\TopMenu;
+namespace App\Repositories\LeftMenu;
 
-interface TopMenuRepositoryInterface
+interface LeftMenuRepositoryInterface
 {
     public function getById($id);
 
     public function getAllPaginate();
-
-    public function getAll();
 
     public function create($input);
 }

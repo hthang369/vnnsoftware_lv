@@ -47,6 +47,7 @@ return [
     'index_menu' => 'Index',
     'lang' => 'Lang',
     'url' => 'Url',
+    'top_menu' => 'Top menu',
 
     // Action
     'delete' => 'Delete',
