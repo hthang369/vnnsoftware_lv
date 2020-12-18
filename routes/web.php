@@ -95,26 +95,4 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
         Route::get('reopen-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@reopenToken')->name('approval-api-token.reopen-token');
         Route::get('delete-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@deleteToken')->name('approval-api-token.delete-token');
     });
-
-    // top menu route
-    Route::group(['prefix' => 'top-menu'], function () {
-        Route::get('/', 'TopMenu\TopMenuController@index')->name('top-menu.list');
-        Route::get('detail/{id}', 'TopMenu\TopMenuController@detail')->name('top-menu.detail');
-        Route::get('update/{id}', 'TopMenu\TopMenuController@updateForm')->name('top-menu.update.form');
-        Route::post('update/{id}', 'TopMenu\TopMenuController@update')->name('top-menu.update');
-        Route::get('new', 'TopMenu\TopMenuController@newForm')->name('top-menu.register.form');
-        Route::post('new', 'TopMenu\TopMenuController@register')->name('top-menu.register');
-        Route::get('delete/{id}', 'TopMenu\TopMenuController@delete')->name('top-menu.delete');
-    });
-
-    // left menu route
-    Route::group(['prefix' => 'left-menu'], function () {
-        Route::get('/', 'LeftMenu\LeftMenuController@index')->name('left-menu.list');
-        Route::get('detail/{id}', 'LeftMenu\LeftMenuController@detail')->name('left-menu.detail');
-        Route::get('update/{id}', 'LeftMenu\LeftMenuController@updateForm')->name('left-menu.update.form');
-        Route::post('update/{id}', 'LeftMenu\LeftMenuController@update')->name('left-menu.update');
-        Route::get('new', 'LeftMenu\LeftMenuController@newForm')->name('left-menu.register.form');
-        Route::post('new', 'LeftMenu\LeftMenuController@register')->name('left-menu.register');
-        Route::get('delete/{id}', 'LeftMenu\LeftMenuController@delete')->name('left-menu.delete');
-    });
 });
