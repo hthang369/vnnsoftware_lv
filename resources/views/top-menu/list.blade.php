@@ -16,6 +16,11 @@
             <strong>@lang('custom_message.deleted')</strong>
         </div>
     @endif
+    @if(session()->has('used'))
+        <div class="alert alert-warning">
+            <strong>@lang('custom_message.used')</strong>
+        </div>
+    @endif
     @if(count($list) == 0)
         <div class="alert alert-warning">
             @lang('custom_message.no_item_found')

@@ -2,6 +2,7 @@
 
 namespace App\Services\TopMenu;
 
+use App\Repositories\LeftMenu\LeftMenuRepositoryInterface;
 use App\Repositories\TopMenu\TopMenuRepositoryInterface;
 use App\Services\Contract\MyService;
 use App\TopMenu;
@@ -12,16 +13,19 @@ class TopMenuService extends MyService
 {
     private $topMenuRepo;
     private $topMenuValidation;
+    private $leftMenuRepo;
 
     /**
      * TopMenuService constructor.
      * @param TopMenuRepositoryInterface $topMenuRepo
+     * @param LeftMenuRepositoryInterface $leftMenuRepo
      * @param TopMenuValidation $topMenuValidation
      */
-    public function __construct(TopMenuRepositoryInterface $topMenuRepo, TopMenuValidation $topMenuValidation)
+    public function __construct(TopMenuRepositoryInterface $topMenuRepo, TopMenuValidation $topMenuValidation, LeftMenuRepositoryInterface $leftMenuRepo)
     {
         $this->topMenuRepo = $topMenuRepo;
         $this->topMenuValidation = $topMenuValidation;
+        $this->leftMenuRepo = $leftMenuRepo;
     }
 
     /**
@@ -133,6 +137,10 @@ class TopMenuService extends MyService
 
         if (is_null($topMenu)) {
             abort(400, __('custom_message.top_menu_not_found'));
+        }
+
+        if (!is_null($this->leftMenuRepo->getOneByTopMenuId($id))) {
+            return redirect()->back()->with('used', true);
         }
 
         try {

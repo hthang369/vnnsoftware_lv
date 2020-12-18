@@ -13,6 +13,13 @@ class LeftMenuMysqlRepository extends MyRepository implements LeftMenuRepository
         return LeftMenu::find($id);
     }
 
+    public function getOneByTopMenuId($id)
+    {
+        return LeftMenu::where('top_menu_id', '=', $id)
+            ->whereNull('deleted_at')
+            ->first();
+    }
+
     public function getAllPaginate()
     {
         return LeftMenu::select("left_menu.*", "top_menu.name as top_menu_name")
