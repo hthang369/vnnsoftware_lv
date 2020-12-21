@@ -40,7 +40,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
         Route::get('/', 'BusinessPlan\BusinessPlanController@index')->name('business-plan.list');
         Route::get('detail/{id}', 'BusinessPlan\BusinessPlanController@detailForm')->name('business-plan.detail');
         Route::get('new', 'BusinessPlan\BusinessPlanController@newForm')->name('business-plan.new.form');
-        Route::post('new', 'BusinessPlan\BusinessPlanController@new')->name('business-plan.new.form');
+        Route::post('new', 'BusinessPlan\BusinessPlanController@new')->name('business-plan.new');
         Route::get('update/{id}', 'BusinessPlan\BusinessPlanController@updateForm')->name('business-plan.update.form');
         Route::post('update/{id}', 'BusinessPlan\BusinessPlanController@update')->name('business-plan.update');
         Route::get('delete/{id}', 'BusinessPlan\BusinessPlanController@delete')->name('business-plan.delete');
