@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\LeftMenu;
+use App\Models\TopMenu;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -20,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\BusinessPlan\BusinessPlanRepositoryInterface', 'App\Repositories\BusinessPlan\BusinessPlanMysqlRepository');
         $this->app->bind('App\Repositories\FeatureApi\FeatureApiRepositoryInterface', 'App\Repositories\FeatureApi\FeatureApiMysqlRepository');
         $this->app->bind('App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiRepositoryInterface', 'App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiMysqlRepository');
+        $this->app->bind('App\Repositories\TopMenu\TopMenuRepositoryInterface', 'App\Repositories\TopMenu\TopMenuMysqlRepository');
+        $this->app->bind('App\Repositories\LeftMenu\LeftMenuRepositoryInterface', 'App\Repositories\LeftMenu\LeftMenuMysqlRepository');
     }
 
     /**
@@ -30,5 +35,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        $topMenu = TopMenu::all();
+        $leftMenu = LeftMenu::all();
+
+        View::share(['TOPMENU' => $topMenu, 'LEFTMENU' => $leftMenu]);
     }
 }

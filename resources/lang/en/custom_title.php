@@ -13,4 +13,8 @@ return [
     'business_plan_detail' => 'Business plan details',
     'approval_api_token' => 'Approval api token',
     'set_permission_for_role' => 'Set permission for role',
+    'top_menu' => 'Top menu',
+    'top_menu_detail' => 'Top menu details',
+    'left_menu' => 'Left menu',
+    'left_menu_detail' => 'Left menu details',
     ];

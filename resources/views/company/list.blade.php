@@ -10,9 +10,7 @@
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.company')</h1>
     </div>
-    @if(in_array('company.register.form', $permission))
-        <a class="my-2 btn btn-primary" href="/system-admin/company/new" role="button">+ @lang('custom_label.add_new')</a>
-    @endif
+    <a class="my-2 btn btn-primary" href="/system-admin/company/new" role="button">+ @lang('custom_label.add_new')</a>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
             <strong>@lang('custom_message.deleted')</strong>

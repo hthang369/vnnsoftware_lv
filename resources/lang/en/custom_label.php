@@ -43,14 +43,21 @@ return [
     'backend_version' => 'Backend Version',
     'frontend_version' => 'Frontend Version',
     'api_version' => 'Api Version',
+    // top menu
+    'index_menu' => 'Index',
+    'lang' => 'Lang',
+    'url' => 'Url',
+    'top_menu' => 'Top menu',
 
     // Action
+    'list' => 'List',
     'delete' => 'Delete',
     'add_new' => 'Add New',
     'update' => 'Update',
     'detail' => 'Detail',
     'save' => 'Save',
     'cancel' => 'Cancel',
+    'back' => 'Back',
     'pause' => 'Pause',
     'accept' => 'Accept',
     'set_permission' => 'Set permission',

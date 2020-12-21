@@ -17,4 +17,5 @@ return [
     'inaccurate_data' => 'Inaccurate data!',
     'no_item_found' => '<strong>Sorry!</strong> No Item Found.',
     'wrong_password' => 'Wrong password!',
+    'used' => 'The item you delete is in use!',
 ];

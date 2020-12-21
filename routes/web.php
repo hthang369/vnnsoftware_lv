@@ -20,18 +20,18 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('login', 'User\UserController@login')->name('user.login');
-Route::post('register', 'User\UserController@register')->name('user.register');
+Route::post('register', 'User\UserController@register')->name('user.new');
 
 //, 'middleware' => ['auth']
-Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']], function () {
+Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
     // company route
     Route::group(['prefix' => 'company'], function () {
         Route::get('/', 'Company\CompanyController@index')->name('company.list');
         Route::get('detail/{id}', 'Company\CompanyController@detail')->name('company.detail');
         Route::get('update/{id}', 'Company\CompanyController@updateForm')->name('company.update.form');
         Route::post('update/{id}', 'Company\CompanyController@update')->name('company.update');
-        Route::get('new', 'Company\CompanyController@newForm')->name('company.register.form');
-        Route::post('new', 'Company\CompanyController@register')->name('company.register');
+        Route::get('new', 'Company\CompanyController@newForm')->name('company.new.form');
+        Route::post('new', 'Company\CompanyController@register')->name('company.new');
         Route::get('delete/{id}', 'Company\CompanyController@delete')->name('company.delete');
     });
 
@@ -54,8 +54,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::post('update/{id}', 'User\UserController@update')->name('user-management.update');
         Route::get('update-password/{id}', 'User\UserController@updatePasswordForm')->name('user-management.update-password.form');
         Route::post('update-password', 'User\UserController@updatePassword')->name('user-management.update-password');
-        Route::get('new', 'User\UserController@newForm')->name('user-management.new');
-        Route::post('new', 'User\UserController@register')->name('user-management.register');
+        Route::get('new', 'User\UserController@newForm')->name('user-management.new.form');
+        Route::post('new', 'User\UserController@register')->name('user-management.new');
         Route::get('delete/{id}', 'User\UserController@delete')->name('user-management.delete');
     });
 
@@ -65,8 +65,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('detail/{id}', 'Role\RoleController@detail')->name('role.detail');
         Route::get('update/{id}', 'Role\RoleController@updateForm')->name('role.update.form');
         Route::post('update/{id}', 'Role\RoleController@update')->name('role.update');
-        Route::get('new', 'Role\RoleController@newForm')->name('role.new');
-        Route::post('new', 'Role\RoleController@register')->name('role.register');
+        Route::get('new', 'Role\RoleController@newForm')->name('role.new.form');
+        Route::post('new', 'Role\RoleController@register')->name('role.new');
         Route::get('delete/{id}', 'Role\RoleController@delete')->name('role.delete');
     });
 

@@ -1,10 +1,7 @@
 <div class="list-group ">
-    <a href="#" class="list-group-item list-group-item-action ">Dashboard</a>
-    <a href="{{route('company.list')}}" class="{{ str_contains(Request::url(), '/company') ? 'active' : '' }} list-group-item list-group-item-action  ">Company </a>
-    <a href="{{route('business-plan.list')}}" class="{{ str_contains(Request::url(), '/business-plan') ? 'active' : '' }} list-group-item list-group-item-action  ">Business Plan </a>
-    <a href="{{route('user-management.list')}}" class="{{ str_contains(Request::url(), '/user-management') ? 'active' : '' }} list-group-item list-group-item-action  ">User management</a>
-    <a href="{{route('role.list')}}" class="{{ str_contains(Request::url(), '/role') ? 'active' : '' }} list-group-item list-group-item-action  ">Role</a>
-    <a href="{{route('feature-api.list')}}" class="{{ str_contains(Request::url(), '/feature-api') ? 'active' : '' }} list-group-item list-group-item-action  ">Feature api</a>
-    <a href="{{route('approval-api-token.list')}}" class="list-group-item list-group-item-action bg-light">Approval api token</a>
-    <a href="{{route('version.list')}}" class="{{ str_contains(Request::url(), '/version') ? 'active' : '' }} list-group-item list-group-item-action  ">Versions</a>
+    @foreach($LEFTMENU as $item)
+        @if(str_contains(Request::url(), $item->prefix))
+            <a href="{{$item->url}}" class="list-group-item list-group-item-action">@lang($item->lang)</a>
+        @endif
+    @endforeach
 </div>
