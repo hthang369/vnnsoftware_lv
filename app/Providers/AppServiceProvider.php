@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\LeftMenu;
+use App\Models\TopMenu;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -32,5 +35,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        $topMenu = TopMenu::all();
+        $leftMenu = LeftMenu::all();
+
+        View::share(['TOPMENU' => $topMenu, 'LEFTMENU' => $leftMenu]);
     }
 }

@@ -6,15 +6,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item active">
-                <a class="nav-link" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
+            @foreach($TOPMENU as $item)
+                <li class="nav-item {{ str_contains(Request::url(), $item->url) ? 'active font-weight-bold' : '' }}">
+                    <a class="nav-link" aria-current="page" href="{{$item->url}}">@lang($item->lang)</a>
+                </li>
+            @endforeach
         </ul>
     </div>
     <div class="d-flex flex-row-reverse bd-highlight collapse navbar-collapse " id="navbarSupportedContent">

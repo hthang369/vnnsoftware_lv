@@ -50,6 +50,7 @@ return [
     'top_menu' => 'Top menu',
 
     // Action
+    'list' => 'List',
     'delete' => 'Delete',
     'add_new' => 'Add New',
     'update' => 'Update',

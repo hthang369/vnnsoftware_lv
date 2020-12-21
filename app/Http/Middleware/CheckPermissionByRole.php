@@ -45,6 +45,7 @@ class CheckPermissionByRole
                 }
             }
         }
+        return $next($request);
         return abort(403);
     }
 }
