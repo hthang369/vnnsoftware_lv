@@ -47,7 +47,7 @@ class FeatureApiService extends MyService
         try {
             DB::beginTransaction();
             $featureApi->delete();
-            $this->roleHasFeatureApiService->deleteByFeatureApiName($featureApi->name);
+            $this->roleHasFeatureApiService->deleteByFeatureApiId($featureApi->id);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
@@ -67,12 +67,19 @@ class FeatureApiService extends MyService
             DB::beginTransaction();
             $this->featureApiRepo->deleteAll();
             foreach ($routeCollection as $value) {
-                $input = [];
-                $input['api'] = $value->uri();
-                $input['name'] = $value->getName();
-                if ($input['name'] == '') {
-                    $input['name'] = $input['api'] . '-' . rand();
+                $name = $value->getName();
+                if ($name == null || strpos($name, 'form')) {
+                    continue;
                 }
+                $input = [];
+                $input['feature'] = substr($name, 0, strpos($name, '.'));
+                $input['api'] = $value->uri();
+                $input['name'] = substr($name, strpos($name, '.') + 1, strpos(str_replace( $input['feature'] . '.', '', $name ), '.'));
+
+                if ($input['name'] == null) {
+                    $input['name'] = str_replace( $input['feature'] . '.', '', $name );
+                }
+
                 $this->featureApiRepo->create($input);
             }
             DB::commit();

@@ -12,7 +12,7 @@ class RoleHasFeatureApi extends Model
     protected $table = 'role_has_feature_api';
 
     protected $fillable = [
-        'feature_api_name', 'role_id'
+        'feature_api_id', 'role_id'
     ];
 
     protected $softDelete = true;

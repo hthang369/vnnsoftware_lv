@@ -26,7 +26,7 @@
             <div class="form-group">
                 <strong>@lang('custom_label.permission'):</strong>
                 @foreach($role->role_has_feature_api as $roleHasFeatureApi)
-                    <span class="badge badge-danger">{{$roleHasFeatureApi->feature_api_name}}</span>
+                    <span class="badge badge-danger">{{$roleHasFeatureApi->feature_api_id}}</span>
                 @endforeach
             </div>
             <div class="form-group">
@@ -34,7 +34,7 @@
                 <label>{{$role->description}}</label>
             </div>
             <a class="btn btn-primary" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
-            <a class="btn btn-danger ml-2" href="{{ route('role.list') }}" role="button">@lang('custom_label.back')</a>
+            <a class="btn btn-danger ml-2" href="/system-admin/role" role="button">@lang('custom_label.back')</a>
         </div>
     </div>
 @endsection
