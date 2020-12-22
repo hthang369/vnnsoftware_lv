@@ -41,6 +41,7 @@ class UserController extends Controller
         RoleService $roleService,
         UserValidation $userValidate)
     {
+        parent::__construct();
         $this->userService = $userService;
         $this->roleService = $roleService;
         $this->userValidate = $userValidate;
