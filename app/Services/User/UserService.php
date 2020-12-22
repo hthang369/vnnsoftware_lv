@@ -250,8 +250,6 @@ class UserService extends MyService
      */
     public function changePassword(Request $request)
     {
-
-
         $input = $request->all();
         if($this->checkPassword(Auth::id(), $input['currentPassword']))
         {

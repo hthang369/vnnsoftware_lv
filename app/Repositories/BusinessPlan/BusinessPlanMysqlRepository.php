@@ -10,31 +10,48 @@ use Illuminate\Support\Facades\Hash;
 
 class BusinessPlanMysqlRepository extends MyRepository implements BusinessPlanRepositoryInterface
 {
+    /**
+     * @param $input
+     * @return mixed
+     */
     public function create($input)
     {
         return BusinessPlan::create($input);
     }
 
+    /**
+     * @param $id
+     * @param $input
+     * @return mixed
+     */
     public function update($id, $input)
     {
         return BusinessPlan::where('id', $id)
             ->update($input);
     }
 
-    public function getBusinessPlan($data)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getBusinessPlan($id)
     {
-        switch ($data['type']) {
-            case "id":
-                return BusinessPlan::select(['id', 'name', 'description', 'maximum_storage_file'])->find($data['id']);
-                break;
-        }
+        return BusinessPlan::select(['id', 'name', 'description', 'maximum_storage_file'])->find($id);
     }
 
+    /**
+     * @return BusinessPlan[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function getAllBusinessPlan()
     {
         return BusinessPlan::all();
     }
 
+    /**
+     * @param $business_plan_id
+     * @param $update_data
+     * @return mixed
+     */
     public function updateInfoBusinessPlan($business_plan_id, $update_data)
     {
         $role = BusinessPlan::where('id', $business_plan_id);
@@ -46,5 +63,14 @@ class BusinessPlanMysqlRepository extends MyRepository implements BusinessPlanRe
                 'maximum_storage_file' => $update_data->input('maximum_storage_file'),
             ]);
         return BusinessPlan::select(['id', 'name', 'description', 'maximum_storage_file'])->find($business_plan_id);
+    }
+
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id){
+        return BusinessPlan::where('id', $id)->delete();
     }
 }

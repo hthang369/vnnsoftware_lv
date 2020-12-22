@@ -16,7 +16,7 @@
                     <label>@lang('custom_label.name')</label>
                     <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="@lang('custom_label.name')"
                            name="name"
-                           value="{{ old('name') ? old('name') : $role->name }}"
+                           value="{{ old('name', $role->name) }}"
                            autocomplete="name" autofocus>
                     @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                     <input class="form-control @error('role_rank')
                         is-invalid @enderror" type="text"
                            placeholder="@lang('custom_label.role_rank')" name="role_rank"
-                           value="{{ old('role_rank') ? old('role_rank') : $role->role_rank }}"
+                           value="{{ old('role_rank', $role->role_rank) }}"
                            autocomplete="role_rank">
                     @error('role_rank')
                     <span class="invalid-feedback" role="alert">
@@ -41,7 +41,7 @@
                     <label>@lang('custom_label.description')</label>
                     <textarea class="form-control @error('description') is-invalid @enderror" type="text"
                               placeholder="@lang('custom_label.description')" name="description"
-                              autocomplete="description">{{ old('description') ? old('description') : $role->description }}</textarea>
+                              autocomplete="description">{{ old('description', $role->description) }}</textarea>
                     @error('description')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

@@ -8,4 +8,5 @@ interface BusinessPlanRepositoryInterface
     public function updateInfoBusinessPlan($user_id, $update_data);
     public function create($input);
     public function update($id, $input);
+    public function delete($id);
 }

@@ -107,7 +107,7 @@ class BusinessPlanService extends MyService
      */
     public function getBusinessPlanInfo($id)
     {
-        $businessPlan = BusinessPlan::find($id);
+        $businessPlan = $this->businessPLanRepo->getBusinessPlan($id);
 
         if (is_null($businessPlan)) {
             abort(400, __('custom_message.business_plan_not_found'));
@@ -129,13 +129,14 @@ class BusinessPlanService extends MyService
         }
 
         try {
-            BusinessPlan::where('id', $id)->delete();
+            $this->businessPLanRepo->delete($id);
         } catch (\Exception $ex) {
             abort(400, $ex->getMessage());
         }
 
         return redirect()->intended('/system-admin/business-plan');
     }
+
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -161,7 +162,7 @@ class BusinessPlanService extends MyService
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function updateForm($id) {
-        return view('/business-plan/add_form', [
+        return view('/business-plan/update_form', [
             'businessPlan' => $this->getBusinessPlanInfo($id)
         ]);
     }
@@ -171,7 +172,7 @@ class BusinessPlanService extends MyService
      */
     public function getAllBusinessPlan()
     {
-        return DB::table('business_plan')->get();
+        return $this->businessPLanRepo->getAllBusinessPlan();
     }
 
     /**

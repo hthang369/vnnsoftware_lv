@@ -19,7 +19,7 @@ class RoleValidation implements ValidationInterface
         return $validator = Validator::make($request, [
             'name' => "required|max:190|unique:role,name,$id,id,deleted_at,NULL",
             'role_rank' => 'required|max:190|numeric',
-            'description' => 'max:500',
+            'description' => 'required|max:500',
         ]);
     }
 
@@ -32,7 +32,7 @@ class RoleValidation implements ValidationInterface
         return $validator = Validator::make($request, [
             'name' => "required|max:190|unique:role,name,NULL,id,deleted_at,NULL",
             'role_rank' => 'required|max:190|numeric',
-            'description' => 'max:500',
+            'description' => 'required|max:500',
         ]);
     }
 }

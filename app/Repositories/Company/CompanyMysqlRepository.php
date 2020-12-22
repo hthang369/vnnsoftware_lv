@@ -8,11 +8,18 @@ use App\Models\Company;
 class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryInterface
 {
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getById($id)
     {
         return Company::find($id);
     }
 
+    /**
+     * @return mixed
+     */
     public function getAllPaginate()
     {
         return Company::select("company.*", "business_plan.name as business_plan_name")
@@ -20,6 +27,10 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
             ->paginate(config('constants.pagination.items_per_page'));
     }
 
+    /**
+     * @param $input
+     * @return Company
+     */
     public function create($input)
     {
         $company = new Company($input);

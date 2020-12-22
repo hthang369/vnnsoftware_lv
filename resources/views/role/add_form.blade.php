@@ -29,7 +29,7 @@
                     <input class="form-control @error('role_rank')
                         is-invalid @enderror" type="text"
                            placeholder="@lang('custom_label.role_rank')" name="role_rank"
-                           value="{{ old('role_rank') }}"
+                           value="{{ old('role_rank')}}"
                            autocomplete="role_rank">
                     @error('role_rank')
                     <span class="invalid-feedback" role="alert">

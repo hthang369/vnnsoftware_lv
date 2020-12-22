@@ -16,8 +16,8 @@ class CompanyValidation implements ValidationInterface
             'email' => "required|email|max:190|unique:company,email,NULL,id,deleted_at,NULL",
             'name' => "required|max:190|unique:company,name,NULL,id,deleted_at,NULL",
             'business_plan_id' => 'required|max:190',
-            'phone' => 'max:190',
-            'address' => 'max:190',
+            'phone' => 'required|max:190|numeric',
+            'address' => 'required|max:190',
         ]);
     }
 
@@ -32,8 +32,8 @@ class CompanyValidation implements ValidationInterface
             'email' => "required|email|max:190|unique:company,email,$id,id,deleted_at,NULL",
             'name' => "required|max:190|unique:company,name,$id,id,deleted_at,NULL",
             'business_plan_id' => 'required|max:190',
-            'phone' => 'max:190',
-            'address' => 'max:190',
+            'phone' => 'required|max:190|numeric',
+            'address' => 'required|max:190',
         ]);
     }
 }

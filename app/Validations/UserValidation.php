@@ -21,10 +21,10 @@ class UserValidation implements ValidationInterface {
     {
         return $validator = Validator::make($request, [
             'email' => 'required|email|max:190|unique:users,email,' . $id,
-            'password' =>'min:6|max:190',
+            'password' =>'min:6|max:190|required|regex:/^\S*$/u',
             'name' => 'required|max:190',
-            'phone' => 'numeric',
-            'address' => 'max:190',
+            'phone' => 'required|numeric',
+            'address' => 'required|max:190',
             'role' => 'required'
         ]);
     }
@@ -37,9 +37,9 @@ class UserValidation implements ValidationInterface {
     {
         return $validator = Validator::make($request, [
             'email' => 'required|email|max:190|unique:users',
-            'password' => 'min:6|max:190|required',
+            'password' => 'min:6|max:190|required|regex:/^\S*$/u',
             'name' => 'required|max:190',
-            'phone' => 'numeric',
+            'phone' => 'required|numeric',
             'address' => 'max:190',
             'role' => 'required'
         ]);

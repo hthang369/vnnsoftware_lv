@@ -54,5 +54,6 @@ return [
     'pause' => 'Pause',
     'accept' => 'Accept',
     'set_permission' => 'Set permission',
+    'back' => 'Back',
 
 ];

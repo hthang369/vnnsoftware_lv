@@ -16,24 +16,35 @@
                 @csrf
                 <div class="form-group">
                     <label>@lang('custom_label.name')</label>
-                    <input name="name" class="form-control"
-                           value="{!! request()->id ? (old('name') ? old('name') : $businessPlan->name) : old('name')!!}"
+                    <input name="name" class="form-control @error('name') is-invalid @enderror"
+                           value="{{ old('name') }}"
                            placeholder="@lang('custom_label.name')">
+                    @error('name')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Maximum storage</label>
-                    <input name="maximum_storage_file" class="form-control"
-                           value="{!! request()->id
-                                ? (old('maximum_storage_file') ? old('maximum_storage_file') : $businessPlan->maximum_storage_file)
-                                : old('maximum_storage_file')!!}"
+                    <input name="maximum_storage_file" class="form-control @error('maximum_storage_file') is-invalid @enderror"
+                           value="{{ old('maximum_storage_file') }}"
                            placeholder="Maxium storage">
+                    @error('maximum_storage_file')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>@lang('custom_label.description')</label>
-                    <textarea name="description" class="form-control"
-                              placeholder="@lang('custom_label.description')">{!! request()->id
-                                ? (old('description') ? old('description') : $businessPlan->description)
-                                : old('description') !!}</textarea>
+                    <textarea name="description" class="form-control @error('description') is-invalid @enderror"
+                              placeholder="@lang('custom_label.description')">{{ old('description') }}</textarea>
+                    @error('description')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
                 <a class="btn btn-danger ml-2" href="{{ route('business-plan.list') }}" role="button">@lang('custom_label.cancel')</a>
