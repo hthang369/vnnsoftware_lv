@@ -42,7 +42,7 @@
                 <label>{{$user->status == 0 ? 'Inactive' : 'Active'}}</label>
             </div>
             <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">@lang('custom_label.update')</a>
-            <a class="btn btn-danger ml-2" href="{{ route('user-management.list') }}" role="button">@lang('custom_label.back')</a>
+            <a class="btn btn-danger ml-2" href="/system-admin/user-management" role="button">@lang('custom_label.back')</a>
         </div>
     </div>
 @endsection

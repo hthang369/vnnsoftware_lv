@@ -64,7 +64,8 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
 
     public function getListFeatureApiNameByUserId($user_id)
     {
-        return DB::table('role_has_feature_api')->select("role_has_feature_api.feature_api_id")
+        return DB::table('feature_api')->select("feature_api.*")
+            ->join('role_has_feature_api', 'feature_api.id', '=', 'role_has_feature_api.feature_api_id')
             ->join('role', 'role.id', '=', 'role_has_feature_api.role_id')
             ->join('role_user', 'role_user.role_id', '=', 'role.id')
             ->join('users', 'users.id', '=', 'role_user.user_id')
