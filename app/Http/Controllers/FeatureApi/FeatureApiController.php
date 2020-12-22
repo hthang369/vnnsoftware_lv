@@ -16,6 +16,7 @@ class FeatureApiController extends Controller
      */
     public function __construct(FeatureApiService $featureApiService)
     {
+        parent::__construct();
         $this->featureApiService = $featureApiService;
     }
 

@@ -23,6 +23,7 @@ class BusinessPlanController extends Controller
      */
     public function __construct(BusinessPlanService $businessPlanService, BusinessPlanValidation $businessPlanValidation)
     {
+        parent::__construct();
         $this->businessPlanService = $businessPlanService;
         $this->businessPlanValidation = $businessPlanValidation;
     }
