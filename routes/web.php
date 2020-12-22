@@ -48,8 +48,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
     Route::group(['prefix' => 'user-management'], function () {
         Route::get('/', 'User\UserController@index')->name('User Management.List');
         Route::get('detail/{id}', 'User\UserController@detail')->name('User Management.Detail');
-        Route::get('update/{id}', 'User\UserController@updateForm')->name('User Management.Update.form');
-        Route::post('update/{id}', 'User\UserController@update')->name('User Management.Update');
+        Route::get('update/{id}', 'User\UserController@updateForm')->name('User Management.Update[Permission].form');
+        Route::post('update/{id}', 'User\UserController@update')->name('User Management.Update[Permission]');
         Route::get('update-password/{id}', 'User\UserController@updatePasswordForm')->name('User Management.Update Password.form');
         Route::post('update-password', 'User\UserController@updatePassword')->name('User Management.Update Password');
         Route::get('new', 'User\UserController@newForm')->name('User Management.New.form');
@@ -63,18 +63,18 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
         Route::get('detail/{id}', 'Role\RoleController@detail')->name('Role.Detail');
         Route::get('update/{id}', 'Role\RoleController@updateForm')->name('Role.Update.form');
         Route::post('update/{id}', 'Role\RoleController@update')->name('Role.Update');
-        Route::get('new', 'Role\RoleController@newForm')->name('Role.New.form');
-        Route::post('new', 'Role\RoleController@register')->name('Role.New');
+        Route::get('new', 'Role\RoleController@newForm')->name('Role.New[Permission].form');
+        Route::post('new', 'Role\RoleController@register')->name('Role.New[Permission]');
         Route::get('delete/{id}', 'Role\RoleController@delete')->name('Role.Delete');
-        Route::get('set-permission/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setPermissionForm')->name('Role.Set Permission For Role.form');
-        Route::post('set-permission/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setPermission')->name('Role.Set Permission For Role');
+        Route::get('set-permission/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setPermissionForm')->name('Role.Set Permission For Role[Permission].form');
+        Route::post('set-permission/{id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@setPermission')->name('Role.Set Permission For Role[Permission]');
     });
 
     // feature-api management route
     Route::group(['prefix' => 'feature-api'], function () {
-        Route::get('/', 'FeatureApi\FeatureApiController@index')->name('Feature Api.List');
+        Route::get('/', 'FeatureApi\FeatureApiController@index')->name('Feature Api.List[Permission]');
         Route::get('delete/{id}', 'FeatureApi\FeatureApiController@delete')->name('Feature Api.Delete');
-        Route::get('save-all-to-db', 'FeatureApi\FeatureApiController@saveAllRoutesToDB')->name('Feature Api.Save all to DB');
+        Route::get('save-all-to-db', 'FeatureApi\FeatureApiController@saveAllRoutesToDB')->name('Feature Api.Save all to DB[Permission]');
     });
 
     // version route
