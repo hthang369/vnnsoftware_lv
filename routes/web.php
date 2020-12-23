@@ -93,4 +93,15 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
         Route::get('reopen-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@reopenToken')->name('Approval Api Token.ReOpen Token');
         Route::get('delete-token/{id}', 'ApprovalApiToken\ApprovalApiTokenController@deleteToken')->name('Approval Api Token.Delete Token');
     });
+
+    // user management for app chat route
+    Route::group(['prefix' => 'user-management-for-app-chat'], function () {
+        Route::get('/', 'UserManagementForAppChat\UserManagementForAppChatController@index')->name('User Management For App Chat.List');
+        Route::get('detail/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@detailForm')->name('User Management For App Chat.Detail');
+        Route::get('new', 'UserManagementForAppChat\UserManagementForAppChatController@newForm')->name('User Management For App Chat.New.form');
+        Route::post('new', 'UserManagementForAppChat\UserManagementForAppChatController@new')->name('User Management For App Chat.New');
+        Route::get('update/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@updateForm')->name('User Management For App Chat.Update.form');
+        Route::post('update/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@update')->name('User Management For App Chat.Update');
+        Route::get('delete/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@delete')->name('User Management For App Chat.Delete');
+    });
 });

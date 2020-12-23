@@ -17,4 +17,5 @@ return [
     'top_menu_detail' => 'Top menu details',
     'left_menu' => 'Left menu',
     'left_menu_detail' => 'Left menu details',
+    'user_management_for_app_chat' => 'User management for app chat',
     ];
