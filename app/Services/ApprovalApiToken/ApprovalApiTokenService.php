@@ -2,9 +2,10 @@
 
 namespace App\Services\ApprovalApiToken;
 
+use App\Services\Contract\ApiService;
 use Illuminate\Support\Facades\Http;
 
-class ApprovalApiTokenService
+class ApprovalApiTokenService extends ApiService
 {
     const STATUS = [1 => 'Not accepted', 2 => 'Accepted', 3 => 'Paused'];
 
@@ -75,27 +76,6 @@ class ApprovalApiTokenService
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
         return redirect()->intended('/system-admin/approval-api-token')->with('deleted', true);
-    }
-
-    /**
-     * @param string $string
-     * @param $method
-     * @param $request
-     * @return \Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    private function sendRequestToAPI(string $string, $method, $request)
-    {
-        $client = new \GuzzleHttp\Client(['verify' => false]);
-        $options = [
-            'form_params' => $request,
-            'headers' => [
-                'token' => 'test-token',
-            ],
-        ];
-
-        $response = $client->request($method, $string, $options);
-        return $response;
     }
 
     /**
