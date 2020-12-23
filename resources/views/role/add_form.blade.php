@@ -49,7 +49,7 @@
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
-                <a class="btn btn-danger ml-2" href="{{ route('role.list') }}" role="button">@lang('custom_label.cancel')</a>
+                <a class="btn btn-danger ml-2" href="/system-admin/role" role="button">@lang('custom_label.cancel')</a>
             </form>
         </div>
     </div>

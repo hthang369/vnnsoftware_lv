@@ -15,7 +15,7 @@ class RoleHasFeatureApiValidation
     {
         return $validator = Validator::make($request, [
             'role_id' => 'required|exists:role,id',
-            'feature_api_name' => 'exists:feature_api,name',
+            'feature_api_id' => 'exists:feature_api,id',
         ]);
     }
 }

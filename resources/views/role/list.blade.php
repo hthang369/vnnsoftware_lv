@@ -42,15 +42,15 @@
                         <td>{{$role->description}}</td>
                         <td colspan="3">
                             @foreach($listApiName as $apiName)
-                                @if($apiName->id == $role->id)
-                                    <span class="badge badge-danger">{{$apiName->feature_api_name}}</span>
+                                @if($apiName->role_id == $role->id)
+                                    <span class="badge badge-danger">[{{$apiName->feature . '] ' . $apiName->name}}</span>
                                 @endif
                             @endforeach
                         </td>
                         <td>
                             <a class="btn btn-info m-1" href="/system-admin/role/detail/{{$role->id}}" role="button">@lang('custom_label.detail')</a>
                             <a class="btn btn-primary m-1" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
-                            <a class="btn btn-warning m-1" href="/system-admin/role-has-feature-api/set-permission/{{$role->id}}" role="button">@lang('custom_label.set_permission')</a>
+                            <a class="btn btn-warning m-1" href="/system-admin/role/set-permission/{{$role->id}}" role="button">@lang('custom_label.set_permission')</a>
                             <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
                                class="btn btn-danger m-1"
                                href="/system-admin/role/delete/{{$role->id}}"

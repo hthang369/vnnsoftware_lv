@@ -36,12 +36,12 @@
                     </div>
                     @foreach($listFeatureApi as $i => $featureApi)
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck{{$i}}" name="feature_api_name[]" value="{{$featureApi->name}}" {{in_array($featureApi->name, $arrayOldFeatureApi) ? 'checked' : ''}}>
-                            <label class="form-check-label" for="exampleCheck{{$i}}">{{$featureApi->name}}</label>
+                            <input type="checkbox" class="form-check-input" id="exampleCheck{{$i}}" name="feature_api_id[]" value="{{$featureApi->id}}" {{in_array($featureApi->id, $arrayOldFeatureApi) ? 'checked' : ''}}>
+                            <label class="form-check-label" for="exampleCheck{{$i}}">[{{$featureApi->feature . '] ' . $featureApi->name}}</label>
                         </div>
                     @endforeach
                     <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
-                    <a class="btn btn-danger ml-2" href="{{ route('role.list') }}" role="button">@lang('custom_label.cancel')</a>
+                    <a class="btn btn-danger ml-2" href="/system-admin/role" role="button">@lang('custom_label.cancel')</a>
                 </form>
             </div>
         @endif
