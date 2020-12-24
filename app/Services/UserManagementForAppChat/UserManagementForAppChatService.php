@@ -4,10 +4,19 @@ namespace App\Services\UserManagementForAppChat;
 
 use App\Models\Company;
 use App\Services\Contract\ApiService;
+use App\Validations\UserManagementForAppChatValidation;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class UserManagementForAppChatService extends ApiService
 {
+
+    private $userManagementForAppChatValidation;
+
+    public function __construct(UserManagementForAppChatValidation $userManagementForAppChatValidation)
+    {
+        $this->userManagementForAppChatValidation = $userManagementForAppChatValidation;
+    }
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -42,7 +51,17 @@ class UserManagementForAppChatService extends ApiService
      */
     public function create(Request $request)
     {
-        return redirect()->intended('/system-admin/user-management-for-app-chat/detail/' . $company->id)->with('saved', true);
+        $validator = $this->userManagementForAppChatValidation->newValidate($request->all());
+
+        if ($validator->fails()) {
+//            dd($validator->errors()->merge(['aa' => 'vv']));
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        }
+
+        $data = $request->all();
+        dd($data);
+
+        return redirect()->intended('/system-admin/user-management-for-app-chat/detail/' . 1)->with('saved', true);
     }
 
     /**

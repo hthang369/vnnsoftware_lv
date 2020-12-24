@@ -11,9 +11,9 @@
         <h5 class="card-header">@lang('custom_title.user_management_for_app_chat')</h5>
         @if(count($listCompany) == 0)
             <div class="alert alert-warning">
-                <strong>@lang('custom_message.alert_no_business_plan')</strong>
+                <strong>@lang('custom_message.alert_no_company')</strong>
             </div>
-            <a class="my-2 btn btn-primary" href="/system-admin/company/new" role="button">+ @lang('custom_label.add_new') @lang('custom_title.business_plan')</a>
+            <a class="my-2 btn btn-primary" href="/system-admin/company/new" role="button">+ @lang('custom_label.add_new') @lang('custom_title.company')</a>
         @else
             <div class="card-body">
                 <form method="POST">
@@ -44,36 +44,35 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.phone')</label>
-                        <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="@lang('custom_label.phone')"
-                               name="phone"
-                               value="{{ old('phone') }}"
-                               autocomplete="phone">
-                        @error('phone')
+                        <label>@lang('custom_label.password')</label>
+                        <input class="form-control @error('password') is-invalid @enderror" type="password" placeholder="@lang('custom_label.password')"
+                               name="password"
+                               value="{{ old('password') }}"
+                               autocomplete="password">
+                        @error('password')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.address')</label>
-                        <input class="form-control @error('address') is-invalid @enderror" type="text"
-                               placeholder="@lang('custom_label.address')" name="address"
-                               value="{{ old('address') }}"
-                               autocomplete="address">
-                        @error('address')
+                        <label>@lang('custom_label.password_confirmation')</label>
+                        <input class="form-control @error('c_password') is-invalid @enderror" type="password"
+                               placeholder="@lang('custom_label.password_confirmation')" name="c_password"
+                               value="{{ old('c_password') }}"
+                               autocomplete="c_password">
+                        @error('c_password')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.business_plan')</label>
+                        <label>@lang('custom_label.company')</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="company_id"
                                 value="{{ old('company_id') }}">
                             @foreach($listCompany as $i => $company)
-                                <option
-                                        value="{{$company->id}}" {{ old('company_id') == $company->id ? 'selected' : '' }}>
+                                <option value="{{$company->id}}" {{ old('company_id') == $company->id ? 'selected' : '' }}>
                                     {{$company->name}}
                                 </option>
                             @endforeach
