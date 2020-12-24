@@ -8,7 +8,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
             @foreach($TOPMENU as $item)
                 <li class="nav-item {{ str_contains(Request::url(), $item->url) ? 'active font-weight-bold' : '' }}">
-                    <a class="nav-link" aria-current="page" href="{{$item->url}}">@lang($item->lang)</a>
+                    <a class="text-light nav-link" aria-current="page" href="{{$item->url}}">@lang($item->lang)</a>
                 </li>
             @endforeach
         </ul>
@@ -26,7 +26,7 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-{{--                <a class="dropdown-item" href="{{ route('user-management.update-password.form', Auth::user()->id) }}">Change password</a>--}}
+                <a class="dropdown-item" href="{{ route('user-management.update-password.form', Auth::user()->id) }}">Change password</a>
             </div>
         </div>
     </div>

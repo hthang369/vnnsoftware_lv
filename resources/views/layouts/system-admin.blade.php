@@ -25,10 +25,15 @@
         }
 
         .footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 2.5rem; /* Footer height */
+            /*position: absolute;*/
+            /*bottom: 0;*/
+            /*width: 100%;*/
+            /*height: 2.5rem; !* Footer height *!*/
+
+            clear: both;
+            position: relative;
+            height: 200px;
+            margin-top: -200px;
         }
 
         table {
