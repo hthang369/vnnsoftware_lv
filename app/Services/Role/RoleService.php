@@ -110,6 +110,10 @@ class RoleService extends MyService
             abort(400, __('custom_message.role_plan_not_found'));
         }
 
+        if ($role->name == config('constants.name.role_permission_name')) {
+            return redirect()->back()->with('errorCommon', __('custom_message.warning_role_system'));
+        }
+
         $validator = $this->roleValidation->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
@@ -193,6 +197,11 @@ class RoleService extends MyService
         if (is_null($role)) {
             abort(400, __('custom_message.role_plan_not_found'));
         }
+
+        if ($role->name == config('constants.name.role_permission_name')) {
+            return redirect()->back()->with('errorCommon', __('custom_message.warning_role_system'));
+        }
+
         DB::beginTransaction();
         try {
 
