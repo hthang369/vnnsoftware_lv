@@ -41,4 +41,12 @@ class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterfac
         $role->save();
         return $role;
     }
+
+    public function getByName($name)
+    {
+        $role = new Role();
+        return $role->select('*')
+            ->where('name', '=', $name)
+            ->first();
+    }
 }
