@@ -58,8 +58,24 @@ class UserManagementForAppChatService extends ApiService
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
 
+        $company = Company::find($request->input('company_id'));
+
         $data = $request->all();
-        dd($data);
+        $data['company'] = $company->name;
+//        dd($data);
+
+        $url = env('API_ADDRESS') . '/api/v1/user/register';
+//        print_r($url); exit;
+        $method = "POST";
+        $response = $this->sendRequestToAPI($url, $method, $data);
+
+        $dataResponse = json_decode($response->getBody()->getContents(), true);
+
+        if ($dataResponse['error_code'] != 0) {
+            return redirect()->back()->withInput()->with('errorCommon', 'sdsfsdfsdfsf');
+        }
+
+        return redirect()->intended('/system-admin/approval-api-token')->with('saved', true);
 
         return redirect()->intended('/system-admin/user-management-for-app-chat/detail/' . 1)->with('saved', true);
     }
@@ -102,6 +118,7 @@ class UserManagementForAppChatService extends ApiService
     private function checkAndReturnData($response)
     {
         $data = json_decode($response->getBody()->getContents(), true);
+        dd($data);
         if ($data['error_code'] != 0) {
             return redirect()->intended('/system-admin/approval-api-token')->with('error', true);
         }
