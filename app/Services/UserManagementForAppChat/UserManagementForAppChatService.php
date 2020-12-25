@@ -33,7 +33,7 @@ class UserManagementForAppChatService extends ApiService
     public function detail($id)
     {
 
-        return view('/user-management-for-app-chat/detail')->with('userManagementForAppChat', $company);
+        return view('/user-management-for-app-chat/detail')->with('userManagementForAppChat', 3);
     }
 
     /**
@@ -54,7 +54,6 @@ class UserManagementForAppChatService extends ApiService
         $validator = $this->userManagementForAppChatValidation->newValidate($request->all());
 
         if ($validator->fails()) {
-//            dd($validator->errors()->merge(['aa' => 'vv']));
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
 
@@ -62,43 +61,18 @@ class UserManagementForAppChatService extends ApiService
 
         $data = $request->all();
         $data['company'] = $company->name;
-//        dd($data);
 
         $url = env('API_ADDRESS') . '/api/v1/user/register';
-//        print_r($url); exit;
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $data);
 
         $dataResponse = json_decode($response->getBody()->getContents(), true);
 
         if ($dataResponse['error_code'] != 0) {
-            return redirect()->back()->withInput()->with('errorCommon', 'sdsfsdfsdfsf');
+            return redirect()->back()->withInput()->with('errorCommon', $dataResponse['error_msg']);
         }
 
-        return redirect()->intended('/system-admin/approval-api-token')->with('saved', true);
-
-        return redirect()->intended('/system-admin/user-management-for-app-chat/detail/' . 1)->with('saved', true);
-    }
-
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function updateForm($id)
-    {
-        $listCompany = Company::all();
-        return view('/user-management-for-app-chat/update_form')->with(['userManagementForAppChat' => 9, 'listCompany' => $listCompany]);
-    }
-
-    /**
-     * @param $id
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update($id, Request $request)
-    {
-
-        return redirect()->intended('/system-admin/user-management-for-app-chat/detail/' . $id)->with('saved', true);
+        return redirect()->intended('/system-admin/user-management-for-app-chat/detail/' . $dataResponse['data']['id'])->with('messCommon', 'Saved');
     }
 
     /**
@@ -109,20 +83,5 @@ class UserManagementForAppChatService extends ApiService
     {
 
         return redirect()->intended('/system-admin/user-management-for-app-chat')->with('deleted', true);
-    }
-
-    /**
-     * @param $response
-     * @return \Illuminate\Http\RedirectResponse|mixed
-     */
-    private function checkAndReturnData($response)
-    {
-        $data = json_decode($response->getBody()->getContents(), true);
-        dd($data);
-        if ($data['error_code'] != 0) {
-            return redirect()->intended('/system-admin/approval-api-token')->with('error', true);
-        }
-
-        return $data;
     }
 }
