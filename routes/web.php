@@ -100,8 +100,6 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
         Route::get('detail/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@detailForm')->name('User Management For App Chat.Detail');
         Route::get('new', 'UserManagementForAppChat\UserManagementForAppChatController@newForm')->name('User Management For App Chat.New.form');
         Route::post('new', 'UserManagementForAppChat\UserManagementForAppChatController@register')->name('User Management For App Chat.New');
-        Route::get('update/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@updateForm')->name('User Management For App Chat.Update.form');
-        Route::post('update/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@update')->name('User Management For App Chat.Update');
         Route::get('delete/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@delete')->name('User Management For App Chat.Delete');
     });
 });

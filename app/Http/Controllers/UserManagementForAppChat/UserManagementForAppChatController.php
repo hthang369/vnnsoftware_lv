@@ -47,31 +47,12 @@ class UserManagementForAppChatController extends Controller
     }
 
     /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function updateForm($id)
-    {
-        return $this->userManagementForAppChatService->updateForm($id);
-    }
-
-    /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function register(Request $request)
     {
         return $this->userManagementForAppChatService->create($request);
-    }
-
-    /**
-     * @param $id
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update($id, Request $request)
-    {
-        return $this->userManagementForAppChatService->update($id, $request);
     }
 
     /**

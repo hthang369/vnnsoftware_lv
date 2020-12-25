@@ -69,14 +69,20 @@
                     </div>
                     <div class="form-group">
                         <label>@lang('custom_label.company')</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="company_id"
+                        <select class="form-control @error('company_id') is-invalid @enderror" id="exampleFormControlSelect1" name="company_id"
                                 value="{{ old('company_id') }}">
+                            <option value=""></option>
                             @foreach($listCompany as $i => $company)
                                 <option value="{{$company->id}}" {{ old('company_id') == $company->id ? 'selected' : '' }}>
                                     {{$company->name}}
                                 </option>
                             @endforeach
                         </select>
+                        @error('company_id')
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
                     <a class="btn btn-danger ml-2" href="/system-admin/user-management-for-app-chat" role="button">@lang('custom_label.cancel')</a>

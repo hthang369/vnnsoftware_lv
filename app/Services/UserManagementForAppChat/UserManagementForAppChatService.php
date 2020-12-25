@@ -62,7 +62,7 @@ class UserManagementForAppChatService extends ApiService
         $data = $request->all();
         $data['company'] = $company->name;
 
-        $url = env('API_ADDRESS') . '/api/v1/user/register';
+        $url = config('constants.api_address') . '/api/v1/user/register';
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $data);
 
@@ -72,7 +72,7 @@ class UserManagementForAppChatService extends ApiService
             return redirect()->back()->withInput()->with('errorCommon', $dataResponse['error_msg']);
         }
 
-        return redirect()->intended('/system-admin/user-management-for-app-chat/detail/' . $dataResponse['data']['id'])->with('messCommon', 'Saved');
+        return redirect()->intended('/system-admin/user-management-for-app-chat/detail/' . $dataResponse['data']['id'])->with('messCommon', __('custom_message.saved'));
     }
 
     /**
@@ -81,7 +81,15 @@ class UserManagementForAppChatService extends ApiService
      */
     public function delete($id)
     {
+        $url = config('constants.api_address') . '/api/v1/user/delete';
+        $method = "POST";
+        $response = $this->sendRequestToAPI($url, $method, 1);
 
+        $dataResponse = json_decode($response->getBody()->getContents(), true);
+
+        if ($dataResponse['error_code'] != 0) {
+            return redirect()->back()->withInput()->with('errorCommon', $dataResponse['error_msg']);
+        }
         return redirect()->intended('/system-admin/user-management-for-app-chat')->with('deleted', true);
     }
 }

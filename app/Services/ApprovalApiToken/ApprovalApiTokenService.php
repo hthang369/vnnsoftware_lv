@@ -14,7 +14,7 @@ class ApprovalApiTokenService extends ApiService
      */
     public function list()
     {
-        $url = env('API_ADDRESS') . '/api/v1/api-token/get-list-approval';
+        $url = config('constants.api_address') . '/api/v1/api-token/get-list-approval';
         $request = null;
         $method = "GET";
         $response = $this->sendRequestToAPI($url, $method, $request);
@@ -28,7 +28,7 @@ class ApprovalApiTokenService extends ApiService
      */
     public function approvalToken($id)
     {
-        $url = env('API_ADDRESS') . '/api/v1/api-token/approve-token';
+        $url = config('constants.api_address') . '/api/v1/api-token/approve-token';
         $request = ['id' => $id];
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
@@ -42,7 +42,7 @@ class ApprovalApiTokenService extends ApiService
      */
     public function stopToken($id)
     {
-        $url = env('API_ADDRESS') . '/api/v1/api-token/stop-token';
+        $url = config('constants.api_address') . '/api/v1/api-token/stop-token';
         $request = ['id' => $id];
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
@@ -56,7 +56,7 @@ class ApprovalApiTokenService extends ApiService
      */
     public function reopenToken($id)
     {
-        $url = env('API_ADDRESS') . '/api/v1/api-token/reopen-token';
+        $url = config('constants.api_address') . '/api/v1/api-token/reopen-token';
         $request = ['id' => $id];
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
@@ -70,7 +70,7 @@ class ApprovalApiTokenService extends ApiService
      */
     public function deleteToken($id)
     {
-        $url = env('API_ADDRESS') . '/api/v1/api-token/delete-token';
+        $url = config('constants.api_address') . '/api/v1/api-token/delete-token';
         $request = ['id' => $id];
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
