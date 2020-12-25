@@ -22,6 +22,7 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
     {
         return User::all();
     }
+
     /**
      * @param $data
      *
@@ -39,9 +40,9 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
     /**
      * Get a user entity.
      *
-     * @param string                $username
-     * @param string                $password
-     * @param string                $grantType The grant type used
+     * @param string $username
+     * @param string $password
+     * @param string $grantType The grant type used
      * @param ClientEntityInterface $clientEntity
      *
      * @return UserEntityInterface
@@ -89,23 +90,23 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
                     ->orWhere('users.email', 'like', '%' . preg_replace('/\s+/', '%', $input) . '%');
             })
             ->where('users.id', "<>", Auth::id())
-        // ->where(function($q) {
-        //     $q
-        //         //->where('contact.status','<>',1)
-        //       ->orWhereNull('contact.status');
-        // })
-        // ->where('users.id','<>',$userId)
-        // ->where(function($q) use ($userId) {
-        //     $q->where('contact.user_id','=',$userId)
-        //       ->orWhereNull('contact.user_id');
-        // })
+            // ->where(function($q) {
+            //     $q
+            //         //->where('contact.status','<>',1)
+            //       ->orWhereNull('contact.status');
+            // })
+            // ->where('users.id','<>',$userId)
+            // ->where(function($q) use ($userId) {
+            //     $q->where('contact.user_id','=',$userId)
+            //       ->orWhereNull('contact.user_id');
+            // })
             ->paginate(30);
     }
 
     public function checkPassword($id, $current)
     {
         $user = User::select(['password'])->find($id);
-        if(strlen($current) !== strlen(trim($current))){
+        if (strlen($current) !== strlen(trim($current))) {
             throw new \Exception('Password does not allow spaces before and after');
         }
 
@@ -125,5 +126,18 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
     public function delete($id)
     {
         return User::where('id', $id)->delete();
+    }
+
+    public function countOthersPermissionUser($id)
+    {
+        return DB::table('users')
+            ->select(DB::raw('COUNT(users.id) AS total'))
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->join('role', 'role.id', '=', 'role_user.role_id')
+            ->where('role.name', '=', config('constants.name.role_permission_name'))
+            ->where('users.id', '<>', $id)
+            ->whereNull('role.deleted_at')
+            ->whereNull('users.deleted_at')
+            ->first();
     }
 }

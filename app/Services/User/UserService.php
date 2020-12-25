@@ -183,7 +183,6 @@ class UserService extends MyService
         $validator = $this->userValidate->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
-            dd($validator->errors());
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
 
@@ -201,7 +200,9 @@ class UserService extends MyService
         }
 
         if (!$hasPermission) {
-
+            if ($this->userRepo->countOthersPermissionUser(Auth::id())->total == 0) {
+                return redirect()->back()->withInput()->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+            }
         }
 
         if (strlen($request['password']) != 0) {
