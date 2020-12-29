@@ -35,10 +35,20 @@
                         <input type="hidden" name="role_id" value="{{$role->id}}">
                     </div>
                     @foreach($listFeatureApi as $i => $featureApi)
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck{{$i}}" name="feature_api_id[]" value="{{$featureApi->id}}" {{in_array($featureApi->id, $arrayOldFeatureApi) ? 'checked' : ''}}>
-                            <label class="form-check-label" for="exampleCheck{{$i}}">[{{$featureApi->feature . '] ' . $featureApi->name}}</label>
-                        </div>
+                        @if(($listFeatureApi[$i - 1]->feature ?? 'null') != $featureApi->feature)
+                            <div class="border border-secondary bg-light p-2 rounded">
+                                <div class="m-2">
+                                    <strong>{{$featureApi->feature}}</strong><br>
+                                    @endif
+                                    <div class="form-check ml-3">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck{{$i}}" name="feature_api_id[]" value="{{$featureApi->id}}" {{in_array($featureApi->id, $arrayOldFeatureApi) ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="exampleCheck{{$i}}">[{{$featureApi->feature . '] ' . $featureApi->name}}</label>
+                                    </div>
+                                    @if(($listFeatureApi[$i + 1]->feature ?? 'null') != $featureApi->feature)
+                                </div>
+                            </div>
+                            <hr>
+                        @endif
                     @endforeach
                     <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
                     <a class="btn btn-danger ml-2" href="/system-admin/role" role="button">@lang('custom_label.cancel')</a>

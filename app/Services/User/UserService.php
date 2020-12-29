@@ -324,6 +324,10 @@ class UserService extends MyService
     {
         $user = $this->getUserById($id);
 
+        if ($this->userRepo->countOthersPermissionUser(Auth::id())->total == 0) {
+            return redirect()->back()->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+        }
+
         if (is_null($user)) {
             abort(400, __('custom_message.user_not_found'));
         }
