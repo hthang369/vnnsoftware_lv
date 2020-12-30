@@ -35,7 +35,7 @@
                 <thead>
                 <tr>
                     <th scope="col">@lang('custom_label.index')</th>
-                    <th scope="col">@lang('custom_label.api')</th>
+                    <th scope="col">@lang('custom_label.feature')</th>
                     <th scope="col">@lang('custom_label.name')</th>
                     <th scope="col">@lang('custom_label.action')</th>
                 </tr>
@@ -44,7 +44,7 @@
                 @foreach($list as $i => $featureApi)
                     <tr>
                         <td>{{($i + 1)}}</td>
-                        <td>{{$featureApi->api}}</td>
+                        <td>{{$featureApi->feature}}</td>
                         <td>{{$featureApi->name}}</td>
                         <td>
                             <a onclick="return confirm('@lang('custom_message.confirm_delete')');"

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\User;
 
+use App\Models\BusinessPlan;
 use App\Repositories\MyRepository;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,27 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
     {
         return User::all();
     }
+
+    public function getAllSortedUser($condition)
+    {
+        //$businessPlan = BusinessPlan::select();
+        $list = User::all();
+        switch ($condition) {
+            case "name":
+                return $list->sortBy('name');
+            case "email":
+                return $list->sortBy('email');
+            case "phone":
+                return $list->sortBy('phone');
+            case "address":
+                return $list->sortBy('address');
+            default:
+                return $this->getAllUser();
+        }
+        return $list;
+    }
+
+
     /**
      * @param $data
      *

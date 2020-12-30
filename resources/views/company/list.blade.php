@@ -26,12 +26,37 @@
                 <thead>
                 <tr>
                     <th scope="col">@lang('custom_label.index')</th>
-                    <th scope="col">@lang('custom_label.name')</th>
-                    <th scope="col">@lang('custom_label.email')</th>
-                    <th scope="col">@lang('custom_label.phone')</th>
-                    <th scope="col">@lang('custom_label.address')</th>
-                    <th scope="col">@lang('custom_label.business_plan')</th>
-                    <th scope="col">@lang('custom_label.action')</th>
+                    <th scope="col">@lang('custom_label.name')
+                        <a class="btn-cta-freequote" href="/system-admin/company/sort/name">
+                            <i style="{{Route::currentRouteName() == 'Company.Sort.Name' ? 'color:blue;' : 'color:gray;'}}"
+                                class="fa fa-sort"></i>
+                        </a>
+                    </th>
+                    <th scope="col">@lang('custom_label.email')
+                        <a class="btn-cta-freequote" href="/system-admin/company/sort/email">
+                            <i style="{{Route::currentRouteName() == 'Company.Sort.Email' ? 'color:blue;' : 'color:gray;'}}"
+                                class="fa fa-sort"></i>
+                        </a>
+                    </th>
+                    <th scope="col">@lang('custom_label.phone')
+                        <a class="btn-cta-freequote" href="/system-admin/company/sort/phone">
+                            <i style="{{Route::currentRouteName() == 'Company.Sort.Phone' ? 'color:blue;' : 'color:gray;'}}"
+                                class="fa fa-sort"></i>
+                        </a>
+                    </th>
+                    <th scope="col">@lang('custom_label.address')
+                        <a class="btn-cta-freequote" href="/system-admin/company/sort/address">
+                            <i style="{{Route::currentRouteName() == 'Company.Sort.Address' ? 'color:blue;' : 'color:gray;'}}"
+                                class="fa fa-sort"></i>
+                        </a>
+                    </th>
+                    <th scope="col">@lang('custom_label.business_plan')
+                        <a class="btn-cta-freequote" href="/system-admin/company/sort/business-plan">
+                            <i style="{{Route::currentRouteName() == 'Company.Sort.Business Plan' ? 'color:blue;' : 'color:gray;'}}"
+                                class="fa fa-sort"></i>
+                        </a>
+                    </th>
+                    <th scope="col">@lang('custom_label.action') </th>
                 </tr>
                 </thead>
                 <tbody>

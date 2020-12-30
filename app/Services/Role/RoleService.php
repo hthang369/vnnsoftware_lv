@@ -119,7 +119,7 @@ class RoleService extends MyService
         $input = request()->except(['_token', 'role']);
 
         try {
-            $role = $this->roleRepo->update($id, $input);
+            $role->update($input);
         } catch (\Exception $ex) {
             abort(400, $ex->getMessage());
         }

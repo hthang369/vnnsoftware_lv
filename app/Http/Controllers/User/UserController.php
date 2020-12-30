@@ -41,6 +41,7 @@ class UserController extends Controller
         RoleService $roleService,
         UserValidation $userValidate)
     {
+        parent::__construct();
         $this->userService = $userService;
         $this->roleService = $roleService;
         $this->userValidate = $userValidate;
@@ -52,6 +53,15 @@ class UserController extends Controller
     public function index()
     {
         return $this->userService->index();
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function sort(Request $request) {
+
+        return $this->userService->sort($request);
     }
 
     /**

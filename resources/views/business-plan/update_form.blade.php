@@ -12,7 +12,7 @@
     <div class="card">
         <h5 class="card-header">@lang('custom_title.business_plan')</h5>
         <div class="card-body">
-            <form method="POST" action="{{ route('business-plan.update', $businessPlan->id)}} ">
+            <form method="POST" action="{{ route('Business Plan.Update', $businessPlan->id)}} ">
                 @csrf
                 <div class="form-group">
                     <label>@lang('custom_label.name')</label>
@@ -46,7 +46,7 @@
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">@lang('custom_label.update')</button>
-                <a class="btn btn-danger ml-2" href="{{ route('business-plan.list') }}" role="button">@lang('custom_label.cancel')</a>
+                <a class="btn btn-danger ml-2" href="{{ route('Business Plan.List') }}" role="button">@lang('custom_label.cancel')</a>
             </form>
         </div>
     </div>

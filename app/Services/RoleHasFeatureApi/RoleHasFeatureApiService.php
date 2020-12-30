@@ -45,9 +45,9 @@ class RoleHasFeatureApiService extends MyService
      * @param $name
      * @return mixed
      */
-    public function deleteByFeatureApiName($name)
+    public function deleteByFeatureApiId($name)
     {
-        return $this->roleHasFeatureApiRepo->deleteByFeatureApiName($name);
+        return $this->roleHasFeatureApiRepo->deleteByFeatureApiId($name);
     }
 
     /**
@@ -76,7 +76,7 @@ class RoleHasFeatureApiService extends MyService
         $listOldFeatureApi = $this->roleHasFeatureApiRepo->getByRoleId($id);
         $arrayOldFeatureApi = [];
         foreach ($listOldFeatureApi as $item) {
-            array_push($arrayOldFeatureApi, $item['feature_api_name']);
+            array_push($arrayOldFeatureApi, $item['feature_api_id']);
         }
         return view('/role-has-feature-api/set_role_form')->with(['arrayOldFeatureApi' => $arrayOldFeatureApi, 'role' => $role, 'listFeatureApi' => $listFeatureApi]);
     }
@@ -99,27 +99,27 @@ class RoleHasFeatureApiService extends MyService
             $input['role_id'] = $request->input('role_id');
             $listOldFeatureApi = $this->roleHasFeatureApiRepo->getByRoleId($input['role_id']);
 
-            if ($request->has('feature_api_name')) {
-                foreach ($request->input('feature_api_name') as $item) {
+            if ($request->has('feature_api_id')) {
+                foreach ($request->input('feature_api_id') as $item) {
                     $has = false;
                     foreach ($listOldFeatureApi as $value) {
-                        if ($item == $value['feature_api_name']) {
+                        if ($item == $value['feature_api_id']) {
                             $has = true;
                             break;
                         }
                     }
 
                     if (!$has) {
-                        $input['feature_api_name'] = $item;
+                        $input['feature_api_id'] = $item;
                         $this->roleHasFeatureApiRepo->create($input);
                     }
                 }
             }
             foreach ($listOldFeatureApi as $value) {
                 $has = false;
-                if ($request->has('feature_api_name')) {
-                    foreach ($request->input('feature_api_name') as $item) {
-                        if ($item == $value['feature_api_name']) {
+                if ($request->has('feature_api_id')) {
+                    foreach ($request->input('feature_api_id') as $item) {
+                        if ($item == $value['feature_api_id']) {
                             $has = true;
                             break;
                         }

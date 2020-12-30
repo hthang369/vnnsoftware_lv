@@ -17,6 +17,7 @@ class RoleHasFeatureApiController extends Controller
      */
     public function __construct(RoleHasFeatureApiService $roleHasFeatureApiService)
     {
+        parent::__construct();
         $this->roleHasFeatureApiService = $roleHasFeatureApiService;
     }
 

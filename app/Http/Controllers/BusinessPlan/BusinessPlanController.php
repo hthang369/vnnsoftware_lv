@@ -23,6 +23,7 @@ class BusinessPlanController extends Controller
      */
     public function __construct(BusinessPlanService $businessPlanService, BusinessPlanValidation $businessPlanValidation)
     {
+        parent::__construct();
         $this->businessPlanService = $businessPlanService;
         $this->businessPlanValidation = $businessPlanValidation;
     }
@@ -33,6 +34,15 @@ class BusinessPlanController extends Controller
     public function index()
     {
         return $this->businessPlanService->list();
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function sort(Request $request) {
+
+        return $this->businessPlanService->sort($request);
     }
 
     /**

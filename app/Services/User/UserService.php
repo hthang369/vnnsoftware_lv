@@ -44,6 +44,18 @@ class UserService extends MyService
 
     /**
      * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function sort(Request $request){
+
+        $condition = $this->getSortConditionFromUrl($request);
+        $list = $this->userRepo->getAllSortedUser($condition);
+
+        return view('/user-management/list')->with('list', $list);
+    }
+
+    /**
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function login(Request $request)

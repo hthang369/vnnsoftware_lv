@@ -35,10 +35,13 @@
                 <strong>@lang('custom_label.business_plan'):</strong>
                 <label>{{$company->business_plan->name}}</label>
             </div>
-            @if(in_array('company.update.form', $permission))
-                <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}" role="button">@lang('custom_label.update')</a>
-            @endif
-            <a class="btn btn-danger ml-2" href="{{ route('company.list') }}" role="button">@lang('custom_label.back')</a>
+            {{--            @if(in_array('company.update.form', $permission))--}}
+            {{--                <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}" role="button">@lang('custom_label.update')</a>--}}
+            {{--            @endif--}}
+            <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}"
+               role="button">@lang('custom_label.update')</a>
+            <a class="btn btn-danger ml-2" href="{{ route('Company.List') }}"
+               role="button">@lang('custom_label.back')</a>
         </div>
     </div>
 @endsection

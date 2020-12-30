@@ -17,6 +17,7 @@ class CompanyController extends Controller
      */
     public function __construct(CompanyService $companyService)
     {
+        parent::__construct();
         $this->companyService = $companyService;
     }
 
@@ -26,6 +27,16 @@ class CompanyController extends Controller
     public function index()
     {
         return $this->companyService->list();
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function sort(Request $request)
+    {
+
+        return $this->companyService->sort($request);
     }
 
     /**

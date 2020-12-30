@@ -108,7 +108,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
-                    <a class="btn btn-danger ml-2" href="{{ route('user-management.list') }}"
+                    <a class="btn btn-danger ml-2" href="{{ route('User Management.List') }}"
                        role="button">@lang('custom_label.cancel')</a>
                 </form>
 

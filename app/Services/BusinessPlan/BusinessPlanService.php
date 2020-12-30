@@ -39,6 +39,18 @@ class BusinessPlanService extends MyService
     }
 
     /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function sort(Request $request){
+
+        $condition = $this->getSortConditionFromUrl($request);
+        $list = $this->businessPLanRepo->getAllSortedBusinessPlan($condition);
+
+        return view('/business-plan/list')->with('businessPlans', $list);
+    }
+
+    /**
      * @param $request
      * @return \Illuminate\Http\RedirectResponse
      */

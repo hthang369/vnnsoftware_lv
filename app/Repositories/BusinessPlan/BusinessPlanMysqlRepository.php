@@ -3,6 +3,7 @@
 namespace App\Repositories\BusinessPlan;
 
 use App\Models\BusinessPlan;
+use App\Models\Company;
 use App\Repositories\MyRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -45,6 +46,21 @@ class BusinessPlanMysqlRepository extends MyRepository implements BusinessPlanRe
     public function getAllBusinessPlan()
     {
         return BusinessPlan::all();
+    }
+
+    public function getAllSortedBusinessPlan($condition)
+    {
+        //$businessPlan = BusinessPlan::select();
+        $list = BusinessPlan::all();
+        switch ($condition) {
+            case "name":
+                return $list->sortBy('name');
+            case "description":
+                return $list->sortBy('description');
+            default:
+                return $this->getAllBusinessPlan();
+        }
+        return $list;
     }
 
     /**

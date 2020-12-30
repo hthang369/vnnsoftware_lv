@@ -17,7 +17,7 @@
     <div class="card">
         <h5 class="card-header">Update your password</h5>
         <div class="card-body">
-            <form action="{{ route('user-management.update-password') }}" method="POST" >
+            <form action="{{ route('User Management.Update Password') }}" method="POST" >
                 @csrf
                 <div class="form-group">
                     <label>Current password</label>
@@ -56,7 +56,7 @@
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a class="btn btn-danger ml-2" href="{{ route('user-management.list') }}" role="button">@lang('custom_label.cancel')</a>
+                <a class="btn btn-danger ml-2" href="/system-admin/user-management" role="button">@lang('custom_label.cancel')</a>
             </form>
         </div>
     </div>

@@ -28,24 +28,21 @@ class CheckPermissionByRole
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-
             $currentRouteName = Route::currentRouteName();
             $listFeatureApiName = $this->roleHasFeatureApiRepo->getListFeatureApiNameByUserId(Auth::id());
 
             foreach ($listFeatureApiName as $item) {
-                if ($currentRouteName == $item->feature_api_name) {
+                if (strpos($currentRouteName, $item->feature . '.' . $item->name) !== false) {
                     $permission = [];
                     foreach ($listFeatureApiName as $value) {
-                        array_push($permission, $value->feature_api_name);
+                        array_push($permission, $value->feature . '.' . $value->name);
                     }
 
                     View::share('permission', $permission);
-
                     return $next($request);
                 }
             }
         }
-        return $next($request);
         return abort(403);
     }
 }

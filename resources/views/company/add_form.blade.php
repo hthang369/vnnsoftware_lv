@@ -80,7 +80,7 @@
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
-                    <a class="btn btn-danger ml-2" href="{{ route('company.list') }}" role="button">@lang('custom_label.cancel')</a>
+                    <a class="btn btn-danger ml-2" href="{{ route('Company.List') }}" role="button">@lang('custom_label.cancel')</a>
                 </form>
             </div>
         @endif

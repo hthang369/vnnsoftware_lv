@@ -41,6 +41,18 @@ class CompanyService extends MyService
     }
 
     /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function sort(Request $request){
+
+        $condition = $this->getSortConditionFromUrl($request);
+        $list = $this->companyRepo->getAllSortedPaginate($condition);
+
+        return view('/company/list')->with('list', $list);
+    }
+
+    /**
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

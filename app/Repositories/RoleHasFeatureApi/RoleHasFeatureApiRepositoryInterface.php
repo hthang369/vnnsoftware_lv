@@ -9,7 +9,7 @@ interface RoleHasFeatureApiRepositoryInterface
 //    public function getAllByFeatureApiName();
     public function create($input);
     public function delete($id);
-//    public function deleteByFeatureApiId($id);
+    public function deleteByFeatureApiId($id);
     public function deleteByFeatureApiName($name);
     public function getOneByFeatureId($feature_id);
     public function getListFeatureApiNameByUserId($user_id);

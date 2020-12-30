@@ -16,6 +16,7 @@ class ApprovalApiTokenController extends Controller
      */
     public function __construct(ApprovalApiTokenService $approvalApiTokenService)
     {
+        parent::__construct();
         $this->approvalApiTokenService = $approvalApiTokenService;
     }
 

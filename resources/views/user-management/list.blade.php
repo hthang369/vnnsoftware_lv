@@ -22,10 +22,34 @@
                 <thead>
                 <tr>
                     <th scope="col">@lang('custom_label.index')</th>
-                    <th scope="col">@lang('custom_label.name')</th>
-                    <th scope="col">@lang('custom_label.email')</th>
-                    <th scope="col">@lang('custom_label.phone')</th>
-                    <th scope="col">@lang('custom_label.address')</th>
+                    <th scope="col">@lang('custom_label.name')
+                        <a class="btn-cta-freequote" href="/system-admin/user-management/sort/name">
+                            <i style="{{Route::currentRouteName() == 'User.Sort.Name' ? 'color:blue;' : 'color:gray;'}}"
+                               class="fas fa-sort">
+                            </i>
+                        </a>
+                    </th>
+                    <th scope="col">@lang('custom_label.email')
+                        <a class="btn-cta-freequote" href="/system-admin/user-management/sort/email">
+                            <i style="{{Route::currentRouteName() == 'User.Sort.Email' ? 'color:blue;' : 'color:gray;'}}"
+                               class="fas fa-sort">
+                            </i>
+                        </a>
+                    </th>
+                    <th scope="col">@lang('custom_label.phone')
+                        <a class="btn-cta-freequote" href="/system-admin/user-management/sort/phone">
+                            <i style="{{Route::currentRouteName() == 'User.Sort.Phone' ? 'color:blue;' : 'color:gray;'}}"
+                               class="fas fa-sort">
+                            </i>
+                        </a>
+                    </th>
+                    <th scope="col">@lang('custom_label.address')
+                        <a class="btn-cta-freequote" href="/system-admin/user-management/sort/address">
+                            <i style="{{Route::currentRouteName() == 'User.Sort.Address' ? 'color:blue;' : 'color:gray;'}}"
+                               class="fas fa-sort">
+                            </i>
+                        </a>
+                    </th>
                     <th scope="col">@lang('custom_label.role')</th>
                     <th scope="col">@lang('custom_label.action')</th>
                 </tr>

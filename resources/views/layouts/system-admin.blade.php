@@ -1,8 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="referrer" content="strict-origin"/>
+
     <title>Laka Management - @yield('title')</title>
+
+    <!-- FONT AWESOME -->
+{{--    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">--}}
+{{--    <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/3.2.1/assets/font-awesome/css/font-awesome.css">--}}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
     <!-- CSS -->
     @section('bootstrap-css')
         @component('components.bootstrap-css')
@@ -50,13 +58,14 @@
 
 <div id="page-container">
     <!-- Navbar -->
-    @section('navbar')
-        @component('components.system-admin.navbar')
+@section('navbar')
+    @component('components.system-admin.navbar')
 
-        @endcomponent
-    @show
+    @endcomponent
+@show
 
-    <!-- Dialog confirm delete -->
+
+<!-- Dialog confirm delete -->
     @section('dialog_confirm_delete')
         @component('common.dialog_confirm_delete')
 
@@ -89,7 +98,7 @@
         @endcomponent
     @show
 
-    <!-- Script -->
+<!-- Script -->
     @section('script')
         @component('components.bootstrap-script')
 
