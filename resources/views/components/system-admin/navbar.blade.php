@@ -1,6 +1,6 @@
 <nav style="background-color: #6351ce;" class="navbar navbar-expand-lg navbar-light">
     <img style="width:5rem;" src="{{ URL::to('/') }}/images/logo-official.png">
-    <a class="navbar-brand" href="{{ URL::to('/system-admin/company') }}"> Management Tool</a>
+    <a class="navbar-brand text-light" href="{{ URL::to('/system-admin/company') }}"> Management Tool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

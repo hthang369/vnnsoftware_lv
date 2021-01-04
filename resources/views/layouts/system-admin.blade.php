@@ -33,15 +33,15 @@
         }
 
         .footer {
-            /*position: absolute;*/
-            /*bottom: 0;*/
-            /*width: 100%;*/
-            /*height: 2.5rem; !* Footer height *!*/
 
-            clear: both;
-            position: relative;
-            height: 200px;
-            margin-top: -200px;
+            /*clear: both;*/
+            /*position: relative;*/
+            /*height: 200px;*/
+            /*margin-top: -200px;*/
+            /*margin-top: -200px;*/
+
+            position:fixed;
+            bottom:0;
         }
 
         table {
@@ -50,6 +50,10 @@
 
         table th, table td {
             overflow: hidden;
+        }
+
+        .container-fluid{
+            min-height: 2600px;
         }
 
     </style>

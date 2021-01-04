@@ -35,7 +35,6 @@ class CompanyController extends Controller
      */
     public function sort(Request $request)
     {
-
         return $this->companyService->sort($request);
     }
 
@@ -44,7 +43,7 @@ class CompanyController extends Controller
      * @return mixed
      */
     public function search(Request $request)
-    { 
+    {
         return $this->companyService->search($request);
     }
 
