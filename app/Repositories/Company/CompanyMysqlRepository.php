@@ -29,7 +29,12 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
             ->paginate(config('constants.pagination.items_per_page'));
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function searchAllPaginate(Request $request){
+
         $company = Company::select("company.*", "business_plan.name as business_plan_name")
             ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id');
 

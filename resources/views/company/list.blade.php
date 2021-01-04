@@ -18,7 +18,7 @@
     <div id="collapseExample"
          class="{{ str_contains(Request::url(), 'search') ? 'collapse.show' : 'collapse'  }} mb-4 alert alert-secondary">
 
-        <form method="POST" action="{{  route('Company.Search')  }}">
+        <form method="GET" action="{{  route('Company.Search')  }}">
             @csrf
             <div class="form-group">
                 <label>Name</label>
@@ -50,7 +50,8 @@
                 @lang('custom_label.get_all')
             </a>
         </form>
-    </div>
+
+       </div>
     <!-- TITLE -->
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.company')</h1>
