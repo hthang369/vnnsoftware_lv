@@ -8,19 +8,47 @@
 
 @section('content')
     <!-- SEARCH FORM -->
-    <div class="mb-4 alert alert-secondary">
+    <p>
+        <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+           aria-controls="collapseExample">
+            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            Open Search form
+        </a>
+    </p>
+    <div id="collapseExample"
+         class="{{ str_contains(Request::url(), 'search') ? 'collapse.show' : 'collapse'  }} mb-4 alert alert-secondary">
+
         <form method="POST" action="{{  route('Company.Search')  }}">
             @csrf
             <div class="form-group">
-                <label for="exampleInputEmail1">Name</label>
-                <input value="{{ old('name') }}" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                       placeholder="Find name">
+                <label>Name</label>
+                <input value="{{ old('name') }}" name="name" class="form-control" placeholder="Find name">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input value="{{ old('email') }}" name="email" class="form-control" placeholder="Find email">
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input value="{{ old('phone') }}" name="phone" class="form-control" placeholder="Find phone">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input value="{{ old('address') }}" name="address" class="form-control" placeholder="Find address">
+            </div>
+            <div class="form-group">
+                <label>Business plan</label>
+                <input value="{{ old('business-plan') }}" name="business-plan" class="form-control"
+                       placeholder="Find business plan">
             </div>
             <button type="submit" class="btn btn-success">Search
-                <i style="" class="fa fa-search"></i>
+                <i class="fa fa-search"></i>
             </button>
             <!-- GET ALL BUTTON -->
-            <a class="ml-3  my-2 btn btn-primary" href="/system-admin/company" role="button">+ @lang('custom_label.get_all')</a>
+            <a class="ml-3  my-2 btn  btn-secondary" href="/system-admin/company" role="button">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                @lang('custom_label.get_all')
+            </a>
         </form>
     </div>
     <!-- TITLE -->
@@ -48,31 +76,31 @@
                     <th scope="col">@lang('custom_label.name')
                         <a class="btn-cta-freequote" href="/system-admin/company/sort/name">
                             <i style="{{Route::currentRouteName() == 'Company.Sort.Name' ? 'color:blue;' : 'color:gray;'}}"
-                                class="fa fa-sort"></i>
+                               class="fa fa-sort"></i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.email')
                         <a class="btn-cta-freequote" href="/system-admin/company/sort/email">
                             <i style="{{Route::currentRouteName() == 'Company.Sort.Email' ? 'color:blue;' : 'color:gray;'}}"
-                                class="fa fa-sort"></i>
+                               class="fa fa-sort"></i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.phone')
                         <a class="btn-cta-freequote" href="/system-admin/company/sort/phone">
                             <i style="{{Route::currentRouteName() == 'Company.Sort.Phone' ? 'color:blue;' : 'color:gray;'}}"
-                                class="fa fa-sort"></i>
+                               class="fa fa-sort"></i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.address')
                         <a class="btn-cta-freequote" href="/system-admin/company/sort/address">
                             <i style="{{Route::currentRouteName() == 'Company.Sort.Address' ? 'color:blue;' : 'color:gray;'}}"
-                                class="fa fa-sort"></i>
+                               class="fa fa-sort"></i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.business_plan')
                         <a class="btn-cta-freequote" href="/system-admin/company/sort/business-plan">
                             <i style="{{Route::currentRouteName() == 'Company.Sort.Business Plan' ? 'color:blue;' : 'color:gray;'}}"
-                                class="fa fa-sort"></i>
+                               class="fa fa-sort"></i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.action') </th>

@@ -35,6 +35,14 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
 
         if($request['name'] != '')
             $company->where('company.name', 'LIKE', '%'.$request['name'].'%');
+        if($request['email'] != '')
+            $company->where('company.email', 'LIKE', '%'.$request['email'].'%');
+        if($request['phone'] != '')
+            $company->where('company.phone', 'LIKE', '%'.$request['phone'].'%');
+        if($request['address'] != '')
+            $company->where('company.address', 'LIKE', '%'.$request['address'].'%');
+        if($request['business-plan'] != '')
+            $company->where('business_plan.name', 'LIKE', '%'.$request['business-plan'].'%');
 
         return $company->paginate(config('constants.pagination.items_per_page'));
     }
