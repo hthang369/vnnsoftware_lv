@@ -22,7 +22,7 @@
                 <thead>
                 <tr>
                     <th scope="col">@lang('custom_label.index')</th>
-                    <th scope="col">@lang('custom_label.name')
+                    <th scope="col"> @lang('custom_label.name')
                         <a class="btn-cta-freequote" href="/system-admin/user-management/sort/name">
                             <i style="{{Route::currentRouteName() == 'User.Sort.Name' ? 'color:blue;' : 'color:gray;'}}"
                                class="fas fa-sort">

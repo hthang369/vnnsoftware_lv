@@ -25,10 +25,29 @@
             <table class="table table-bordered table-hover table-striped bg-light">
                 <thead>
                 <tr>
-                    <th scope="col">@lang('custom_label.index')</th>
-                    <th scope="col">@lang('custom_label.name')</th>
-                    <th scope="col">@lang('custom_label.role_rank')</th>
-                    <th scope="col">@lang('custom_label.description')</th>
+                    <th scope="col">@lang('custom_label.index')
+                    </th>
+                    <th scope="col">@lang('custom_label.name')
+                        <a class="btn-cta-freequote" href="/system-admin/role/sort/name">
+                            <i style="{{Route::currentRouteName() == 'Role.Sort.Name' ? 'color:blue;' : 'color:gray;'}}"
+                               class="fas fa-sort">
+                            </i>
+                        </a>
+                    </th>
+                    <th scope="col">@lang('custom_label.role_rank')
+                        <a class="btn-cta-freequote" href="/system-admin/role/sort/role-rank">
+                            <i style="{{Route::currentRouteName() == 'Role.Sort.Role Rank' ? 'color:blue;' : 'color:gray;'}}"
+                               class="fas fa-sort">
+                            </i>
+                        </a>
+                    </th>
+                    <th scope="col">@lang('custom_label.description')
+                        <a class="btn-cta-freequote" href="/system-admin/role/sort/description">
+                            <i style="{{Route::currentRouteName() == 'Role.Sort.Description' ? 'color:blue;' : 'color:gray;'}}"
+                               class="fas fa-sort">
+                            </i>
+                        </a>
+                    </th>
                     <th scope="col" colspan="3">@lang('custom_label.permission')</th>
                     <th scope="col">@lang('custom_label.action')</th>
                 </tr>

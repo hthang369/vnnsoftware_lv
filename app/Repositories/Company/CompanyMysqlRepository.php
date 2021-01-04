@@ -4,6 +4,8 @@ namespace App\Repositories\Company;
 
 use App\Models\Company;
 use App\Repositories\MyRepository;
+use Illuminate\Http\Request;
+
 
 class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryInterface
 {
@@ -26,6 +28,17 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
             ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id')
             ->paginate(config('constants.pagination.items_per_page'));
     }
+
+    public function searchAllPaginate(Request $request){
+        $company = Company::select("company.*", "business_plan.name as business_plan_name")
+            ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id');
+
+        if($request['name'] != '')
+            $company->where('company.name', 'LIKE', '%'.$request['name'].'%');
+
+        return $company->paginate(config('constants.pagination.items_per_page'));
+    }
+
 
     /**
      * @param $condition

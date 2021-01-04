@@ -42,6 +42,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
             Route::get('address', 'Company\CompanyController@sort')->name('Company.Sort.Address');
             Route::get('business-plan', 'Company\CompanyController@sort')->name('Company.Sort.Business Plan');
         });
+        Route::post('search', 'Company\CompanyController@search')->name('Company.Search');
     });
 
     // business plan route
@@ -92,6 +93,11 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
             'RoleHasFeatureApi\RoleHasFeatureApiController@setPermissionForm')->name('Role.Set Permission For Role[Permission].form');
         Route::post('set-permission/{id}',
             'RoleHasFeatureApi\RoleHasFeatureApiController@setPermission')->name('Role.Set Permission For Role[Permission]');
+        Route::group(['prefix' => 'sort'], function () {
+            Route::get('name', 'Role\RoleController@sort')->name('Role.Sort.Name');
+            Route::get('role-rank', 'Role\RoleController@sort')->name('Role.Sort.Role Rank');
+            Route::get('description', 'Role\RoleController@sort')->name('Role.Sort.Description');
+        });
     });
 
     // feature-api management route

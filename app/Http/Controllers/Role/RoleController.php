@@ -31,6 +31,14 @@ class RoleController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function sort(Request $request) {
+        return $this->roleService->sort($request);
+    }
+
+    /**
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

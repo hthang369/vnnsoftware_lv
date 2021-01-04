@@ -40,6 +40,15 @@ class CompanyController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function search(Request $request)
+    { 
+        return $this->companyService->search($request);
+    }
+
+    /**
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

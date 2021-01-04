@@ -32,6 +32,16 @@ class CompanyService extends MyService
     }
 
     /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function search(Request $request)
+    {
+        $list = $this->companyRepo->searchAllPaginate($request);
+        return view('/company/list')->with('list', $list);
+    }
+
+    /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function list()

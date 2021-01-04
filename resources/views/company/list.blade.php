@@ -7,10 +7,29 @@
 @endsection
 
 @section('content')
+    <!-- SEARCH FORM -->
+    <div class="mb-4 alert alert-secondary">
+        <form method="POST" action="{{  route('Company.Search')  }}">
+            @csrf
+            <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input value="{{ old('name') }}" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                       placeholder="Find name">
+            </div>
+            <button type="submit" class="btn btn-success">Search
+                <i style="" class="fa fa-search"></i>
+            </button>
+            <!-- GET ALL BUTTON -->
+            <a class="ml-3  my-2 btn btn-primary" href="/system-admin/company" role="button">+ @lang('custom_label.get_all')</a>
+        </form>
+    </div>
+    <!-- TITLE -->
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.company')</h1>
     </div>
+    <!-- ADD NEW BUTTON-->
     <a class="my-2 btn btn-primary" href="/system-admin/company/new" role="button">+ @lang('custom_label.add_new')</a>
+
     @if(session()->has('deleted'))
         <div class="alert alert-success">
             <strong>@lang('custom_message.deleted')</strong>

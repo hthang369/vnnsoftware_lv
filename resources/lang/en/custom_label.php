@@ -63,4 +63,6 @@ return [
     'set_permission' => 'Set permission',
     'back' => 'Back',
 
+    // Search form
+    'get_all' => 'Get All'
 ];

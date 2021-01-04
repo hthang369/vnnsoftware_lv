@@ -3,6 +3,7 @@
 namespace App\Repositories\Role;
 
 use App\Models\Role;
+use App\Models\User;
 use App\Repositories\MyRepository;
 
 class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterface
@@ -15,6 +16,24 @@ class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterfac
     public function getAllPaginate()
     {
         return Role::paginate(config('constants.pagination.items_per_page'));
+    }
+
+    public function getAllSortedPaginate($condition) {
+        $list = Role::select('*');
+        switch ($condition) {
+            case "name":
+                 $list->orderBy('name');
+                 break;
+            case "role-rank":
+                 $list->orderBy('role_rank');
+                 break;
+            case "description":
+                 $list->orderBy('description');
+                 break;
+            default:
+                 $this->getAllPaginate();
+        }
+        return $list->paginate(config('constants.pagination.items_per_page'));
     }
 
     public function getAll()
