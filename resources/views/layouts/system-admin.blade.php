@@ -52,8 +52,8 @@
             overflow: hidden;
         }
 
-        .container-fluid{
-            min-height: 2600px;
+        #main-container{
+            min-height: 800px;
         }
 
     </style>
@@ -76,7 +76,7 @@
         @endcomponent
     @show
 
-    <div class="container-fluid m-0 pl-0">
+    <div id="main-container" class="container-fluid m-0 pl-0">
         <div class="row">
             <!-- Sidebar -->
             <div class="col-lg-2 pr-0">
