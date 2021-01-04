@@ -2,9 +2,10 @@
 
 namespace App\Services\ApprovalApiToken;
 
+use App\Services\Contract\ApiService;
 use Illuminate\Support\Facades\Http;
 
-class ApprovalApiTokenService
+class ApprovalApiTokenService extends ApiService
 {
     const STATUS = [1 => 'Not accepted', 2 => 'Accepted', 3 => 'Paused'];
 
@@ -13,7 +14,7 @@ class ApprovalApiTokenService
      */
     public function list()
     {
-        $url = env('API_ADDRESS') . '/api/v1/api-token/get-list-approval';
+        $url = config('constants.api_address') . '/api/v1/api-token/get-list-approval';
         $request = null;
         $method = "GET";
         $response = $this->sendRequestToAPI($url, $method, $request);
@@ -27,7 +28,7 @@ class ApprovalApiTokenService
      */
     public function approvalToken($id)
     {
-        $url = env('API_ADDRESS') . '/api/v1/api-token/approve-token';
+        $url = config('constants.api_address') . '/api/v1/api-token/approve-token';
         $request = ['id' => $id];
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
@@ -41,7 +42,7 @@ class ApprovalApiTokenService
      */
     public function stopToken($id)
     {
-        $url = env('API_ADDRESS') . '/api/v1/api-token/stop-token';
+        $url = config('constants.api_address') . '/api/v1/api-token/stop-token';
         $request = ['id' => $id];
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
@@ -55,7 +56,7 @@ class ApprovalApiTokenService
      */
     public function reopenToken($id)
     {
-        $url = env('API_ADDRESS') . '/api/v1/api-token/reopen-token';
+        $url = config('constants.api_address') . '/api/v1/api-token/reopen-token';
         $request = ['id' => $id];
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
@@ -69,33 +70,12 @@ class ApprovalApiTokenService
      */
     public function deleteToken($id)
     {
-        $url = env('API_ADDRESS') . '/api/v1/api-token/delete-token';
+        $url = config('constants.api_address') . '/api/v1/api-token/delete-token';
         $request = ['id' => $id];
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
         return redirect()->intended('/system-admin/approval-api-token')->with('deleted', true);
-    }
-
-    /**
-     * @param string $string
-     * @param $method
-     * @param $request
-     * @return \Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    private function sendRequestToAPI(string $string, $method, $request)
-    {
-        $client = new \GuzzleHttp\Client(['verify' => false]);
-        $options = [
-            'form_params' => $request,
-            'headers' => [
-                'token' => 'test-token',
-            ],
-        ];
-
-        $response = $client->request($method, $string, $options);
-        return $response;
     }
 
     /**

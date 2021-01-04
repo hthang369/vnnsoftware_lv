@@ -18,6 +18,8 @@ return [
     'password' => 'Password',
     // password
     'status' => 'Status',
+    // password confirmation
+    'password_confirmation' => 'Password confirmation',
 
 
     // business plan
