@@ -19,8 +19,8 @@ class Controller extends BaseController
     {
         Schema::defaultStringLength(191);
 
-        $topMenu = TopMenu::all();
-        $leftMenu = LeftMenu::all();
+        $topMenu = TopMenu::orderBy('index')->get();
+        $leftMenu = LeftMenu::orderBy('index')->get();
 
         View::share(['TOPMENU' => $topMenu, 'LEFTMENU' => $leftMenu]);
     }

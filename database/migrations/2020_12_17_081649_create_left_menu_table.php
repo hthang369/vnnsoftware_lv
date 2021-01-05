@@ -17,6 +17,7 @@ class CreateLeftMenuTable extends Migration
             $table->bigIncrements('id');
             $table->integer('top_menu_id');
             $table->string('prefix');
+            $table->string('route_name');
             $table->string('index')->nullable();
             $table->string('url')->nullable();
             $table->string('lang');
