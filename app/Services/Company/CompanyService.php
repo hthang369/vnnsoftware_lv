@@ -75,7 +75,7 @@ class CompanyService extends MyService
         $validator = $this->companyValidation->newValidate($request->all());
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            return redirect()->intended('/system-admin/company/new')->withInput()->withErrors($validator->errors());
         }
 
         $input = $request->all();
@@ -121,7 +121,7 @@ class CompanyService extends MyService
         $validator = $this->companyValidation->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            return redirect()->intended('/system-admin/company/new')->withInput()->withErrors($validator->errors());
         }
 
         $input = request()->except(['_token', 'role']);

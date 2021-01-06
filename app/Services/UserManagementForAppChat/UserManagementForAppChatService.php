@@ -54,7 +54,7 @@ class UserManagementForAppChatService extends ApiService
         $validator = $this->userManagementForAppChatValidation->newValidate($request->all());
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            return redirect()->intended('/system-admin/user-management-for-app-chat/new')->withInput()->withErrors($validator->errors());
         }
 
         $company = Company::find($request->input('company_id'));
@@ -69,7 +69,7 @@ class UserManagementForAppChatService extends ApiService
         $dataResponse = json_decode($response->getBody()->getContents(), true);
 
         if ($dataResponse['error_code'] != 0) {
-            return redirect()->back()->withInput()->with('errorCommon', $dataResponse['error_msg']);
+            return redirect()->intended('/system-admin/user-management-for-app-chat/new')->withInput()->with('errorCommon', $dataResponse['error_msg']);
         }
 
         return redirect()->intended('/system-admin/user-management-for-app-chat/detail/' . $dataResponse['data']['id'])->with('messCommon', __('custom_message.saved'));
@@ -88,7 +88,7 @@ class UserManagementForAppChatService extends ApiService
         $dataResponse = json_decode($response->getBody()->getContents(), true);
 
         if ($dataResponse['error_code'] != 0) {
-            return redirect()->back()->withInput()->with('errorCommon', $dataResponse['error_msg']);
+            return redirect()->intended('/system-admin/user-management-for-app-chat/new')->withInput()->with('errorCommon', $dataResponse['error_msg']);
         }
         return redirect()->intended('/system-admin/user-management-for-app-chat')->with('deleted', true);
     }
