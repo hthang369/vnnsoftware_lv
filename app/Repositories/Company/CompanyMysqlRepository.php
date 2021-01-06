@@ -27,40 +27,54 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
         $query = Company::select("company.*", "business_plan.name as business_plan_name")
             ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id');
 
-        if ($request['search'] != '') {
-            $key = $request['search'];
-            $query->orWhere('company.name', 'LIKE', "%$key%");
-            $query->orWhere('company.email', 'LIKE', "%$key%");
-            $query->orWhere('company.phone', 'LIKE', "%$key%");
-            $query->orWhere('company.address', 'LIKE', "%$key%");
-            $query->orWhere('business_plan.name', 'LIKE', "%$key%");
-        }
+        $query = $this->querySearch($query, $request);
 
         if ($request['sort'] != '') {
-            $query = $this->getSortedPaginateAfterSearched($query, $request['sort']);
+            $query = $this->querySort($query, $request);
         }
 
         return $query->paginate(config('constants.pagination.items_per_page'));
     }
 
-    public function getSortedPaginateAfterSearched($query, $condition)
+    private function querySearch($query, Request $request)
     {
+        if ($request['name'] != '') {
+            $query->where('company.name', 'LIKE', "%" . $request['name'] . "%");
+        }
+        if ($request['email'] != '') {
+            $query->where('company.email', 'LIKE', "%" . $request['email'] . "%");
+        }
+        if ($request['phone'] != '') {
+            $query->where('company.phone', 'LIKE', "%" . $request['phone'] . "%");
+        }
+        if ($request['address'] != '') {
+            $query->where('company.address', 'LIKE', "%" . $request['address'] . "%");
+        }
+        if ($request['name'] != '') {
+            $query->where('business_plan.name', 'LIKE', "%" . $request['business-plan'] . "%");
+        }
 
-        switch ($condition) {
+        return $query;
+    }
+
+    private function querySort($query, Request $request)
+    {
+        $direction = $request['direction'] == 'desc' ? 'desc' : 'asc';
+        switch ($request['sort']) {
             case "name":
-                $query->orderBy('company.name');
+                $query->orderBy('company.name', $direction);
                 break;
             case "email":
-                $query->orderBy('company.email');
+                $query->orderBy('company.email', $direction);
                 break;
             case "phone":
-                $query->orderBy('company.phone');
+                $query->orderBy('company.phone', $direction);
                 break;
             case "address":
-                $query->orderBy('company.address');
+                $query->orderBy('company.address', $direction);
                 break;
             case "business-plan":
-                $query->orderBy('business_plan.name');
+                $query->orderBy('business_plan.name', $direction);
                 break;
         }
 
