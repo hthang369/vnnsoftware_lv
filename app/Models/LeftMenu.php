@@ -11,10 +11,6 @@ class LeftMenu extends Model
 
     protected $table = 'left_menu';
 
-    protected $fillable = [
-        'name', 'top_menu_id', 'index', 'url', 'lang',
-    ];
-
     protected $softDelete = true;
 
     public function top_menu()

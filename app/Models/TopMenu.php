@@ -11,9 +11,5 @@ class TopMenu extends Model
 
     protected $table = 'top_menu';
 
-    protected $fillable = [
-        'name', 'index', 'url', 'lang',
-    ];
-
     protected $softDelete = true;
 }
