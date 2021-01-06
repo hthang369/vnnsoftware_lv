@@ -3,7 +3,6 @@
 namespace App\Services\User;
 
 use App\Models\User;
-use App\Repositories\Role\RoleRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Contract\MyService;
 use App\Services\Role\RoleService;
@@ -12,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class UserService extends MyService
 {
@@ -26,8 +24,11 @@ class UserService extends MyService
      * @param UserValidation $userValidate
      * @param RoleService $roleService
      */
-    public function __construct(UserRepositoryInterface $userRepo, UserValidation $userValidate, RoleService $roleService)
-    {
+    public function __construct(
+        UserRepositoryInterface $userRepo,
+        UserValidation $userValidate,
+        RoleService $roleService
+    ) {
         $this->userRepo = $userRepo;
         $this->userValidate = $userValidate;
         $this->roleService = $roleService;
@@ -46,7 +47,8 @@ class UserService extends MyService
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function sort(Request $request){
+    public function sort(Request $request)
+    {
 
         $condition = $this->getSortConditionFromUrl($request);
         $list = $this->userRepo->getAllSortedUser($condition);
@@ -92,11 +94,10 @@ class UserService extends MyService
         $user = $this->getUserById($id);
         $userRoleIds = array();
         if (is_null($user)) {
-            abort(400,__('custom_message.user_not_found'));
+            abort(400, __('custom_message.user_not_found'));
         }
 
-        foreach ($user->roles as $key => $value)
-        {
+        foreach ($user->roles as $key => $value) {
             array_push($userRoleIds, $value->id);
         }
         return view('/user-management/add_form',
@@ -110,12 +111,13 @@ class UserService extends MyService
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function detailForm($id){
+    public function detailForm($id)
+    {
 
         $user = $this->getUserById($id);
 
         if (is_null($user)) {
-            abort(400,__('custom_message.user_not_found'));
+            abort(400, __('custom_message.user_not_found'));
         }
 
         return view('/user-management/detail')->with('user', $user);
@@ -130,11 +132,10 @@ class UserService extends MyService
         $user = $this->getUserById($id);
         $userRoleIds = array();
         if (is_null($user)) {
-            abort(400,__('custom_message.user_not_found'));
+            abort(400, __('custom_message.user_not_found'));
         }
 
-        foreach ($user->roles as $key => $value)
-        {
+        foreach ($user->roles as $key => $value) {
             array_push($userRoleIds, $value->id);
         }
         return view('/user-management/update_password_form',
@@ -162,7 +163,8 @@ class UserService extends MyService
         $validator = $this->userValidate->newValidate($request->all());
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            //return back()->withInput()->withErrors($validator->errors());
+            return redirect()->intended(route('User Management.New.form'))->withInput()->withErrors($validator->errors());
         }
 
         $input = $request->all();
@@ -172,7 +174,7 @@ class UserService extends MyService
             $user = $this->userRepo->Create($input);
             $user->roles()->attach($request->role);
             return redirect()
-                ->intended('/system-admin/user-management/detail/' . $user->id)
+                ->intended('/   ail/' . $user->id)
                 ->with('saved', true);
         } catch (\Exception $ex) {
             return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
@@ -186,7 +188,7 @@ class UserService extends MyService
      */
     public function update($id, Request $request)
     {
-       // return $this->userRepo->update($id, $input);
+        // return $this->userRepo->update($id, $input);
         $user = $this->getUserById($id);
 
         if (is_null($user)) {
@@ -196,16 +198,15 @@ class UserService extends MyService
         $validator = $this->userValidate->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            return redirect()->intended(route('User Management.Update[Permission].form', $id))->withInput()->withErrors($validator->errors());
         }
 
-        if(strlen($request['password']) != 0)
-        {
+        if (strlen($request['password']) != 0) {
             $input = request()->except(['_token', 'role']);
             $input['password'] = Hash::make($request['password']);
-        }
-        else
+        } else {
             $input = request()->except(['_token', 'role', 'password']);
+        }
 
         try {
             $user->roles()->detach();
@@ -263,8 +264,7 @@ class UserService extends MyService
     public function changePassword(Request $request)
     {
         $input = $request->all();
-        if($this->checkPassword(Auth::id(), $input['currentPassword']))
-        {
+        if ($this->checkPassword(Auth::id(), $input['currentPassword'])) {
             $validator = $this->userValidate->changePasswordValidate($request);
 
             $input['newPassword'] = Hash::make($input['newPassword']);
@@ -277,9 +277,7 @@ class UserService extends MyService
             } catch (\Exception $ex) {
                 return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
             }
-        }
-        else
-        {
+        } else {
             return redirect()
                 ->intended('/system-admin/user-management/update-password/' . Auth::id())
                 ->with('wrongCurrentPassword', true);
@@ -296,6 +294,7 @@ class UserService extends MyService
     }
 
     // insert for sync_data version
+
     /**
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
@@ -321,13 +320,13 @@ class UserService extends MyService
         $user = $this->getUserById($id);
 
         if (is_null($user)) {
-            abort(400,__('custom_message.user_not_found'));
+            abort(400, __('custom_message.user_not_found'));
         }
 
         try {
             $this->userRepo->delete($id);
         } catch (\Exception $ex) {
-            abort(400,$ex->getMessage());
+            abort(400, $ex->getMessage());
         }
 
         return redirect()->intended('/system-admin/user-management');

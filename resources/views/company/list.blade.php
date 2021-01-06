@@ -51,7 +51,7 @@
             </a>
         </form>
 
-       </div>
+    </div>
     <!-- TITLE -->
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.company')</h1>
@@ -75,7 +75,8 @@
                 <tr>
                     <th scope="col">@lang('custom_label.index')</th>
                     <th scope="col">@lang('custom_label.name')
-                        <a class="btn-cta-freequote" href="/system-admin/company/sort/name">
+                        <a class="btn-cta-freequote"
+                           href="{{str_contains(Request::url(), 'search') ? Request::getRequestUri().'&sort=name' : '/system-admin/company/sort/name'}}">
                             <i style="{{Route::currentRouteName() == 'Company.Sort.Name' ? 'color:blue;' : 'color:gray;'}}"
                                class="fa fa-sort"></i>
                         </a>

@@ -49,7 +49,36 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
         if($request['business-plan'] != '')
             $company->where('business_plan.name', 'LIKE', '%'.$request['business-plan'].'%');
 
+        if($request['sort'] != '')
+        {
+            $company = $this->getSortedPaginateAfterSearched($company, $request['sort']);
+        }
+
         return $company->paginate(config('constants.pagination.items_per_page'));
+    }
+
+    public function getSortedPaginateAfterSearched($company, $condition)
+    {
+
+        switch ($condition) {
+            case "name":
+                $company->orderBy('company.name');
+                break;
+            case "email":
+                $company->orderBy('company.email');
+                break;
+            case "phone":
+                $company->orderBy('company.phone') ;
+                break;
+            case "address":
+                $company->orderBy('company.address');
+                break;
+            case "business-plan":
+                $company->orderBy('business_plan.name');
+                break;
+        }
+
+        return $company;
     }
 
 
