@@ -22,96 +22,63 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
     /**
      * @return mixed
      */
-    public function getAllPaginate()
+    public function getAllPaginate(Request $request)
     {
-        return Company::select("company.*", "business_plan.name as business_plan_name")
-            ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id')
-            ->paginate(config('constants.pagination.items_per_page'));
-    }
-
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function searchAllPaginate(Request $request){
-
-        $company = Company::select("company.*", "business_plan.name as business_plan_name")
+        $query = Company::select("company.*", "business_plan.name as business_plan_name")
             ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id');
 
-        if($request['name'] != '')
-            $company->where('company.name', 'LIKE', '%'.$request['name'].'%');
-        if($request['email'] != '')
-            $company->where('company.email', 'LIKE', '%'.$request['email'].'%');
-        if($request['phone'] != '')
-            $company->where('company.phone', 'LIKE', '%'.$request['phone'].'%');
-        if($request['address'] != '')
-            $company->where('company.address', 'LIKE', '%'.$request['address'].'%');
-        if($request['business-plan'] != '')
-            $company->where('business_plan.name', 'LIKE', '%'.$request['business-plan'].'%');
+        $query = $this->querySearch($query, $request);
 
-        if($request['sort'] != '')
-        {
-            $company = $this->getSortedPaginateAfterSearched($company, $request['sort']);
+        if ($request['sort'] != '') {
+            $query = $this->querySort($query, $request);
         }
 
-        return $company->paginate(config('constants.pagination.items_per_page'));
+        return $query->paginate(config('constants.pagination.items_per_page'));
     }
 
-    public function getSortedPaginateAfterSearched($company, $condition)
+    private function querySearch($query, Request $request)
     {
-
-        switch ($condition) {
-            case "name":
-                $company->orderBy('company.name');
-                break;
-            case "email":
-                $company->orderBy('company.email');
-                break;
-            case "phone":
-                $company->orderBy('company.phone') ;
-                break;
-            case "address":
-                $company->orderBy('company.address');
-                break;
-            case "business-plan":
-                $company->orderBy('business_plan.name');
-                break;
+        if ($request['name'] != '') {
+            $query->where('company.name', 'LIKE', "%" . $request['name'] . "%");
+        }
+        if ($request['email'] != '') {
+            $query->where('company.email', 'LIKE', "%" . $request['email'] . "%");
+        }
+        if ($request['phone'] != '') {
+            $query->where('company.phone', 'LIKE', "%" . $request['phone'] . "%");
+        }
+        if ($request['address'] != '') {
+            $query->where('company.address', 'LIKE', "%" . $request['address'] . "%");
+        }
+        if ($request['name'] != '') {
+            $query->where('business_plan.name', 'LIKE', "%" . $request['business-plan'] . "%");
         }
 
-        return $company;
+        return $query;
     }
 
-
-    /**
-     * @param $condition
-     * @return mixed
-     */
-    public function getAllSortedPaginate($condition)
+    private function querySort($query, Request $request)
     {
-        $list = Company::select("company.*", "business_plan.name as business_plan_name")
-            ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id');
-
-        switch ($condition) {
+        $direction = $request['direction'] == 'desc' ? 'desc' : 'asc';
+        switch ($request['sort']) {
             case "name":
-                $list->orderBy('company.name');
+                $query->orderBy('company.name', $direction);
                 break;
             case "email":
-                $list->orderBy('company.email');
+                $query->orderBy('company.email', $direction);
                 break;
             case "phone":
-                $list->orderBy('company.phone') ;
+                $query->orderBy('company.phone', $direction);
                 break;
             case "address":
-                $list->orderBy('company.address');
+                $query->orderBy('company.address', $direction);
                 break;
             case "business-plan":
-                $list->orderBy('business_plan.name');
-                break;
-            default:
-                $this->getAllPaginate();
+                $query->orderBy('business_plan.name', $direction);
                 break;
         }
-        return $list->paginate(config('constants.pagination.items_per_page'));
+
+        return $query;
     }
 
     /**

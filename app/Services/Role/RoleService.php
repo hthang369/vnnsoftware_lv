@@ -96,7 +96,7 @@ class RoleService extends MyService
         $validator = $this->roleValidation->newValidate($request->all());
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            return redirect()->intended('/system-admin/role/new')->withInput()->withErrors($validator->errors());
         }
 
         $input = $request->all();
@@ -126,7 +126,7 @@ class RoleService extends MyService
         $validator = $this->roleValidation->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            return redirect()->intended('/system-admin/role/new')->withInput()->withErrors($validator->errors());
         }
 
         $input = request()->except(['_token', 'role']);
@@ -151,7 +151,7 @@ class RoleService extends MyService
         $validator = $this->roleValidation->newValidate($request->all());
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            return redirect()->intended('/system-admin/role/new')->withInput()->withErrors($validator->errors());
         }
 
         $input = $request->all();
