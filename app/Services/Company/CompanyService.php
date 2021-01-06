@@ -32,33 +32,11 @@ class CompanyService extends MyService
     }
 
     /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function search(Request $request)
-    {
-        $list = $this->companyRepo->searchAllPaginate($request);
-        return view('/company/list')->with('list', $list);
-    }
-
-    /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function list()
+    public function list(Request $request)
     {
-        $list = $this->companyRepo->getAllPaginate();
-        return view('/company/list')->with('list', $list);
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function sort(Request $request){
-
-        $condition = $this->getSortConditionFromUrl($request);
-        $list = $this->companyRepo->getAllSortedPaginate($condition);
-
+        $list = $this->companyRepo->getAllPaginate($request);
         return view('/company/list')->with('list', $list);
     }
 

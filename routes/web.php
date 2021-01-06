@@ -35,15 +35,6 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
         Route::get('new', 'Company\CompanyController@newForm')->name('Company.New.form');
         Route::post('new', 'Company\CompanyController@register')->name('Company.New');
         Route::get('delete/{id}', 'Company\CompanyController@delete')->name('Company.Delete');
-        Route::group(['prefix' => 'sort'], function () {
-            Route::get('name', 'Company\CompanyController@sort')->name('Company.Sort.Name');
-            Route::get('email', 'Company\CompanyController@sort')->name('Company.Sort.Email');
-            Route::get('phone', 'Company\CompanyController@sort')->name('Company.Sort.Phone');
-            Route::get('address', 'Company\CompanyController@sort')->name('Company.Sort.Address');
-            Route::get('business-plan', 'Company\CompanyController@sort')->name('Company.Sort.Business Plan');
-        });
-        //Route::post('search', 'Company\CompanyController@search')->name('Company.Search');
-        Route::get('search', 'Company\CompanyController@search')->name('Company.Search');
     });
 
     // business plan route
