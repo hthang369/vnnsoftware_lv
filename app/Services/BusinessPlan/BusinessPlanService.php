@@ -59,7 +59,7 @@ class BusinessPlanService extends MyService
         $validator = $this->businessPlanValidation->newValidate($request->all());
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            return redirect()->intended(route('Business Plan.New.form'))->withInput()->withErrors($validator->errors());
         }
 
         $input = $request->all();
@@ -88,7 +88,7 @@ class BusinessPlanService extends MyService
         $validator = $this->businessPlanValidation->updateValidate($request->all());
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->withErrors($validator->errors());
+            return redirect()->intended('/system-admin/business-plan/new')->withInput()->withErrors($validator->errors());
         }
 
         $input = request()->except(['_token', 'role']);

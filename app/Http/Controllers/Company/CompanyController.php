@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Services\Company\CompanyService;
 use Illuminate\Http\Request;
 
@@ -24,27 +25,9 @@ class CompanyController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->companyService->list();
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function sort(Request $request)
-    {
-        return $this->companyService->sort($request);
-    }
-
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function search(Request $request)
-    {
-        return $this->companyService->search($request);
+        return $this->companyService->list($request);
     }
 
     /**

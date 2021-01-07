@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryInterface
 {
 
+    private $contactable = [
+        'company.name' => 'name',
+        'company.email' => 'email',
+        'company.phone' => 'phone',
+        'company.address' => 'address',
+        'business_plan.name' => 'business-plan',
+    ];
+
     /**
      * @param $id
      * @return mixed
@@ -22,67 +30,20 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
     /**
      * @return mixed
      */
-    public function getAllPaginate()
+    public function getAllPaginate(Request $request)
     {
-        return Company::select("company.*", "business_plan.name as business_plan_name")
-            ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id')
-            ->paginate(config('constants.pagination.items_per_page'));
-    }
-
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function searchAllPaginate(Request $request){
-
-        $company = Company::select("company.*", "business_plan.name as business_plan_name")
+        $query = Company::select("company.*", "business_plan.name as business_plan_name")
             ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id');
 
-        if($request['name'] != '')
-            $company->where('company.name', 'LIKE', '%'.$request['name'].'%');
-        if($request['email'] != '')
-            $company->where('company.email', 'LIKE', '%'.$request['email'].'%');
-        if($request['phone'] != '')
-            $company->where('company.phone', 'LIKE', '%'.$request['phone'].'%');
-        if($request['address'] != '')
-            $company->where('company.address', 'LIKE', '%'.$request['address'].'%');
-        if($request['business-plan'] != '')
-            $company->where('business_plan.name', 'LIKE', '%'.$request['business-plan'].'%');
-
-        return $company->paginate(config('constants.pagination.items_per_page'));
-    }
-
-
-    /**
-     * @param $condition
-     * @return mixed
-     */
-    public function getAllSortedPaginate($condition)
-    {
-        $list = Company::select("company.*", "business_plan.name as business_plan_name")
-            ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id');
-
-        switch ($condition) {
-            case "name":
-                $list->orderBy('company.name');
-                break;
-            case "email":
-                $list->orderBy('company.email');
-                break;
-            case "phone":
-                $list->orderBy('company.phone') ;
-                break;
-            case "address":
-                $list->orderBy('company.address');
-                break;
-            case "business-plan":
-                $list->orderBy('business_plan.name');
-                break;
-            default:
-                $this->getAllPaginate();
-                break;
+        if ($request->has('search')) {
+            $query = $this->querySearch($query, $request, $this->contactable);
         }
-        return $list->paginate(config('constants.pagination.items_per_page'));
+
+        if ($request->has('sort')) {
+            $query = $this->querySort($query, $request, $this->contactable);
+        }
+
+        return $query->paginate(config('constants.pagination.items_per_page'));
     }
 
     /**
