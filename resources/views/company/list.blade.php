@@ -33,24 +33,23 @@
             <input type="hidden" name="search" value="true">
             <div class="form-group">
                 <label>Name</label>
-                <input value="{{ request()->name }}" name="name" class="form-control" placeholder="Find name">
+                <input value="{{ request()->name }}" name="name" class="form-control">
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input value="{{ request()->email }}" name="email" class="form-control" placeholder="Find email">
             </div>
+            <input value="{{ request()->email }}" name="email" class="form-control"  >
             <div class="form-group">
                 <label>Phone</label>
-                <input value="{{ request()->phone }}" name="phone" class="form-control" placeholder="Find phone">
+                <input value="{{ request()->phone }}" name="phone" class="form-control"  >
             </div>
             <div class="form-group">
                 <label>Address</label>
-                <input value="{{ request()->address }}" name="address" class="form-control" placeholder="Find address">
+                <input value="{{ request()->address }}" name="address" class="form-control"  >
             </div>
             <div class="form-group">
                 <label>Business plan</label>
-                <input value="{{ request('business-plan') }}" name="business-plan" class="form-control"
-                       placeholder="Find business plan">
+                <input value="{{ request('business-plan') }}" name="business-plan" class="form-control" >
             </div>
             <button type="submit" class="btn btn-success">Search
                 <i class="fa fa-search"></i>
@@ -78,7 +77,8 @@
                         <a class="btn-cta-freequote"
                            href="{{ request()->fullUrlWithQuery(['sort' => 'name', 'direction' => request('sort') == 'name' ? request('direction') == 'desc' ? 'asc' : 'desc' : 'asc']) }}">
                             <i style="{{request()->sort == 'name' ? 'color:blue;' : 'color:gray;'}}"
-                               class="fa fa-sort"></i>
+                               class="fa {{ request('sort') != 'name' ? 'fa-sort' : (request('direction') == 'desc' ? 'fa-sort-down' : 'fa-sort-up')}}">
+                            </i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.email')
