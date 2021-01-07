@@ -111,7 +111,7 @@
                 <tbody>
                 @foreach($list as $i => $company)
                     <tr>
-                        <td>{{($list->currentPage() - 1) * $list->perPage() + ($i + 1)}}</td>
+                        <th>{{($list->currentPage() - 1) * $list->perPage() + ($i + 1)}}</th>
                         <td>{{$company->name}}</td>
                         <td>{{$company->email}}</td>
                         <td>{{$company->phone}}</td>
