@@ -19,7 +19,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "GET";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $data = $this->checkAndReturnData($response);
-        return view('/approval-api-token/list')->with(['data' => $data['data'], 'status' => self::STATUS]);
+        return view('/approval-api-token/list')->with(['data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
     }
 
     /**
