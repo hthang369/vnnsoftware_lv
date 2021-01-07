@@ -28,7 +28,7 @@
         </a>
     </p>
     <div id="collapseExample"
-         class="{{ request()->has('search') ? 'collapse.show' : 'collapse'  }} mb-4 alert alert-secondary">
+         class="collapse mb-4 alert alert-secondary">
         <form method="GET">
             <input type="hidden" name="search" value="true">
             <div class="form-group">
@@ -84,25 +84,29 @@
                     <th scope="col">@lang('custom_label.email')
                         <a class="btn-cta-freequote" href="{{ request()->fullUrlWithQuery(['sort' => 'email', 'direction' => request('sort') == 'email' ? request('direction') == 'desc' ? 'asc' : 'desc' : 'asc']) }}">
                             <i style="{{request()->sort == 'email' ? 'color:blue;' : 'color:gray;'}}"
-                               class="fa fa-sort"></i>
+                               class="fa {{ request('sort') != 'email' ? 'fa-sort' : (request('direction') == 'desc' ? 'fa-sort-down' : 'fa-sort-up')}}">
+                            </i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.phone')
                         <a class="btn-cta-freequote" href="{{ request()->fullUrlWithQuery(['sort' => 'phone', 'direction' => request('sort') == 'phone' ? request('direction') == 'desc' ? 'asc' : 'desc' : 'asc']) }}">
                             <i style="{{request()->sort == 'phone' ? 'color:blue;' : 'color:gray;'}}"
-                               class="fa fa-sort"></i>
+                               class="fa {{ request('sort') != 'phone' ? 'fa-sort' : (request('direction') == 'desc' ? 'fa-sort-down' : 'fa-sort-up')}}">
+                            </i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.address')
                         <a class="btn-cta-freequote" href="{{ request()->fullUrlWithQuery(['sort' => 'address', 'direction' => request('sort') == 'address' ? request('direction') == 'desc' ? 'asc' : 'desc' : 'asc']) }}">
                             <i style="{{request()->sort == 'address' ? 'color:blue;' : 'color:gray;'}}"
-                               class="fa fa-sort"></i>
+                               class="fa {{ request('sort') != 'address' ? 'fa-sort' : (request('direction') == 'desc' ? 'fa-sort-down' : 'fa-sort-up')}}">
+                            </i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.business_plan')
                         <a class="btn-cta-freequote" href="{{ request()->fullUrlWithQuery(['sort' => 'business-plan', 'direction' => request('sort') == 'business-plan' ? request('direction') == 'desc' ? 'asc' : 'desc' : 'asc']) }}">
                             <i style="{{request()->sort == 'business-plan' ? 'color:blue;' : 'color:gray;'}}"
-                               class="fa fa-sort"></i>
+                               class="fa {{ request('sort') != 'business-plan' ? 'fa-sort' : (request('direction') == 'desc' ? 'fa-sort-down' : 'fa-sort-up')}}">
+                            </i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.action') </th>

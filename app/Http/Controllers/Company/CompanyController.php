@@ -27,7 +27,8 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->companyService->list($request);
+        $list = $this->companyService->list($request);
+        return view('/company/list')->with('list', $list);
     }
 
     /**
@@ -36,14 +37,16 @@ class CompanyController extends Controller
      */
     public function detail($id)
     {
-        return $this->companyService->detail($id);
+        $company = $this->companyService->detail($id);
+        return view('/company/detail')->with('company', $company);
     }
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function newForm() {
-        return $this->companyService->newForm();
+        $listBusinessPlan = $this->companyService->newForm();
+        return view('/company/add_form')->with('listBusinessPlan', $listBusinessPlan);
     }
 
     /**
@@ -52,6 +55,7 @@ class CompanyController extends Controller
      */
     public function updateForm($id) {
         return $this->companyService->updateForm($id);
+        return view('/company/update_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
     }
 
     /**

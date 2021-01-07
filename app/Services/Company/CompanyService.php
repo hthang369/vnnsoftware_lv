@@ -36,8 +36,7 @@ class CompanyService extends MyService
      */
     public function list(Request $request)
     {
-        $list = $this->companyRepo->getAllPaginate($request);
-        return view('/company/list')->with('list', $list);
+        return $this->companyRepo->getAllPaginate($request);
     }
 
     /**
@@ -51,10 +50,8 @@ class CompanyService extends MyService
         if (is_null($company)) {
             abort(400, __('custom_message.company_not_found'));
         }
-
         $company->business_plan = $company->business_plan();
-
-        return view('/company/detail')->with('company', $company);
+        return $company;
     }
 
     /**
@@ -62,8 +59,7 @@ class CompanyService extends MyService
      */
     public function newForm()
     {
-        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
-        return view('/company/add_form')->with('listBusinessPlan', $listBusinessPlan);
+        return $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
     }
 
     /**
@@ -102,7 +98,6 @@ class CompanyService extends MyService
             abort(400, __('custom_message.company_not_found'));
         }
 
-        return view('/company/update_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
     }
 
     /**
