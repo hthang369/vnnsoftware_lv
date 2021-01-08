@@ -188,10 +188,29 @@ class UserService extends MyService
             return redirect()->intended(route('User Management.Update[Permission].form', $id))->withInput()->withErrors($validator->errors());
         }
 
+        $role = $user->roles;
+        $hasPermission = false;
+        foreach ($role as $value) {
+            if ($value->name == config('constants.name.role_permission_name')) {
+                foreach ($request->input('role') as $item) {
+                    if ($item == $value->id) {
+                        $hasPermission = true;
+                    }
+                }
+                break;
+            }
+        }
+
+        if (!$hasPermission) {
+            if ($this->userRepo->countOthersPermissionUser(Auth::id())->total == 0) {
+                return redirect()->back()->withInput()->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+            }
+        }
+
         if (strlen($request['password']) != 0) {
             $input = request()->except(['_token', 'role']);
             $input['password'] = Hash::make($request['password']);
-        } else {
+        } else
             $input = request()->except(['_token', 'role', 'password']);
         }
 
@@ -305,6 +324,10 @@ class UserService extends MyService
     public function delete($id)
     {
         $user = $this->getUserById($id);
+
+        if ($this->userRepo->countOthersPermissionUser(Auth::id())->total == 0) {
+            return redirect()->back()->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+        }
 
         if (is_null($user)) {
             abort(400, __('custom_message.user_not_found'));

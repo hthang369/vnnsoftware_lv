@@ -11,6 +11,42 @@
         <h1>@lang('custom_title.role')</h1>
     </div>
     <a class="my-2 btn btn-primary" href="/system-admin/role/new" role="button">+ @lang('custom_label.add_new')</a>
+    <!-- SEARCH FORM -->
+    <p>
+        <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+           aria-controls="collapseExample">
+            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            Open Search form
+        </a>
+    </p>
+    <div id="collapseExample"
+         class="collapse mb-4 alert alert-secondary">
+        <form method="GET">
+            <input type="hidden" name="search" value="true">
+            <div class="form-group">
+                <label>@lang('custom_label.name')</label>
+                <input value="{{ request()->name }}" name="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>@lang('custom_label.role_rank')</label>
+                <input value="{{ request()->role_rank }}" name="role_rank" class="form-control"  >
+            </div>
+            <div class="form-group">
+                <label>@lang('custom_label.description')</label>
+                <input value="{{ request()->description }}" name="description" class="form-control"  >
+            </div>
+            <button type="submit" class="btn btn-success">Search
+                <i class="fa fa-search"></i>
+            </button>
+            <!-- GET ALL BUTTON -->
+            <a class="ml-3  my-2 btn  btn-secondary" href="/system-admin/user-management" role="button">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                @lang('custom_label.get_all')
+            </a>
+        </form>
+    </div>
+    <strong>Total: </strong><label>{{$list->total()}}</label>
+    <strong>Page: </strong><label>{{$list->currentPage() . '/' . $list->lastPage()}}</label>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
             <strong>@lang('custom_message.deleted')</strong>
@@ -28,23 +64,23 @@
                     <th scope="col">@lang('custom_label.index')
                     </th>
                     <th scope="col">@lang('custom_label.name')
-                        <a class="btn-cta-freequote" href="/system-admin/role/sort/name">
-                            <i style="{{Route::currentRouteName() == 'Role.Sort.Name' ? 'color:blue;' : 'color:gray;'}}"
-                               class="fas fa-sort">
+                        <a class="btn-cta-freequote" href="{{ request()->fullUrlWithQuery(['sort' => 'name', 'direction' => request('sort') == 'name' ? request('direction') == 'desc' ? 'asc' : 'desc' : 'asc']) }}">
+                            <i style="{{request()->sort == 'name' ? 'color:blue;' : 'color:gray;'}}"
+                               class="fa {{ request('sort') != 'name' ? 'fa-sort' : (request('direction') == 'desc' ? 'fa-sort-down' : 'fa-sort-up')}}">
                             </i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.role_rank')
-                        <a class="btn-cta-freequote" href="/system-admin/role/sort/role-rank">
-                            <i style="{{Route::currentRouteName() == 'Role.Sort.Role Rank' ? 'color:blue;' : 'color:gray;'}}"
-                               class="fas fa-sort">
+                        <a class="btn-cta-freequote" href="{{ request()->fullUrlWithQuery(['sort' => 'role_rank', 'direction' => request('sort') == 'role_rank' ? request('direction') == 'desc' ? 'asc' : 'desc' : 'asc']) }}">
+                            <i style="{{request()->sort == 'role_rank' ? 'color:blue;' : 'color:gray;'}}"
+                               class="fa {{ request('sort') != 'role_rank' ? 'fa-sort' : (request('direction') == 'desc' ? 'fa-sort-down' : 'fa-sort-up')}}">
                             </i>
                         </a>
                     </th>
                     <th scope="col">@lang('custom_label.description')
-                        <a class="btn-cta-freequote" href="/system-admin/role/sort/description">
-                            <i style="{{Route::currentRouteName() == 'Role.Sort.Description' ? 'color:blue;' : 'color:gray;'}}"
-                               class="fas fa-sort">
+                        <a class="btn-cta-freequote" href="{{ request()->fullUrlWithQuery(['sort' => 'description', 'direction' => request('sort') == 'description' ? request('direction') == 'desc' ? 'asc' : 'desc' : 'asc']) }}">
+                            <i style="{{request()->sort == 'description' ? 'color:blue;' : 'color:gray;'}}"
+                               class="fa {{ request('sort') != 'description' ? 'fa-sort' : (request('direction') == 'desc' ? 'fa-sort-down' : 'fa-sort-up')}}">
                             </i>
                         </a>
                     </th>
@@ -68,19 +104,21 @@
                         </td>
                         <td>
                             <a class="btn btn-info m-1" href="/system-admin/role/detail/{{$role->id}}" role="button">@lang('custom_label.detail')</a>
-                            <a class="btn btn-primary m-1" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
-                            <a class="btn btn-warning m-1" href="/system-admin/role/set-permission/{{$role->id}}" role="button">@lang('custom_label.set_permission')</a>
-                            <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
-                               class="btn btn-danger m-1"
-                               href="/system-admin/role/delete/{{$role->id}}"
-                               role="button">@lang('custom_label.delete')</a>
+                            @if($role->name != config('constants.name.role_permission_name'))
+                                <a class="btn btn-primary m-1" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
+                                <a class="btn btn-warning m-1" href="/system-admin/role/set-permission/{{$role->id}}" role="button">@lang('custom_label.set_permission')</a>
+                                <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
+                                   class="btn btn-danger m-1"
+                                   href="/system-admin/role/delete/{{$role->id}}"
+                                   role="button">@lang('custom_label.delete')</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
-        {{ $list->links() }}
+        {{ $list->appends(request()->input())->links() }}
     @endif
 @endsection
 

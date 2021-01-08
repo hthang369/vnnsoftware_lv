@@ -94,6 +94,11 @@ class RoleHasFeatureApiService extends MyService
             return redirect()->back()->withInput()->with('mess', true);
         }
 
+        $role = $this->roleRepo->getById($request->input('role_id'));
+        if ($role->name == config('constants.name.role_permission_name')) {
+            return redirect()->back()->with('errorCommon', __('custom_message.warning_role_system'));
+        }
+
         try {
             DB::beginTransaction();
             $input['role_id'] = $request->input('role_id');

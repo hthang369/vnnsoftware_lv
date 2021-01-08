@@ -1,10 +1,23 @@
 <?php
 
+use App\Services\FeatureApi\FeatureApiService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class RolePermissionSeeder extends Seeder
 {
+
+    private $featureApiService;
+
+    /**
+     * FeatureApiController constructor.
+     * @param FeatureApiService $featureApiService
+     */
+    public function __construct(FeatureApiService $featureApiService)
+    {
+        $this->featureApiService = $featureApiService;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -12,6 +25,8 @@ class RolePermissionSeeder extends Seeder
      */
     public function run()
     {
+        $this->featureApiService->saveAllRoutesToDB();
+
         $roleOld = DB::table('role')->where('name', '=', config('constants.name.role_permission_name'))->first();
 
         DB::table('role')->where('name', '=', config('constants.name.role_permission_name'))->delete();
@@ -45,4 +60,5 @@ class RolePermissionSeeder extends Seeder
             ]);
         }
     }
+
 }

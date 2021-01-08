@@ -27,22 +27,9 @@ class RoleService extends MyService
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function list()
+    public function list(Request $request)
     {
-        $list = $this->roleRepo->getAllPaginate();
-        $listApiName = $this->roleRepo->getAllFeatureApiName();
-
-        return view('/role/list')->with(['list' => $list, 'listApiName' => $listApiName]);
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function sort(Request $request){
-
-        $condition = $this->getSortConditionFromUrl($request);
-        $list = $this->roleRepo->getAllSortedPaginate($condition);
+        $list = $this->roleRepo->getAllPaginate($request);
         $listApiName = $this->roleRepo->getAllFeatureApiName();
 
         return view('/role/list')->with(['list' => $list, 'listApiName' => $listApiName]);
@@ -121,6 +108,10 @@ class RoleService extends MyService
 
         if (is_null($role)) {
             abort(400, __('custom_message.role_plan_not_found'));
+        }
+
+        if ($role->name == config('constants.name.role_permission_name')) {
+            return redirect()->back()->with('errorCommon', __('custom_message.warning_role_system'));
         }
 
         $validator = $this->roleValidation->updateValidate($request->all(), $id);
@@ -206,6 +197,11 @@ class RoleService extends MyService
         if (is_null($role)) {
             abort(400, __('custom_message.role_plan_not_found'));
         }
+
+        if ($role->name == config('constants.name.role_permission_name')) {
+            return redirect()->back()->with('errorCommon', __('custom_message.warning_role_system'));
+        }
+
         DB::beginTransaction();
         try {
 
