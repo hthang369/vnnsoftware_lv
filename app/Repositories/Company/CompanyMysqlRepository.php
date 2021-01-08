@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryInterface
 {
 
+    private $contactable = [
+        'company.name' => 'name',
+        'company.email' => 'email',
+        'company.phone' => 'phone',
+        'company.address' => 'address',
+        'business_plan.name' => 'business-plan',
+    ];
+
     /**
      * @param $id
      * @return mixed
@@ -27,58 +35,15 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
         $query = Company::select("company.*", "business_plan.name as business_plan_name")
             ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id');
 
-        $query = $this->querySearch($query, $request);
+        if ($request->has('search')) {
+            $query = $this->querySearch($query, $request, $this->contactable);
+        }
 
-        if ($request['sort'] != '') {
-            $query = $this->querySort($query, $request);
+        if ($request->has('sort')) {
+            $query = $this->querySort($query, $request, $this->contactable);
         }
 
         return $query->paginate(config('constants.pagination.items_per_page'));
-    }
-
-    protected function querySearch($query, Request $request)
-    {
-        if ($request['name'] != '') {
-            $query->where('company.name', 'LIKE', "%" . $request['name'] . "%");
-        }
-        if ($request['email'] != '') {
-            $query->where('company.email', 'LIKE', "%" . $request['email'] . "%");
-        }
-        if ($request['phone'] != '') {
-            $query->where('company.phone', 'LIKE', "%" . $request['phone'] . "%");
-        }
-        if ($request['address'] != '') {
-            $query->where('company.address', 'LIKE', "%" . $request['address'] . "%");
-        }
-        if ($request['name'] != '') {
-            $query->where('business_plan.name', 'LIKE', "%" . $request['business-plan'] . "%");
-        }
-
-        return $query;
-    }
-
-    protected function querySort($query, Request $request)
-    {
-        $direction = $request['direction'] == 'desc' ? 'desc' : 'asc';
-        switch ($request['sort']) {
-            case "name":
-                $query->orderBy('company.name', $direction);
-                break;
-            case "email":
-                $query->orderBy('company.email', $direction);
-                break;
-            case "phone":
-                $query->orderBy('company.phone', $direction);
-                break;
-            case "address":
-                $query->orderBy('company.address', $direction);
-                break;
-            case "business-plan":
-                $query->orderBy('business_plan.name', $direction);
-                break;
-        }
-
-        return $query;
     }
 
     /**
