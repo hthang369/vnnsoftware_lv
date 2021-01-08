@@ -19,4 +19,6 @@ return [
     'no_item_found' => '<strong>Sorry!</strong> No Item Found.',
     'wrong_password' => 'Wrong password!',
     'used' => 'The item you delete is in use!',
+    'warning_role_system' => 'This is a system role, not edited!',
+    'no_one_has_permission_set_role' => 'No one has permission set role!',
 ];

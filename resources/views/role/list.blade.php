@@ -68,12 +68,14 @@
                         </td>
                         <td>
                             <a class="btn btn-info m-1" href="/system-admin/role/detail/{{$role->id}}" role="button">@lang('custom_label.detail')</a>
-                            <a class="btn btn-primary m-1" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
-                            <a class="btn btn-warning m-1" href="/system-admin/role/set-permission/{{$role->id}}" role="button">@lang('custom_label.set_permission')</a>
-                            <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
-                               class="btn btn-danger m-1"
-                               href="/system-admin/role/delete/{{$role->id}}"
-                               role="button">@lang('custom_label.delete')</a>
+                            @if($role->name != config('constants.name.role_permission_name'))
+                                <a class="btn btn-primary m-1" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
+                                <a class="btn btn-warning m-1" href="/system-admin/role/set-permission/{{$role->id}}" role="button">@lang('custom_label.set_permission')</a>
+                                <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
+                                   class="btn btn-danger m-1"
+                                   href="/system-admin/role/delete/{{$role->id}}"
+                                   role="button">@lang('custom_label.delete')</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

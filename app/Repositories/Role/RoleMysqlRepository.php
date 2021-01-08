@@ -68,4 +68,12 @@ class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterfac
     {
         return Role::where('id', $id)->delete();
     }
+
+    public function getByName($name)
+    {
+        $role = new Role();
+        return $role->select('*')
+            ->where('name', '=', $name)
+            ->first();
+    }
 }
