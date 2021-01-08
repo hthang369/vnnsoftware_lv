@@ -31,30 +31,18 @@ class BusinessPlanService extends MyService
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function list()
+    public function list(Request $request)
     {
         return view('/business-plan/list', [
-            'businessPlans' => $this->getAllBusinessPlan()
+            'businessPlans' => $this->businessPLanRepo->getAllPaginate($request)
         ]);
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function sort(Request $request){
-
-        $condition = $this->getSortConditionFromUrl($request);
-        $list = $this->businessPLanRepo->getAllSortedBusinessPlan($condition);
-
-        return view('/business-plan/list')->with('businessPlans', $list);
     }
 
     /**
      * @param $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create( $request)
+    public function create($request)
     {
         $validator = $this->businessPlanValidation->newValidate($request->all());
 
@@ -81,7 +69,7 @@ class BusinessPlanService extends MyService
     {
         $businessPlan = $this->getBusinessPlanInfo($id);
 
-        if (is_null($businessPlan)){
+        if (is_null($businessPlan)) {
             abort(400, __('custom_message.business_plan_not_found'));
         }
 
@@ -132,7 +120,8 @@ class BusinessPlanService extends MyService
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete($id){
+    public function delete($id)
+    {
 
         $businessPlan = $this->getBusinessPlanInfo($id);
 
@@ -153,7 +142,8 @@ class BusinessPlanService extends MyService
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function newForm() {
+    public function newForm()
+    {
         return view('/business-plan/add_form', [
 
         ])->with('isNew', true);
@@ -163,8 +153,9 @@ class BusinessPlanService extends MyService
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function detailForm($id) {
-        return view('/business-plan/detail',  [
+    public function detailForm($id)
+    {
+        return view('/business-plan/detail', [
             'businessPlan' => $this->getBusinessPlanInfo($id)
         ]);
     }
@@ -173,7 +164,8 @@ class BusinessPlanService extends MyService
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function updateForm($id) {
+    public function updateForm($id)
+    {
         return view('/business-plan/update_form', [
             'businessPlan' => $this->getBusinessPlanInfo($id)
         ]);

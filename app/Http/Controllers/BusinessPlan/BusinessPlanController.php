@@ -31,18 +31,9 @@ class BusinessPlanController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->businessPlanService->list();
-    }
-
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function sort(Request $request) {
-
-        return $this->businessPlanService->sort($request);
+        return $this->businessPlanService->list($request);
     }
 
     /**
