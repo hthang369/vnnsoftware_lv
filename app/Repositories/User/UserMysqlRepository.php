@@ -2,15 +2,21 @@
 
 namespace App\Repositories\User;
 
-use App\Models\BusinessPlan;
 use App\Repositories\MyRepository;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserMysqlRepository extends MyRepository implements UserRepositoryInterface
 {
+    private $contactable = [
+        'users.name' => 'name',
+        'users.email' => 'email',
+        'users.phone' => 'phone',
+        'users.address' => 'address',
+    ];
 
     public function getUserById($id)
     {
@@ -24,23 +30,22 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
         return User::all();
     }
 
-    public function getAllSortedUser($condition)
+    /**
+     * @return mixed
+     */
+    public function getAllPaginate(Request $request)
     {
-        //$businessPlan = BusinessPlan::select();
-        $list = User::all();
-        switch ($condition) {
-            case "name":
-                return $list->sortBy('name');
-            case "email":
-                return $list->sortBy('email');
-            case "phone":
-                return $list->sortBy('phone');
-            case "address":
-                return $list->sortBy('address');
-            default:
-                return $this->getAllUser();
+        $query = User::query();
+
+        if ($request->has('search')) {
+            $query = $this->querySearch($query, $request, $this->contactable);
         }
-        return $list;
+
+        if ($request->has('sort')) {
+            $query = $this->querySort($query, $request, $this->contactable);
+        }
+
+        return $query->paginate(config('constants.pagination.items_per_page'));
     }
 
 

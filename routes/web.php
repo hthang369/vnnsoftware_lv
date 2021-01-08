@@ -46,10 +46,6 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
         Route::get('update/{id}', 'BusinessPlan\BusinessPlanController@updateForm')->name('Business Plan.Update.form');
         Route::post('update/{id}', 'BusinessPlan\BusinessPlanController@update')->name('Business Plan.Update');
         Route::get('delete/{id}', 'BusinessPlan\BusinessPlanController@delete')->name('Business Plan.Delete');
-        Route::group(['prefix' => 'sort'], function () {
-            Route::get('name', 'BusinessPlan\BusinessPlanController@sort')->name('Company.Sort.Name');
-            Route::get('description', 'BusinessPlan\BusinessPlanController@sort')->name('Company.Sort.Description');
-        });
     });
 
     // user management route
@@ -64,12 +60,6 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
         Route::get('new', 'User\UserController@newForm')->name('User Management.New.form');
         Route::post('new', 'User\UserController@register')->name('User Management.New');
         Route::get('delete/{id}', 'User\UserController@delete')->name('User Management.Delete');
-        Route::group(['prefix' => 'sort'], function () {
-            Route::get('name', 'User\UserController@sort')->name('User.Sort.Name');
-            Route::get('email', 'User\UserController@sort')->name('User.Sort.Email');
-            Route::get('phone', 'User\UserController@sort')->name('User.Sort.Phone');
-            Route::get('address', 'User\UserController@sort')->name('User.Sort.Address');
-        });
     });
 
     // role management route

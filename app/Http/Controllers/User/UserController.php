@@ -50,9 +50,9 @@ class UserController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->userService->index();
+        return $this->userService->index($request);
     }
 
     /**

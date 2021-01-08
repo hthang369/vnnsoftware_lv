@@ -37,8 +37,8 @@
             </div>
             <div class="form-group">
                 <label>Email</label>
+                <input value="{{ request()->email }}" name="email" class="form-control"  >
             </div>
-            <input value="{{ request()->email }}" name="email" class="form-control"  >
             <div class="form-group">
                 <label>Phone</label>
                 <input value="{{ request()->phone }}" name="phone" class="form-control"  >
