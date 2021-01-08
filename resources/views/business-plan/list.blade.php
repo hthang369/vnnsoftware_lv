@@ -69,7 +69,7 @@
             <tbody>
             @foreach($businessPlans as $key => $bp)
                 <tr>
-                    <td></td>
+                    <th>{{($businessPlans->currentPage() - 1) * $businessPlans->perPage() + ($key + 1)}}</th>
                     <td>{{$bp->name}}</td>
                     <td>{{$bp->description}}</td>
                     <td>
