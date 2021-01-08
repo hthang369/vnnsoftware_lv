@@ -3,37 +3,38 @@
 namespace App\Repositories\Role;
 
 use App\Models\Role;
-use App\Models\User;
 use App\Repositories\MyRepository;
+use Illuminate\Http\Request;
 
 class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterface
 {
+    private $contactable = [
+        'role.name' => 'name',
+        'role.role_rank' => 'role_rank',
+        'role.description' => 'description',
+    ];
+
     public function getById($id)
     {
         return Role::find($id);
     }
 
-    public function getAllPaginate()
+    /**
+     * @return mixed
+     */
+    public function getAllPaginate(Request $request)
     {
-        return Role::paginate(config('constants.pagination.items_per_page'));
-    }
+        $query = Role::query();
 
-    public function getAllSortedPaginate($condition) {
-        $list = Role::select('*');
-        switch ($condition) {
-            case "name":
-                 $list->orderBy('name');
-                 break;
-            case "role-rank":
-                 $list->orderBy('role_rank');
-                 break;
-            case "description":
-                 $list->orderBy('description');
-                 break;
-            default:
-                 $this->getAllPaginate();
+        if ($request->has('search')) {
+            $query = $this->querySearch($query, $request, $this->contactable);
         }
-        return $list->paginate(config('constants.pagination.items_per_page'));
+
+        if ($request->has('sort')) {
+            $query = $this->querySort($query, $request, $this->contactable);
+        }
+
+        return $query->paginate(config('constants.pagination.items_per_page'));
     }
 
     public function getAll()

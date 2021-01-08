@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label>@lang('custom_label.description')</label>
-                <input value="{{ request()->description }}" name="phone" class="form-control"  >
+                <input value="{{ request()->description }}" name="description" class="form-control"  >
             </div>
             <button type="submit" class="btn btn-success">Search
                 <i class="fa fa-search"></i>

@@ -25,17 +25,9 @@ class RoleController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->roleService->list();
-    }
-
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function sort(Request $request) {
-        return $this->roleService->sort($request);
+        return $this->roleService->list($request);
     }
 
     /**
