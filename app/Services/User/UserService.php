@@ -28,7 +28,8 @@ class UserService extends MyService
         UserRepositoryInterface $userRepo,
         UserValidation $userValidate,
         RoleService $roleService
-    ) {
+    )
+    {
         $this->userRepo = $userRepo;
         $this->userValidate = $userValidate;
         $this->roleService = $roleService;
@@ -210,7 +211,7 @@ class UserService extends MyService
         if (strlen($request['password']) != 0) {
             $input = request()->except(['_token', 'role']);
             $input['password'] = Hash::make($request['password']);
-        } else
+        } else {
             $input = request()->except(['_token', 'role', 'password']);
         }
 
