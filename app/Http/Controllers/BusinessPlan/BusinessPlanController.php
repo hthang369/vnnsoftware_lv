@@ -33,7 +33,20 @@ class BusinessPlanController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->businessPlanService->list($request);
+        return view('/business-plan/list', [
+            'businessPlans' => $this->businessPlanService->list($request)
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function sort(Request $request) {
+        $condition = $this->businessPlanService->getSortConditionFromUrl($request);
+        $list = $this->businessPLanRepo->getAllSortedBusinessPlan($condition);
+
+        return view('/business-plan/list')->with('businessPlans', $list);
     }
 
     /**

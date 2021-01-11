@@ -179,6 +179,10 @@ class BusinessPlanService extends MyService
         return $this->businessPLanRepo->getAllBusinessPlan();
     }
 
+    public function getAllSortedBusinessPlan($condition){
+
+    }
+
     /**
      * @param $request
      * @param null $id
