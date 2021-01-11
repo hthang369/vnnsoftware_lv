@@ -29,16 +29,6 @@ class BusinessPlanService extends MyService
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function list()
-    {
-        return view('/business-plan/list', [
-            'businessPlans' => $this->getAllBusinessPlan()
-        ]);
-    }
-
-    /**
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -185,6 +175,10 @@ class BusinessPlanService extends MyService
     public function getAllBusinessPlan()
     {
         return $this->businessPLanRepo->getAllBusinessPlan();
+    }
+
+    public function getAllSortedBusinessPlan($condition){
+
     }
 
     /**
