@@ -33,9 +33,7 @@ class BusinessPlanService extends MyService
      */
     public function list(Request $request)
     {
-        return view('/business-plan/list', [
-            'businessPlans' => $this->businessPLanRepo->getAllPaginate($request)
-        ]);
+        return $this->businessPLanRepo->getAllPaginate($request);
     }
 
     /**
