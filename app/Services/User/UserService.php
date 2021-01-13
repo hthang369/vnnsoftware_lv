@@ -174,7 +174,7 @@ class UserService extends MyService
             $user = $this->userRepo->Create($input);
             $user->roles()->attach($request->role);
             return redirect()
-                ->intended('/   ail/' . $user->id)
+                ->intended('/system-admin/user-management/detail/' . $user->id)
                 ->with('saved', true);
         } catch (\Exception $ex) {
             return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
