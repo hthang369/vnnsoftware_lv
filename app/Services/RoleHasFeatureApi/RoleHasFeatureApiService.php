@@ -91,7 +91,7 @@ class RoleHasFeatureApiService extends MyService
         $validator = $this->roleHasFeatureApiValidation->updateValidate($request->all());
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput()->with('mess', true);
+            return redirect()->intended('/system-admin/role/set-permission/' . $request->input('role_id'))->withInput()->with('mess', true);
         }
 
         $role = $this->roleRepo->getById($request->input('role_id'));
@@ -136,7 +136,7 @@ class RoleHasFeatureApiService extends MyService
                 }
             }
             DB::commit();
-            return redirect()->back()->with('saved', true);
+            return redirect()->intended('/system-admin/role/set-permission/' . $request->input('role_id'))->with('saved', true);
         } catch (\Exception $ex) {
             DB::rollBack();
             abort(400, $ex->getMessage());
