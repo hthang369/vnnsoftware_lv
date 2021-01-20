@@ -8,7 +8,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
             @foreach($TOPMENU as $item)
                 <li class="nav-item {{ substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), '.')) == $item->prefix_group ? 'active font-weight-bold border-bottom' : '' }}">
-                    <a class="text-light nav-link" aria-current="page" href="{{$item->url}}">@lang($item->lang)</a>
+                    <a class="text-light nav-link" style="font-size: 14px" aria-current="page" href="{{$item->url}}">@lang($item->lang)</a>
                 </li>
             @endforeach
         </ul>
