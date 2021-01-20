@@ -16,7 +16,7 @@ if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
 }
 
 Route::get('/', function () {
-    return redirect('system-admin/company');
+    return redirect('system-admin/version');
 });
 
 Auth::routes();
@@ -25,7 +25,7 @@ Route::post('login', 'User\UserController@login')->name('User.Login');
 Route::post('register', 'User\UserController@register')->name('User.New');
 
 //, 'middleware' => ['auth']
-Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']], function () {
     // company route
     Route::group(['prefix' => 'company'], function () {
         Route::get('/', 'Company\CompanyController@index')->name('LAKA company manage.Company list');
@@ -77,25 +77,12 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
             'RoleHasFeatureApi\RoleHasFeatureApiController@setPermission')->name('LMT role manage.Role setting.[Permission]');
     });
 
-    // feature-api management route
-    Route::group(['prefix' => 'feature-api'], function () {
-        Route::get('/', 'FeatureApi\FeatureApiController@index')->name('Feature Api.List[Permission]');
-        Route::get('delete/{id}', 'FeatureApi\FeatureApiController@delete')->name('Feature Api.Delete');
-        Route::get('save-all-to-db',
-            'FeatureApi\FeatureApiController@saveAllRoutesToDB')->name('Feature Api.Save all to DB[Permission]');
-    });
-
     // version route
     Route::get('version', 'Version\VersionController@index')->name('Version.List');
 
-    // role has feature-api management route
-//    Route::group(['prefix' => 'role-has-feature-api'], function () {
-//        Route::get('ajax-check-is-used-feature-api/{feature_id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@ajaxCheckIsUsedFeatureApi')->name('role-has-Feature Api.ajax-check-is-used-feature-api');
-//    });
-
     // approval api token route
     Route::group(['prefix' => 'approval-api-token'], function () {
-        Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('LAKA user manage.LAKA User list');
+//        Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('LAKA user manage.LAKA User list');
         Route::get('approval-token/{id}',
             'ApprovalApiToken\ApprovalApiTokenController@approvalToken')->name('LAKA user manage.Approve access token');
         Route::get('stop-token/{id}',
@@ -108,7 +95,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
 
     // user management for app chat route
     Route::group(['prefix' => 'user-management-for-app-chat'], function () {
-        Route::get('/', 'UserManagementForAppChat\UserManagementForAppChatController@index')->name('LAKA user manage.LAKA User list');
+        Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('LAKA user manage.LAKA User list');
         Route::get('detail/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@detailForm')->name('LAKA user manage.Detail');
         Route::get('new', 'UserManagementForAppChat\UserManagementForAppChatController@newForm')->name('LAKA user manage.Create LAKA user.form');
         Route::post('new', 'UserManagementForAppChat\UserManagementForAppChatController@register')->name('LAKA user manage.Create LAKA user');

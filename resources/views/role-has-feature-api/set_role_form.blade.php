@@ -42,7 +42,7 @@
                                     @endif
                                     <div class="form-check ml-3">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck{{$i}}" name="feature_api_id[]" value="{{$featureApi->id}}" {{in_array($featureApi->id, $arrayOldFeatureApi) ? 'checked' : ''}}>
-                                        <label class="form-check-label" for="exampleCheck{{$i}}">[{{$featureApi->feature . '] ' . $featureApi->name}}</label>
+                                        <label class="form-check-label" for="exampleCheck{{$i}}">{{$featureApi->name}}</label>
                                     </div>
                                     @if(($listFeatureApi[$i + 1]->feature ?? 'null') != $featureApi->feature)
                                 </div>

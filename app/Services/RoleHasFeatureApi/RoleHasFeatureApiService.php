@@ -3,6 +3,7 @@
 namespace App\Services\RoleHasFeatureApi;
 
 use App\Repositories\FeatureApi\FeatureApiMysqlRepository;
+use App\Repositories\FeatureApi\FeatureApiRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
 use App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiRepositoryInterface;
 use App\Services\Contract\MyService;
@@ -14,21 +15,21 @@ class RoleHasFeatureApiService extends MyService
 {
     private $roleHasFeatureApiRepo;
     private $roleRepo;
-    private $featureApiMysqlRepository;
+    private $featureApiRepo;
     private $roleHasFeatureApiValidation;
 
     /**
      * RoleHasFeatureApiService constructor.
      * @param RoleHasFeatureApiRepositoryInterface $roleHasFeatureApiRepo
      * @param RoleRepositoryInterface $roleRepo
-     * @param FeatureApiMysqlRepository $featureApiMysqlRepository
+     * @param FeatureApiRepositoryInterface $featureApiRepo
      * @param RoleHasFeatureApiValidation $roleHasFeatureApiValidation
      */
-    public function __construct(RoleHasFeatureApiRepositoryInterface $roleHasFeatureApiRepo, RoleRepositoryInterface $roleRepo, FeatureApiMysqlRepository $featureApiMysqlRepository, RoleHasFeatureApiValidation $roleHasFeatureApiValidation)
+    public function __construct(RoleHasFeatureApiRepositoryInterface $roleHasFeatureApiRepo, RoleRepositoryInterface $roleRepo, FeatureApiRepositoryInterface $featureApiRepo, RoleHasFeatureApiValidation $roleHasFeatureApiValidation)
     {
         $this->roleHasFeatureApiRepo = $roleHasFeatureApiRepo;
         $this->roleRepo = $roleRepo;
-        $this->featureApiMysqlRepository = $featureApiMysqlRepository;
+        $this->featureApiRepo = $featureApiRepo;
         $this->roleHasFeatureApiValidation = $roleHasFeatureApiValidation;
     }
 
@@ -71,7 +72,7 @@ class RoleHasFeatureApiService extends MyService
         if (is_null($role)) {
             abort(400, __('custom_message.role_plan_not_found'));
         }
-        $listFeatureApi = $this->featureApiMysqlRepository->getAll();
+        $listFeatureApi = $this->featureApiRepo->getJustNeedForPermission();
 
         $listOldFeatureApi = $this->roleHasFeatureApiRepo->getByRoleId($id);
         $arrayOldFeatureApi = [];
