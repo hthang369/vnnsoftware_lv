@@ -66,7 +66,16 @@ return [
     'back' => 'Back',
 
     // Search form
-    'get_all' => 'Get All'
+    'get_all' => 'Get All',
 
-
+    'lmt_user_list' => 'LMT user list',
+    'add_lmt_user' => 'Add LMT user',
+    'business_plan_list' => 'Business plan list',
+    'company_list' => 'Company list',
+    'role_list' => 'Role list',
+    'add_business_plan' => 'Add business plan',
+    'add_company' => 'Add company',
+    'add_role' => 'Add role',
+    'create_laka_user' => 'Create LAKA user',
+    'laka_user_list' => 'LAKA User list',
 ];
