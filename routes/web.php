@@ -16,7 +16,7 @@ if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
 }
 
 Route::get('/', function () {
-    return redirect('system-admin/company');
+    return redirect('system-admin/version');
 });
 
 Auth::routes();
@@ -25,93 +25,80 @@ Route::post('login', 'User\UserController@login')->name('User.Login');
 Route::post('register', 'User\UserController@register')->name('User.New');
 
 //, 'middleware' => ['auth']
-Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']], function () {
     // company route
     Route::group(['prefix' => 'company'], function () {
-        Route::get('/', 'Company\CompanyController@index')->name('Company.List');
-        Route::get('detail/{id}', 'Company\CompanyController@detail')->name('Company.Detail');
-        Route::get('update/{id}', 'Company\CompanyController@updateForm')->name('Company.Update.form');
-        Route::post('update/{id}', 'Company\CompanyController@update')->name('Company.Update');
-        Route::get('new', 'Company\CompanyController@newForm')->name('Company.New.form');
-        Route::post('new', 'Company\CompanyController@register')->name('Company.New');
-        Route::get('delete/{id}', 'Company\CompanyController@delete')->name('Company.Delete');
+        Route::get('/', 'Company\CompanyController@index')->name('LAKA company manage.Company list');
+        Route::get('detail/{id}', 'Company\CompanyController@detail')->name('LAKA company manage.Detail');
+        Route::get('update/{id}', 'Company\CompanyController@updateForm')->name('LAKA company manage.Update company info.form');
+        Route::post('update/{id}', 'Company\CompanyController@update')->name('LAKA company manage.Update company info');
+        Route::get('new', 'Company\CompanyController@newForm')->name('LAKA company manage.Add company.form');
+        Route::post('new', 'Company\CompanyController@register')->name('LAKA company manage.Add company');
+        Route::get('delete/{id}', 'Company\CompanyController@delete')->name('LAKA company manage.Delete company');
     });
 
     // business plan route
     Route::group(['prefix' => 'business-plan'], function () {
-        Route::get('/', 'BusinessPlan\BusinessPlanController@index')->name('Business Plan.List');
-        Route::get('detail/{id}', 'BusinessPlan\BusinessPlanController@detailForm')->name('Business Plan.Detail');
-        Route::get('new', 'BusinessPlan\BusinessPlanController@newForm')->name('Business Plan.New.form');
-        Route::post('new', 'BusinessPlan\BusinessPlanController@new')->name('Business Plan.New');
-        Route::get('update/{id}', 'BusinessPlan\BusinessPlanController@updateForm')->name('Business Plan.Update.form');
-        Route::post('update/{id}', 'BusinessPlan\BusinessPlanController@update')->name('Business Plan.Update');
-        Route::get('delete/{id}', 'BusinessPlan\BusinessPlanController@delete')->name('Business Plan.Delete');
+        Route::get('/', 'BusinessPlan\BusinessPlanController@index')->name('LAKA business plan.Business plan list');
+        Route::get('detail/{id}', 'BusinessPlan\BusinessPlanController@detailForm')->name('LAKA business plan.Detail');
+        Route::get('new', 'BusinessPlan\BusinessPlanController@newForm')->name('LAKA business plan.Add business plan.form');
+        Route::post('new', 'BusinessPlan\BusinessPlanController@new')->name('LAKA business plan.Add business plan');
+        Route::get('update/{id}', 'BusinessPlan\BusinessPlanController@updateForm')->name('LAKA business plan.Update business plan info.form');
+        Route::post('update/{id}', 'BusinessPlan\BusinessPlanController@update')->name('LAKA business plan.Update business plan info');
+        Route::get('delete/{id}', 'BusinessPlan\BusinessPlanController@delete')->name('LAKA business plan.Delete business plan');
     });
 
     // user management route
     Route::group(['prefix' => 'user-management'], function () {
-        Route::get('/', 'User\UserController@index')->name('User Management.List');
-        Route::get('detail/{id}', 'User\UserController@detail')->name('User Management.Detail');
-        Route::get('update/{id}', 'User\UserController@updateForm')->name('User Management.Update[Permission].form');
-        Route::post('update/{id}', 'User\UserController@update')->name('User Management.Update[Permission]');
+        Route::get('/', 'User\UserController@index')->name('LMT user manage.LMT user list');
+        Route::get('detail/{id}', 'User\UserController@detail')->name('LMT user manage.LMT user info (detail)');
+        Route::get('update/{id}', 'User\UserController@updateForm')->name('LMT user manage.Update.form[Permission]');
+        Route::post('update/{id}', 'User\UserController@update')->name('LMT user manage.Update.[Permission]');
         Route::get('update-password/{id}',
-            'User\UserController@updatePasswordForm')->name('User Management.Update Password.form');
-        Route::post('update-password', 'User\UserController@updatePassword')->name('User Management.Update Password');
-        Route::get('new', 'User\UserController@newForm')->name('User Management.New.form');
-        Route::post('new', 'User\UserController@register')->name('User Management.New');
-        Route::get('delete/{id}', 'User\UserController@delete')->name('User Management.Delete');
+            'User\UserController@updatePasswordForm')->name('LMT user manage.Update Password.form');
+        Route::post('update-password', 'User\UserController@updatePassword')->name('LMT user manage.Update Password');
+        Route::get('new', 'User\UserController@newForm')->name('LMT user manage.Add LMT user.form');
+        Route::post('new', 'User\UserController@register')->name('LMT user manage.Add LMT user');
+        Route::get('delete/{id}', 'User\UserController@delete')->name('LMT user manage.LMT user delete');
     });
 
     // role management route
     Route::group(['prefix' => 'role'], function () {
-        Route::get('/', 'Role\RoleController@index')->name('Role.List');
-        Route::get('detail/{id}', 'Role\RoleController@detail')->name('Role.Detail');
-        Route::get('update/{id}', 'Role\RoleController@updateForm')->name('Role.Update.form');
-        Route::post('update/{id}', 'Role\RoleController@update')->name('Role.Update');
-        Route::get('new', 'Role\RoleController@newForm')->name('Role.New[Permission].form');
-        Route::post('new', 'Role\RoleController@register')->name('Role.New[Permission]');
-        Route::get('delete/{id}', 'Role\RoleController@delete')->name('Role.Delete');
+        Route::get('/', 'Role\RoleController@index')->name('LMT role manage.Role list');
+        Route::get('detail/{id}', 'Role\RoleController@detail')->name('LMT role manage.Detail');
+        Route::get('update/{id}', 'Role\RoleController@updateForm')->name('LMT role manage.Update.form');
+        Route::post('update/{id}', 'Role\RoleController@update')->name('LMT role manage.Update');
+        Route::get('new', 'Role\RoleController@newForm')->name('LMT role manage.Add role.form[Permission]');
+        Route::post('new', 'Role\RoleController@register')->name('LMT role manage.Add role.[Permission]');
+        Route::get('delete/{id}', 'Role\RoleController@delete')->name('LMT role manage.Role delete');
         Route::get('set-permission/{id}',
-            'RoleHasFeatureApi\RoleHasFeatureApiController@setPermissionForm')->name('Role.Set Permission For Role[Permission].form');
+            'RoleHasFeatureApi\RoleHasFeatureApiController@setPermissionForm')->name('LMT role manage.Role setting.form[Permission]');
         Route::post('set-permission/{id}',
-            'RoleHasFeatureApi\RoleHasFeatureApiController@setPermission')->name('Role.Set Permission For Role[Permission]');
-    });
-
-    // feature-api management route
-    Route::group(['prefix' => 'feature-api'], function () {
-        Route::get('/', 'FeatureApi\FeatureApiController@index')->name('Feature Api.List[Permission]');
-        Route::get('delete/{id}', 'FeatureApi\FeatureApiController@delete')->name('Feature Api.Delete');
-        Route::get('save-all-to-db',
-            'FeatureApi\FeatureApiController@saveAllRoutesToDB')->name('Feature Api.Save all to DB[Permission]');
+            'RoleHasFeatureApi\RoleHasFeatureApiController@setPermission')->name('LMT role manage.Role setting.[Permission]');
     });
 
     // version route
     Route::get('version', 'Version\VersionController@index')->name('Version.List');
 
-    // role has feature-api management route
-//    Route::group(['prefix' => 'role-has-feature-api'], function () {
-//        Route::get('ajax-check-is-used-feature-api/{feature_id}', 'RoleHasFeatureApi\RoleHasFeatureApiController@ajaxCheckIsUsedFeatureApi')->name('role-has-Feature Api.ajax-check-is-used-feature-api');
-//    });
-
     // approval api token route
     Route::group(['prefix' => 'approval-api-token'], function () {
-        Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('Approval Api Token.List');
+//        Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('LAKA user manage.LAKA User list');
         Route::get('approval-token/{id}',
-            'ApprovalApiToken\ApprovalApiTokenController@approvalToken')->name('Approval Api Token.Approval Token');
+            'ApprovalApiToken\ApprovalApiTokenController@approvalToken')->name('LAKA user manage.Approve access token');
         Route::get('stop-token/{id}',
-            'ApprovalApiToken\ApprovalApiTokenController@stopToken')->name('Approval Api Token.Stop Token');
+            'ApprovalApiToken\ApprovalApiTokenController@stopToken')->name('LAKA user manage.Pending access token');
         Route::get('reopen-token/{id}',
-            'ApprovalApiToken\ApprovalApiTokenController@reopenToken')->name('Approval Api Token.ReOpen Token');
+            'ApprovalApiToken\ApprovalApiTokenController@reopenToken')->name('LAKA user manage.ReOpen access Token');
         Route::get('delete-token/{id}',
-            'ApprovalApiToken\ApprovalApiTokenController@deleteToken')->name('Approval Api Token.Delete Token');
+            'ApprovalApiToken\ApprovalApiTokenController@deleteToken')->name('LAKA user manage.Delete access Token');
     });
 
     // user management for app chat route
     Route::group(['prefix' => 'user-management-for-app-chat'], function () {
-        Route::get('/', 'UserManagementForAppChat\UserManagementForAppChatController@index')->name('User Management For App Chat.List');
-        Route::get('detail/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@detailForm')->name('User Management For App Chat.Detail');
-        Route::get('new', 'UserManagementForAppChat\UserManagementForAppChatController@newForm')->name('User Management For App Chat.New.form');
-        Route::post('new', 'UserManagementForAppChat\UserManagementForAppChatController@register')->name('User Management For App Chat.New');
-        Route::get('delete/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@delete')->name('User Management For App Chat.Delete');
+        Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('LAKA user manage.LAKA User list');
+        Route::get('detail/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@detailForm')->name('LAKA user manage.Detail');
+        Route::get('new', 'UserManagementForAppChat\UserManagementForAppChatController@newForm')->name('LAKA user manage.Create LAKA user.form');
+        Route::post('new', 'UserManagementForAppChat\UserManagementForAppChatController@register')->name('LAKA user manage.Create LAKA user');
+        Route::get('delete/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@delete')->name('LAKA user manage.Delete LAKA user');
     });
 });

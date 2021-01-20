@@ -67,4 +67,6 @@ return [
 
     // Search form
     'get_all' => 'Get All'
+
+
 ];

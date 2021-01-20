@@ -73,6 +73,7 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
             ->whereNull('role_has_feature_api.deleted_at')
             ->whereNull('role.deleted_at')
             ->whereNull('users.deleted_at')
+            ->whereNull('feature_api.deleted_at')
             ->distinct()
             ->get();
     }
