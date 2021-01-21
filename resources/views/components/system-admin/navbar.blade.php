@@ -6,10 +6,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            @foreach($TOPMENU as $item)
-                <li class="nav-item {{ substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), '.')) == $item->prefix_group ? 'active font-weight-bold border-bottom' : '' }}">
-                    <a class="text-light nav-link" style="font-size: 14px" aria-current="page" href="{{$item->url}}">@lang($item->lang)</a>
-                </li>
+            @foreach($TOPMENU as $itemTop)
+                @foreach($LEFTMENU as $itemLeft)
+                    @if($itemTop->group == $itemLeft->group)
+                        @if(!in_array($itemLeft->route_name, $NOT_HAS_PERMISSION))
+                            <li class="nav-item {{ substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), '.')) == $itemTop->group ? 'active font-weight-bold border-bottom' : '' }}">
+                                <a class="text-light nav-link" style="font-size: 14px" aria-current="page" href="{{$itemTop->url}}">@lang($itemTop->lang)</a>
+                            </li>
+                            @break
+                        @endif
+                    @endif
+                @endforeach
             @endforeach
         </ul>
     </div>
@@ -26,7 +33,7 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-{{--                <a class="dropdown-item" href="{{ route('User Management.Update Password.form', Auth::user()->id) }}">Change password</a>--}}
+                {{--                <a class="dropdown-item" href="{{ route('User Management.Update Password.form', Auth::user()->id) }}">Change password</a>--}}
             </div>
         </div>
     </div>
