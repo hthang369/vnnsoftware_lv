@@ -41,7 +41,9 @@
                 <strong>@lang('custom_label.status'):</strong>
                 <label>{{$user->status == 0 ? 'Inactive' : 'Active'}}</label>
             </div>
-            <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">@lang('custom_label.update')</a>
+            @if(!in_array('LMT user manage.Update', $NOT_HAS_PERMISSION))
+                <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">@lang('custom_label.update')</a>
+            @endif
             <a class="btn btn-danger ml-2" href="/system-admin/user-management" role="button">@lang('custom_label.back')</a>
         </div>
     </div>

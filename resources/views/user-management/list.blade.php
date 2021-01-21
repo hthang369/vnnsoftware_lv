@@ -10,8 +10,6 @@
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.user')</h1>
     </div>
-
-    <a class="my-2 btn btn-primary" href="/system-admin/user-management/new" role="button">+ @lang('custom_label.add_new')</a>
     <!-- SEARCH FORM -->
     <p>
         <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
@@ -30,15 +28,15 @@
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input value="{{ request()->email }}" name="email" class="form-control"  >
+                <input value="{{ request()->email }}" name="email" class="form-control">
             </div>
             <div class="form-group">
                 <label>Phone</label>
-                <input value="{{ request()->phone }}" name="phone" class="form-control"  >
+                <input value="{{ request()->phone }}" name="phone" class="form-control">
             </div>
             <div class="form-group">
                 <label>Address</label>
-                <input value="{{ request()->address }}" name="address" class="form-control"  >
+                <input value="{{ request()->address }}" name="address" class="form-control">
             </div>
             <button type="submit" class="btn btn-success">Search
                 <i class="fa fa-search"></i>
@@ -108,12 +106,18 @@
                             @endforeach
                         </td>
                         <td>
-                            <a class="btn btn-info" href="/system-admin/user-management/detail/{{$user->id}}" role="button">@lang('custom_label.detail')</a>
-                            <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">@lang('custom_label.update')</a>
-                            <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
-                               class="btn btn-danger"
-                               href="/system-admin/user-management/delete/{{$user->id}}"
-                               role="button">@lang('custom_label.delete')</a>
+                            @if(!in_array('LMT user manage.LMT user info (detail)', $NOT_HAS_PERMISSION))
+                                <a class="btn btn-info" href="/system-admin/user-management/detail/{{$user->id}}" role="button">@lang('custom_label.detail')</a>
+                            @endif
+                            @if(!in_array('LMT user manage.Update', $NOT_HAS_PERMISSION))
+                                <a class="btn btn-primary" href="/system-admin/user-management/update/{{$user->id}}" role="button">@lang('custom_label.update')</a>
+                            @endif
+                            @if(!in_array('LMT user manage.LMT user delete', $NOT_HAS_PERMISSION))
+                                <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
+                                   class="btn btn-danger"
+                                   href="/system-admin/user-management/delete/{{$user->id}}"
+                                   role="button">@lang('custom_label.delete')</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
