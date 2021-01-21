@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\ListFunction;
 use App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiRepositoryInterface;
 use Closure;
 use Illuminate\Support\Facades\Auth;
@@ -28,22 +27,22 @@ class CheckPermissionByRole
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check()) {
-            $currentRouteName = Route::currentRouteName();
-
-            $listFeatureApiName = $this->roleHasFeatureApiRepo->getListNotHasPermissionByUserId(Auth::id());
-
-            foreach ($listFeatureApiName as $item) {
-                if (strpos($currentRouteName, $item->group . '.' . $item->function) !== false) {
-
-                    return abort(403);
-                }
-            }
-
-            $this->shareNotHasPermission($listFeatureApiName);
-            return $next($request);
+        if (!Auth::check()) {
+            return abort(403);
         }
-        return abort(403);
+
+        $currentRouteName = Route::currentRouteName();
+
+        $listFeatureApiName = $this->roleHasFeatureApiRepo->getListNotHasPermissionByUserId(Auth::id());
+
+        foreach ($listFeatureApiName as $item) {
+            if (strpos($currentRouteName, $item->group . '.' . $item->function) !== false) {
+                return abort(403);
+            }
+        }
+
+        $this->shareNotHasPermission($listFeatureApiName);
+        return $next($request);
     }
 
     private function shareNotHasPermission($listFeatureApiName)

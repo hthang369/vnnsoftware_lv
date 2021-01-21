@@ -11,8 +11,6 @@
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.company')</h1>
     </div>
-    <!-- ADD NEW BUTTON-->
-    <a class="my-2 btn btn-primary" href="/system-admin/company/new" role="button">+ @lang('custom_label.add_new')</a>
 
     @if(session()->has('deleted'))
         <div class="alert alert-success">
@@ -37,19 +35,19 @@
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input value="{{ request()->email }}" name="email" class="form-control"  >
+                <input value="{{ request()->email }}" name="email" class="form-control">
             </div>
             <div class="form-group">
                 <label>Phone</label>
-                <input value="{{ request()->phone }}" name="phone" class="form-control"  >
+                <input value="{{ request()->phone }}" name="phone" class="form-control">
             </div>
             <div class="form-group">
                 <label>Address</label>
-                <input value="{{ request()->address }}" name="address" class="form-control"  >
+                <input value="{{ request()->address }}" name="address" class="form-control">
             </div>
             <div class="form-group">
                 <label>Business plan</label>
-                <input value="{{ request('business-plan') }}" name="business-plan" class="form-control" >
+                <input value="{{ request('business-plan') }}" name="business-plan" class="form-control">
             </div>
             <button type="submit" class="btn btn-success">Search
                 <i class="fa fa-search"></i>
@@ -124,11 +122,15 @@
                         <td>
                             <a class="btn btn-info" href="/system-admin/company/detail/{{$company->id}}"
                                role="button">@lang('custom_label.detail')</a>
-                            <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}"
-                               role="button">@lang('custom_label.update')</a>
-                            <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
-                               class="btn btn-danger" href="/system-admin/company/delete/{{$company->id}}"
-                               role="button">@lang('custom_label.delete')</a>
+                            @if(!in_array('LAKA company manage.Update company info', $NOT_HAS_PERMISSION))
+                                <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}"
+                                   role="button">@lang('custom_label.update')</a>
+                            @endif
+                            @if(!in_array('LAKA company manage.Delete company', $NOT_HAS_PERMISSION))
+                                <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
+                                   class="btn btn-danger" href="/system-admin/company/delete/{{$company->id}}"
+                                   role="button">@lang('custom_label.delete')</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

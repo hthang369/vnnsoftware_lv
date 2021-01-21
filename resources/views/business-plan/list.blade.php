@@ -10,8 +10,6 @@
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.business_plan')</h1>
     </div>
-    <a class="my-2 btn btn-primary" href="/system-admin/business-plan/new"
-       role="button">+ @lang('custom_label.add_new')</a>
     <!-- SEARCH FORM -->
     <p>
         <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
@@ -30,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label>@lang('custom_label.description')</label>
-                <input value="{{ request()->description }}" name="description" class="form-control"  >
+                <input value="{{ request()->description }}" name="description" class="form-control">
             </div>
             <button type="submit" class="btn btn-success">Search
                 <i class="fa fa-search"></i>
@@ -75,12 +73,16 @@
                     <td>
                         <a class="btn btn-info" href="/system-admin/business-plan/detail/{{$bp->id}}"
                            role="button">@lang('custom_label.detail')</a>
-                        <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$bp->id}}"
-                           role="button">@lang('custom_label.update')</a>
-                        <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
-                           class="btn btn-danger"
-                           href="/system-admin/business-plan/delete/{{$bp->id}}"
-                           role="button">@lang('custom_label.delete')</a>
+                        @if(!in_array('LAKA business plan.Update business plan info', $NOT_HAS_PERMISSION))
+                            <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$bp->id}}"
+                               role="button">@lang('custom_label.update')</a>
+                        @endif
+                        @if(!in_array('LAKA business plan.Delete business plan', $NOT_HAS_PERMISSION))
+                            <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
+                               class="btn btn-danger"
+                               href="/system-admin/business-plan/delete/{{$bp->id}}"
+                               role="button">@lang('custom_label.delete')</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach
