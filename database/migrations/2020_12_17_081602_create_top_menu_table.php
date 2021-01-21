@@ -15,7 +15,7 @@ class CreateTopMenuTable extends Migration
     {
         Schema::create('top_menu', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('prefix_group');
+            $table->string('group');
             $table->string('index')->nullable();
             $table->string('url')->nullable();
             $table->string('lang');
