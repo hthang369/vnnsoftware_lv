@@ -100,6 +100,13 @@ class BusinessPlanController extends Controller
     {
         return $this->businessPlanService->delete($id);
     }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function searchForm() {
+        return view('/business-plan/search');
+    }
 }
 
 

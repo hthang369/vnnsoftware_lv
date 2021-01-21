@@ -25,7 +25,7 @@ Route::post('login', 'User\UserController@login')->name('User.Login');
 Route::post('register', 'User\UserController@register')->name('User.New');
 
 //, 'middleware' => ['auth']
-Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']], function () {
+Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
     // company route
     Route::group(['prefix' => 'company'], function () {
         Route::get('/', 'Company\CompanyController@index')->name('LAKA company manage.Company list');
@@ -46,6 +46,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('update/{id}', 'BusinessPlan\BusinessPlanController@updateForm')->name('LAKA business plan.Update business plan info');
         Route::post('update/{id}', 'BusinessPlan\BusinessPlanController@update')->name('LAKA business plan.Update business plan info');
         Route::get('delete/{id}', 'BusinessPlan\BusinessPlanController@delete')->name('LAKA business plan.Delete business plan');
+        Route::get('search', 'BusinessPlan\BusinessPlanController@searchForm')->name('LAKA business plan.Search business plan');
     });
 
     // user management route
@@ -60,6 +61,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('new', 'User\UserController@newForm')->name('LMT user manage.Add LMT user');
         Route::post('new', 'User\UserController@register')->name('LMT user manage.Add LMT user');
         Route::get('delete/{id}', 'User\UserController@delete')->name('LMT user manage.LMT user delete');
+        Route::get('search', 'User\UserController@searchForm')->name('LMT user manage.Search LMT user');
+
     });
 
     // role management route

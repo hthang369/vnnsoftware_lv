@@ -36,15 +36,6 @@ class UserService extends MyService
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index(Request $request)
-    {
-        $list = $this->userRepo->getAllPaginate($request);
-        return view('/user-management/list')->with('list', $list);
-    }
-
-    /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -77,28 +68,6 @@ class UserService extends MyService
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function updateForm($id)
-    {
-        $user = $this->getUserById($id);
-        $userRoleIds = array();
-        if (is_null($user)) {
-            abort(400, __('custom_message.user_not_found'));
-        }
-
-        foreach ($user->roles as $key => $value) {
-            array_push($userRoleIds, $value->id);
-        }
-        return view('/user-management/add_form',
-            [
-                'roles' => $this->roleService->getAll(),
-                'userRoleIds' => $userRoleIds
-            ])->with('user', $user);
-    }
-
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function detailForm($id)
     {
 
@@ -111,27 +80,6 @@ class UserService extends MyService
         return view('/user-management/detail')->with('user', $user);
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function updatePasswordForm($id)
-    {
-        $user = $this->getUserById($id);
-        $userRoleIds = array();
-        if (is_null($user)) {
-            abort(400, __('custom_message.user_not_found'));
-        }
-
-        foreach ($user->roles as $key => $value) {
-            array_push($userRoleIds, $value->id);
-        }
-        return view('/user-management/update_password_form',
-            [
-                'roles' => $this->roleService->getAll(),
-                'userRoleIds' => $userRoleIds
-            ])->with('user', $user);
-    }
 
     /**
      * @param $id
@@ -146,27 +94,9 @@ class UserService extends MyService
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function Create(Request $request)
+    public function Create($input)
     {
-        $validator = $this->userValidate->newValidate($request->all());
-
-        if ($validator->fails()) {
-            //return back()->withInput()->withErrors($validator->errors());
-            return redirect()->intended(route('User Management.New.form'))->withInput()->withErrors($validator->errors());
-        }
-
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
-
-        try {
-            $user = $this->userRepo->Create($input);
-            $user->roles()->attach($request->role);
-            return redirect()
-                ->intended('/   ail/' . $user->id)
-                ->with('saved', true);
-        } catch (\Exception $ex) {
-            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
-        }
+        return $this->userRepo->Create($input);
     }
 
     /**
@@ -174,56 +104,9 @@ class UserService extends MyService
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id, Request $request)
+    public function update($id, $input)
     {
-        // return $this->userRepo->update($id, $input);
-        $user = $this->getUserById($id);
-
-        if (is_null($user)) {
-            abort(400, __('custom_message.user_not_found'));
-        }
-
-        $validator = $this->userValidate->updateValidate($request->all(), $id);
-
-        if ($validator->fails()) {
-            return redirect()->intended(route('User Management.Update[Permission].form', $id))->withInput()->withErrors($validator->errors());
-        }
-
-//        $role = $user->roles;
-//        $hasPermission = false;
-//        foreach ($role as $value) {
-//            if ($value->name == config('constants.name.role_permission_name')) {
-//                foreach ($request->input('role') as $item) {
-//                    if ($item == $value->id) {
-//                        $hasPermission = true;
-//                    }
-//                }
-//                break;
-//            }
-//        }
-//
-//        if (!$hasPermission) {
-//            if ($this->userRepo->countOthersPermissionUser(Auth::id())->total == 0) {
-//                return redirect()->back()->withInput()->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
-//            }
-//        }
-
-        if (strlen($request['password']) != 0) {
-            $input = request()->except(['_token', 'role']);
-            $input['password'] = Hash::make($request['password']);
-        } else {
-            $input = request()->except(['_token', 'role', 'password']);
-        }
-
-        try {
-            $user->roles()->detach();
-            $user->roles()->attach($request->role);
-            $user = $this->userRepo->update($id, $input);
-        } catch (\Exception $ex) {
-            abort(400, $ex->getMessage());
-        }
-
-        return redirect()->intended('/system-admin/user-management/detail/' . $id);
+       return $this->userRepo->update($id, $input);
     }
 
     /**
@@ -264,31 +147,8 @@ class UserService extends MyService
         return $this->userRepo->checkPassword($id, $current);
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function changePassword(Request $request)
-    {
-        $input = $request->all();
-        if ($this->checkPassword(Auth::id(), $input['currentPassword'])) {
-            $validator = $this->userValidate->changePasswordValidate($request);
-
-            $input['newPassword'] = Hash::make($input['newPassword']);
-
-            try {
-                $this->userRepo->changePassword(Auth::id(), $input['newPassword']);
-                return redirect()
-                    ->intended('/system-admin/user-management/update-password/' . Auth::id())
-                    ->with('success', true);
-            } catch (\Exception $ex) {
-                return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
-            }
-        } else {
-            return redirect()
-                ->intended('/system-admin/user-management/update-password/' . Auth::id())
-                ->with('wrongCurrentPassword', true);
-        }
+    public function changePassword($id, $newPassword) {
+        $this->userRepo->changePassword($id, $newPassword);
     }
 
     /**
@@ -324,23 +184,30 @@ class UserService extends MyService
      */
     public function delete($id)
     {
-        $user = $this->getUserById($id);
+        $this->userRepo->delete($id);
+    }
 
-        if ($this->userRepo->countOthersPermissionUser(Auth::id())->total == 0) {
-            return redirect()->back()->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
-        }
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function getAllPaginate($request) {
+        return $this->userRepo->getAllPaginate($request);
+    }
 
-        if (is_null($user)) {
-            abort(400, __('custom_message.user_not_found'));
-        }
+    public function loginValidate($request) {
+        $this->userValidate->loginValidate($request);
+    }
 
-        try {
-            $this->userRepo->delete($id);
-        } catch (\Exception $ex) {
-            abort(400, $ex->getMessage());
-        }
+    public function newValidate($request) {
+        return $this->userValidate->newValidate($request);
+    }
 
-        return redirect()->intended('/system-admin/user-management');
+    public function changePasswordValidate($request) {
+        return $this->userValidate->changePasswordValidate($request);
+    }
 
+    public function countOthersPermissionUser($id) {
+        return $this->userRepo->countOthersPermissionUser($id);
     }
 }
