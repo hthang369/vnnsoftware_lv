@@ -31,37 +31,28 @@ class CheckPermissionByRole
         if (Auth::check()) {
             $currentRouteName = Route::currentRouteName();
 
-            $listFeatureApiName = $this->roleHasFeatureApiRepo->getListFeatureApiNameByUserId(Auth::id());
+            $listFeatureApiName = $this->roleHasFeatureApiRepo->getListNotHasPermissionByUserId(Auth::id());
 
             foreach ($listFeatureApiName as $item) {
-                if (strpos($currentRouteName, $item->feature . '.' . $item->name) !== false) {
-                    $this->sharePermission($listFeatureApiName);
-                    return $next($request);
+                if (strpos($currentRouteName, $item->group . '.' . $item->function) !== false) {
+
+                    return abort(403);
                 }
             }
 
-            $listFunction = ListFunction::select('group', 'function')->get();
-            $has = false;
-            foreach ($listFunction as $function) {
-                if (strpos($currentRouteName, $function->group . '.' . $function->function) !== false) {
-                    $has = true;
-                    break;
-                }
-            }
-            if (!$has) {
-                $this->sharePermission($listFeatureApiName);
-                return $next($request);
-            }
+            $this->shareNotHasPermission($listFeatureApiName);
+            return $next($request);
         }
         return abort(403);
     }
 
-    private function sharePermission($listFeatureApiName) {
+    private function shareNotHasPermission($listFeatureApiName)
+    {
         $permission = [];
         foreach ($listFeatureApiName as $value) {
-            array_push($permission, $value->feature . '.' . $value->name);
+            array_push($permission, $value->group . '.' . $value->function);
         }
 
-        View::share('permission', $permission);
+        View::share('NOT_HAS_PERMISSION', $permission);
     }
 }

@@ -19,6 +19,7 @@ class CreateTopMenuTable extends Migration
             $table->string('index')->nullable();
             $table->string('url')->nullable();
             $table->string('lang');
+            $table->string('description', 500);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -12,5 +12,5 @@ interface RoleHasFeatureApiRepositoryInterface
     public function deleteByFeatureApiId($id);
     public function deleteByFeatureApiName($name);
     public function getOneByFeatureId($feature_id);
-    public function getListFeatureApiNameByUserId($user_id);
+    public function getListNotHasPermissionByUserId($user_id);
 }
