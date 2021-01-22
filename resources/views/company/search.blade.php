@@ -45,7 +45,7 @@
                 <i class="fa fa-list" aria-hidden="true"></i>
                 @lang('custom_label.get_all')
             </a>
-        </form> 
+        </form>
     </div>
 
 

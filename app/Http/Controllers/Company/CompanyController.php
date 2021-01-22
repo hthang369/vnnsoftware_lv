@@ -35,7 +35,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('/common/index_page_top_menu');
+        return view('system-admin/business-plan/company');
     }
 
     /**
