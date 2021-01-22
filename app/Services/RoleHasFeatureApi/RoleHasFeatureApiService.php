@@ -25,7 +25,10 @@ class RoleHasFeatureApiService extends MyService
      * @param FeatureApiRepositoryInterface $featureApiRepo
      * @param RoleHasFeatureApiValidation $roleHasFeatureApiValidation
      */
-    public function __construct(RoleHasFeatureApiRepositoryInterface $roleHasFeatureApiRepo, RoleRepositoryInterface $roleRepo, FeatureApiRepositoryInterface $featureApiRepo, RoleHasFeatureApiValidation $roleHasFeatureApiValidation)
+    public function __construct(RoleHasFeatureApiRepositoryInterface $roleHasFeatureApiRepo,
+                                RoleRepositoryInterface $roleRepo,
+                                FeatureApiRepositoryInterface $featureApiRepo,
+                                RoleHasFeatureApiValidation $roleHasFeatureApiValidation)
     {
         $this->roleHasFeatureApiRepo = $roleHasFeatureApiRepo;
         $this->roleRepo = $roleRepo;
@@ -83,64 +86,26 @@ class RoleHasFeatureApiService extends MyService
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param $input
+     * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function setPermission(Request $request)
+    public function updateValidate($input) {
+        return $this->roleHasFeatureApiValidation->updateValidate($input);
+    }
+
+    /**
+     * @param $input
+     */
+    public function create($input)
     {
+        $this->roleHasFeatureApiRepo->create($input);
+    }
 
-        $validator = $this->roleHasFeatureApiValidation->updateValidate($request->all());
-
-        if ($validator->fails()) {
-            return redirect()->intended('/system-admin/role/set-permission/' . $request->input('role_id'))->withInput()->with('mess', true);
-        }
-
-        $role = $this->roleRepo->getById($request->input('role_id'));
-        if ($role->name == config('constants.name.role_permission_name')) {
-            return redirect()->back()->with('errorCommon', __('custom_message.warning_role_system'));
-        }
-
-        try {
-            DB::beginTransaction();
-            $input['role_id'] = $request->input('role_id');
-            $listOldFeatureApi = $this->roleHasFeatureApiRepo->getByRoleId($input['role_id']);
-
-            if ($request->has('feature_api_id')) {
-                foreach ($request->input('feature_api_id') as $item) {
-                    $has = false;
-                    foreach ($listOldFeatureApi as $value) {
-                        if ($item == $value['feature_api_id']) {
-                            $has = true;
-                            break;
-                        }
-                    }
-
-                    if (!$has) {
-                        $input['feature_api_id'] = $item;
-                        $this->roleHasFeatureApiRepo->create($input);
-                    }
-                }
-            }
-            foreach ($listOldFeatureApi as $value) {
-                $has = false;
-                if ($request->has('feature_api_id')) {
-                    foreach ($request->input('feature_api_id') as $item) {
-                        if ($item == $value['feature_api_id']) {
-                            $has = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (!$has) {
-                    $this->roleHasFeatureApiRepo->delete($value['id']);
-                }
-            }
-            DB::commit();
-            return redirect()->intended('/system-admin/role/set-permission/' . $request->input('role_id'))->with('saved', true);
-        } catch (\Exception $ex) {
-            DB::rollBack();
-            abort(400, $ex->getMessage());
-        }
+    /**
+     * @param $id
+     */
+    public function delete($id)
+    {
+        $this->roleHasFeatureApiRepo->delete($id);
     }
 }

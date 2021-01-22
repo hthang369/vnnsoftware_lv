@@ -63,4 +63,8 @@ class UserManagementForAppChatController extends Controller
     {
         return $this->userManagementForAppChatService->delete($id);
     }
+
+    public function searchForm() {
+        return view('/user-management-for-app-chat/search');
+    }
 }

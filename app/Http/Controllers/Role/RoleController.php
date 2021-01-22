@@ -155,4 +155,8 @@ class RoleController extends Controller
 
         return redirect()->intended('/system-admin/role')->with('deleted', true);
     }
+
+    public function searchForm() {
+        return view('role/search');
+    }
 }

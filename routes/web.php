@@ -35,6 +35,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('new', 'Company\CompanyController@newForm')->name('LAKA company manage.Add company');
         Route::post('new', 'Company\CompanyController@register')->name('LAKA company manage.Add company');
         Route::get('delete/{id}', 'Company\CompanyController@delete')->name('LAKA company manage.Delete company');
+        Route::get('search', 'Company\CompanyController@searchForm')->name('LAKA company manage.Search company');
     });
 
     // business plan route
@@ -62,7 +63,6 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::post('new', 'User\UserController@register')->name('LMT user manage.Add LMT user');
         Route::get('delete/{id}', 'User\UserController@delete')->name('LMT user manage.LMT user delete');
         Route::get('search', 'User\UserController@searchForm')->name('LMT user manage.Search LMT user');
-
     });
 
     // role management route
@@ -74,10 +74,12 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('new', 'Role\RoleController@newForm')->name('LMT role manage.Add role');
         Route::post('new', 'Role\RoleController@register')->name('LMT role manage.Add role');
         Route::get('delete/{id}', 'Role\RoleController@delete')->name('LMT role manage.Role delete');
+        Route::get('search', 'Role\RoleController@searchForm')->name('LMT role manage.Search role');
         Route::get('set-permission/{id}',
             'RoleHasFeatureApi\RoleHasFeatureApiController@setPermissionForm')->name('LMT role manage.Role setting');
         Route::post('set-permission/{id}',
             'RoleHasFeatureApi\RoleHasFeatureApiController@setPermission')->name('LMT role manage.Role setting');
+
     });
 
     // version route
@@ -103,5 +105,6 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('new', 'UserManagementForAppChat\UserManagementForAppChatController@newForm')->name('LAKA user manage.Create LAKA user');
         Route::post('new', 'UserManagementForAppChat\UserManagementForAppChatController@register')->name('LAKA user manage.Create LAKA user');
         Route::get('delete/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@delete')->name('LAKA user manage.Delete LAKA user');
+        Route::get('search', 'UserManagementForAppChat\UserManagementForAppChatController@searchForm')->name('LAKA user manage.Search LAKA user');
     });
 });

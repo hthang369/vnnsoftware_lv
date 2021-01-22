@@ -139,4 +139,8 @@ class CompanyController extends Controller
 
         return redirect()->intended('/system-admin/company')->with('deleted', true);
     }
+
+    public function searchForm() {
+        return view('company/search');
+    }
 }

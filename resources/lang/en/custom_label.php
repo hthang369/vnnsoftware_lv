@@ -79,9 +79,11 @@ return [
 
     'company_list' => 'Company list',
     'add_company' => 'Add company',
+    'search_company' => 'Search company',
 
     'role_list' => 'Role list',
     'add_role' => 'Add role',
+    'search_role' => 'Search role',
 
     'laka_user_list' => 'LAKA User list',
     'create_laka_user' => 'Create LAKA user',

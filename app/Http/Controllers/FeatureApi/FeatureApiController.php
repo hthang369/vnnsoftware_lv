@@ -25,7 +25,8 @@ class FeatureApiController extends Controller
      */
     public function index()
     {
-        return $this->featureApiService->list();
+        $list = $this->featureApiRepo->getAll();
+        return view('/feature-api/list')->with('list', $list);
     }
 
     /**

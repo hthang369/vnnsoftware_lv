@@ -12,7 +12,7 @@
     <div class="card">
         <h5 class="card-header">@lang('custom_title.business_plan')</h5>
         <div class="card-body">
-            <form method="POST" action="{{ route('Business Plan.Update', $businessPlan->id)}} ">
+            <form method="POST" action="/system-admin/business-plan/update/1">
                 @csrf
                 <div class="form-group">
                     <label>@lang('custom_label.name')</label>

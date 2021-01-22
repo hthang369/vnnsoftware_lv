@@ -39,31 +39,23 @@ class BusinessPlanController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function sort(Request $request) {
-        $condition = $this->businessPlanService->getSortConditionFromUrl($request);
-        $list = $this->businessPLanRepo->getAllSortedBusinessPlan($condition);
-
-        return view('/business-plan/list')->with('businessPlans', $list);
-    }
-
-    /**
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function detailForm($id)
     {
-        return $this->businessPlanService->detailForm($id);
+        return view('/business-plan/detail', [
+            'businessPlan' => $this->businessPlanService->getBusinessPlanInfo($id)
+        ]);
     }
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function newForm() {
-        return $this->businessPlanService->newForm();
+        return view('/business-plan/add_form', [])->with('isNew', true);
     }
+
 
     /**
      * @param Request $request
@@ -71,15 +63,30 @@ class BusinessPlanController extends Controller
      */
     public function new(Request $request)
     {
-       return $this->businessPlanService->create($request);
+        $input = $request->all();
+        $validator = $this->businessPlanService->newValidate($input);
+
+        if ($validator->fails()) {
+            return redirect()->intended('system-admin/business-plan/new')->withInput()->withErrors($validator->errors());
+        }
+
+        try {
+            $businessPlan = $this->businessPlanService->create($input);
+            return redirect()->intended('/system-admin/business-plan/detail/' . $businessPlan->id);
+        } catch (\Exception $ex) {
+            abort(500, $ex->getMessage());
+        }
     }
+
 
     /**
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function updateForm($id) {
-        return $this->businessPlanService->updateForm($id);
+        return view('/business-plan/update_form', [
+            'businessPlan' => $this->businessPlanService->getBusinessPlanInfo($id)
+        ]);
     }
 
     /**
@@ -89,7 +96,27 @@ class BusinessPlanController extends Controller
      */
     public function update($id, Request $request)
     {
-        return $this->businessPlanService->update($id, $request);
+        $businessPlan = $this->businessPlanService->getBusinessPlanInfo($id);
+
+        if (is_null($businessPlan)) {
+            abort(400, __('custom_message.business_plan_not_found'));
+        }
+
+        $input = request()->except(['_token', 'role']);
+
+        $validator = $this->businessPlanService->updateValidate($input);
+
+        if ($validator->fails()) {
+            return redirect()->intended('/system-admin/business-plan/update/' . $id)->withInput()->withErrors($validator->errors());
+        }
+
+        try {
+            $businessPlan = $this->businessPlanService->update($id, $input);
+        } catch (\Exception $ex) {
+            abort(400, $ex->getMessage());
+        }
+
+        return redirect()->intended('/system-admin/business-plan/detail/' . $id);
     }
 
     /**
@@ -98,7 +125,19 @@ class BusinessPlanController extends Controller
      */
     public function delete($id)
     {
-        return $this->businessPlanService->delete($id);
+        $businessPlan = $this->businessPlanService->getBusinessPlanInfo($id);
+
+        if (is_null($businessPlan)) {
+            abort(400, __('custom_message.business_plan_not_found'));
+        }
+
+        try {
+            $this->businessPlanService->delete($id);
+        } catch (\Exception $ex) {
+            abort(400, $ex->getMessage());
+        }
+
+        return redirect()->intended('/system-admin/business-plan');
     }
 
     /**

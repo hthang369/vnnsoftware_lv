@@ -95,4 +95,8 @@ class FeatureApiService extends MyService
         }
         return redirect()->intended('/system-admin/feature-api')->with('saved', true);
     }
+
+    public function getJustNeedForPermission() {
+        return $this->featureApiRepo->getJustNeedForPermission();
+    }
 }
