@@ -10,7 +10,6 @@
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.role')</h1>
     </div>
-    <a class="my-2 btn btn-primary" href="/system-admin/role/new" role="button">+ @lang('custom_label.add_new')</a>
     <!-- SEARCH FORM -->
     <p>
         <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
@@ -29,11 +28,11 @@
             </div>
             <div class="form-group">
                 <label>@lang('custom_label.role_rank')</label>
-                <input value="{{ request()->role_rank }}" name="role_rank" class="form-control"  >
+                <input value="{{ request()->role_rank }}" name="role_rank" class="form-control">
             </div>
             <div class="form-group">
                 <label>@lang('custom_label.description')</label>
-                <input value="{{ request()->description }}" name="description" class="form-control"  >
+                <input value="{{ request()->description }}" name="description" class="form-control">
             </div>
             <button type="submit" class="btn btn-success">Search
                 <i class="fa fa-search"></i>
@@ -105,12 +104,18 @@
                         <td>
                             <a class="btn btn-info m-1" href="/system-admin/role/detail/{{$role->id}}" role="button">@lang('custom_label.detail')</a>
                             @if($role->name != config('constants.name.role_permission_name'))
-                                <a class="btn btn-primary m-1" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
-                                <a class="btn btn-warning m-1" href="/system-admin/role/set-permission/{{$role->id}}" role="button">@lang('custom_label.set_permission')</a>
-                                <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
-                                   class="btn btn-danger m-1"
-                                   href="/system-admin/role/delete/{{$role->id}}"
-                                   role="button">@lang('custom_label.delete')</a>
+                                @if(!in_array('LMT user manage.Update', $NOT_HAS_PERMISSION))
+                                    <a class="btn btn-primary m-1" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
+                                @endif
+                                @if(!in_array('LMT role manage.Role setting', $NOT_HAS_PERMISSION))
+                                    <a class="btn btn-warning m-1" href="/system-admin/role/set-permission/{{$role->id}}" role="button">@lang('custom_label.set_permission')</a>
+                                @endif
+                                @if(!in_array('LMT role manage.Role delete', $NOT_HAS_PERMISSION))
+                                    <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
+                                       class="btn btn-danger m-1"
+                                       href="/system-admin/role/delete/{{$role->id}}"
+                                       role="button">@lang('custom_label.delete')</a>
+                                @endif
                             @endif
                         </td>
                     </tr>
