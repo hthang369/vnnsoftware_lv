@@ -145,6 +145,6 @@ class CompanyController extends Controller
             abort(500, $ex->getMessage());
         }
 
-        return redirect()->intended('/system-admin/company')->with('deleted', true);
+        return redirect()->intended('/system-admin/company/list')->with('deleted', true);
     }
 }

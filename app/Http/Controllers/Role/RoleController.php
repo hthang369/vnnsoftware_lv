@@ -161,6 +161,6 @@ class RoleController extends Controller
             abort(400, $ex->getMessage());
         }
 
-        return redirect()->intended('/system-admin/role')->with('deleted', true);
+        return redirect()->intended('/system-admin/role/list')->with('deleted', true);
     }
 }

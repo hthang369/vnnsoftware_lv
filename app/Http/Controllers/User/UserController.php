@@ -259,7 +259,7 @@ class UserController extends Controller
             abort(400, $ex->getMessage());
         }
 
-        return redirect()->intended('/system-admin/user-management');
+        return redirect()->intended('/system-admin/user-management/list');
     }
 
     /**

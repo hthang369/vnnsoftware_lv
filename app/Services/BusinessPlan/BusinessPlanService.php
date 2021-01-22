@@ -133,7 +133,7 @@ class BusinessPlanService extends MyService
             abort(400, $ex->getMessage());
         }
 
-        return redirect()->intended('/system-admin/business-plan');
+        return redirect()->intended('/system-admin/business-plan/list');
     }
 
 
