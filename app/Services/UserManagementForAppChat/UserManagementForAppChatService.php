@@ -91,6 +91,6 @@ class UserManagementForAppChatService extends ApiService
         if ($dataResponse['error_code'] != 0) {
             return redirect()->intended('/system-admin/user-management-for-app-chat/new')->withInput()->with('errorCommon', $dataResponse['error_msg']);
         }
-        return redirect()->intended('/system-admin/user-management-for-app-chat')->with('deleted', true);
+        return redirect()->intended('/system-admin/user-management-for-app-chat/list')->with('deleted', true);
     }
 }

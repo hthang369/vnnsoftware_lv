@@ -28,7 +28,8 @@ Route::post('register', 'User\UserController@register')->name('User.New');
 Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']], function () {
     // company route
     Route::group(['prefix' => 'company'], function () {
-        Route::get('/', 'Company\CompanyController@index')->name('LAKA company manage.Company list');
+        Route::get('/', 'Company\CompanyController@index')->name('LAKA company manage.Company index');
+        Route::get('list', 'Company\CompanyController@list')->name('LAKA company manage.Company list');
         Route::get('detail/{id}', 'Company\CompanyController@detail')->name('LAKA company manage.Detail');
         Route::get('update/{id}', 'Company\CompanyController@updateForm')->name('LAKA company manage.Update company info');
         Route::post('update/{id}', 'Company\CompanyController@update')->name('LAKA company manage.Update company info');
@@ -39,7 +40,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
 
     // business plan route
     Route::group(['prefix' => 'business-plan'], function () {
-        Route::get('/', 'BusinessPlan\BusinessPlanController@index')->name('LAKA business plan.Business plan list');
+        Route::get('/', 'BusinessPlan\BusinessPlanController@index')->name('LAKA business plan.Business plan index');
+        Route::get('list', 'BusinessPlan\BusinessPlanController@list')->name('LAKA business plan.Business plan list');
         Route::get('detail/{id}', 'BusinessPlan\BusinessPlanController@detailForm')->name('LAKA business plan.Detail');
         Route::get('new', 'BusinessPlan\BusinessPlanController@newForm')->name('LAKA business plan.Add business plan');
         Route::post('new', 'BusinessPlan\BusinessPlanController@new')->name('LAKA business plan.Add business plan');
@@ -51,7 +53,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
 
     // user management route
     Route::group(['prefix' => 'user-management'], function () {
-        Route::get('/', 'User\UserController@index')->name('LMT user manage.LMT user list');
+        Route::get('/', 'User\UserController@index')->name('LMT user manage.LMT user index');
+        Route::get('list', 'User\UserController@list')->name('LMT user manage.LMT user list');
         Route::get('detail/{id}', 'User\UserController@detail')->name('LMT user manage.LMT user info (detail)');
         Route::get('update/{id}', 'User\UserController@updateForm')->name('LMT user manage.Update');
         Route::post('update/{id}', 'User\UserController@update')->name('LMT user manage.Update');
@@ -67,7 +70,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
 
     // role management route
     Route::group(['prefix' => 'role'], function () {
-        Route::get('/', 'Role\RoleController@index')->name('LMT role manage.Role list');
+        Route::get('/', 'Role\RoleController@index')->name('LMT role manage.Role index');
+        Route::get('list', 'Role\RoleController@list')->name('LMT role manage.Role list');
         Route::get('detail/{id}', 'Role\RoleController@detail')->name('LMT role manage.Detail');
         Route::get('update/{id}', 'Role\RoleController@updateForm')->name('LMT role manage.Update');
         Route::post('update/{id}', 'Role\RoleController@update')->name('LMT role manage.Update');
@@ -81,11 +85,11 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
     });
 
     // version route
-    Route::get('version', 'Version\VersionController@index')->name('Version.List');
+    Route::get('version', 'Version\VersionController@index')->name('Version.Version index');
 
     // approval api token route
     Route::group(['prefix' => 'approval-api-token'], function () {
-//        Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('LAKA user manage.LAKA User list');
+        Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('LAKA user manage.LAKA User index');
         Route::get('approval-token/{id}',
             'ApprovalApiToken\ApprovalApiTokenController@approvalToken')->name('LAKA user manage.Approve access token');
         Route::get('stop-token/{id}',
@@ -98,7 +102,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
 
     // user management for app chat route
     Route::group(['prefix' => 'user-management-for-app-chat'], function () {
-        Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('LAKA user manage.LAKA User list');
+        Route::get('/', 'ApprovalApiToken\ApprovalApiTokenController@index')->name('LAKA user manage.LAKA User index');
+        Route::get('list', 'ApprovalApiToken\ApprovalApiTokenController@list')->name('LAKA user manage.LAKA User list');
         Route::get('detail/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@detailForm')->name('LAKA user manage.Detail');
         Route::get('new', 'UserManagementForAppChat\UserManagementForAppChatController@newForm')->name('LAKA user manage.Create LAKA user');
         Route::post('new', 'UserManagementForAppChat\UserManagementForAppChatController@register')->name('LAKA user manage.Create LAKA user');

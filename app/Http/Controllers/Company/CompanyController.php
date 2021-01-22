@@ -33,7 +33,15 @@ class CompanyController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
+    {
+        return view('/common/index_page_top_menu');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function list(Request $request)
     {
         $list = $this->companyService->list($request);
         return view('/company/list')->with('list', $list);
@@ -137,6 +145,6 @@ class CompanyController extends Controller
             abort(500, $ex->getMessage());
         }
 
-        return redirect()->intended('/system-admin/company')->with('deleted', true);
+        return redirect()->intended('/system-admin/company/list')->with('deleted', true);
     }
 }
