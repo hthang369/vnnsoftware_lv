@@ -8,7 +8,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
             @foreach($TOPMENU as $itemTop)
                 @foreach($LEFTMENU as $itemLeft)
-                    @if($itemTop->group == $itemLeft->group)
+                    @if($itemTop->group == $itemLeft->group || $itemTop->is_no_left_menu == 1)
                         @if(!in_array($itemLeft->route_name, $NOT_HAS_PERMISSION))
                             <li class="nav-item {{ substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), '.')) == $itemTop->group ? 'active font-weight-bold border-bottom' : '' }}">
                                 <a class="text-light nav-link" style="font-size: 14px" aria-current="page" href="{{$itemTop->url}}">@lang($itemTop->lang)</a>
