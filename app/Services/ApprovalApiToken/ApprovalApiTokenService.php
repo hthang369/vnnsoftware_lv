@@ -33,7 +33,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token')->with('saved', true);
+        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
     }
 
     /**
@@ -47,7 +47,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token')->with('saved', true);
+        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
     }
 
     /**
@@ -61,7 +61,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token')->with('saved', true);
+        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
     }
 
     /**
@@ -75,7 +75,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token')->with('deleted', true);
+        return redirect()->intended('/system-admin/approval-api-token/list')->with('deleted', true);
     }
 
     /**
@@ -86,7 +86,7 @@ class ApprovalApiTokenService extends ApiService
     {
         $data = json_decode($response->getBody()->getContents(), true);
         if ($data['error_code'] != 0) {
-            return redirect()->intended('/system-admin/approval-api-token')->with('error', true);
+            return redirect()->intended('/system-admin/approval-api-token/list')->with('error', true);
         }
 
         return $data;

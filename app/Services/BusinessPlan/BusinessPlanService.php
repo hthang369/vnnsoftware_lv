@@ -38,22 +38,56 @@ class BusinessPlanService extends MyService
 
 
     /**
-     * @param $input
-     * @return mixed
+     * @param $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create($input)
+    public function create($request)
     {
-        return $this->businessPLanRepo->create($input);
+        $validator = $this->businessPlanValidation->newValidate($request->all());
+
+        if ($validator->fails()) {
+            return redirect()->intended(route('Business Plan.New.form'))->withInput()->withErrors($validator->errors());
+        }
+
+        $input = $request->all();
+
+        try {
+            $businessPlan = $this->businessPLanRepo->create($input);
+            return redirect()->intended('/system-admin/business-plan/detail/' . $businessPlan->id);
+        } catch (\Exception $ex) {
+            abort(500, $ex->getMessage());
+        }
     }
 
     /**
      * @param $id
-     * @param $input
-     * @return mixed
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id, $input)
+    public function update($id, Request $request)
     {
-        return $this->businessPLanRepo->update($id, $input);
+        $businessPlan = $this->getBusinessPlanInfo($id);
+
+        if (is_null($businessPlan)) {
+            abort(400, __('custom_message.business_plan_not_found'));
+        }
+
+        $validator = $this->businessPlanValidation->updateValidate($request->all());
+
+        if ($validator->fails()) {
+            return redirect()->intended('/system-admin/business-plan/new')->withInput()->withErrors($validator->errors());
+        }
+
+        $input = request()->except(['_token', 'role']);
+
+        try {
+            $businessPlan = $this->businessPLanRepo->update($id, $input);
+        } catch (\Exception $ex) {
+            abort(400, $ex->getMessage());
+        }
+
+        return redirect()->intended('/system-admin/business-plan/detail/' . $id);
+        //return $this->businessPLanRepo->update($id, $input);
     }
 
     /**
@@ -87,7 +121,53 @@ class BusinessPlanService extends MyService
      */
     public function delete($id)
     {
-        $this->businessPLanRepo->delete($id);
+
+        $businessPlan = $this->getBusinessPlanInfo($id);
+
+        if (is_null($businessPlan)) {
+            abort(400, __('custom_message.business_plan_not_found'));
+        }
+
+        try {
+            $this->businessPLanRepo->delete($id);
+        } catch (\Exception $ex) {
+            abort(400, $ex->getMessage());
+        }
+
+        return redirect()->intended('/system-admin/business-plan/list');
+    }
+
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function newForm()
+    {
+        return view('/business-plan/add_form', [
+
+        ])->with('isNew', true);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function detailForm($id)
+    {
+        return view('/business-plan/detail', [
+            'businessPlan' => $this->getBusinessPlanInfo($id)
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function updateForm($id)
+    {
+        return view('/business-plan/update_form', [
+            'businessPlan' => $this->getBusinessPlanInfo($id)
+        ]);
     }
 
     /**

@@ -108,7 +108,7 @@
                                     <a class="btn btn-primary m-1" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
                                 @endif
                                 @if(!in_array('LMT role manage.Role setting', $NOT_HAS_PERMISSION))
-                                    <a class="btn btn-warning m-1" href="/system-admin/role/set-permission/{{$role->id}}" role="button">@lang('custom_label.set_permission')</a>
+                                    <a class="btn btn-warning m-1" href="/system-admin/role/set-permission/{{$role->id}}" role="button">@lang('custom_label.role_setting')</a>
                                 @endif
                                 @if(!in_array('LMT role manage.Role delete', $NOT_HAS_PERMISSION))
                                     <a onclick="return confirm('@lang('custom_message.confirm_delete')');"

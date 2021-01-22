@@ -50,7 +50,15 @@ class UserController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
+    {
+        return view('/common/index_page_top_menu');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function list(Request $request)
     {
         $list = $this->userService->getAllPaginate($request);
         return view('/user-management/list')->with('list', $list);
@@ -251,7 +259,7 @@ class UserController extends Controller
             abort(400, $ex->getMessage());
         }
 
-        return redirect()->intended('/system-admin/user-management');
+        return redirect()->intended('/system-admin/user-management/list');
     }
 
     /**
