@@ -62,7 +62,7 @@ return [
     'back' => 'Back',
     'pause' => 'Pause',
     'accept' => 'Accept',
-    'set_permission' => 'Set permission',
+    'role_setting' => 'Role setting',
     'back' => 'Back',
 
     // Search form
