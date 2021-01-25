@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return redirect('/system-admin/user-management/list');
+        return view('/common/index_page_top_menu');
     }
 
     /**

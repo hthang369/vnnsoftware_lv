@@ -33,8 +33,7 @@ class BusinessPlanController extends Controller
      */
     public function index()
     {
-        //return view('/common/index_page_top_menu');
-        return redirect("/system-admin/business-plan/list");
+        return view('/common/index_page_top_menu');
     }
 
     /**
