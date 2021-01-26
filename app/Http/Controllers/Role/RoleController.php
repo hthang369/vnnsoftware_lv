@@ -30,7 +30,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return redirect('/system-admin/role/list');
+        return view('/common/index_page_top_menu');
     }
 
     /**

@@ -27,7 +27,7 @@ class UserManagementForAppChatController extends Controller
      */
     public function index()
     {
-        return redirect('/system-admin/user-management-for-app-chat/list');
+        return view('/common/index_page_top_menu');
     }
 
     /**
