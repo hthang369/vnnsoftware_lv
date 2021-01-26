@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UserManagementForAppChat;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Services\UserManagementForAppChat\UserManagementForAppChatService;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,7 @@ class UserManagementForAppChatController extends Controller
      */
     public function list()
     {
-        return $this->userManagementForAppChatService->list();
+        return view('/user-management-for-app-chat/list')->with('list', null);
     }
 
     /**
@@ -43,15 +44,17 @@ class UserManagementForAppChatController extends Controller
      */
     public function detail($id)
     {
-        return $this->userManagementForAppChatService->detail($id);
+        return view('/user-management-for-app-chat/detail')->with('userManagementForAppChat', 3);
     }
+
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function newForm()
     {
-        return $this->userManagementForAppChatService->newForm();
+        $listCompany = Company::all();
+        return view('/user-management-for-app-chat/add_form')->with('listCompany', $listCompany);
     }
 
     /**
@@ -60,7 +63,31 @@ class UserManagementForAppChatController extends Controller
      */
     public function register(Request $request)
     {
-        return $this->userManagementForAppChatService->create($request);
+        //return $this->userManagementForAppChatService->create($request);
+
+        $validator = $this->userManagementForAppChatService->newValidate($request->all());
+
+        if ($validator->fails()) {
+            return redirect()->intended('/system-admin/user-management-for-app-chat/new')->withInput()->withErrors($validator->errors());
+        }
+
+        $company = Company::find($request->input('company_id'));
+
+        $data = $request->all();
+        $data['company'] = $company->name;
+
+        $url = config('constants.api_address') . '/api/v1/user/register';
+        $method = "POST";
+        $response = $this->userManagementForAppChatService->sendRequestToAPI($url, $method, $data);
+
+        $dataResponse = json_decode($response->getBody()->getContents(), true);
+
+        if ($dataResponse['error_code'] != 0) {
+            return redirect()->intended('/system-admin/user-management-for-app-chat/new')
+                ->withInput()->with('errorCommon', $dataResponse['error_msg']);
+        }
+
+        return view('/user-management-for-app-chat/list')->with('list', null);
     }
 
     /**
@@ -69,7 +96,17 @@ class UserManagementForAppChatController extends Controller
      */
     public function delete($id)
     {
-        return $this->userManagementForAppChatService->delete($id);
+        $url = config('constants.api_address') . '/api/v1/user/delete';
+        $method = "POST";
+        $response = $this->userManagementForAppChatService->sendRequestToAPI($url, $method, 1);
+
+        $dataResponse = json_decode($response->getBody()->getContents(), true);
+
+        if ($dataResponse['error_code'] != 0) {
+            return redirect()->intended('/system-admin/user-management-for-app-chat/new')
+                ->withInput()->with('errorCommon', $dataResponse['error_msg']);
+        }
+        return redirect()->intended('/system-admin/user-management-for-app-chat/list')->with('deleted', true);
     }
 
     public function searchForm() {

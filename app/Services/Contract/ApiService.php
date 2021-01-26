@@ -18,7 +18,7 @@ class ApiService
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function sendRequestToAPI(string $string, $method, $request)
+    public function sendRequestToAPI(string $string, $method, $request)
     {
         $client = new \GuzzleHttp\Client(['verify' => false]);
         $options = [
