@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <label>@lang('custom_label.password')</label>
                         <input class="form-control @error('password') is-invalid @enderror" type="password"
-                               placeholder="@lang('custom_label.name')" name="password" value="{{ old('password') }}"
+                               placeholder="@lang('custom_label.name')" name="password" value="{{ old('password', $user->password) }}"
                                autocomplete="password">
                         @error('password')
                         <span class="invalid-feedback" role="alert">
