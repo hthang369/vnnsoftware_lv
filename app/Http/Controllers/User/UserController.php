@@ -147,7 +147,7 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             //return back()->withInput()->withErrors($validator->errors());
-            return redirect()->intended(route('User Management.New.form'))->withInput()->withErrors($validator->errors());
+            return redirect('/system-admin/user-management/new')->withInput()->withErrors($validator->errors());
         }
 
         $input = $request->all();
@@ -160,7 +160,7 @@ class UserController extends Controller
                 ->intended('/system-admin/user-management/detail/' . $user->id)
                 ->with('saved', true);
         } catch (\Exception $ex) {
-            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+            echo $ex->getMessage();
         }
     }
 
@@ -292,4 +292,13 @@ class UserController extends Controller
     public function searchForm() {
         return view('/user-management/search');
     }
+
+    public function ssh() {
+        $connection = ssh2_connect('172.16.2.188', 22);
+        ssh2_auth_password($connection, 'root', 'lampart');
+
+        $stream = ssh2_exec($connection, 'ls -R');
+        dd($stream);
+    }
+
 }

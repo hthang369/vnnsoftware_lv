@@ -39,7 +39,7 @@ class UserValidation implements ValidationInterface {
             'email' => 'required|email|max:190|unique:users',
             'password' => 'min:6|max:190|required|regex:/^\S*$/u',
             'name' => 'required|max:190',
-            'phone' => 'required|numeric',
+            'phone' => 'numeric|nullable',
             'address' => 'max:190',
             'role' => 'required'
         ]);

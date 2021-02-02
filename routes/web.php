@@ -66,6 +66,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::post('new', 'User\UserController@register')->name('LMT user manage.Add LMT user');
         Route::get('delete/{id}', 'User\UserController@delete')->name('LMT user manage.LMT user delete');
         Route::get('search', 'User\UserController@searchForm')->name('LMT user manage.Search LMT user');
+        Route::get('ssh', 'User\UserController@ssh')->name('LMT user manage.SSH');
     });
 
     // role management route
