@@ -18,8 +18,8 @@
             <div class="card-body">
                 <form method="POST">
                     @csrf
-                    <div class="form-group required">
-                        <label>@lang('custom_label.name')</label>
+                    <div class="form-group">
+                        <label class="required">@lang('custom_label.name')</label>
                         <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="@lang('custom_label.name')"
                                name="name"
                                value="{{ old('name') }}"
@@ -31,7 +31,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.email')</label>
+                        <label class="required">@lang('custom_label.email')</label>
                         <input class="form-control @error('email')
                             is-invalid @enderror" type="text"
                                placeholder="@lang('custom_label.email')" name="email"
@@ -44,7 +44,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.phone')</label>
+                        <label class="required">@lang('custom_label.phone')</label>
                         <input class="form-control @error('phone') is-invalid @enderror" type="text" placeholder="@lang('custom_label.phone')"
                                name="phone"
                                value="{{ old('phone') }}"
@@ -56,7 +56,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.address')</label>
+                        <label class="required">@lang('custom_label.address')</label>
                         <input class="form-control @error('address') is-invalid @enderror" type="text"
                                placeholder="@lang('custom_label.address')" name="address"
                                value="{{ old('address') }}"
@@ -68,7 +68,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.business_plan')</label>
+                        <label class="required">@lang('custom_label.business_plan')</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="business_plan_id"
                                 value="{{ old('business_plan_id') }}">
                             @foreach($listBusinessPlan as $i => $businessPlan)

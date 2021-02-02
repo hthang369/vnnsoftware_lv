@@ -15,7 +15,7 @@
             <form method="POST" action="/system-admin/business-plan/update/1">
                 @csrf
                 <div class="form-group">
-                    <label>@lang('custom_label.name')</label>
+                    <label class="required">@lang('custom_label.name')</label>
                     <input name="name" value="{{ old('name', $businessPlan->name) }}"
                            class="form-control @error('name') is-invalid @enderror" placeholder="@lang('custom_label.name')">
                     @error('name')
@@ -25,7 +25,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Maximum storage</label>
+                    <label class="required">Maximum storage</label>
                     <input name="maximum_storage_file" value="{{ old('maximum_storage_file', $businessPlan->maximum_storage_file) }}"
                            class="@error('maximum_storage_file') is-invalid @enderror form-control" placeholder="Maxium storage">
                     @error('maximum_storage_file')
@@ -35,7 +35,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>@lang('custom_label.description')</label>
+                    <label class="required">@lang('custom_label.description')</label>
                     <textarea class="form-control @error('description') is-invalid @enderror" type="text"
                               placeholder="@lang('custom_label.description')" name="description"
                               autocomplete="description">{{ old('description', $businessPlan->description) }}</textarea>

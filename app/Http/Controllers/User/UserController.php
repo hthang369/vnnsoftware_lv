@@ -199,11 +199,11 @@ class UserController extends Controller
             }
         }
 
-        if (!$hasPermission) {
-            if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
-                return redirect()->intended('/system-admin/user-management/update/' . $id)->withInput()->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
-            }
-        }
+//        if (!$hasPermission) {
+//            if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
+//                return redirect()->intended('/system-admin/user-management/update/' . $id)->withInput()->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+//            }
+//        }
 
         if (strlen($request['password']) != 0) {
             $input = request()->except(['_token', 'role']);
@@ -246,9 +246,9 @@ class UserController extends Controller
     {
         $user = $this->userService->getUserById($id);
 
-        if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
-            return redirect()->intended('/system-admin/user-management')->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
-        }
+//        if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
+//            return redirect()->intended('/system-admin/user-management')->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+//        }
 
         if (is_null($user)) {
             abort(400, __('custom_message.user_not_found'));
