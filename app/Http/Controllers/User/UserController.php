@@ -183,7 +183,7 @@ class UserController extends Controller
         $validator = $this->userValidate->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
-            return redirect()->intended(route('User Management.Update[Permission].form', $id))->withInput()->withErrors($validator->errors());
+            return redirect('/system-admin/user-management/update/'. $id)->withInput()->withErrors($validator->errors());
         }
 
         $role = $user->roles;
