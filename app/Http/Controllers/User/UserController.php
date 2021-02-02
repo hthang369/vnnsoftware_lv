@@ -161,6 +161,7 @@ class UserController extends Controller
                 ->with('saved', true);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
+
         }
     }
 
