@@ -4,6 +4,8 @@ namespace App\Repositories\FeatureApi;
 
 use App\Models\FeatureApi;
 use App\Repositories\MyRepository;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class FeatureApiMysqlRepository extends MyRepository implements FeatureApiRepositoryInterface
 {
@@ -12,20 +14,29 @@ class FeatureApiMysqlRepository extends MyRepository implements FeatureApiReposi
         return FeatureApi::find($id);
     }
 
-    public function getAll()
+    public function getJustNeedForPermission()
     {
-        return FeatureApi::all();
+        $featureApi = new FeatureApi();
+        return $featureApi->select('feature_api.*')
+            ->join('list_function', 'list_function.function', '=', 'feature_api.name')
+            ->whereNull('feature_api.deleted_at')
+            ->orderBy('feature')
+            ->orderBy('name')
+            ->get();
     }
 
-    public function create($input)
+    public function updateOrCreate($input)
     {
-        $featureApi = new FeatureApi($input);
-        $featureApi->save();
+        $featureApi = FeatureApi::updateOrCreate(
+            ['name' => $input['name'], 'api' => $input['api'], 'feature' => $input['feature']], [
+                'deleted_at' => null
+            ]
+        );
         return $featureApi;
     }
 
-    public function deleteAll()
+    public function deleteOld($listOldId)
     {
-        return FeatureApi::truncate();
+        return DB::table('feature_api')->whereNotIn('id', $listOldId)->update(['deleted_at' => Carbon::now()]);
     }
 }

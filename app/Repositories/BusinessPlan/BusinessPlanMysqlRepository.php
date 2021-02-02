@@ -5,12 +5,18 @@ namespace App\Repositories\BusinessPlan;
 use App\Models\BusinessPlan;
 use App\Models\Company;
 use App\Repositories\MyRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class BusinessPlanMysqlRepository extends MyRepository implements BusinessPlanRepositoryInterface
 {
+    private $contactable = [
+        'business_plan.name' => 'name',
+        'business_plan.description' => 'description',
+    ];
+
     /**
      * @param $input
      * @return mixed
@@ -48,19 +54,22 @@ class BusinessPlanMysqlRepository extends MyRepository implements BusinessPlanRe
         return BusinessPlan::all();
     }
 
-    public function getAllSortedBusinessPlan($condition)
+    /**
+     * @return mixed
+     */
+    public function getAllPaginate(Request $request)
     {
-        //$businessPlan = BusinessPlan::select();
-        $list = BusinessPlan::all();
-        switch ($condition) {
-            case "name":
-                return $list->sortBy('name');
-            case "description":
-                return $list->sortBy('description');
-            default:
-                return $this->getAllBusinessPlan();
+        $query = BusinessPlan::query();
+
+        if ($request->has('search')) {
+            $query = $this->querySearch($query, $request, $this->contactable);
         }
-        return $list;
+
+        if ($request->has('sort')) {
+            $query = $this->querySort($query, $request, $this->contactable);
+        }
+
+        return $query->paginate(config('constants.pagination.items_per_page'));
     }
 
     /**

@@ -27,25 +27,13 @@ class RoleService extends MyService
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function list()
+    public function list(Request $request)
     {
-        $list = $this->roleRepo->getAllPaginate();
+        $list = $this->roleRepo->getAllPaginate($request);
         $listApiName = $this->roleRepo->getAllFeatureApiName();
 
-        return view('/role/list')->with(['list' => $list, 'listApiName' => $listApiName]);
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function sort(Request $request){
-
-        $condition = $this->getSortConditionFromUrl($request);
-        $list = $this->roleRepo->getAllSortedPaginate($condition);
-        $listApiName = $this->roleRepo->getAllFeatureApiName();
-
-        return view('/role/list')->with(['list' => $list, 'listApiName' => $listApiName]);
+        $data = ['list' => $list, 'listApiName' => $listApiName];
+        return $data;
     }
 
     /**
@@ -57,126 +45,27 @@ class RoleService extends MyService
         $role = $this->roleRepo->getById($id);
         $role->role_has_feature_api = $role->role_has_feature_api()->get();
 
-        if (is_null($role)) {
-            abort(400, __('custom_message.role_plan_not_found'));
-        }
-
-        return view('/role/detail')->with('role', $role);
-    }
-
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function newForm()
-    {
-        return view('/role/add_form');
+        return $role;
     }
 
     /**
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function updateForm($id)
+    public function getById($id)
     {
         $role = $this->roleRepo->getById($id);
 
-        if (is_null($role)) {
-            abort(400, __('custom_message.role_plan_not_found'));
-        }
-
-        return view('/role/update_form')->with('role', $role);
+        return $role;
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(Request $request)
+    public function create($input)
     {
-        $validator = $this->roleValidation->newValidate($request->all());
-
-        if ($validator->fails()) {
-            return redirect()->intended('/system-admin/role/new')->withInput()->withErrors($validator->errors());
-        }
-
-        $input = $request->all();
-
-        try {
-
-            $role = $this->roleRepo->create($input);
-            return redirect()->intended('/system-admin/role/detail/' . $role->id)->with('saved', true);
-        } catch (\Exception $ex) {
-            abort(400,$ex->getMessage());
-        }
-    }
-
-    /**
-     * @param $id
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update($id, Request $request)
-    {
-        $role = $this->roleRepo->getById($id);
-
-        if (is_null($role)) {
-            abort(400, __('custom_message.role_plan_not_found'));
-        }
-
-        $validator = $this->roleValidation->updateValidate($request->all(), $id);
-
-        if ($validator->fails()) {
-            return redirect()->intended('/system-admin/role/new')->withInput()->withErrors($validator->errors());
-        }
-
-        $input = request()->except(['_token', 'role']);
-
-        try {
-            $role->update($input);
-        } catch (\Exception $ex) {
-            abort(400, $ex->getMessage());
-        }
-
-        return redirect()->intended('/system-admin/role/detail/' . $id)->with('saved', true);
-
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function register(Request $request)
-    {
-
-        $validator = $this->roleValidation->newValidate($request->all());
-
-        if ($validator->fails()) {
-            return redirect()->intended('/system-admin/role/new')->withInput()->withErrors($validator->errors());
-        }
-
-        $input = $request->all();
-
-        try {
-
-            $role = $this->roleRepo->create($input);
-            return redirect()->intended('/system-admin/role/detail/' . $role->id)->with('saved', true);
-        } catch (\Exception $ex) {
-            abort(400, $ex->getMessage());
-        }
-    }
-
-    /**
-     * @param $request
-     * @param null $id
-     * @return mixed
-     */
-    public function ruleCreateUpdate($request, $id = null)
-    {
-        return $validator = Validator::make($request, [
-            'name' => 'required|max:255',
-            'role_rank' => 'required|max:255|numeric',
-            'description' => 'max:255',
-        ]);
+        return $this->roleRepo->create($input);
     }
 
     /**
@@ -193,31 +82,5 @@ class RoleService extends MyService
     public function getAllFeatureApiName()
     {
         return $this->roleRepo->getAllFeatureApiName();
-    }
-
-    /**
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function delete($id)
-    {
-        $role = $this->roleRepo->getById($id);
-
-        if (is_null($role)) {
-            abort(400, __('custom_message.role_plan_not_found'));
-        }
-        DB::beginTransaction();
-        try {
-
-            $role->delete();
-            $role->role_has_feature_api()->delete();
-            $role->role_user()->delete();
-            DB::commit();
-        } catch (\Exception $ex) {
-            DB::rollBack();
-            abort(400, $ex->getMessage());
-        }
-
-        return redirect()->intended('/system-admin/role')->with('deleted', true);
     }
 }

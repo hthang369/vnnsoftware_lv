@@ -36,8 +36,7 @@ class CompanyService extends MyService
      */
     public function list(Request $request)
     {
-        $list = $this->companyRepo->getAllPaginate($request);
-        return view('/company/list')->with('list', $list);
+        return $this->companyRepo->getAllPaginate($request);
     }
 
     /**
@@ -51,10 +50,8 @@ class CompanyService extends MyService
         if (is_null($company)) {
             abort(400, __('custom_message.company_not_found'));
         }
-
         $company->business_plan = $company->business_plan();
-
-        return view('/company/detail')->with('company', $company);
+        return $company;
     }
 
     /**
@@ -62,47 +59,37 @@ class CompanyService extends MyService
      */
     public function newForm()
     {
-        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
-        return view('/company/add_form')->with('listBusinessPlan', $listBusinessPlan);
+        return $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(Request $request)
+    public function create($input)
     {
-        $validator = $this->companyValidation->newValidate($request->all());
-
-        if ($validator->fails()) {
-            return redirect()->intended('/system-admin/company/new')->withInput()->withErrors($validator->errors());
-        }
-
-        $input = $request->all();
-
-        try {
-            $company = $this->companyRepo->create($input);
-            return redirect()->intended('/system-admin/company/detail/' . $company->id)->with('saved', true);
-        } catch (\Exception $ex) {
-            abort(500, $ex->getMessage());
-        }
+        return $this->companyRepo->create($input);
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function updateForm($id)
+    public function validateNew($input)
     {
-        $company = $this->companyRepo->getById($id);
+        return $this->companyValidation->newValidate($input);
+    }
 
-        $listBusinessPlan = $this->businessPlanService->getAllBusinessPlan();
+    public function validateUpdate($input, $id)
+    {
+        return $this->companyValidation->updateValidate($input, $id);
+    }
 
+    public function handleCompanyNull($company){
         if (is_null($company)) {
             abort(400, __('custom_message.company_not_found'));
         }
+    }
 
-        return view('/company/update_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
+    public function getById($id)
+    {
+        return $this->companyRepo->getById($id);
     }
 
     /**
@@ -110,50 +97,18 @@ class CompanyService extends MyService
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id, Request $request)
+    public function update($company, $input)
     {
-        $company = $this->companyRepo->getById($id);
-
-        if (is_null($company)) {
-            abort(400, __('custom_message.company_not_found'));
-        }
-
-        $validator = $this->companyValidation->updateValidate($request->all(), $id);
-
-        if ($validator->fails()) {
-            return redirect()->intended('/system-admin/company/new')->withInput()->withErrors($validator->errors());
-        }
-
-        $input = request()->except(['_token', 'role']);
-
-        try {
-            $company->update($input);
-        } catch (\Exception $ex) {
-            abort(500, $ex->getMessage());
-        }
-
-        return redirect()->intended('/system-admin/company/detail/' . $id)->with('saved', true);
+        $company->update($input);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function delete($company)
     {
-        $company = $this->companyRepo->getById($id);
-
-        if (is_null($company)) {
-            abort(400, __('custom_message.company_not_found'));
-        }
-
-        try {
-            $company->delete();
-        } catch (\Exception $ex) {
-            abort(500, $ex->getMessage());
-        }
-
-        return redirect()->intended('/system-admin/company')->with('deleted', true);
+        $company->delete();
     }
 
 }

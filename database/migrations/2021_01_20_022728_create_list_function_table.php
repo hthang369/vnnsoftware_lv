@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTopMenuTable extends Migration
+class CreateListFunctionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateTopMenuTable extends Migration
      */
     public function up()
     {
-        Schema::create('top_menu', function (Blueprint $table) {
+        Schema::create('list_function', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('group');
-            $table->string('index')->nullable();
-            $table->string('url')->nullable();
-            $table->string('lang');
-            $table->string('description', 500);
-            $table->boolean('is_no_left_menu');
+            $table->string('function');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -33,6 +28,6 @@ class CreateTopMenuTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('top_menu');
+        Schema::dropIfExists('list_function');
     }
 }

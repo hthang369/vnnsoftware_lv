@@ -62,9 +62,30 @@ return [
     'back' => 'Back',
     'pause' => 'Pause',
     'accept' => 'Accept',
-    'set_permission' => 'Set permission',
+    'role_setting' => 'Role setting',
     'back' => 'Back',
 
     // Search form
-    'get_all' => 'Get All'
+    'get_all' => 'Get All',
+
+    // left menu
+    'lmt_user_list' => 'LMT user list',
+    'lmt_user_search' => 'Search LMT user',
+    'add_lmt_user' => 'Add LMT user',
+
+    'business_plan_list' => 'Business plan list',
+    'add_business_plan' => 'Add business plan',
+    'search_business_plan' => 'Search business plan',
+
+    'company_list' => 'Company list',
+    'add_company' => 'Add company',
+    'search_company' => 'Search company',
+
+    'role_list' => 'Role list',
+    'add_role' => 'Add role',
+    'search_role' => 'Search role',
+
+    'laka_user_list' => 'LAKA User list',
+    'create_laka_user' => 'Create LAKA user',
+    'search_laka_user' => 'Search LAK user',
 ];

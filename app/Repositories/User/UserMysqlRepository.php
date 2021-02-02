@@ -2,15 +2,21 @@
 
 namespace App\Repositories\User;
 
-use App\Models\BusinessPlan;
 use App\Repositories\MyRepository;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserMysqlRepository extends MyRepository implements UserRepositoryInterface
 {
+    private $contactable = [
+        'users.name' => 'name',
+        'users.email' => 'email',
+        'users.phone' => 'phone',
+        'users.address' => 'address',
+    ];
 
     public function getUserById($id)
     {
@@ -24,23 +30,22 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
         return User::all();
     }
 
-    public function getAllSortedUser($condition)
+    /**
+     * @return mixed
+     */
+    public function getAllPaginate(Request $request)
     {
-        //$businessPlan = BusinessPlan::select();
-        $list = User::all();
-        switch ($condition) {
-            case "name":
-                return $list->sortBy('name');
-            case "email":
-                return $list->sortBy('email');
-            case "phone":
-                return $list->sortBy('phone');
-            case "address":
-                return $list->sortBy('address');
-            default:
-                return $this->getAllUser();
+        $query = User::query();
+
+        if ($request->has('search')) {
+            $query = $this->querySearch($query, $request, $this->contactable);
         }
-        return $list;
+
+        if ($request->has('sort')) {
+            $query = $this->querySort($query, $request, $this->contactable);
+        }
+
+        return $query->paginate(config('constants.pagination.items_per_page'));
     }
 
 
@@ -61,9 +66,9 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
     /**
      * Get a user entity.
      *
-     * @param string                $username
-     * @param string                $password
-     * @param string                $grantType The grant type used
+     * @param string $username
+     * @param string $password
+     * @param string $grantType The grant type used
      * @param ClientEntityInterface $clientEntity
      *
      * @return UserEntityInterface
@@ -111,23 +116,23 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
                     ->orWhere('users.email', 'like', '%' . preg_replace('/\s+/', '%', $input) . '%');
             })
             ->where('users.id', "<>", Auth::id())
-        // ->where(function($q) {
-        //     $q
-        //         //->where('contact.status','<>',1)
-        //       ->orWhereNull('contact.status');
-        // })
-        // ->where('users.id','<>',$userId)
-        // ->where(function($q) use ($userId) {
-        //     $q->where('contact.user_id','=',$userId)
-        //       ->orWhereNull('contact.user_id');
-        // })
+            // ->where(function($q) {
+            //     $q
+            //         //->where('contact.status','<>',1)
+            //       ->orWhereNull('contact.status');
+            // })
+            // ->where('users.id','<>',$userId)
+            // ->where(function($q) use ($userId) {
+            //     $q->where('contact.user_id','=',$userId)
+            //       ->orWhereNull('contact.user_id');
+            // })
             ->paginate(30);
     }
 
     public function checkPassword($id, $current)
     {
         $user = User::select(['password'])->find($id);
-        if(strlen($current) !== strlen(trim($current))){
+        if (strlen($current) !== strlen(trim($current))) {
             throw new \Exception('Password does not allow spaces before and after');
         }
 
@@ -147,5 +152,18 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
     public function delete($id)
     {
         return User::where('id', $id)->delete();
+    }
+
+    public function countOthersPermissionUser($id)
+    {
+        return DB::table('users')
+            ->select(DB::raw('COUNT(users.id) AS total'))
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->join('role', 'role.id', '=', 'role_user.role_id')
+            ->where('role.name', '=', config('constants.name.role_permission_name'))
+            ->where('users.id', '<>', $id)
+            ->whereNull('role.deleted_at')
+            ->whereNull('users.deleted_at')
+            ->first();
     }
 }

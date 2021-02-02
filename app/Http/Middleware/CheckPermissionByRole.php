@@ -21,28 +21,37 @@ class CheckPermissionByRole
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check()) {
-            $currentRouteName = Route::currentRouteName();
-            $listFeatureApiName = $this->roleHasFeatureApiRepo->getListFeatureApiNameByUserId(Auth::id());
+        if (!Auth::check()) {
+            return abort(403);
+        }
 
-            foreach ($listFeatureApiName as $item) {
-                if (strpos($currentRouteName, $item->feature . '.' . $item->name) !== false) {
-                    $permission = [];
-                    foreach ($listFeatureApiName as $value) {
-                        array_push($permission, $value->feature . '.' . $value->name);
-                    }
+        $currentRouteName = Route::currentRouteName();
 
-                    View::share('permission', $permission);
-                    return $next($request);
-                }
+        $listFeatureApiName = $this->roleHasFeatureApiRepo->getListNotHasPermissionByUserId(Auth::id());
+
+        foreach ($listFeatureApiName as $item) {
+            if (strpos($currentRouteName, $item->group . '.' . $item->function) !== false) {
+                return abort(403);
             }
         }
-        return abort(403);
+
+        $this->shareNotHasPermission($listFeatureApiName);
+        return $next($request);
+    }
+
+    private function shareNotHasPermission($listFeatureApiName)
+    {
+        $permission = [];
+        foreach ($listFeatureApiName as $value) {
+            array_push($permission, $value->group . '.' . $value->function);
+        }
+
+        View::share('NOT_HAS_PERMISSION', $permission);
     }
 }

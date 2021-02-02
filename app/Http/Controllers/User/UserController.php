@@ -52,16 +52,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $this->userService->index();
+        return view('/common/index_page_top_menu');
     }
 
     /**
-     * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function sort(Request $request) {
-
-        return $this->userService->sort($request);
+    public function list(Request $request)
+    {
+        $list = $this->userService->getAllPaginate($request);
+        return view('/user-management/list')->with('list', $list);
     }
 
     /**
@@ -70,7 +70,18 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-        return $this->userService->login($request);
+        $this->userService->loginValidate($request);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            return redirect()->intended('home');
+        } else {
+            return redirect()->back()
+                ->withInput($request->only('email', 'remember'))
+                ->withErrors(['passcsscfsword' => 'fsdsfsdfdsf']);
+        }
     }
 
     /**
@@ -78,7 +89,8 @@ class UserController extends Controller
      */
     public function newForm()
     {
-        return $this->userService->newForm();
+        return view('/user-management/add_form',
+            ['roles' => $this->roleService->getAll(), 'user' => new User()]);
     }
 
     /**
@@ -87,7 +99,20 @@ class UserController extends Controller
      */
     public function updateForm($id)
     {
-       return $this->userService->updateForm($id);
+        $user = $this->userService->getUserById($id);
+        $userRoleIds = array();
+        if (is_null($user)) {
+            abort(400, __('custom_message.user_not_found'));
+        }
+
+        foreach ($user->roles as $key => $value) {
+            array_push($userRoleIds, $value->id);
+        }
+        return view('/user-management/add_form',
+            [
+                'roles' => $this->roleService->getAll(),
+                'userRoleIds' => $userRoleIds
+            ])->with('user', $user);
     }
 
     /**
@@ -96,7 +121,20 @@ class UserController extends Controller
      */
     public function updatePasswordForm($id)
     {
-        return $this->userService->updatePasswordForm($id);
+        $user = $this->userService->getUserById($id);
+        $userRoleIds = array();
+        if (is_null($user)) {
+            abort(400, __('custom_message.user_not_found'));
+        }
+
+        foreach ($user->roles as $key => $value) {
+            array_push($userRoleIds, $value->id);
+        }
+        return view('/user-management/update_password_form',
+            [
+                'roles' => $this->roleService->getAll(),
+                'userRoleIds' => $userRoleIds
+            ])->with('user', $user);
     }
 
     /**
@@ -105,7 +143,25 @@ class UserController extends Controller
      */
     public function register(Request $request)
     {
-        return $this->userService->Create($request);
+        $validator = $this->userService->newValidate($request->all());
+
+        if ($validator->fails()) {
+            //return back()->withInput()->withErrors($validator->errors());
+            return redirect()->intended(route('User Management.New.form'))->withInput()->withErrors($validator->errors());
+        }
+
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+
+        try {
+            $user = $this->userService->Create($input);
+            $user->roles()->attach($request->role);
+            return redirect()
+                ->intended('/system-admin/user-management/detail/' . $user->id)
+                ->with('saved', true);
+        } catch (\Exception $ex) {
+            return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+        }
     }
 
     /**
@@ -115,7 +171,55 @@ class UserController extends Controller
      */
     public function update($id, Request $request)
     {
-        return $this->userService->update($id, $request);
+        //return $this->userService->update($id, $request);
+
+        $user = $this->userService->getUserById($id);
+
+        if (is_null($user)) {
+            abort(400, __('custom_message.user_not_found'));
+        }
+
+        $validator = $this->userValidate->updateValidate($request->all(), $id);
+
+        if ($validator->fails()) {
+            return redirect()->intended(route('User Management.Update[Permission].form', $id))->withInput()->withErrors($validator->errors());
+        }
+
+        $role = $user->roles;
+        $hasPermission = false;
+        foreach ($role as $value) {
+            if ($value->name == config('constants.name.role_permission_name')) {
+                foreach ($request->input('role') as $item) {
+                    if ($item == $value->id) {
+                        $hasPermission = true;
+                    }
+                }
+                break;
+            }
+        }
+
+        if (!$hasPermission) {
+            if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
+                return redirect()->intended('/system-admin/user-management/update/' . $id)->withInput()->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+            }
+        }
+
+        if (strlen($request['password']) != 0) {
+            $input = request()->except(['_token', 'role']);
+            $input['password'] = Hash::make($request['password']);
+        } else {
+            $input = request()->except(['_token', 'role', 'password']);
+        }
+
+        try {
+            $user->roles()->detach();
+            $user->roles()->attach($request->role);
+            $user = $this->userService->update($id, $input);
+        } catch (\Exception $ex) {
+            abort(400, $ex->getMessage());
+        }
+
+        return redirect()->intended('/system-admin/user-management/detail/' . $id);
     }
 
     /**
@@ -124,7 +228,13 @@ class UserController extends Controller
      */
     public function detail($id)
     {
-       return $this->userService->detailForm($id);
+        $user = $this->userService->getUserById($id);
+
+        if (is_null($user)) {
+            abort(400, __('custom_message.user_not_found'));
+        }
+
+        return view('/user-management/detail')->with('user', $user);
     }
 
     /**
@@ -133,7 +243,23 @@ class UserController extends Controller
      */
     public function delete($id)
     {
-        return $this->userService->delete($id);
+        $user = $this->userService->getUserById($id);
+
+        if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
+            return redirect()->intended('/system-admin/user-management')->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+        }
+
+        if (is_null($user)) {
+            abort(400, __('custom_message.user_not_found'));
+        }
+
+        try {
+            $this->userService->delete($id);
+        } catch (\Exception $ex) {
+            abort(400, $ex->getMessage());
+        }
+
+        return redirect()->intended('/system-admin/user-management/list');
     }
 
     /**
@@ -141,6 +267,29 @@ class UserController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function updatePassword(Request $request){
-        return $this->userService->changePassword($request);
+
+        $input = $request->all();
+        if ($this->userService->checkPassword(Auth::id(), $input['currentPassword'])) {
+            $validator = $this->userService->changePasswordValidate($request);
+
+            $input['newPassword'] = Hash::make($input['newPassword']);
+
+            try {
+                $this->userRepo->changePassword(Auth::id(), $input['newPassword']);
+                return redirect()
+                    ->intended('/system-admin/user-management/update-password/' . Auth::id())
+                    ->with('success', true);
+            } catch (\Exception $ex) {
+                return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
+            }
+        } else {
+            return redirect()
+                ->intended('/system-admin/user-management/update-password/' . Auth::id())
+                ->with('wrongCurrentPassword', true);
+        }
+    }
+
+    public function searchForm() {
+        return view('/user-management/search');
     }
 }

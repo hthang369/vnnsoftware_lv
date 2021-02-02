@@ -62,18 +62,22 @@ class RoleHasFeatureApiMysqlRepository extends MyRepository implements RoleHasFe
         return RoleHasFeatureApi::where('feature_api_id', $feature_id)->first();
     }
 
-    public function getListFeatureApiNameByUserId($user_id)
+    public function getListNotHasPermissionByUserId($user_id)
     {
-        return DB::table('feature_api')->select("feature_api.*")
-            ->join('role_has_feature_api', 'feature_api.id', '=', 'role_has_feature_api.feature_api_id')
-            ->join('role', 'role.id', '=', 'role_has_feature_api.role_id')
-            ->join('role_user', 'role_user.role_id', '=', 'role.id')
-            ->join('users', 'users.id', '=', 'role_user.user_id')
-            ->where("users.id", $user_id)
-            ->whereNull('role_has_feature_api.deleted_at')
-            ->whereNull('role.deleted_at')
-            ->whereNull('users.deleted_at')
-            ->distinct()
+        return DB::table('list_function')
+            ->select('group', 'function')
+            ->whereNotIn('function', DB::table('feature_api')
+                ->select("feature_api.name as function")
+                ->join('role_has_feature_api', 'feature_api.id', '=', 'role_has_feature_api.feature_api_id')
+                ->join('role', 'role.id', '=', 'role_has_feature_api.role_id')
+                ->join('role_user', 'role_user.role_id', '=', 'role.id')
+                ->join('users', 'users.id', '=', 'role_user.user_id')
+                ->where("users.id", $user_id)
+                ->whereNull('role_has_feature_api.deleted_at')
+                ->whereNull('role.deleted_at')
+                ->whereNull('users.deleted_at')
+                ->whereNull('feature_api.deleted_at')
+                ->distinct())
             ->get();
     }
 }

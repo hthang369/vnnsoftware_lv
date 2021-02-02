@@ -30,8 +30,10 @@
                     <strong>Maximum storage file:</strong>
                     <label>{{$businessPlan->maximum_storage_file}}</label>
                 </div>
-                <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$businessPlan->id}}" role="button">@lang('custom_label.update')</a>
-                <a class="btn btn-danger ml-2" href="{{ route('Business Plan.List') }}" role="button">@lang('custom_label.back')</a>
+                @if(!in_array('LAKA business plan.Update business plan info', $NOT_HAS_PERMISSION))
+                    <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$businessPlan->id}}" role="button">@lang('custom_label.update')</a>
+                @endif
+                <a class="btn btn-danger ml-2" href="/system-admin/business-plan" role="button">@lang('custom_label.back')</a>
             </form>
         </div>
     </div>

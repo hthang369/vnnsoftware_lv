@@ -64,8 +64,8 @@ class FeatureApiService extends MyService
     {
         $routeCollection = \Route::getRoutes();
         try {
+            $listOldId = [];
             DB::beginTransaction();
-            $this->featureApiRepo->deleteAll();
             foreach ($routeCollection as $value) {
                 $name = $value->getName();
                 if ($name == null || strpos($name, 'form')) {
@@ -76,17 +76,27 @@ class FeatureApiService extends MyService
                 $input['api'] = $value->uri();
                 $input['name'] = substr($name, strpos($name, '.') + 1, strpos(str_replace( $input['feature'] . '.', '', $name ), '.'));
 
+                if ($input['feature'] == null) {
+                    $input['feature'] = 'Empty';
+                }
+
                 if ($input['name'] == null) {
                     $input['name'] = str_replace( $input['feature'] . '.', '', $name );
                 }
 
-                $this->featureApiRepo->create($input);
+                $featureApi = $this->featureApiRepo->updateOrCreate($input);
+                array_push($listOldId, $featureApi->id);
             }
+            $this->featureApiRepo->deleteOld($listOldId);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
             abort(400, $ex->getMessage());
         }
         return redirect()->intended('/system-admin/feature-api')->with('saved', true);
+    }
+
+    public function getJustNeedForPermission() {
+        return $this->featureApiRepo->getJustNeedForPermission();
     }
 }

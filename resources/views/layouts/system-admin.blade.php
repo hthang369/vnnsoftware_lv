@@ -44,14 +44,6 @@
             bottom:0;
         }
 
-        table {
-            table-layout: fixed;
-        }
-
-        table th, table td {
-            overflow: hidden;
-        }
-
         #main-container{
             min-height: 800px;
         }

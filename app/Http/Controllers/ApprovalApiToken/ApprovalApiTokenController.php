@@ -25,6 +25,14 @@ class ApprovalApiTokenController extends Controller
      */
     public function index()
     {
+        return view('/common/index_page_top_menu');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function list()
+    {
         return $this->approvalApiTokenService->list();
     }
 
