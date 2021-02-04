@@ -56,6 +56,17 @@ class ListFunctionSeeder extends Seeder
             ],
         ];
 
+        $listFunctionIsMain = [
+            'LMT user manage' => [
+                'LMT user list',
+                'Role assign',
+            ],
+            'LMT role manage' => [
+                'Role list',
+                'Role setting',
+            ],
+        ];
+
         foreach ($listFunction as $group => $functions) {
             foreach ($functions as $function) {
                 DB::table('list_function')->insert([
@@ -64,6 +75,14 @@ class ListFunctionSeeder extends Seeder
                     'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
                 ]);
+            }
+        }
+
+        foreach ($listFunctionIsMain as $group => $functions) {
+            foreach ($functions as $function) {
+                DB::table('list_function')
+                    ->where('function', '=', $function)
+                    ->update(['is_main' => 1]);
             }
         }
     }

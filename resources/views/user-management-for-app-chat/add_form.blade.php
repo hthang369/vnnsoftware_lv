@@ -18,8 +18,8 @@
             <div class="card-body">
                 <form method="POST">
                     @csrf
-                    <div class="form-group required">
-                        <label>@lang('custom_label.name')</label>
+                    <div class="form-group">
+                        <label class="required">@lang('custom_label.name')</label>
                         <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="@lang('custom_label.name')"
                                name="name"
                                value="{{ old('name') }}"
@@ -31,7 +31,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.email')</label>
+                        <label class="required">@lang('custom_label.email')</label>
                         <input class="form-control @error('email')
                             is-invalid @enderror" type="text"
                                placeholder="@lang('custom_label.email')" name="email"
@@ -44,7 +44,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.password')</label>
+                        <label class="required">@lang('custom_label.password')</label>
                         <input class="form-control @error('password') is-invalid @enderror" type="password" placeholder="@lang('custom_label.password')"
                                name="password"
                                value="{{ old('password') }}"
@@ -56,7 +56,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.password_confirmation')</label>
+                        <label class="required">@lang('custom_label.password_confirmation')</label>
                         <input class="form-control @error('c_password') is-invalid @enderror" type="password"
                                placeholder="@lang('custom_label.password_confirmation')" name="c_password"
                                value="{{ old('c_password') }}"
@@ -68,7 +68,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.company')</label>
+                        <label class="required">@lang('custom_label.company')</label>
                         <select class="form-control @error('company_id') is-invalid @enderror" id="exampleFormControlSelect1" name="company_id"
                                 value="{{ old('company_id') }}">
                             <option value=""></option>

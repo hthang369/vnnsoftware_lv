@@ -12,8 +12,8 @@
         <div class="card-body">
             <form method="POST">
                 @csrf
-                <div class="form-group required">
-                    <label>@lang('custom_label.name')</label>
+                <div class="form-group">
+                    <label class="required">@lang('custom_label.name')</label>
                     <input class="form-control @error('name') is-invalid @enderror" type="text" placeholder="@lang('custom_label.name')"
                            name="name"
                            value="{{ old('name', $role->name) }}"
@@ -25,7 +25,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>@lang('custom_label.role_rank')</label>
+                    <label class="required">@lang('custom_label.role_rank')</label>
                     <input class="form-control @error('role_rank')
                         is-invalid @enderror" type="text"
                            placeholder="@lang('custom_label.role_rank')" name="role_rank"
@@ -38,7 +38,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>@lang('custom_label.description')</label>
+                    <label class="required">@lang('custom_label.description')</label>
                     <textarea class="form-control @error('description') is-invalid @enderror" type="text"
                               placeholder="@lang('custom_label.description')" name="description"
                               autocomplete="description">{{ old('description', $role->description) }}</textarea>

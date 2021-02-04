@@ -48,6 +48,11 @@
             min-height: 800px;
         }
 
+        .required:after {
+            content:" *";
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>

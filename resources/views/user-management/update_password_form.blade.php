@@ -17,7 +17,7 @@
     <div class="card">
         <h5 class="card-header">Update your password</h5>
         <div class="card-body">
-            <form action="{{ route('User Management.Update Password') }}" method="POST" >
+            <form action="{{ route('LMT user manage.Update Password') }}" method="POST" >
                 @csrf
                 <div class="form-group">
                     <label>Current password</label>

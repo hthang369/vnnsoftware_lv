@@ -15,7 +15,7 @@
             <form method="POST">
                 @csrf
                 <div class="form-group">
-                    <label>@lang('custom_label.name')</label>
+                    <label class="required">@lang('custom_label.name')</label>
                     <input name="name" class="form-control @error('name') is-invalid @enderror"
                            value="{{ old('name') }}"
                            placeholder="@lang('custom_label.name')">
@@ -26,7 +26,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Maximum storage</label>
+                    <label class="required">Maximum storage</label>
                     <input name="maximum_storage_file" class="form-control @error('maximum_storage_file') is-invalid @enderror"
                            value="{{ old('maximum_storage_file') }}"
                            placeholder="Maxium storage">
@@ -37,7 +37,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>@lang('custom_label.description')</label>
+                    <label class="required">@lang('custom_label.description')</label>
                     <textarea name="description" class="form-control @error('description') is-invalid @enderror"
                               placeholder="@lang('custom_label.description')">{{ old('description') }}</textarea>
                     @error('description')
