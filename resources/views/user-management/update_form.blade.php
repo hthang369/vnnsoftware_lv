@@ -17,8 +17,8 @@
             @else
                 <form method="POST">
                     @csrf
-                    <div class="form-group required">
-                        <label>@lang('custom_label.name')</label>
+                    <div class="form-group">
+                        <label class="required">@lang('custom_label.name')</label>
                         <input class="form-control @error('name') is-invalid @enderror" type="text"
                                placeholder="@lang('custom_label.name')"
                                name="name"
@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <label>@lang('custom_label.password')</label>
                         <input class="form-control @error('password') is-invalid @enderror" type="password"
-                               placeholder="@lang('custom_label.name')" name="password" value="{{ old('password', $user->password) }}"
+                               placeholder="@lang('custom_label.password')" name="password" value="{{ old('password') }}"
                                autocomplete="password">
                         @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -43,7 +43,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.email')</label>
+                        <label class="required">@lang('custom_label.email')</label>
                         <input class="form-control @error('email')
                             is-invalid @enderror" type="text"
                                placeholder="@lang('custom_label.email')" name="email"
@@ -81,7 +81,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>@lang('custom_label.role')</label>
+                        <label class="required">@lang('custom_label.role')</label>
                         <div class="form-group @error('role') border border-danger @enderror ">
                             @if(request()->id)
                                 @foreach($roles as $role)
