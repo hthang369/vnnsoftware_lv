@@ -13,9 +13,10 @@ class RolePermissionSeeder extends Seeder
      * FeatureApiController constructor.
      * @param FeatureApiService $featureApiService
      */
-    public function __construct(FeatureApiService $featureApiService)
+    public function __construct(FeatureApiService $featureApiService, \App\Services\User\UserService $userService)
     {
         $this->featureApiService = $featureApiService;
+        $this->userService = $userService;
     }
 
     /**
@@ -29,24 +30,23 @@ class RolePermissionSeeder extends Seeder
 
         $roleOld = DB::table('role')->where('name', '=', config('constants.name.role_permission_name'))->first();
 
-        DB::table('role')->where('name', '=', config('constants.name.role_permission_name'))->delete();
-
         if (!is_null($roleOld)) {
             DB::table('role_has_feature_api')->where('role_id', '=', $roleOld->id)->delete();
+        } else {
+            DB::table('role')->insert([
+                'name' => config('constants.name.role_permission_name'),
+                'role_rank' => 1,
+                'description' => 'Role for set permission',
+                'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+            ]);
         }
 
-        DB::table('role')->insert([
-            'name' => config('constants.name.role_permission_name'),
-            'role_rank' => 1,
-            'description' => 'Role for set permission',
-            'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
-        ]);
-
         $listFeatureApiPermission = DB::table('feature_api')
-            ->select('*')
-            ->where('name', 'like', '%[Permission]')
-            ->whereNull('deleted_at')
+            ->select('feature_api.*')
+            ->join('list_function', 'feature_api.name', '=', 'list_function.function')
+            ->where('list_function.is_main', '=', 1)
+            ->whereNull('feature_api.deleted_at')
             ->get();
 
         $role = DB::table('role')->where('name', '=', config('constants.name.role_permission_name'))->first();
@@ -58,6 +58,20 @@ class RolePermissionSeeder extends Seeder
                 'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
             ]);
+        }
+
+        if ($this->userService->countOthersPermissionUser(0)->total == 0) {
+            $listUsers = DB::table('users')
+                ->whereNull('deleted_at')
+                ->limit(5)
+                ->get();
+
+            foreach ($listUsers as $user) {
+                DB::table('role_user')->insert([
+                    'user_id' => $user->id,
+                    'role_id' => $role->id,
+                ]);
+            }
         }
     }
 
