@@ -108,7 +108,7 @@ class UserController extends Controller
         foreach ($user->roles as $key => $value) {
             array_push($userRoleIds, $value->id);
         }
-        return view('/user-management/add_form',
+        return view('/user-management/update_form',
             [
                 'roles' => $this->roleService->getAll(),
                 'userRoleIds' => $userRoleIds
@@ -179,7 +179,7 @@ class UserController extends Controller
         if (is_null($user)) {
             abort(400, __('custom_message.user_not_found'));
         }
-
+        
         $validator = $this->userValidate->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
