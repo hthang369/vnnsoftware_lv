@@ -17,6 +17,7 @@ class CreateListFunctionTable extends Migration
             $table->bigIncrements('id');
             $table->string('group');
             $table->string('function');
+            $table->boolean('is_main')->default(0);
             $table->timestamps();
         });
     }
