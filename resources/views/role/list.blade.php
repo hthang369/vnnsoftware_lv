@@ -6,6 +6,10 @@
     @parent
 @endsection
 
+@section('dialog_confirm_delete')
+    @parent
+@endsection
+
 @section('content')
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.role')</h1>
@@ -111,10 +115,9 @@
                                     <a class="btn btn-warning m-1" href="/system-admin/role/set-permission/{{$role->id}}" role="button">@lang('custom_label.role_setting')</a>
                                 @endif
                                 @if(!in_array('LMT role manage.Role delete', $NOT_HAS_PERMISSION))
-                                    <a onclick="return confirm('@lang('custom_message.confirm_delete')');"
+                                    <button onclick="return callAjaxCheckDelete({{$role->id}});"
                                        class="btn btn-danger m-1"
-                                       href="/system-admin/role/delete/{{$role->id}}"
-                                       role="button">@lang('custom_label.delete')</a>
+                                       role="button">@lang('custom_label.delete')</button>
                                 @endif
                             @endif
                         </td>
@@ -122,6 +125,28 @@
                 @endforeach
                 </tbody>
             </table>
+            <script>
+                function callAjaxCheckDelete(id) {
+                    $(".custom-delete").click(function () {
+                        window.location.href = "{{Request::root()}}" + "/system-admin/role/delete/" + id;
+                    });
+
+                    let mess = 'Are you sure you want to delete?';
+                    $.ajax({
+                        type: 'GET',
+                        async: false,
+                        url: '/system-admin/role/ajax-check-is-used-role/' + id,
+                        success: function (data) {
+                            if (data.isUsed) {
+                                mess = 'Data is in use, are you sure you want to delete it?';
+                            }
+                            $(".modal-body").text(mess);
+                        }
+                    }).done(function () {
+                        $('#exampleModal').modal('show');
+                    });
+                }
+            </script>
         </div>
         {{ $list->appends(request()->input())->links() }}
     @endif
