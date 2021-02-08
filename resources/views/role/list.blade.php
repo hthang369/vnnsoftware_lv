@@ -31,10 +31,6 @@
                 <input value="{{ request()->name }}" name="name" class="form-control">
             </div>
             <div class="form-group">
-                <label>@lang('custom_label.role_rank')</label>
-                <input value="{{ request()->role_rank }}" name="role_rank" class="form-control">
-            </div>
-            <div class="form-group">
                 <label>@lang('custom_label.description')</label>
                 <input value="{{ request()->description }}" name="description" class="form-control">
             </div>
@@ -42,7 +38,7 @@
                 <i class="fa fa-search"></i>
             </button>
             <!-- GET ALL BUTTON -->
-            <a class="ml-3  my-2 btn  btn-secondary" href="/system-admin/user-management" role="button">
+            <a class="ml-3  my-2 btn  btn-secondary" href="/system-admin/user-management/list" role="button">
                 <i class="fa fa-list" aria-hidden="true"></i>
                 @lang('custom_label.get_all')
             </a>
@@ -73,13 +69,6 @@
                             </i>
                         </a>
                     </th>
-                    <th scope="col">@lang('custom_label.role_rank')
-                        <a class="btn-cta-freequote" href="{{ request()->fullUrlWithQuery(['sort' => 'role_rank', 'direction' => request('sort') == 'role_rank' ? request('direction') == 'desc' ? 'asc' : 'desc' : 'asc']) }}">
-                            <i style="{{request()->sort == 'role_rank' ? 'color:blue;' : 'color:gray;'}}"
-                               class="fa {{ request('sort') != 'role_rank' ? 'fa-sort' : (request('direction') == 'desc' ? 'fa-sort-down' : 'fa-sort-up')}}">
-                            </i>
-                        </a>
-                    </th>
                     <th scope="col">@lang('custom_label.description')
                         <a class="btn-cta-freequote" href="{{ request()->fullUrlWithQuery(['sort' => 'description', 'direction' => request('sort') == 'description' ? request('direction') == 'desc' ? 'asc' : 'desc' : 'asc']) }}">
                             <i style="{{request()->sort == 'description' ? 'color:blue;' : 'color:gray;'}}"
@@ -96,7 +85,6 @@
                     <tr>
                         <td>{{($list->currentPage() - 1) * $list->perPage() + ($i + 1)}}</td>
                         <td>{{$role->name}}</td>
-                        <td>{{$role->role_rank}}</td>
                         <td>{{$role->description}}</td>
                         <td colspan="3">
                             @foreach($listApiName as $apiName)

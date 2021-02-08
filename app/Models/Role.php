@@ -12,7 +12,7 @@ class Role extends Model
     protected $table = 'role';
 
     protected $fillable = [
-        'name', 'role_rank', 'description'
+        'name', 'description'
     ];
 
     protected $softDelete = true;
