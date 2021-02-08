@@ -11,7 +11,6 @@ class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterfac
 {
     private $contactable = [
         'role.name' => 'name',
-        'role.role_rank' => 'role_rank',
         'role.description' => 'description',
     ];
 

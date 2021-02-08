@@ -19,10 +19,6 @@
                 <strong>@lang('custom_label.name'):</strong>
                 <label>{{$role->name}}</label>
             </div>
-            <div class="form-group">
-                <strong>@lang('custom_label.role_rank'):</strong>
-                <label>{{$role->role_rank}}</label>
-            </div>
             {{--<div class="form-group">--}}
                 {{--<strong>@lang('custom_label.permission'):</strong>--}}
                 {{--@foreach($role->role_has_feature_api as $roleHasFeatureApi)--}}
