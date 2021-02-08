@@ -32,7 +32,7 @@
             @if(!in_array('LMT user manage.Update', $NOT_HAS_PERMISSION))
                 <a class="btn btn-primary" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
             @endif
-            <a class="btn btn-danger ml-2" href="/system-admin/role" role="button">@lang('custom_label.back')</a>
+            <a class="btn btn-danger ml-2" onclick="history.back()" role="button">@lang('custom_label.back')</a>
         </div>
     </div>
 @endsection
