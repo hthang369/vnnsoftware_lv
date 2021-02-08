@@ -10,7 +10,7 @@
     <div class="alert alert-info mt-4" role="alert">
         @foreach($TOPMENU as $itemTop)
             @if(substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), '.')) == $itemTop->group)
-                {{$itemTop->description}}
+                {!!$itemTop->description!!}
                 @break
             @endif
         @endforeach
