@@ -81,7 +81,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label class="required">@lang('custom_label.role')</label>
+                        <label>@lang('custom_label.role')</label>
                         <div class="form-group @error('role') border border-danger @enderror ">
                             @if(request()->id)
                                 @foreach($roles as $role)

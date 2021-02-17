@@ -179,7 +179,7 @@ class UserController extends Controller
         if (is_null($user)) {
             abort(400, __('custom_message.user_not_found'));
         }
-        
+
         $validator = $this->userValidate->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
@@ -246,9 +246,9 @@ class UserController extends Controller
     {
         $user = $this->userService->getUserById($id);
 
-        if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
-            return redirect()->intended('/system-admin/user-management')->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
-        }
+//        if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
+//            return redirect()->intended('/system-admin/user-management')->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+//        }
 
         if (is_null($user)) {
             abort(400, __('custom_message.user_not_found'));
