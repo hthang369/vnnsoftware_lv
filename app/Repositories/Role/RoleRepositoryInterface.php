@@ -10,4 +10,5 @@ interface RoleRepositoryInterface
     public function getAllPaginate(Request $request);
     public function getAllFeatureApiName();
     public function create($input);
+    public function getRoleUserByRoleId($id);
 }

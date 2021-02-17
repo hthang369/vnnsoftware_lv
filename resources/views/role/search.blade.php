@@ -21,10 +21,6 @@
                 <input value="{{ request()->name }}" name="name" class="form-control">
             </div>
             <div class="form-group">
-                <label>@lang('custom_label.role_rank')</label>
-                <input value="{{ request()->role_rank }}" name="role_rank" class="form-control"  >
-            </div>
-            <div class="form-group">
                 <label>@lang('custom_label.description')</label>
                 <input value="{{ request()->description }}" name="description" class="form-control"  >
             </div>

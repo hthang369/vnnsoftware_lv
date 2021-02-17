@@ -35,7 +35,6 @@ class RolePermissionSeeder extends Seeder
         } else {
             DB::table('role')->insert([
                 'name' => config('constants.name.role_permission_name'),
-                'role_rank' => 1,
                 'description' => 'Role for set permission',
                 'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
