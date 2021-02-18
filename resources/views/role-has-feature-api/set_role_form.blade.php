@@ -82,7 +82,7 @@
                 function checkAll(feature) {
                     feature = feature.getAttribute("data-feature");
                     $("." + feature + " input[type=checkbox]").each(function () {
-                        $(this).attr('checked', $("#check-all-feature-" + feature).is(':checked'));
+                        $(this).prop('checked', $("#check-all-feature-" + feature).is(':checked'));
                     });
                 }
             </script>
