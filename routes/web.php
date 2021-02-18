@@ -113,5 +113,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::post('new', 'UserManagementForAppChat\UserManagementForAppChatController@register')->name('LAKA user manage.Create LAKA user');
         Route::get('delete/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@delete')->name('LAKA user manage.Delete LAKA user');
         Route::get('search', 'UserManagementForAppChat\UserManagementForAppChatController@searchForm')->name('LAKA user manage.Search LAKA user');
+        Route::get('list-user-for-control', 'ApprovalApiToken\ApprovalApiTokenController@listForControl')->name('LAKA user manage.LAKA User list for control');
+        Route::get('disable-user/{id}', 'ApprovalApiToken\ApprovalApiTokenController@disableUser')->name('LAKA user manage.LAKA disable user');
     });
 });
