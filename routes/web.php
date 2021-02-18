@@ -79,7 +79,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('new', 'Role\RoleController@newForm')->name('LMT role manage.Add role');
         Route::post('new', 'Role\RoleController@register')->name('LMT role manage.Add role');
         Route::get('delete/{id}', 'Role\RoleController@delete')->name('LMT role manage.Role delete');
-        Route::get('ajax-check-is-used-role/{id}', 'Role\RoleController@ajaxCheckIsUsedRole')->name('LMT role manage.Role delete');
+        Route::get('ajax-check-is-used-role/{id}', 'Role\RoleController@ajaxCheckIsUsedRole')->name('LMT role manage.Ajax check is used role');
         Route::get('search', 'Role\RoleController@searchForm')->name('LMT role manage.Search role');
         Route::get('set-permission/{id}',
             'RoleHasFeatureApi\RoleHasFeatureApiController@setPermissionForm')->name('LMT role manage.Role setting');

@@ -34,6 +34,10 @@
                         <label>{{$role->name}}</label>
                         <input type="hidden" name="role_id" value="{{$role->id}}">
                     </div>
+                    <div class="form-check mb-2">
+                        <input type="checkbox" class="form-check-input" id="rowchkall">
+                        <label class="form-check-label" for="rowchkall">@lang('custom_label.check_all')</label>
+                    </div>
                     @foreach($listFeatureApi as $i => $featureApi)
                         @if(($listFeatureApi[$i - 1]->feature ?? 'null') != $featureApi->feature)
                             <div class="border border-secondary bg-light p-2 rounded">
@@ -54,6 +58,13 @@
                     <a class="btn btn-danger ml-2" href="/system-admin/role" role="button">@lang('custom_label.cancel')</a>
                 </form>
             </div>
+            <script>
+                $("#rowchkall").change(function () {
+                    $("input[type=checkbox]").each(function () {
+                        $(this).attr('checked', $("#rowchkall").is(':checked'));
+                    });
+                });
+            </script>
         @endif
     </div>
 @endsection
