@@ -19,7 +19,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "GET";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $data = $this->checkAndReturnData($response);
-        return view('/approval-api-token/list')->with(['data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
+        return view('/system-admin/user-management-for-app-chat/list')->with(['data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
     }
 
     /**
@@ -33,7 +33,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
+        return redirect()->intended('/system-admin/user-management-for-app-chat/list')->with('saved', true);
     }
 
     /**
@@ -47,7 +47,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
+        return redirect()->intended('/system-admin/user-management-for-app-chat/list')->with('saved', true);
     }
 
     /**
@@ -61,7 +61,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
+        return redirect()->intended('/system-admin/user-management-for-app-chat/list')->with('saved', true);
     }
 
     /**
@@ -75,7 +75,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token/list')->with('deleted', true);
+        return redirect()->intended('/system-admin/user-management-for-app-chat/list')->with('deleted', true);
     }
 
     /**
@@ -86,7 +86,7 @@ class ApprovalApiTokenService extends ApiService
     {
         $data = json_decode($response->getBody()->getContents(), true);
         if ($data['error_code'] != 0) {
-            return redirect()->intended('/system-admin/approval-api-token/list')->with('error', true);
+            abort(500, $data['error_msg']);
         }
 
         return $data;
