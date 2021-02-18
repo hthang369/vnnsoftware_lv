@@ -19,7 +19,34 @@ class ApprovalApiTokenService extends ApiService
         $method = "GET";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $data = $this->checkAndReturnData($response);
-        return view('/approval-api-token/list')->with(['data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
+        return view('user-management-for-app-chat/list')->with(['data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function listForControl()
+    {
+        $url = config('constants.api_address') . '/api/v1/api-token/get-list-approval';
+        $request = null;
+        $method = "GET";
+        $response = $this->sendRequestToAPI($url, $method, $request);
+        $data = $this->checkAndReturnData($response);
+        return view('user-management-for-app-chat/list-for-control')->with(['data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function disableUser($id)
+    {
+        $url = config('constants.api_address') . '/api/v1/api-token/disable-user';
+        $request = ['id' => $id];
+        $method = "POST";
+        $response = $this->sendRequestToAPI($url, $method, $request);
+        $this->checkAndReturnData($response);
+        return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('saved', true);
     }
 
     /**
@@ -33,7 +60,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
+        return redirect()->intended('/system-admin/user-management-for-app-chat/list')->with('saved', true);
     }
 
     /**
@@ -47,7 +74,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
+        return redirect()->intended('/system-admin/user-management-for-app-chat/list')->with('saved', true);
     }
 
     /**
@@ -61,7 +88,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token/list')->with('saved', true);
+        return redirect()->intended('/system-admin/user-management-for-app-chat/list')->with('saved', true);
     }
 
     /**
@@ -75,7 +102,7 @@ class ApprovalApiTokenService extends ApiService
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
-        return redirect()->intended('/system-admin/approval-api-token/list')->with('deleted', true);
+        return redirect()->intended('/system-admin/user-management-for-app-chat/list')->with('deleted', true);
     }
 
     /**
@@ -86,7 +113,7 @@ class ApprovalApiTokenService extends ApiService
     {
         $data = json_decode($response->getBody()->getContents(), true);
         if ($data['error_code'] != 0) {
-            return redirect()->intended('/system-admin/approval-api-token/list')->with('error', true);
+//            abort(500, $data['error_msg']);
         }
 
         return $data;
