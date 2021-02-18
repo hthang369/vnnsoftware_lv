@@ -92,4 +92,5 @@ return [
     'search_laka_user' => 'Search LAK user',
 
     'check_all' => 'Check all',
+    'all' => 'All',
 ];

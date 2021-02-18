@@ -35,13 +35,13 @@
                         <input type="hidden" name="role_id" value="{{$role->id}}">
                     </div>
                     <div class="form-check mb-2">
-                        <input type="checkbox" class="form-check-input" id="rowchkall">
-                        <label class="form-check-label" for="rowchkall">@lang('custom_label.check_all')</label>
+                        <input onchange="checkAll(this)" type="checkbox" class="form-check-input" id="check-all-feature-check-all" data-feature="check-all">
+                        <label class="form-check-label" for="check-all-feature-check-all">@lang('custom_label.check_all')</label>
                     </div>
                     @foreach($listFeatureApi as $i => $featureApi)
                         @if(($listFeatureApi[$i - 1]->feature ?? 'null') != $featureApi->feature)
-                            <div class="border border-secondary bg-light p-2 rounded">
-                                <div class="m-2">
+                            <div class="border border-secondary bg-light p-2 rounded check-all">
+                                <div class="m-2 {{strtolower(str_replace(" ","-",$featureApi->feature))}}">
                                     <strong>{{$featureApi->feature}}</strong><br>
                                     @endif
                                     <div class="form-check ml-3">
@@ -49,6 +49,10 @@
                                         <label class="form-check-label" for="exampleCheck{{$i}}">{{$featureApi->name}}</label>
                                     </div>
                                     @if(($listFeatureApi[$i + 1]->feature ?? 'null') != $featureApi->feature)
+                                </div>
+                                <div class="form-check">
+                                    <input onchange="checkAll(this)" type="checkbox" class="form-check-input" id="check-all-feature-{{strtolower(str_replace(" ","-",$featureApi->feature))}}" data-feature="{{strtolower(str_replace(" ","-",$featureApi->feature))}}">
+                                    <label class="form-check-label" for="check-all-feature-{{strtolower(str_replace(" ","-",$featureApi->feature))}}">@lang('custom_label.all')</label>
                                 </div>
                             </div>
                             <hr>
@@ -59,11 +63,12 @@
                 </form>
             </div>
             <script>
-                $("#rowchkall").change(function () {
-                    $("input[type=checkbox]").each(function () {
-                        $(this).attr('checked', $("#rowchkall").is(':checked'));
+                function checkAll(feature) {
+                    feature = feature.getAttribute("data-feature");
+                    $("." + feature + " input[type=checkbox]").each(function () {
+                        $(this).attr('checked', $("#check-all-feature-" + feature).is(':checked'));
                     });
-                });
+                }
             </script>
         @endif
     </div>
