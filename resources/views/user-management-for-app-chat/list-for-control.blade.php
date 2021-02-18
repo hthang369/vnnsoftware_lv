@@ -10,7 +10,6 @@
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.user_management_for_app_chat')</h1>
     </div>
-    <a class="my-2 btn btn-primary" href="/system-admin/user-management-for-app-chat/new" role="button">+ @lang('custom_label.add_new')</a>
     @if(session()->has('deleted'))
         <div class="alert alert-success">
             <strong>@lang('custom_message.deleted')</strong>
