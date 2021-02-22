@@ -2,6 +2,7 @@
 
 namespace App\Services\ApprovalApiToken;
 
+use App\Models\User;
 use App\Services\Contract\ApiService;
 use Illuminate\Support\Facades\Http;
 
@@ -27,12 +28,15 @@ class ApprovalApiTokenService extends ApiService
      */
     public function listForControl()
     {
-        $url = config('constants.api_address') . '/api/v1/api-token/get-list-approval';
+        $url = config('constants.api_address') . '/api/v1/user/get-list-delete-user';
         $request = null;
         $method = "GET";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $data = $this->checkAndReturnData($response);
-        return view('user-management-for-app-chat/list-for-control')->with(['data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
+
+        $list = $data['data'];
+
+        return view('user-management-for-app-chat/list-for-control')->with(['list'=>$list,'data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
     }
 
     /**
@@ -113,7 +117,7 @@ class ApprovalApiTokenService extends ApiService
     {
         $data = json_decode($response->getBody()->getContents(), true);
         if ($data['error_code'] != 0) {
-//            abort(500, $data['error_msg']);
+            //            abort(500, $data['error_msg']);
         }
 
         return $data;
