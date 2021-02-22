@@ -35,8 +35,12 @@ class ApprovalApiTokenService extends ApiService
         $data = $this->checkAndReturnData($response);
 
         $list = $data['data'];
+        $return=[];
+        foreach ($list as $l){
+            $return [] = (object) $l;
+        }
 
-        return view('user-management-for-app-chat/list-for-control')->with(['list'=>$list,'data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
+        return view('user-management-for-app-chat/list-for-control')->with(['list'=>$return,'data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
     }
 
     /**
