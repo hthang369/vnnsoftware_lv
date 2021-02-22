@@ -49,11 +49,12 @@ class ApprovalApiTokenService extends ApiService
      */
     public function disableUser($id)
     {
-        $url = config('constants.api_address') . '/api/v1/api-token/delete-user';
+        $url = config('constants.api_address') . '/api/v1/user/delete-user';
         $request = ['user_id' => $id];
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
-        $this->checkAndReturnData($response);
+        $data = $this->checkAndReturnData($response);
+
         return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('saved', true);
     }
 

@@ -43,6 +43,7 @@
                         <td>{{$lakaUser->address}}</td>
                         <td>{{$lakaUser->business_plan_name}}</td>
                         <td>
+                            {{$lakaUser->disabled}}
                             <a onclick="return confirm('@lang('custom_message.confirm_disable')');" class="btn btn-danger" href="/system-admin/user-management-for-app-chat/disable-user/{{$lakaUser->id}}" role="button">@lang('custom_label.disable')</a>
                         @if(in_array('LAKA user manage.LAKA disable user', $permission))
                             @endif
