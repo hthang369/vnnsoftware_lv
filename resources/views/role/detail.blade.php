@@ -19,10 +19,6 @@
                 <strong>@lang('custom_label.name'):</strong>
                 <label>{{$role->name}}</label>
             </div>
-            <div class="form-group">
-                <strong>@lang('custom_label.role_rank'):</strong>
-                <label>{{$role->role_rank}}</label>
-            </div>
             {{--<div class="form-group">--}}
                 {{--<strong>@lang('custom_label.permission'):</strong>--}}
                 {{--@foreach($role->role_has_feature_api as $roleHasFeatureApi)--}}
@@ -36,7 +32,7 @@
             @if(!in_array('LMT user manage.Update', $NOT_HAS_PERMISSION))
                 <a class="btn btn-primary" href="/system-admin/role/update/{{$role->id}}" role="button">@lang('custom_label.update')</a>
             @endif
-            <a class="btn btn-danger ml-2" href="/system-admin/role" role="button">@lang('custom_label.back')</a>
+            <a class="btn btn-danger ml-2" onclick="history.back()" role="button">@lang('custom_label.back')</a>
         </div>
     </div>
 @endsection

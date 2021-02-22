@@ -15,9 +15,9 @@ class CreateFeatureApiTable extends Migration
     {
         Schema::create('feature_api', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('feature')->nullable();
-            $table->string('api')->nullable();
-            $table->string('name')->nullable();
+            $table->string('feature')->index()->nullable();
+            $table->string('api')->index()->nullable();
+            $table->string('name')->index()->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

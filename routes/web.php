@@ -79,6 +79,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('new', 'Role\RoleController@newForm')->name('LMT role manage.Add role');
         Route::post('new', 'Role\RoleController@register')->name('LMT role manage.Add role');
         Route::get('delete/{id}', 'Role\RoleController@delete')->name('LMT role manage.Role delete');
+        Route::get('ajax-check-is-used-role/{id}', 'Role\RoleController@ajaxCheckIsUsedRole')->name('LMT role manage.Ajax check is used role');
         Route::get('search', 'Role\RoleController@searchForm')->name('LMT role manage.Search role');
         Route::get('set-permission/{id}',
             'RoleHasFeatureApi\RoleHasFeatureApiController@setPermissionForm')->name('LMT role manage.Role setting');
@@ -112,5 +113,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::post('new', 'UserManagementForAppChat\UserManagementForAppChatController@register')->name('LAKA user manage.Create LAKA user');
         Route::get('delete/{id}', 'UserManagementForAppChat\UserManagementForAppChatController@delete')->name('LAKA user manage.Delete LAKA user');
         Route::get('search', 'UserManagementForAppChat\UserManagementForAppChatController@searchForm')->name('LAKA user manage.Search LAKA user');
+        Route::get('list-user-for-control', 'ApprovalApiToken\ApprovalApiTokenController@listForControl')->name('LAKA user manage.LAKA User list for control');
+        Route::get('disable-user/{id}', 'ApprovalApiToken\ApprovalApiTokenController@disableUser')->name('LAKA user manage.LAKA disable user');
     });
 });

@@ -25,19 +25,6 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label class="required">@lang('custom_label.role_rank')</label>
-                    <input class="form-control @error('role_rank')
-                        is-invalid @enderror" type="text"
-                           placeholder="@lang('custom_label.role_rank')" name="role_rank"
-                           value="{{ old('role_rank', $role->role_rank) }}"
-                           autocomplete="role_rank">
-                    @error('role_rank')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-                <div class="form-group">
                     <label class="required">@lang('custom_label.description')</label>
                     <textarea class="form-control @error('description') is-invalid @enderror" type="text"
                               placeholder="@lang('custom_label.description')" name="description"
@@ -49,7 +36,7 @@
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">@lang('custom_label.save')</button>
-                <a class="btn btn-danger ml-2" href="/system-admin/role" role="button">@lang('custom_label.cancel')</a>
+                <a class="btn btn-danger ml-2" onclick="history.back()" role="button">@lang('custom_label.back')</a>
             </form>
         </div>
     </div>

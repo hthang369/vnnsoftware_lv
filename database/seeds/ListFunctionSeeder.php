@@ -39,6 +39,8 @@ class ListFunctionSeeder extends Seeder
                 'Pending access token',
                 'Delete LAKA user',
                 'Add LAKA user to company',
+                'LAKA User list for control',
+                'LAKA disable user',
             ],
             'LAKA company manage' => [
                 'Company list',

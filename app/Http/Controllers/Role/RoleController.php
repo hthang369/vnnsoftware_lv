@@ -167,4 +167,10 @@ class RoleController extends Controller
     public function searchForm() {
         return view('role/search');
     }
+
+    public function ajaxCheckIsUsedRole($id)
+    {
+        $isUsed = count($this->roleService->checkIsUsedRoleById($id)->toArray()) != 0;
+        return response()->json(array('isUsed' => $isUsed), 200);
+    }
 }

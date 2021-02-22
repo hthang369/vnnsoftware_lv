@@ -16,7 +16,6 @@ class CreateRoleTable extends Migration
         Schema::create('role', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('role_rank');
             $table->string('description', 500)->nullable();
             $table->timestamps();
             $table->softDeletes();

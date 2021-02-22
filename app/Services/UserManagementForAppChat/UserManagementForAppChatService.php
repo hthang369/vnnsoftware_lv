@@ -50,6 +50,6 @@ class UserManagementForAppChatService extends ApiService
     }
 
     public function newValidate($request) {
-        return $this->userManagementForAppChatValidation->newValidate($request->all());
+        return $this->userManagementForAppChatValidation->newValidate($request);
     }
 }

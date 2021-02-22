@@ -43,14 +43,11 @@
                         <td>{{$lakaUser->address}}</td>
                         <td>{{$lakaUser->business_plan_name}}</td>
                         <td>
-                            @if(in_array('company.detail', $permission))
-                                <a class="btn btn-info" href="/system-admin/company/detail/{{$lakaUser->id}}" role="button">@lang('custom_label.detail')</a>
-                            @endif
-                            @if(in_array('company.update.form', $permission))
-                                <a class="btn btn-primary" href="/system-admin/company/update/{{$lakaUser->id}}" role="button">@lang('custom_label.update')</a>
-                            @endif
-                            @if(in_array('company.delete', $permission))
-                                <a onclick="return confirm('@lang('custom_message.confirm_delete')');" class="btn btn-danger" href="/system-admin/company/delete/{{$lakaUser->id}}" role="button">@lang('custom_label.delete')</a>
+
+                        @if($lakaUser->disabled === 0)
+                                <a onclick="return confirm('@lang('custom_message.confirm_disable')');" class="btn btn-danger" href="/system-admin/user-management-for-app-chat/disable-user/{{$lakaUser->id}}" role="button">@lang('custom_label.disable')</a>
+                            @else
+                            User has disable
                             @endif
                         </td>
                     </tr>

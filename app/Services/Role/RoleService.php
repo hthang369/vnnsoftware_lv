@@ -83,4 +83,12 @@ class RoleService extends MyService
     {
         return $this->roleRepo->getAllFeatureApiName();
     }
+
+    /**
+     * @return mixed
+     */
+    public function checkIsUsedRoleById($id)
+    {
+        return $this->roleRepo->getRoleUserByRoleId($id);
+    }
 }

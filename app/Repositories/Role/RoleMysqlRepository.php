@@ -5,12 +5,12 @@ namespace App\Repositories\Role;
 use App\Models\Role;
 use App\Repositories\MyRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterface
 {
     private $contactable = [
         'role.name' => 'name',
-        'role.role_rank' => 'role_rank',
         'role.description' => 'description',
     ];
 
@@ -76,5 +76,13 @@ class RoleMysqlRepository extends MyRepository implements RoleRepositoryInterfac
         return $role->select('*')
             ->where('name', '=', $name)
             ->first();
+    }
+
+    public function getRoleUserByRoleId($id)
+    {
+        return DB::table('role_user')
+            ->select('*')
+            ->where('role_id', '=', $id)
+            ->get();
     }
 }

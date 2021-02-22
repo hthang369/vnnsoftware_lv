@@ -15,7 +15,7 @@ class CreateListFunctionTable extends Migration
     {
         Schema::create('list_function', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('group');
+            $table->string('group')->index();
             $table->string('function');
             $table->boolean('is_main')->default(0);
             $table->timestamps();
