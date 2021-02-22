@@ -15,7 +15,7 @@
     <!-- SEARCH FORM -->
     <div id="collapseExample"
          class=" mb-4 alert alert-secondary">
-        <form method="GET" action="/system-admin/company">
+        <form method="GET" action="/system-admin/company/list">
             <input type="hidden" name="search" value="true">
             <div class="form-group">
                 <label>Name</label>

@@ -276,7 +276,7 @@ class UserController extends Controller
             $input['newPassword'] = Hash::make($input['newPassword']);
 
             try {
-                $this->userRepo->changePassword(Auth::id(), $input['newPassword']);
+                $this->userService->changePassword(Auth::id(), $input['newPassword']);
                 return redirect()
                     ->intended('/system-admin/user-management/update-password/' . Auth::id())
                     ->with('success', true);
