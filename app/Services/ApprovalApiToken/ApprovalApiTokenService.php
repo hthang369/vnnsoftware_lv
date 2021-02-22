@@ -5,6 +5,7 @@ namespace App\Services\ApprovalApiToken;
 use App\Events\sendConfirmEmail;
 use App\Models\User;
 use App\Services\Contract\ApiService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Http;
@@ -64,7 +65,7 @@ class ApprovalApiTokenService extends ApiService
             $data = $this->checkAndReturnData($response);
             return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('saved', true);
         }else{
-            (event(new sendConfirmEmail()));
+            (event(new sendConfirmEmail(Auth::user())));
             View::share('submitCode',1);
             return view('user-management-for-app-chat/confirm_code');
         }

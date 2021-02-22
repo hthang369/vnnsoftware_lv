@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,13 +16,18 @@ class sendConfirmEmail
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
+     * @var mixed
+     */
+    public $email;
+
+    /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->email = $user->email;
     }
 
     /**

@@ -27,9 +27,10 @@ class listenSendConfirmEmail
      * @return void
      */
     public function handle(sendConfirmEmail $event) {
+
         $user        = new \stdClass();
-        $user->email = 'hoangson.lampart@gmail.com';
-        $user->name  = 'hoangson.lampart@gmail.com';
+        $user->email = $event->email;
+        $user->name  = $event->email;
         Cache::forget('codeDisableUser');
         $codeDisableUser = Cache::remember('codeDisableUser', 1000, function () {
             return rand(1000, 9999);
