@@ -7,6 +7,7 @@
 @endsection
 
 @section('content')
+    {{$saved??''}}
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.user_management_for_app_chat')</h1>
     </div>

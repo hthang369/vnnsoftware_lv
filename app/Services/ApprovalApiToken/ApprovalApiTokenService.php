@@ -2,9 +2,13 @@
 
 namespace App\Services\ApprovalApiToken;
 
+use App\Events\sendConfirmEmail;
 use App\Models\User;
 use App\Services\Contract\ApiService;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\View;
 
 class ApprovalApiTokenService extends ApiService
 {
@@ -49,13 +53,21 @@ class ApprovalApiTokenService extends ApiService
      */
     public function disableUser($id)
     {
-        $url = config('constants.api_address') . '/api/v1/user/delete-user';
-        $request = ['user_id' => $id];
-        $method = "POST";
-        $response = $this->sendRequestToAPI($url, $method, $request);
-        $data = $this->checkAndReturnData($response);
+        $codeDisableUser = Cache::get('codeDisableUser');
+        $codeDisableUser;
 
-        return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('saved', true);
+        if((int)$_GET['code'] ===$codeDisableUser){
+            $url = config('constants.api_address') . '/api/v1/user/delete-user';
+            $request = ['user_id' => $id];
+            $method = "POST";
+            $response = $this->sendRequestToAPI($url, $method, $request);
+            $data = $this->checkAndReturnData($response);
+            return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('saved', true);
+        }else{
+            dd(event(new sendConfirmEmail()));
+            View::share('submitCode',1);
+            return view('user-management-for-app-chat/confirm_code');
+        }
     }
 
     /**
