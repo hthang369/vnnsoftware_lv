@@ -18,6 +18,8 @@ class CompanyValidation implements ValidationInterface
             'business_plan_id' => 'required|max:190',
             'phone' => 'required|digits_between:1,100|numeric',
             'address' => 'required|max:190',
+        ],[
+           'phone.digits_between'  => "Phone number must be number and has the length from 1 to 100 characters",
         ]);
     }
 
@@ -34,6 +36,8 @@ class CompanyValidation implements ValidationInterface
             'business_plan_id' => 'required|max:190',
             'phone' => 'required|digits_between:1,100|numeric',
             'address' => 'required|max:190',
+        ],[
+        'phone.digits_between'  => "Phone number must be number and has the length from 1 to 100 characters",
         ]);
     }
 }
