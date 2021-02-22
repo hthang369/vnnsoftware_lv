@@ -49,8 +49,8 @@ class ApprovalApiTokenService extends ApiService
      */
     public function disableUser($id)
     {
-        $url = config('constants.api_address') . '/api/v1/api-token/disable-user';
-        $request = ['id' => $id];
+        $url = config('constants.api_address') . '/api/v1/api-token/delete-user';
+        $request = ['user_id' => $id];
         $method = "POST";
         $response = $this->sendRequestToAPI($url, $method, $request);
         $this->checkAndReturnData($response);
