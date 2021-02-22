@@ -72,4 +72,20 @@ class ApprovalApiTokenController extends Controller
     {
         return $this->approvalApiTokenService->deleteToken($id);
     }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function listForControl()
+    {
+        return $this->approvalApiTokenService->listForControl();
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function disableUser($id)
+    {
+        return $this->approvalApiTokenService->disableUser($id);
+    }
 }

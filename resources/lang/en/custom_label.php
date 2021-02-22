@@ -64,6 +64,7 @@ return [
     'accept' => 'Accept',
     'role_setting' => 'Role setting',
     'back' => 'Back',
+    'disable' => 'Disable',
 
     // Search form
     'get_all' => 'Get All',
@@ -86,6 +87,10 @@ return [
     'search_role' => 'Search role',
 
     'laka_user_list' => 'LAKA User list',
+    'laka_user_list_for_control' => 'LAKA User list for control',
     'create_laka_user' => 'Create LAKA user',
     'search_laka_user' => 'Search LAK user',
+
+    'check_all' => 'Check all',
+    'all' => 'All',
 ];
