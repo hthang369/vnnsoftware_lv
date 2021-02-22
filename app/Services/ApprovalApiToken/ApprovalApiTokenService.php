@@ -64,7 +64,7 @@ class ApprovalApiTokenService extends ApiService
             $data = $this->checkAndReturnData($response);
             return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('saved', true);
         }else{
-            dd(event(new sendConfirmEmail()));
+            (event(new sendConfirmEmail()));
             View::share('submitCode',1);
             return view('user-management-for-app-chat/confirm_code');
         }
