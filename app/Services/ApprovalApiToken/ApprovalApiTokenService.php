@@ -33,7 +33,7 @@ class ApprovalApiTokenService extends ApiService
      */
     public function listForControl()
     {
-
+ 
         $url = config('constants.api_address') . '/api/v1/user/get-list-delete-user';
         $request = null;
         $method = "GET";
