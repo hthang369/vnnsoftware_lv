@@ -33,6 +33,7 @@ class ApprovalApiTokenService extends ApiService
      */
     public function listForControl()
     {
+
         $url = config('constants.api_address') . '/api/v1/user/get-list-delete-user';
         $request = null;
         $method = "GET";
@@ -55,9 +56,8 @@ class ApprovalApiTokenService extends ApiService
     public function disableUser($id)
     {
         $codeDisableUser = Cache::get('codeDisableUser');
-        $codeDisableUser;
 
-        if((int)$_GET['code'] ===$codeDisableUser){
+        if ((int) $_GET['code'] === $codeDisableUser) {
             $url = config('constants.api_address') . '/api/v1/user/delete-user';
             $request = ['user_id' => $id];
             $method = "POST";
@@ -65,12 +65,17 @@ class ApprovalApiTokenService extends ApiService
             $data = $this->checkAndReturnData($response);
             return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('saved', true);
         }else{
-            $dataContentConfirm = $this->getConfirmDeleteUser($id);
-            $contentConfirm = $this->warningExpired(config('laka.time_expired_code'));
-            $contentConfirm .= $this->reformatEmailContent($dataContentConfirm);
-            (event(new sendConfirmEmail(Auth::user(),($contentConfirm))));
-            View::share('submitCode',1);
-            return view('user-management-for-app-chat/confirm_code');
+            if(isset($_GET['code'])){
+                return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('error_message', __('common.invalid_code'));
+            }else{
+                $dataContentConfirm = $this->getConfirmDeleteUser($id);
+                $contentConfirm = $this->warningExpired(config('laka.time_expired_code'));
+                $contentConfirm .= $this->reformatEmailContent($dataContentConfirm);
+                (event(new sendConfirmEmail(Auth::user(),($contentConfirm))));
+                View::share('submitCode',1);
+                return view('user-management-for-app-chat/confirm_code');
+            }
+
         }
     }
 
