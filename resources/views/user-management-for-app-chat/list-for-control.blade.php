@@ -7,6 +7,14 @@
 @endsection
 
 @section('content')
+    {{$saved??''}}
+
+    @if (\Session::has('error_message'))
+        <div class="alert alert-danger">
+            {!! \Session::get('error_message') !!}
+        </div>
+    @endif
+    
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.user_management_for_app_chat')</h1>
     </div>
