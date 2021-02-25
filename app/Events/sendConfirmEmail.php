@@ -19,15 +19,20 @@ class sendConfirmEmail
      * @var mixed
      */
     public $email;
+    /**
+     * @var String
+     */
+    public $confirmContent;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user,String $confirmContent)
     {
         $this->email = $user->email;
+        $this->confirmContent = $confirmContent;
     }
 
     /**

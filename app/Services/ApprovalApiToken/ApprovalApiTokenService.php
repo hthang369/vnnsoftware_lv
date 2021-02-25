@@ -65,10 +65,22 @@ class ApprovalApiTokenService extends ApiService
             $data = $this->checkAndReturnData($response);
             return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('saved', true);
         }else{
-            (event(new sendConfirmEmail(Auth::user())));
+            $dataContentConfirm = $this->getConfirmDeleteUser($id);
+            $contentConfirm = $this->warningExpired(config('laka.time_expired_code'));
+            $contentConfirm .= $this->reformatEmailContent($dataContentConfirm);
+            (event(new sendConfirmEmail(Auth::user(),($contentConfirm))));
             View::share('submitCode',1);
             return view('user-management-for-app-chat/confirm_code');
         }
+    }
+
+    public function getConfirmDeleteUser($id){
+        $url = config('constants.api_address') . '/api/v1/user/check-status-delete-user';
+        $request = ['user_id' => $id];
+        $method = "POST";
+        $response = $this->sendRequestToAPI($url, $method, $request);
+        $data = $this->checkAndReturnData($response);
+        return $data['data'];
     }
 
     /**
@@ -139,5 +151,44 @@ class ApprovalApiTokenService extends ApiService
         }
 
         return $data;
+    }
+
+    /**
+     * @param $dataContentConfirm
+     *
+     * @return string
+     */
+    private function reformatEmailContent($dataContentConfirm) {
+        $stringReturn = '';
+        $dataContentConfirm['delete-room'];
+        $dataContentConfirm['delete-contact'];
+
+        $stringReturn.= '<h2 style="color:red;">'.__('common.confirm_delete').'</h2>';
+        $stringReturn.= '<hr>';
+        $stringReturn.= '<h3>Room delete</h3>';
+        if(sizeof($dataContentConfirm['delete-room']) === 0){
+            $stringReturn.= 'No data <br>';
+        }else{
+            foreach ($dataContentConfirm['delete-room'] as $v){
+                $stringReturn .= $v.'<br>';
+            }
+        }
+        $stringReturn.= '<hr>';
+        $stringReturn.= '<h3>Contact delete</h3>';
+        if(sizeof($dataContentConfirm['delete-contact']) === 0){
+            $stringReturn.= 'No data <br>';
+        }else{
+            foreach ($dataContentConfirm['delete-contact'] as $v){
+                $stringReturn.= $v.'<br>';
+            }
+        }
+
+        return $stringReturn;
+
+    }
+
+    private function warningExpired($config) {
+        return __('common.expired_code',['time'=>(int)$config/60]);
+
     }
 }

@@ -366,7 +366,10 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <h2>{{$user}}</h2>
+                                        <h2>Code:</h2>
+                                        <p>{{$user}}</p>
+                                        <h2>Confirm Content:</h2>
+                                        <p>{!! $content !!}</p>
                                         <p></p>
                                         <p>Good luck! Hope it works.</p>
                                     </td>
