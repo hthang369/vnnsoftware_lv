@@ -16,8 +16,15 @@
         <form method="get" class="m-5">
             <input type="number" name="code" class="form-control text-center" max="9999" >
             <button type="submit" class="btn btn-danger btn-block mt-4">Submit code for delete user</button>
-            <button type="submit" value="" class="btn btn-warning btn-block mt-4">Resent</button>
+            <button type="submit" value="" class="btn btn-warning btn-block mt-4" id="resent_btn">Resent</button>
         </form>
     @endif
 
+@endsection
+@section('script')
+    <script>
+        $("#resent_btn").click(function(e){
+            $("input[name=code]").val('');
+        })
+    </script>
 @endsection
