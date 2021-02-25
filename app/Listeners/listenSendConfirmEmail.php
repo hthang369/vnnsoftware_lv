@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Mail;
 
 class listenSendConfirmEmail
 {
+
+    const TIME_EXPIRE_CODE = 300;
+
     /**
      * Create the event listener.
      *
@@ -32,7 +35,7 @@ class listenSendConfirmEmail
         $user->email = $event->email;
         $user->name  = $event->email;
         Cache::forget('codeDisableUser');
-        $codeDisableUser = Cache::remember('codeDisableUser', 1000, function () {
+        $codeDisableUser = Cache::remember('codeDisableUser', self::TIME_EXPIRE_CODE, function () {
             return rand(1000, 9999);
         });
         Mail::send('emails.reminder', ['user' => $codeDisableUser], function ($m) use ($user) {
