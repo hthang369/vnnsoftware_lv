@@ -65,7 +65,7 @@ class ApprovalApiTokenService extends ApiService
             $data = $this->checkAndReturnData($response);
             return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('saved', true);
         }else{
-            if(isset($_GET['code'])){
+            if (isset($_GET['code']) && $_GET['code'] !== '') {
                 return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('error_message', __('common.invalid_code'));
             }else{
                 $dataContentConfirm = $this->getConfirmDeleteUser($id);
