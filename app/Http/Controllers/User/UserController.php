@@ -201,7 +201,10 @@ class UserController extends Controller
 
         if (!$hasPermission) {
             if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
-                return redirect()->intended('/system-admin/user-management/update/' . $id)->withInput()->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+                return redirect()
+                    ->intended('/system-admin/user-management/update/' . $id)
+                    ->withInput()
+                    ->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
             }
         }
 
@@ -239,31 +242,6 @@ class UserController extends Controller
     }
 
     /**
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function delete($id)
-    {
-        $user = $this->userService->getUserById($id);
-
-//        if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
-//            return redirect()->intended('/system-admin/user-management')->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
-//        }
-
-        if (is_null($user)) {
-            abort(400, __('custom_message.user_not_found'));
-        }
-
-        try {
-            $this->userService->delete($id);
-        } catch (\Exception $ex) {
-            abort(400, $ex->getMessage());
-        }
-
-        return redirect()->intended('/system-admin/user-management/list');
-    }
-
-    /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -288,6 +266,31 @@ class UserController extends Controller
                 ->intended('/system-admin/user-management/update-password/' . Auth::id())
                 ->with('wrongCurrentPassword', true);
         }
+    }
+
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete($id)
+    {
+        $user = $this->userService->getUserById($id);
+
+//        if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
+//            return redirect()->intended('/system-admin/user-management')->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+//        }
+
+        if (is_null($user)) {
+            abort(400, __('custom_message.user_not_found'));
+        }
+
+        try {
+            $this->userService->delete($id);
+        } catch (\Exception $ex) {
+            abort(400, $ex->getMessage());
+        }
+        return redirect()->intended('/system-admin/user-management/list');
     }
 
     public function searchForm() {

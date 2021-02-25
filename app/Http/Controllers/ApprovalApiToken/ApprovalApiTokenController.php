@@ -4,20 +4,25 @@ namespace App\Http\Controllers\ApprovalApiToken;
 
 use App\Http\Controllers\Controller;
 use App\Services\ApprovalApiToken\ApprovalApiTokenService;
+use App\Services\Company\CompanyService;
+use Illuminate\Http\Request;
+
 
 class ApprovalApiTokenController extends Controller
 {
 
     private $approvalApiTokenService;
+    private $companyService;
 
     /**
      * ApprovalApiTokenController constructor.
      * @param ApprovalApiTokenService $approvalApiTokenService
      */
-    public function __construct(ApprovalApiTokenService $approvalApiTokenService)
+    public function __construct(ApprovalApiTokenService $approvalApiTokenService, CompanyService $companyService)
     {
         parent::__construct();
         $this->approvalApiTokenService = $approvalApiTokenService;
+        $this->companyService = $companyService;
     }
 
     /**
@@ -87,5 +92,14 @@ class ApprovalApiTokenController extends Controller
     public function disableUser($id)
     {
         return $this->approvalApiTokenService->disableUser($id);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function addContactList(Request $request) {
+        $companies = $this->companyService->list($request);
+        return view('user-management-for-app-chat/add_contact_list')->with(['companies' => $companies]);
     }
 }
