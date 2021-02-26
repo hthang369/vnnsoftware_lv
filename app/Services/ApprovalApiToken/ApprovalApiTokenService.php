@@ -173,16 +173,16 @@ class ApprovalApiTokenService extends ApiService
      */
     private function reformatEmailContent($dataContentConfirm) {
         $stringReturn = '';
-        $dataContentConfirm['delete-room'];
+        $dataContentConfirm['delete-rooms'];
         $dataContentConfirm['delete-contact'];
 
         $stringReturn.= '<h2 style="color:red;">'.__('common.confirm_delete').'</h2>';
         $stringReturn.= '<hr>';
         $stringReturn.= '<h3>Room delete</h3>';
-        if(sizeof($dataContentConfirm['delete-room']) === 0){
+        if(sizeof($dataContentConfirm['delete-rooms']) === 0){
             $stringReturn.= 'No data <br>';
         }else{
-            foreach ($dataContentConfirm['delete-room'] as $v){
+            foreach ($dataContentConfirm['delete-rooms'] as $v){
                 $stringReturn .= $v.'<br>';
             }
         }
