@@ -25,7 +25,7 @@
     @endif
     @if(session()->has('saved'))
         <div class="alert alert-success">
-            <strong>Disabed user</strong>
+            <strong>Disabled user</strong>
         </div>
     @endif
 
