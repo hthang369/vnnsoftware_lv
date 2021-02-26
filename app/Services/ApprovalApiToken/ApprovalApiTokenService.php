@@ -53,26 +53,34 @@ class ApprovalApiTokenService extends ApiService
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function disableUser($id)
-    {
+    public function disableUser($id) {
         $codeDisableUser = Cache::get('codeDisableUser');
+        $codeInput       = (int) $_GET['code'];
+        $typeAction       = $_GET['type'];
 
-        if ((int) $_GET['code'] === $codeDisableUser) {
-            $url = config('constants.api_address') . '/api/v1/user/delete-user';
-            $request = ['user_id' => $id];
-            $method = "POST";
+        if ($typeAction !== 'sentmail' && $codeInput === $codeDisableUser && $typeAction === 'submit_code' && $codeInput > 999 && $codeInput <= 9999) {
+            // Case Code hợp lệ
+            $url      = config('constants.api_address') . '/api/v1/user/delete-user';
+            $request  = ['user_id' => $id];
+            $method   = "POST";
             $response = $this->sendRequestToAPI($url, $method, $request);
-            $data = $this->checkAndReturnData($response);
-            return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('saved', true);
-        }else{
-            if (isset($_GET['code']) && $_GET['code'] !== '') {
-                return redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control')->with('error_message', __('common.invalid_code'));
-            }else{
-                $dataContentConfirm = $this->getConfirmDeleteUser($id);
-                $contentConfirm = $this->warningExpired(config('laka.time_expired_code'));
-                $contentConfirm .= $this->reformatEmailContent($dataContentConfirm);
-                (event(new sendConfirmEmail(Auth::user(),($contentConfirm))));
-                View::share('submitCode',1);
+            $data     = $this->checkAndReturnData($response);
+
+            return redirect()
+                ->intended('/system-admin/user-management-for-app-chat/list-user-for-control')
+                ->with('saved', true);
+
+        } else {
+            // Trường hợp sai kết quả và resent
+            if ($typeAction === 'submit_code' && $codeInput !== $codeDisableUser  ) {
+                $redirect = redirect()->intended('/system-admin/user-management-for-app-chat/list-user-for-control');
+                $redirect->with('error_message', __('common.invalid_code'));
+                return $redirect;
+            } else {
+                if ($typeAction === 'sentmail' || $typeAction === 'resent') {
+                    $this->sendCode($id);
+                }
+                View::share('submitCode', 1);
                 return view('user-management-for-app-chat/confirm_code');
             }
 
@@ -195,5 +203,12 @@ class ApprovalApiTokenService extends ApiService
     private function warningExpired($config) {
         return __('common.expired_code',['time'=>(int)$config/60]);
 
+    }
+
+    private function sendCode($id) {
+        $dataContentConfirm = $this->getConfirmDeleteUser($id);
+        $contentConfirm = $this->warningExpired(config('laka.time_expired_code'));
+        $contentConfirm .= $this->reformatEmailContent($dataContentConfirm);
+        (event(new sendConfirmEmail(Auth::user(), ($contentConfirm))));
     }
 }
