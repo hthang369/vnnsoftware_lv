@@ -32,4 +32,15 @@ class ApiService
         $response = $client->request($method, $string, $options);
         return $response;
     }
+
+    public function sendRequestToAPITest(string $string, $method, $request)
+    {
+        $client = new \GuzzleHttp\Client(['verify' => false]);
+        $options = [
+            'form_params' => $request,
+        ];
+
+        $response = $client->request($method, $string, $options);
+        return $response;
+    }
 }

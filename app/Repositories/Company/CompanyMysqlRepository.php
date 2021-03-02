@@ -47,6 +47,16 @@ class CompanyMysqlRepository extends MyRepository implements CompanyRepositoryIn
     }
 
     /**
+     * @return mixed
+     */
+    public function getAllPaginateWithoutParameter() {
+        $query = Company::select("company.*", "business_plan.name as business_plan_name")
+            ->join('business_plan', 'company.business_plan_id', '=', 'business_plan.id');
+
+        return $query->paginate(config('constants.pagination.items_per_page'));
+    }
+
+    /**
      * @param $input
      * @return Company
      */

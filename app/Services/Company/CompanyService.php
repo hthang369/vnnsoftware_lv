@@ -39,6 +39,10 @@ class CompanyService extends MyService
         return $this->companyRepo->getAllPaginate($request);
     }
 
+    public function listWithoutParameter(){
+        return $this->companyRepo->getAllPaginateWithoutParameter();
+    }
+
     /**
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View

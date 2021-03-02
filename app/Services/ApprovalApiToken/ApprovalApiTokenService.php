@@ -28,26 +28,6 @@ class ApprovalApiTokenService extends ApiService
         return view('user-management-for-app-chat/list')->with(['data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function listForControl()
-    {
- 
-        $url = config('constants.api_address') . '/api/v1/user/get-list-delete-user';
-        $request = null;
-        $method = "GET";
-        $response = $this->sendRequestToAPI($url, $method, $request);
-        $data = $this->checkAndReturnData($response);
-
-        $list = $data['data'];
-        $return=[];
-        foreach ($list as $l){
-            $return [] = (object) $l;
-        }
-
-        return view('user-management-for-app-chat/list-for-control')->with(['list'=>$return,'data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
-    }
 
     /**
      * @param $id
@@ -148,7 +128,7 @@ class ApprovalApiTokenService extends ApiService
      * @param $response
      * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    private function checkAndReturnData($response)
+    public function checkAndReturnData($response)
     {
         $data = json_decode($response->getBody()->getContents(), true);
         if ($data['error_code'] != 0) {
