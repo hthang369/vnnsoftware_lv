@@ -128,8 +128,14 @@ class ApprovalApiTokenController extends Controller
         }
 
         return view('user-management-for-app-chat/add_contact_list')
-            ->with(['list' => $return, 'data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
+            ->with([
+                'list' => $return,
+                'data' => isset($data['data']) ? $data['data'] : null,
+                'status' => self::STATUS,
+            ]);
     }
+
+    // Update contact for LAKA user page
 
     /**
      * @param Request $request
@@ -138,7 +144,8 @@ class ApprovalApiTokenController extends Controller
      */
     public function addContactUpdatePage(Request $request)
     {
-        $url = config('constants.api_address') . '/api/v1/user/get-detail-user/1';
+        $url = config('constants.api_address') . '/api/v1/user/get-detail-user/' . $request['id'];
+        $userId = $request['id'];
         $request = null;
         $method = "GET";
         $response = $this->approvalApiTokenService->sendRequestToAPI($url, $method, $request);
@@ -148,24 +155,51 @@ class ApprovalApiTokenController extends Controller
         return view('user-management-for-app-chat/add_contact_update')
             ->with([
                 'companies' => $companies,
-                'user' => (object)$data
+                'user' => (object)$data,
+                'userId' => $userId,
             ]);
     }
 
-    public function AddAllContactsInCompany(Request $request)
+    public function addContactsAndRoomsByCompany(Request $request)
     {
-        $addAllContacts = $request['add-all-contacts'];
-        if($addAllContacts == 1)
-            $request['add-all-contacts'] = true;
+        $addAllContactsResult = null;
+        $addToAllRoomsResult = null;
 
+        // add all contacts
+        if ($request['add_all_contacts'] != null && $request['company_id'] != null) {
+            $url = 'http://172.16.2.8:91/api/v1/contact/add-all-contacts-in-company';
 
-        $url = 'http://127.0.0.1:9090' . '/api/v1/user/add-all-contacts-in-company';
-        $request = null;
-        $method = "POST";
-        $response = $this->approvalApiTokenService->sendRequestToAPITest($url, $method, $request);
-        $data = $this->approvalApiTokenService->checkAndReturnData($response); //dd($data);
+            $request1 = $request->except(['add_all_contacts', '_token', 'add_to_all_rooms']);
+            $method = "POST";
+            $response = $this->approvalApiTokenService->sendRequestToAPI($url, $method, $request1);
+            $data1 = $this->approvalApiTokenService->checkAndReturnData($response);
 
-        $companies = $this->companyService->listWithoutParameter();
-        return view('user-management-for-app-chat/add_contact_update')->with(['companies' => $companies, 'user' => (object)$data]);
+            if ($data1['error_code'] == 0 && $data1['error_msg'] == 0) {
+                $addAllContactsResult = true;
+            } else {
+                $addAllContactsResult = false;
+            }
+        }
+
+        // add to all rooms
+        if ($request['add_to_all_rooms'] != null && $request['company_id'] != null) {
+            $url = 'http://172.16.2.8:91/api/v1/contact/add-to-all-rooms-by-company';
+
+            $request2 = $request->except(['add_all_contacts', '_token', 'add_to_all_rooms']);
+            $method = "POST";
+            $response = $this->approvalApiTokenService->sendRequestToAPI($url, $method, $request2);
+            $data2 = $this->approvalApiTokenService->checkAndReturnData($response);
+
+            if ($data2['error_code'] == 0 && $data2['error_msg'] == 0) {
+                $addToAllRoomsResult = true;
+            } else {
+                $addToAllRoomsResult = false;
+            }
+        }
+
+        return redirect()
+            ->intended('/system-admin/user-management-for-app-chat/add-contact/update/' . $request['user_id'])
+            ->with(['added_all_contact' => $addAllContactsResult, 'added_to_all_rooms' => $addToAllRoomsResult]);
+
     }
 }

@@ -133,6 +133,7 @@ class ApprovalApiTokenService extends ApiService
         $data = json_decode($response->getBody()->getContents(), true);
         if ($data['error_code'] != 0) {
             //            abort(500, $data['error_msg']);
+
         }
 
         return $data;

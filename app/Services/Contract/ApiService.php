@@ -7,7 +7,11 @@
  */
 
 namespace App\Services\Contract;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 
+
+use GuzzleHttp\RequestOptions;
 
 class ApiService
 {
@@ -33,14 +37,5 @@ class ApiService
         return $response;
     }
 
-    public function sendRequestToAPITest(string $string, $method, $request)
-    {
-        $client = new \GuzzleHttp\Client(['verify' => false]);
-        $options = [
-            'form_params' => $request,
-        ];
 
-        $response = $client->request($method, $string, $options);
-        return $response;
-    }
 }
