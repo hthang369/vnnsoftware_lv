@@ -89,7 +89,8 @@ return [
     'laka_user_list' => 'LAKA User list',
     'laka_user_list_for_control' => 'LAKA User list for control',
     'create_laka_user' => 'Create LAKA user',
-    'search_laka_user' => 'Search LAK user',
+    'search_laka_user' => 'Search LAKA user',
+    'add_contact_laka_user' => 'Add contact for LAKA user',
 
     'check_all' => 'Check all',
     'all' => 'All',

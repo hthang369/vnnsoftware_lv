@@ -77,7 +77,8 @@ class CompanyController extends Controller
 
         $this->companyService->handleCompanyNull($company);
 
-        return view('/company/update_form')->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
+        return view('/company/update_form')
+            ->with(['company' => $company, 'listBusinessPlan' => $listBusinessPlan]);
     }
 
     /**
@@ -117,7 +118,10 @@ class CompanyController extends Controller
         // validate inputs
         $validator = $this->companyService->validateUpdate($input, $id);
         if($validator->fails())
-            return redirect()->intended('/system-admin/company/update/' . $id)->withInput()->withErrors($validator->errors());
+            return redirect()
+                ->intended('/system-admin/company/update/' . $id)
+                ->withInput()
+                ->withErrors($validator->errors());
 
         // update
         try {

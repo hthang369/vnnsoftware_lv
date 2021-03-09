@@ -43,22 +43,8 @@ class BusinessPlanService extends MyService
      */
     public function create($request)
     {
-        $validator = $this->businessPlanValidation->newValidate($request->all());
-
-        if ($validator->fails()) {
-            return redirect()->intended(route('Business Plan.New.form'))->withInput()->withErrors($validator->errors());
-        }
-
-        $input = $request->all();
-
-        try {
-            $businessPlan = $this->businessPLanRepo->create($input);
-            return redirect()->intended('/system-admin/business-plan/detail/' . $businessPlan->id);
-        } catch (\Exception $ex) {
-            abort(500, $ex->getMessage());
-        }
+        return $businessPlan = $this->businessPLanRepo->create($request);
     }
-
     /**
      * @param $id
      * @param Request $request

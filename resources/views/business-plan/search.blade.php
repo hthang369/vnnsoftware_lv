@@ -13,7 +13,7 @@
     <!-- SEARCH FORM -->
     <div id="collapseExample"
          class="mb-4 alert alert-secondary">
-        <form method="GET" action="/system-admin/business-plan">
+        <form method="GET" action="/system-admin/business-plan/list">
             <input type="hidden" name="search" value="true">
             <div class="form-group">
                 <label>@lang('custom_label.business_plan')</label>

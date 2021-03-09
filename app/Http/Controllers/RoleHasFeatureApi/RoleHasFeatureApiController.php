@@ -70,7 +70,11 @@ class RoleHasFeatureApiController extends Controller
             array_push($arrayOldFeatureApi, $item['feature_api_id']);
         }
         return view('/role-has-feature-api/set_role_form')
-            ->with(['arrayOldFeatureApi' => $arrayOldFeatureApi, 'role' => $role, 'listFeatureApi' => $listFeatureApi]);
+            ->with([
+                'arrayOldFeatureApi' => $arrayOldFeatureApi,
+                'role' => $role,
+                'listFeatureApi' => $listFeatureApi
+            ]);
     }
 
     /**

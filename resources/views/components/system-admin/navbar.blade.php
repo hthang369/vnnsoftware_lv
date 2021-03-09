@@ -25,7 +25,7 @@
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 User
             </button>
-            <div class="dropdown-menu" aria-labelledby="">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="">
                 <a class="dropdown-item d-flex" href="{{ route('logout') }}"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
@@ -33,6 +33,9 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
+                <a class="dropdown-item d-flex" href="/system-admin/user-management/update-password/{{ Auth::user()->id }}" >
+                    Change password
+                </a>
                 {{--                <a class="dropdown-item" href="{{ route('User Management.Update Password.form', Auth::user()->id) }}">Change password</a>--}}
             </div>
         </div>

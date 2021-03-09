@@ -7,7 +7,11 @@
  */
 
 namespace App\Services\Contract;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 
+
+use GuzzleHttp\RequestOptions;
 
 class ApiService
 {
@@ -32,4 +36,6 @@ class ApiService
         $response = $client->request($method, $string, $options);
         return $response;
     }
+
+
 }

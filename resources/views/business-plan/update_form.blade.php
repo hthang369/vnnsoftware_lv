@@ -25,7 +25,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label class="required">Maximum storage</label>
+                    <label class="required">Maximum storage (MB)</label>
                     <input name="maximum_storage_file" value="{{ old('maximum_storage_file', $businessPlan->maximum_storage_file) }}"
                            class="@error('maximum_storage_file') is-invalid @enderror form-control" placeholder="Maxium storage">
                     @error('maximum_storage_file')

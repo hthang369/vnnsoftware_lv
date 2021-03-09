@@ -22,4 +22,8 @@ return [
     'warning_role_system' => 'This is a system role, not edited!',
     'no_one_has_permission_set_role' => 'No one has permission set role!',
     'confirm_disable' => 'Are you sure you want to disable?',
+    'added_all_contacts' => 'Added all contacts',
+    'add_all_contacts_failed' => 'Add all contacts failed',
+    'added_to_all_rooms' => 'Added to all rooms',
+    'add_to_all_rooms_failed' => 'Add to all rooms failed or the user has already been added',
 ];

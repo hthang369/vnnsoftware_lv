@@ -81,26 +81,19 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label class="required">@lang('custom_label.role')</label>
+                        <label>@lang('custom_label.role')</label>
                         <div class="form-group @error('role') border border-danger @enderror ">
-                            @if(request()->id)
-                                @foreach($roles as $role)
-                                    <div class="form-check form-check-inline">
-                                        <input
-                                            {{in_array($role->id, $userRoleIds) ? 'checked' : ''}} class="form-check-input"
-                                            type="checkbox" name="role[]" value="{{$role->id}}">
-                                        <label class="form-check-label">{{$role->name}}</label>
-                                    </div>
-                                @endforeach
-                            @else
-                                @foreach($roles as $role)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="role[]"
-                                               value="{{$role->id}}">
-                                        <label class="form-check-label">{{$role->name}}</label>
-                                    </div>
-                                @endforeach
-                            @endif
+                            @foreach($roles as $role)
+                                <div class="form-check form-check-inline">
+                                    <input
+                                        @if(is_array(old('role')) && in_array($role->id, old('role'))) checked @endif
+                                        @if(is_array(old('role')) == false) {{in_array($role->id, $userRoleIds) ? 'checked' : ''}} @endif
+                                        type="checkbox"
+                                        name="role[]"
+                                        value="{{$role->id}}">
+                                    <label class="form-check-label">{{$role->name}}</label>
+                                </div>
+                            @endforeach
                         </div>
                         @error('role')
                         <strong class="text-danger" >{{ $message }}</strong>

@@ -16,5 +16,6 @@ class VersionController extends Controller
         $versions = $json['data'];
 
         return view('/version/list')->with('versions', $versions);
+
     }
 }
