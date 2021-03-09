@@ -19,6 +19,7 @@
                 <th scope="col">@lang('custom_label.email')</th>
                 <th scope="col">@lang('custom_label.phone')</th>
                 <th scope="col">@lang('custom_label.address')</th>
+                <th scope="col">@lang('custom_label.company')</th>
                 <th scope="col">@lang('custom_label.action')</th>
             </tr>
             </thead>
@@ -31,6 +32,7 @@
                 <td>{{$lakaUser->email}}</td>
                 <td>{{$lakaUser->phone}}</td>
                 <td>{{$lakaUser->address}}</td>
+                <td>{{$companyNames[$i]}}</td>
                 <td>
                     <a href="/system-admin/user-management-for-app-chat/add-contact/update/{{$lakaUser->id}}"
                        class="btn btn-info"

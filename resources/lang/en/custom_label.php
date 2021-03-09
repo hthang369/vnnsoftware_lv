@@ -87,10 +87,10 @@ return [
     'search_role' => 'Search role',
 
     'laka_user_list' => 'LAKA User list',
-    'laka_user_list_for_control' => 'LAKA User list for control',
+    'laka_user_list_for_control' => 'LAKA User list for disable',
     'create_laka_user' => 'Create LAKA user',
     'search_laka_user' => 'Search LAKA user',
-    'add_contact_laka_user' => 'Add contact for LAKA user',
+    'add_contact_laka_user' => 'LAKA User list add company',
 
     'check_all' => 'Check all',
     'all' => 'All',
