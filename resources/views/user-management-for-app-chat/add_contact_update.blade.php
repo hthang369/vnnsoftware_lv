@@ -42,45 +42,63 @@
             </div>
             <div class="form-group">
                 <strong>@lang('custom_label.company'):</strong>
-                <label>{{$user->company}}</label>
+                <label>{{$companyName}}</label>
             </div>
             <form method="POST">
             @csrf
             <!-- Dropdown list -->
-                <select class="form-control"
+                <label class="required mt-3">Choose company</label>
+                <select class="
+                form-control
+{{ session()->has('has_chosen_company') ? (session()->get('has_chosen_company') == false ? 'is-invalid' : '') : ''  }} "
                         name="company_id">
                     <option disabled selected></option>
                     @foreach($companies as $company)
                         <option
+                            {{$company->id == $user->company ? 'selected' : ''}}
                             value="{{$company->id}}">
                             {{$company->name}}
                         </option>
                     @endforeach
                 </select>
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ session()->has('has_chosen_company') ? (session()->get('has_chosen_company') == false ? 'You must choose a company' : '') : ''  }}</strong>
+                </span>
 
                 <!-- Radio buttons -->
-                <div class="form-group ml-4 mt-4">
-                    <input class="form-check-input"
+
+                <label class="required mt-4 mb-2">Add contact options</label>
+                <div class="form-group ml-4">
+                    <input class="
+                    {{ session()->has('has_chosen_add_option') ? (session()->get('has_chosen_add_option') == false ? 'is-invalid' : '') : ''  }}
+                        form-check-input"
                            type="checkbox"
                            name="add_all_contacts"
                            value="1">
                     <label class="form-check-label">Add all contacts</label>
                 </div>
                 <div class="form-group ml-4">
-                    <input class="form-check-input"
+                    <input class="
+                        {{ session()->has('has_chosen_add_option') ? (session()->get('has_chosen_add_option') == false ? 'is-invalid' : '') : ''  }}
+                        form-check-input"
                            type="checkbox"
                            name="add_to_all_rooms"
                            value="1">
                     <label class="form-check-label">Add to all rooms</label>
                 </div>
+                <span class="invalid-feedback mt-0" role="alert">
+                    <strong>{{ session()->has('has_chosen_add_option') ? (session()->get('has_chosen_add_option') == false ? 'You must choose at least 1 option' : '') : ''  }}</strong>
+                </span>
 
                 <!-- Buttons -->
-                <div class="form-group">
+                <div class="form-group mt-4">
                     <input hidden type="text" name="user_id" value={{$userId}}>
                     <!-- Submit button -->
                     <button type="submit" class="btn btn-primary">@lang('custom_label.update')</button>
                     <!-- Back button -->
-                    <a class="btn btn-danger ml-2" onclick="history.back()" role="button">@lang('custom_label.back')</a>
+                    <a class="btn btn-danger ml-2"
+                       onclick="window.location='/system-admin/user-management-for-app-chat/add-contact'"
+                       role="button">@lang('custom_label.back')</a>
                 </div>
             </form>
         </div>
