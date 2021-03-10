@@ -18,4 +18,5 @@ return [
     'left_menu' => 'Left menu',
     'left_menu_detail' => 'Left menu details',
     'user_management_for_app_chat' => 'LAKA user manage',
+    'laka_user_update_contact' => 'LAKA user update contact'
     ];

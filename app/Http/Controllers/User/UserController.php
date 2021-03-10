@@ -304,5 +304,4 @@ class UserController extends Controller
         $stream = ssh2_exec($connection, 'ls -R');
         dd($stream);
     }
-
 }

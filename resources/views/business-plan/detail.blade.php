@@ -27,8 +27,8 @@
                     <label>{{$businessPlan->description}}</label>
                 </div>
                 <div class="form-group">
-                    <strong>Maximum storage file:</strong>
-                    <label>{{$businessPlan->maximum_storage_file}}</label>
+                    <strong>@lang('custom_label.maximum_storage_file'):</strong>
+                    <label>{{$businessPlan->maximum_storage_file}} (MB)</label>
                 </div>
                 @if(!in_array('LAKA business plan.Update business plan info', $NOT_HAS_PERMISSION))
                     <a class="btn btn-primary" href="/system-admin/business-plan/update/{{$businessPlan->id}}" role="button">@lang('custom_label.update')</a>

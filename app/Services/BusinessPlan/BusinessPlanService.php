@@ -50,7 +50,7 @@ class BusinessPlanService extends MyService
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id, Request $request)
+    public function update($id, $input)
     {
         $businessPlan = $this->getBusinessPlanInfo($id);
 
@@ -58,13 +58,11 @@ class BusinessPlanService extends MyService
             abort(400, __('custom_message.business_plan_not_found'));
         }
 
-        $validator = $this->businessPlanValidation->updateValidate($request->all());
+        $validator = $this->businessPlanValidation->updateValidate($input);
 
         if ($validator->fails()) {
             return redirect()->intended('/system-admin/business-plan/new')->withInput()->withErrors($validator->errors());
         }
-
-        $input = request()->except(['_token', 'role']);
 
         try {
             $businessPlan = $this->businessPLanRepo->update($id, $input);
