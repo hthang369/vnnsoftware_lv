@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class ApprovalApiTokenController extends Controller
 {
     const STATUS = [1 => 'Not accepted', 2 => 'Accepted', 3 => 'Paused'];
-    const COMPANY = [1 => 'Lampart Co., Ltd', '2' => '株式会社 Wakka inc.'];
+    const COMPANY = [1 => 'LAMPART Co., Ltd.', '2' => '株式会社 Wakka inc.'];
 
     private $approvalApiTokenService;
     private $companyService;
