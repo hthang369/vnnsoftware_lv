@@ -76,7 +76,7 @@ class UserManagementForAppChatController extends Controller
         $data = $request->all();
         $data['company'] = $company->name;
 
-        $url = config('constants.api_address') . '/api/v1/user/register';
+        $url = config('constants.api_address') . '/api/v1/user/register-users';
         $method = "POST";
         $response = $this->userManagementForAppChatService->sendRequestToAPI($url, $method, $data);
 
