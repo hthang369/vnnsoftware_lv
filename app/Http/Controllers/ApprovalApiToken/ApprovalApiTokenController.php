@@ -202,7 +202,7 @@ class ApprovalApiTokenController extends Controller
 
         // add all contacts
         if ($request['add_all_contacts'] != null && $request['company_id'] != null) {
-            $url = 'http://172.16.2.8:91/api/v1/contact/add-all-contacts-in-company';
+            $url =  config('constants.api_address').'/api/v1/contact/add-all-contacts-in-company';
 
             $request1 = $request->except(['add_all_contacts', '_token', 'add_to_all_rooms']);
             $method = "POST";
@@ -218,7 +218,7 @@ class ApprovalApiTokenController extends Controller
 
         // add to all rooms
         if ($request['add_to_all_rooms'] != null && $request['company_id'] != null) {
-            $url = 'http://172.16.2.8:91/api/v1/contact/add-to-all-rooms-by-company';
+            $url =  config('constants.api_address').'/api/v1/contact/add-to-all-rooms-by-company';
 
             $request2 = $request->except(['add_all_contacts', '_token', 'add_to_all_rooms']);
             $method = "POST";

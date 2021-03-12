@@ -24,8 +24,8 @@ class ApprovalApiTokenService extends ApiService
         $request = null;
         $method = "GET";
         $response = $this->sendRequestToAPI($url, $method, $request);
-        $data = $this->checkAndReturnData($response);
-        return view('user-management-for-app-chat/list')->with(['data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
+        $data = $this->checkAndReturnData($response);//approval-api-token/list
+        return view('approval-api-token/list')->with(['data' => isset($data['data']) ? $data['data'] : null, 'status' => self::STATUS]);
     }
 
 

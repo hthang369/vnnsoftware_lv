@@ -86,7 +86,7 @@ return [
     'add_role' => 'Add role',
     'search_role' => 'Search role',
 
-    'laka_user_list' => 'LAKA User list',
+    'laka_user_list' => 'LAKA User list Approval API Token',
     'laka_user_list_for_control' => 'LAKA User list for disable',
     'create_laka_user' => 'Create LAKA user',
     'search_laka_user' => 'Search LAKA user',
