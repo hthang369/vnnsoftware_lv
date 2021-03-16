@@ -183,7 +183,7 @@ class UserController extends Controller
         $validator = $this->userValidate->updateValidate($request->all(), $id);
 
         if ($validator->fails()) {
-            return redirect('/system-admin/user-management/update/'. $id)->withInput()->withErrors($validator->errors());
+            return redirect('/system-admin/user-management/update/' . $id)->withInput()->withErrors($validator->errors());
         }
 
         $role = $user->roles;
@@ -245,7 +245,8 @@ class UserController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updatePassword(Request $request){
+    public function updatePassword(Request $request)
+    {
 
         $input = $request->all();
         if ($this->userService->checkPassword(Auth::id(), $input['currentPassword'])) {
@@ -293,15 +294,28 @@ class UserController extends Controller
         return redirect()->intended('/system-admin/user-management/list');
     }
 
-    public function searchForm() {
+    public function searchForm()
+    {
         return view('/user-management/search');
     }
 
-    public function ssh() {
-        $connection = ssh2_connect('172.16.2.188', 22);
-        ssh2_auth_password($connection, 'root', 'lampart');
+    public function ssh()
+    {
 
-        $stream = ssh2_exec($connection, 'ls -R');
-        dd($stream);
+
+//        $connection = ssh2_connect('172.16.2.6', 22);
+//
+//        $pass_success = ssh2_auth_password($connection, 'root', 'lampart');
+//
+//        ssh2_exec($connection, 'cd /var/www/vhosts');
+//        $stream = ssh2_exec($connection, 'ls -i');
+
+        $con=ssh2_connect('172.16.2.6', 22);
+        ssh2_auth_password($con, 'root', 'lampart');
+        $shell=ssh2_shell($con, 'xterm');
+        fwrite( $shell, 'cd /var/www/vhosts'.PHP_EOL);
+        fwrite( $shell, 'mkdir test'.PHP_EOL);
+
+        //dd( stream_get_contents($stream));
     }
 }

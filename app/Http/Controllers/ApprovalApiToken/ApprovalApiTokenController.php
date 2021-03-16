@@ -127,7 +127,9 @@ class ApprovalApiTokenController extends Controller
         $list = $data['data'];
         $return = [];
         foreach ($list as $l) {
-            $return [] = (object)$l;
+            if ($l['disabled'] == 1) {
+                $return [] = (object)$l;
+            }
             $companyNames [] = self::COMPANY[$l['company']];
         }
 
@@ -183,19 +185,16 @@ class ApprovalApiTokenController extends Controller
         $hasChosenAddOption = true;
 
         // check if user chose a company or not
-        if( $request['company_id'] == null)
-        {
+        if ($request['company_id'] == null) {
             $hasChosenCompany = false;
         }
         // check if user chose an add option or not
-        if($request['add_all_contacts'] == null && $request['add_to_all_rooms'] == null)
-        {
+        if ($request['add_all_contacts'] == null && $request['add_to_all_rooms'] == null) {
             $hasChosenAddOption = false;
         }
 
         // redirect back to update page with message that the user hasn't chosen any option
-        if($hasChosenCompany == false || $hasChosenAddOption == false)
-        {
+        if ($hasChosenCompany == false || $hasChosenAddOption == false) {
             return redirect()
                 ->intended('/system-admin/user-management-for-app-chat/add-contact/update/' . $request['user_id'])
                 ->with(['has_chosen_add_option' => $hasChosenAddOption, 'has_chosen_company' => $hasChosenCompany]);
