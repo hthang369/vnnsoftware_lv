@@ -127,7 +127,7 @@ class ApprovalApiTokenController extends Controller
         $list = $data['data'];
         $return = [];
         foreach ($list as $l) {
-            if ($l['disabled'] == 1) {
+            if ($l['disabled'] == 0) {
                 $return [] = (object)$l;
             }
             $companyNames [] = self::COMPANY[$l['company']];
