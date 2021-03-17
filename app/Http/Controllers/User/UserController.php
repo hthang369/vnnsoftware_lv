@@ -186,7 +186,7 @@ class UserController extends Controller
             return redirect('/system-admin/user-management/update/' . $id)->withInput()->withErrors($validator->errors());
         }
 
-        $role = $user->roles;
+        $role = $user->roles();
         $hasPermission = false;
         foreach ($role as $value) {
             if ($value->name == config('constants.name.role_permission_name')) {
@@ -301,20 +301,18 @@ class UserController extends Controller
 
     public function ssh()
     {
+        $connection = ssh2_connect('172.16.2.6', 22);
 
+        $pass_success = ssh2_auth_password($connection, 'root', 'lampart');
 
-//        $connection = ssh2_connect('172.16.2.6', 22);
-//
-//        $pass_success = ssh2_auth_password($connection, 'root', 'lampart');
-//
-//        ssh2_exec($connection, 'cd /var/www/vhosts');
-//        $stream = ssh2_exec($connection, 'ls -i');
+        ssh2_exec($connection, 'cd /var/www/vhosts');
+        $stream = ssh2_exec($connection, 'mkdir test');
 
-        $con=ssh2_connect('172.16.2.6', 22);
-        ssh2_auth_password($con, 'root', 'lampart');
-        $shell=ssh2_shell($con, 'xterm');
-        fwrite( $shell, 'cd /var/www/vhosts'.PHP_EOL);
-        fwrite( $shell, 'mkdir test'.PHP_EOL);
+//        $con=ssh2_connect('172.16.2.6', 22);
+//        ssh2_auth_password($con, 'root', 'lampart');
+//        $shell=ssh2_shell($con, 'xterm');
+//        fwrite( $shell, 'cd /var/www/vhosts'.PHP_EOL);
+//        fwrite( $shell, 'mkdir test'.PHP_EOL);
 
         //dd( stream_get_contents($stream));
     }

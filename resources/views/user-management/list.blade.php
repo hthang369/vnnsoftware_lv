@@ -48,6 +48,8 @@
             </a>
         </form>
     </div>
+
+
     <strong>Total: </strong><label>{{$list->total()}}</label>
     <strong>Page: </strong><label>{{$list->currentPage() . '/' . $list->lastPage()}}</label>
     @if(count($list) == 0)
