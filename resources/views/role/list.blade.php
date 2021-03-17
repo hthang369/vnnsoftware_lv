@@ -15,7 +15,7 @@
         <h1>@lang('custom_title.role')</h1>
     </div>
     <!-- SEARCH FORM -->
-    <p>
+   {{-- <p>
         <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
            aria-controls="collapseExample">
             <i class="fa fa-chevron-down" aria-hidden="true"></i>
@@ -43,7 +43,8 @@
                 @lang('custom_label.get_all')
             </a>
         </form>
-    </div>
+    </div>--}}
+
     <strong>Total: </strong><label>{{$list->total()}}</label>
     <strong>Page: </strong><label>{{$list->currentPage() . '/' . $list->lastPage()}}</label>
     @if(session()->has('deleted'))

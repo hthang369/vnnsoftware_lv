@@ -11,43 +11,43 @@
         <h1>@lang('custom_title.user')</h1>
     </div>
     <!-- SEARCH FORM -->
-    <p>
-        <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-           aria-controls="collapseExample">
-            <i class="fa fa-chevron-down" aria-hidden="true"></i>
-            Open Search form
-        </a>
-    </p>
-    <div id="collapseExample"
-         class="collapse mb-4 alert alert-secondary">
-        <form method="GET">
-            <input type="hidden" name="search" value="true">
-            <div class="form-group">
-                <label>Name</label>
-                <input value="{{ request()->name }}" name="name" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input value="{{ request()->email }}" name="email" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Phone</label>
-                <input value="{{ request()->phone }}" name="phone" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Address</label>
-                <input value="{{ request()->address }}" name="address" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Search
-                <i class="fa fa-search"></i>
-            </button>
-            <!-- GET ALL BUTTON -->
-            <a class="ml-3  my-2 btn  btn-secondary" href="/system-admin/user-management/list" role="button">
-                <i class="fa fa-list" aria-hidden="true"></i>
-                @lang('custom_label.get_all')
-            </a>
-        </form>
-    </div>
+{{--    <p>--}}
+{{--        <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"--}}
+{{--           aria-controls="collapseExample">--}}
+{{--            <i class="fa fa-chevron-down" aria-hidden="true"></i>--}}
+{{--            Open Search form--}}
+{{--        </a>--}}
+{{--    </p>--}}
+{{--    <div id="collapseExample"--}}
+{{--         class="collapse mb-4 alert alert-secondary">--}}
+{{--        <form method="GET">--}}
+{{--            <input type="hidden" name="search" value="true">--}}
+{{--            <div class="form-group">--}}
+{{--                <label>Name</label>--}}
+{{--                <input value="{{ request()->name }}" name="name" class="form-control">--}}
+{{--            </div>--}}
+{{--            <div class="form-group">--}}
+{{--                <label>Email</label>--}}
+{{--                <input value="{{ request()->email }}" name="email" class="form-control">--}}
+{{--            </div>--}}
+{{--            <div class="form-group">--}}
+{{--                <label>Phone</label>--}}
+{{--                <input value="{{ request()->phone }}" name="phone" class="form-control">--}}
+{{--            </div>--}}
+{{--            <div class="form-group">--}}
+{{--                <label>Address</label>--}}
+{{--                <input value="{{ request()->address }}" name="address" class="form-control">--}}
+{{--            </div>--}}
+{{--            <button type="submit" class="btn btn-success">Search--}}
+{{--                <i class="fa fa-search"></i>--}}
+{{--            </button>--}}
+{{--            <!-- GET ALL BUTTON -->--}}
+{{--            <a class="ml-3  my-2 btn  btn-secondary" href="/system-admin/user-management/list" role="button">--}}
+{{--                <i class="fa fa-list" aria-hidden="true"></i>--}}
+{{--                @lang('custom_label.get_all')--}}
+{{--            </a>--}}
+{{--        </form>--}}
+{{--    </div>--}}
 
 
     <strong>Total: </strong><label>{{$list->total()}}</label>
