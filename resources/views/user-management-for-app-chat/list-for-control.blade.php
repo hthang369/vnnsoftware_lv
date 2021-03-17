@@ -14,7 +14,7 @@
             {!! \Session::get('error_message') !!}
         </div>
     @endif
-    
+
     <div class="alert alert-primary" role="alert">
         <h1>@lang('custom_title.user_management_for_app_chat')</h1>
     </div>
@@ -23,6 +23,12 @@
             <strong>@lang('custom_message.deleted')</strong>
         </div>
     @endif
+    @if(session()->has('saved'))
+        <div class="alert alert-success">
+            <strong>Disabled user</strong>
+        </div>
+    @endif
+
     @if(count($list) == 0)
         <div class="alert alert-warning">
             @lang('custom_message.no_item_found')
@@ -53,7 +59,7 @@
                         <td>
 
                         @if($lakaUser->disabled === 0)
-                                <a onclick="return confirm('@lang('custom_message.confirm_disable')');" class="btn btn-danger" href="/system-admin/user-management-for-app-chat/disable-user/{{$lakaUser->id}}" role="button">@lang('custom_label.disable')</a>
+                                <a onclick="return confirm('@lang('custom_message.confirm_disable')');" class="btn btn-danger" href="/system-admin/user-management-for-app-chat/disable-user/{{$lakaUser->id}}?type=sentmail" role="button">@lang('custom_label.disable')</a>
                             @else
                             User has disable
                             @endif
