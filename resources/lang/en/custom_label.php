@@ -24,6 +24,8 @@ return [
 
     // business plan
     'business_plan' => 'Business plan',
+    // maximum storage file
+    'maximum_storage_file' => 'Maximum storage file',
     // company
     'company' => 'Company',
     // user

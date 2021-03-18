@@ -36,7 +36,7 @@ class UserValidation implements ValidationInterface {
     public function newValidate($request, $id = NULL)
     {
         return $validator = Validator::make($request, [
-            'email' => 'required|email|max:190|unique:users,email,id,deleted_at,NULL',
+            'email'=>['required','email','max:190', Rule::unique('users')->whereNull("deleted_at")],
             'password' => 'min:6|max:190|required|regex:/^\S*$/u',
             'name' => 'required|max:190',
             'phone' => 'numeric|nullable',

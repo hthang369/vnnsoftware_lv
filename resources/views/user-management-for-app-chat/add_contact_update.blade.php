@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">LAKA user update contact</h5>
+        <h5 class="card-header">@lang('custom_title.laka_user_update_contact')</h5>
         @if(session()->has('added_all_contact'))
             @if(session()->get('added_all_contact') == true)
                 <div class="alert alert-success">
@@ -66,7 +66,6 @@
                 </span>
 
                 <!-- Radio buttons -->
-
                 <label class="required mt-4 mb-2">Add contact options</label>
                 <div class="form-group ml-4">
                     <input class="

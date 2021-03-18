@@ -82,7 +82,7 @@ class UserManagementForAppChatController extends Controller
 
         $dataResponse = json_decode($response->getBody()->getContents(), true);
 
-        if ($dataResponse['error_code'] != 0) {
+        if ($dataResponse['error_code'] != 0) { dd($dataResponse);
             return redirect()->intended('/system-admin/user-management-for-app-chat/new')
                 ->withInput()->with('errorCommon', $dataResponse['error_msg']);
         }
