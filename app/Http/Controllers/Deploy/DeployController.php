@@ -14,6 +14,12 @@ class DeployController extends Controller {
     }
 
     public function doDeploy(Request $request) {
+        $listEnvironment = [
+            'development'=>'http://172.16.2.8:8000',
+            'staging'=>'http://172.16.3.36.:8000',
+            'production'=>'http://laka.lampart-vn.com:8000',
+        ];
+
         $tag    = $request->input('tag');
         $server = $request->input('server');
         $rs =  file_get_contents('http://172.16.3.36:8000/?tag=' . $tag . '&server=' . $server);
