@@ -6,4 +6,4 @@
     <p>
         This view is loaded from module: {!! config('core.name') !!}
     </p>
-@endsection
+@stop

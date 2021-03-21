@@ -9,16 +9,24 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5|^8.0",
+        "ckfinder/ckfinder-laravel-package": "v3.5.1.7",
+        "doctrine/dbal": "^3.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
         "hthang369/laravel-grid": "^2.0@dev",
+        "hthang369/nestedset": "^5.0@dev",
+        "kris/laravel-form-builder": "^1.40",
         "laravel/framework": "^8.0",
+        "laravel/helpers": "^1.4",
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
+        "maatwebsite/excel": "^3.1",
         "nwidart/laravel-menus": "^7.0",
-        "nwidart/laravel-modules": "^8.2"
+        "nwidart/laravel-modules": "^8.2",
+        "prettus/l5-repository": "^2.7",
+        "spatie/laravel-permission": "^4.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'name' => 'Core'
+    'name' => 'Core',
+
+    'timezoneSerialize' => true
 ];

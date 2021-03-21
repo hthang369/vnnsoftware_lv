@@ -3,9 +3,12 @@
     "alias": "core",
     "description": "",
     "keywords": [],
-    "priority": 0,
+    "active": 1,
+    "order": 0,
     "providers": [
-        "Modules\\Core\\Providers\\CoreServiceProvider"
+        "Modules\\Core\\Providers\\CoreServiceProvider",
+        "Modules\\Core\\Providers\\ExcelServiceProvider",
+        "Modules\\Core\\Providers\\EventServiceProvider"
     ],
     "aliases": {},
     "files": [],

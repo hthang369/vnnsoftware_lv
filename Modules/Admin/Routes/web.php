@@ -13,4 +13,15 @@
 
 Route::prefix('admin')->group(function() {
     Route::get('/', 'AdminController@index');
+
+    Route::resource('posts', 'PostsController');
+    Route::resource('pages', 'PagesController');
+    Route::resource('categories', 'CategoriesController');
+    Route::resource('menus', 'CategoriesController');
+    Route::resource('configs', 'CategoriesController');
+    Route::resource('slides', 'CategoriesController');
+    Route::resource('advertises', 'CategoriesController');
+    Route::resource('group_users', 'CategoriesController');
+    Route::resource('users', 'CategoriesController');
 });
+

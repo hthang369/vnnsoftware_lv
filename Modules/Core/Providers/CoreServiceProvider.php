@@ -2,20 +2,19 @@
 
 namespace Modules\Core\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\ServiceProvider;
+use Modules\Core\Contracts\PaginationTransformer;
+use Modules\Core\Repositories\StubPaginationTransformer;
 
 class CoreServiceProvider extends ServiceProvider
 {
     /**
-     * @var string $moduleName
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
      */
-    protected $moduleName = 'Core';
-
-    /**
-     * @var string $moduleNameLower
-     */
-    protected $moduleNameLower = 'core';
+    protected $defer = false;
 
     /**
      * Boot the application events.
@@ -27,7 +26,8 @@ class CoreServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+        $this->registerFactories();
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
 
     /**
@@ -38,6 +38,8 @@ class CoreServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->bind(PaginationTransformer::class, StubPaginationTransformer::class);
     }
 
     /**
@@ -48,10 +50,10 @@ class CoreServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
+            __DIR__.'/../Config/config.php' => config_path('core.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
+            __DIR__.'/../Config/config.php', 'core'
         );
     }
 
@@ -62,15 +64,17 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
+        $viewPath = resource_path('views/modules/core');
 
-        $sourcePath = module_path($this->moduleName, 'Resources/views');
+        $sourcePath = __DIR__.'/../Resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath
-        ], ['views', $this->moduleNameLower . '-module-views']);
+        ],'views');
 
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
+        $this->loadViewsFrom(array_merge(array_map(function ($path) {
+            return $path . '/modules/core';
+        }, \Config::get('view.paths')), [$sourcePath]), 'core');
     }
 
     /**
@@ -80,12 +84,24 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $langPath = resource_path('lang/modules/' . $this->moduleNameLower);
+        $langPath = resource_path('lang/modules/core');
 
         if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
+            $this->loadTranslationsFrom($langPath, 'core');
         } else {
-            $this->loadTranslationsFrom(module_path($this->moduleName, 'Resources/lang'), $this->moduleNameLower);
+            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'core');
+        }
+    }
+
+    /**
+     * Register an additional directory of factories.
+     *
+     * @return void
+     */
+    public function registerFactories()
+    {
+        if (! app()->environment('production')) {
+            app(Factory::class)->load(__DIR__ . '/../Database/factories');
         }
     }
 
@@ -97,16 +113,5 @@ class CoreServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
-    }
-
-    private function getPublishableViewPaths(): array
-    {
-        $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
-                $paths[] = $path . '/modules/' . $this->moduleNameLower;
-            }
-        }
-        return $paths;
     }
 }

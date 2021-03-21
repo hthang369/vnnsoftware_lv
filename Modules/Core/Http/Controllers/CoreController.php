@@ -4,17 +4,60 @@ namespace Modules\Core\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Kris\LaravelFormBuilder\FormBuilder;
+use Modules\Core\Repositories\BaseRepository;
+use Modules\Core\Responses\BaseResponse;
+use Modules\Core\Validators\BaseValidator;
+use Prettus\Repository\Contracts\CriteriaInterface;
 
-class CoreController extends Controller
+class CoreController extends BaseController
 {
+    private $defaultView;
+    private $pathView;
+    private $routeName;
+    protected $formBuilder;
+
+    public function __construct(BaseRepository $repository, BaseValidator $validator, BaseResponse $response, CriteriaInterface $criteria)
+    {
+        parent::__construct($repository, $validator, $response, $criteria);
+        $this->formBuilder = resolve(FormBuilder::class);
+    }
+
+    public function setDefaultView($value)
+    {
+        $this->defaultView = $value;
+    }
+
+    public function setPathView($value)
+    {
+        $this->pathView = $value;
+    }
+
+    public function setRouteName($value)
+    {
+        $this->routeName = $value;
+    }
+
+    public function renderView($dataGrid, $viewName, $customName = null)
+    {
+        $defaultName = $customName ?? data_get($this->pathView, $viewName, $this->defaultView . '.' . $viewName);
+        return $dataGrid->renderOn($defaultName);
+    }
+
+    public function renderViewData($data, $viewName, $customName = null)
+    {
+        $defaultName = $customName ?? data_get($this->pathView, $viewName, $this->defaultView . '.' . $viewName);
+        return view($defaultName, $data)->render();
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        return view('core::index');
+        $bases = $this->repository->allDataGrid();
+        return $this->renderView($bases, __FUNCTION__);
     }
 
     /**
@@ -23,17 +66,11 @@ class CoreController extends Controller
      */
     public function create()
     {
-        return view('core::create');
-    }
+        list($modal, $formData) = $this->repository->formGenerate(route($this->routeName.'.store'), __FUNCTION__);
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
+        $form = $this->formBuilder->create($formData)->renderForm([], false, true, false);
+
+        return $this->renderViewData(compact('modal', 'form'), __FUNCTION__);
     }
 
     /**
@@ -43,37 +80,14 @@ class CoreController extends Controller
      */
     public function show($id)
     {
-        return view('core::show');
-    }
+        $base = $this->repository->find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('core::edit');
-    }
+        list($modal, $formData) = $this->repository->formGenerate(route($this->routeName.'.update', data_get($base, 'id', $id)), 'update', ['method' => 'patch']);
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $form = $this->formBuilder->create($formData, [
+            'model' => $base
+        ])->renderForm([], false, true, false);
+        
+        return $this->renderViewData(compact('modal', 'form'), __FUNCTION__);
     }
 }

@@ -1,0 +1,17 @@
+<div class="content-wrapper">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">@yield('content_header')</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            @include('admin::partial.breadcrumb')
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <div class="content">
+        @yield('content')
+    </div>
+</div>

@@ -4,10 +4,18 @@ namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Modules\Admin\Repositories\AdminCriteria;
+use Modules\Admin\Repositories\AdminRepository;
+use Modules\Admin\Responses\AdminResponse;
+use Modules\Admin\Validators\AdminValidator;
+use Modules\Core\Http\Controllers\BaseController;
 
-class AdminController extends Controller
+class AdminController extends BaseController
 {
+    public function __construct(AdminRepository $repository, AdminValidator $validator, AdminResponse $response, AdminCriteria $criteria)
+    {
+       parent::__construct($repository, $validator, $response, $criteria);
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
