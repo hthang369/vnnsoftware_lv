@@ -5,6 +5,7 @@ namespace Modules\Admin\Repositories;
 use Modules\Admin\Entities\AdvertisesModel;
 use Modules\Admin\Forms\AdvertisesForm;
 use Modules\Admin\Grids\AdvertisesGridInterface;
+use Modules\Core\Services\FileManagementService;
 
 class AdvertisesRepository extends AdminBaseRepository
 {
@@ -47,13 +48,18 @@ class AdvertisesRepository extends AdminBaseRepository
     {
         $fileService = resolve(FileManagementService::class);
         $fileData = $fileService->uploadFileImages([$attributes['advertise_image']]);
-        $attributes['advertise_image'] = $fileData['file_name'];
+        $attributes['advertise_image'] = data_get($fileData, '0.file_name');
+        $attributes['advertise_type'] = 'advertise';
         return parent::create($attributes);
     }
 
     public function update(array $attributes, $id)
     {
-        // $attributes['category_status'] = 1;
-        // parent::update($attributes, $id);
+        $data = $this->find($id, ['advertise_image']);
+        $fileService = resolve(FileManagementService::class);
+        $fileService->deleteFileType('images', $data['advertise_image']);
+        $fileData = $fileService->uploadFileImages([$attributes['advertise_image']]);
+        $attributes['advertise_image'] = $fileData['file_name'];
+        return parent::update($attributes, $id);
     }
 }

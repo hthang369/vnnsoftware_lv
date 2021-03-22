@@ -20,7 +20,10 @@ Route::prefix('admin')->group(function() {
     Route::resource('menus', 'CategoriesController');
     Route::resource('configs', 'CategoriesController');
     Route::resource('slides', 'CategoriesController');
-    Route::resource('advertises', 'AdvertisesController');
+    
+    Route::resource('advertises', 'AdvertisesController', ['except' => ['update']]);
+    Route::post('advertises/{advertise}', 'AdvertisesController@update')->name('advertises.update');
+
     Route::resource('group_users', 'CategoriesController');
     Route::resource('users', 'CategoriesController');
 });

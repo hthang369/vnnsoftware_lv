@@ -132,11 +132,24 @@ abstract class BaseRepositoryEloquent extends PrettusBaseRepository implements B
     {
         if ($this->dataGrid) {
             return $this->dataGrid->create([
-                'query' => $this->model::query(),
+                'query' => $this->getQuery(),
                 'request' => request()
             ]);
         }
         return null;
+    }
+
+    protected function getQuery()
+    {
+        $this->applyCriteria();
+        $this->applyScope();
+
+        $results = $this->model::query();
+
+        $this->resetModel();
+        $this->resetScope();
+
+        return $results;
     }
 
     public function formGenerate($route, $actionName, $config = [])

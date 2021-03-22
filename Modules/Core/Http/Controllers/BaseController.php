@@ -138,7 +138,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      */
     protected function responseAction(Request $request, $result, $action)
     {
-        if ($request->wantsJson()) {
+        if ($request->expectsJson()) {
             return $this->response->{$action}(data_get($result, 'data'));
         }
 
@@ -152,7 +152,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      */
     protected function responseErrorAction(Request $request, \Exception $e)
     {
-        if ($request->wantsJson()) {
+        if ($request->expectsJson()) {
             if ($e instanceof ValidatorException) {
                 return $this->response->validationError($e->getMessageBag());
             } else if ($e instanceof \Exception) {
@@ -283,7 +283,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     {
         try {
             $this->validator($request->all(), ValidatorInterface::RULE_UPDATE);
-
+            
             $base = $this->repository->update($request->all(), $id);
 
             if (method_exists($base, 'toArray')) {

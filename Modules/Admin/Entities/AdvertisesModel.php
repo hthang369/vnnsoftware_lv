@@ -9,5 +9,10 @@ class AdvertisesModel extends Model
 {
     protected $table = 'advertises';
 
-    protected $fillable = [];
+    protected $fillable = [
+        'advertise_name',
+        'advertise_link',
+        'advertise_image',
+        'advertise_type'
+    ];
 }
