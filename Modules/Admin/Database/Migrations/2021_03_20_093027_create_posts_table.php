@@ -17,14 +17,15 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('post_author', 100);
             $table->string('post_title', 150);
-            $table->string('post_excerpt');
+            $table->string('post_excerpt')->nullable();
             $table->string('post_name', 150);
             $table->datetime('post_date');
             $table->string('post_link');
-            $table->text('post_content');
-            $table->string('ob_title', 150);
-            $table->string('ob_desception', 250);
-            $table->string('ob_keyword', 100);
+            $table->text('post_content')->nullable();
+            $table->string('ob_title', 150)->nullable();
+            $table->string('ob_desception', 250)->nullable();
+            $table->string('ob_keyword', 100)->nullable();
+            $table->string('post_type', 100);
             $table->unsignedTinyInteger('post_status');
             $table->timestamps();
         });
@@ -52,5 +53,7 @@ class CreatePostsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('posts');
+        Schema::dropIfExists('post_images');
+        Schema::dropIfExists('post_categories');
     }
 }

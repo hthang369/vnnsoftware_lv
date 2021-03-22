@@ -20,7 +20,7 @@ Route::prefix('admin')->group(function() {
     Route::resource('menus', 'CategoriesController');
     Route::resource('configs', 'CategoriesController');
     Route::resource('slides', 'CategoriesController');
-    Route::resource('advertises', 'CategoriesController');
+    Route::resource('advertises', 'AdvertisesController');
     Route::resource('group_users', 'CategoriesController');
     Route::resource('users', 'CategoriesController');
 });

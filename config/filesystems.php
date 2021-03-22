@@ -53,6 +53,8 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+            'upload' => storage_path('app/public/data/upload'),
+            'download' => storage_path('app/public/data/upload')
         ],
 
         's3' => [

@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Traits;
 
-use Kalnoy\Nestedset\NodeTrait;
+use Modules\Core\Traits\NestedSetTrait;
 
 /*
  * A trait to handle use full text search
@@ -10,9 +10,9 @@ use Kalnoy\Nestedset\NodeTrait;
 
 trait NestedSetCategoryTrait
 {
-    use NodeTrait;
+    use NestedSetTrait;
 
-    public function initializeNestedSetCategoryTrait() 
+    public function initializeNestedSetCategoryTrait()
     {
         $this->setPrefixColumn('category');
     }

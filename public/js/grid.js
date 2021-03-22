@@ -353,7 +353,7 @@ var _grids = _grids || {};
     handleFormSubmission: function handleFormSubmission(formId, modal) {
       var form = $('#' + formId);
       var submitButton = form.find(':submit');
-      var data = form.serialize();
+      var data = new FormData(document.getElementById(formId));
       var action = form.attr('action');
       var method = form.attr('method') || 'POST';
       var originalButtonHtml = $(submitButton).html();
@@ -365,7 +365,9 @@ var _grids = _grids || {};
         type: method,
         url: action,
         data: data,
-        dataType: 'json',
+        // dataType: 'json',
+        contentType: false,
+        processData : false,
         success: function success(response) {
           if (response.success) {
             var message = '<i class=\"fa fa-check\"></i> ';

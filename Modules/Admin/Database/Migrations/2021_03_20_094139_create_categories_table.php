@@ -16,14 +16,15 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('category_name', 150);
-            $table->string('category_excerpt');
+            $table->string('category_excerpt')->nullable();
             $table->string('category_link');
-            $table->string('category_image');
+            $table->string('category_image')->nullable();
+            $table->unsignedInteger('parent_id')->nullable();
             $table->unsignedSmallInteger('category_lft');
             $table->unsignedSmallInteger('category_rgt');
-            $table->string('ob_title', 150);
-            $table->string('ob_desception', 250);
-            $table->string('ob_keyword', 100);
+            $table->string('ob_title', 150)->nullable();
+            $table->string('ob_desception', 250)->nullable();
+            $table->string('ob_keyword', 100)->nullable();
             $table->unsignedTinyInteger('category_status');
             $table->timestamps();
         });
