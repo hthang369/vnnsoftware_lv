@@ -31,6 +31,11 @@
                 </div>
             @endif
         @endif
+        @if(session()->has('user_has_been_disabled'))
+            <div class="alert alert-danger">
+                <strong>User has been disabled!</strong>
+            </div>
+        @endif
         <div class="card-body">
             <div class="form-group">
                 <strong>@lang('custom_label.name'):</strong>

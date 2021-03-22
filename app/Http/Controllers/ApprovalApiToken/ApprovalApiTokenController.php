@@ -115,7 +115,6 @@ class ApprovalApiTokenController extends Controller
      */
     public function addContactList(Request $request)
     {
-
         $url = config('constants.api_address') . '/api/v1/user/get-list-delete-user';
         $request = null;
         $method = "GET";
@@ -151,24 +150,32 @@ class ApprovalApiTokenController extends Controller
      */
     public function addContactUpdatePage(Request $request)
     {
-        $url = config('constants.api_address') . '/api/v1/user/get-detail-user/' . $request['id'];
+        $user = $this->getUserDetail($request);
         $userId = $request['id'];
-        $request = null;
-        $method = "GET";
-        $response = $this->approvalApiTokenService->sendRequestToAPI($url, $method, $request);
-        $data = $this->approvalApiTokenService->checkAndReturnData($response);
-
 
         $companies = $this->companyService->listWithoutParameter();
-        $companyName = self::COMPANY[$data['company']];
+        $companyName = self::COMPANY[$user['company']];
 
         return view('user-management-for-app-chat/add_contact_update')
             ->with([
                 'companyName' => $companyName,
                 'companies' => $companies,
-                'user' => (object)$data,
+                'user' => (object)$user,
                 'userId' => $userId,
             ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getUserDetail(Request $request){
+        $url = config('constants.api_address') . '/api/v1/user/get-detail-user/' . $request['id'];
+        $request = null;
+        $method = "GET";
+        $response = $this->approvalApiTokenService->sendRequestToAPI($url, $method, $request);
+        return $this->approvalApiTokenService->checkAndReturnData($response);
     }
 
     /**
@@ -178,6 +185,16 @@ class ApprovalApiTokenController extends Controller
      */
     public function addContactsAndRoomsByCompany(Request $request)
     {
+        // Check if user has been disabled or not
+        $request['id'] = $request['user_id'];
+        $user = $this->getUserDetail($request);
+        if ($user['disabled'] == 1)
+        {
+            return redirect()
+                ->intended('/system-admin/user-management-for-app-chat/add-contact/update/' . $request['user_id'])
+                ->with(['user_has_been_disabled' => 1]);
+        }
+
         $addAllContactsResult = null;
         $addToAllRoomsResult = null;
 
