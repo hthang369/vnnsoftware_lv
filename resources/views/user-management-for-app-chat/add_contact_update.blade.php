@@ -72,18 +72,20 @@
                     {{ session()->has('has_chosen_add_option') ? (session()->get('has_chosen_add_option') == false ? 'is-invalid' : '') : ''  }}
                         form-check-input"
                            type="checkbox"
+                           id="add_all_contacts"
                            name="add_all_contacts"
                            value="1">
-                    <label class="form-check-label">Add all contacts</label>
+                    <label for="add_all_contacts" class="form-check-label">Add all contacts</label>
                 </div>
                 <div class="form-group ml-4">
                     <input class="
                         {{ session()->has('has_chosen_add_option') ? (session()->get('has_chosen_add_option') == false ? 'is-invalid' : '') : ''  }}
                         form-check-input"
                            type="checkbox"
+                           id="add_to_all_rooms"
                            name="add_to_all_rooms"
                            value="1">
-                    <label class="form-check-label">Add to all rooms</label>
+                    <label for="add_to_all_rooms" class="form-check-label">Add to all rooms</label>
                 </div>
                 <span class="invalid-feedback mt-0" role="alert">
                     <strong>{{ session()->has('has_chosen_add_option') ? (session()->get('has_chosen_add_option') == false ? 'You must choose at least 1 option' : '') : ''  }}</strong>
