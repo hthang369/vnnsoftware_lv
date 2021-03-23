@@ -3,6 +3,7 @@
 namespace Modules\Admin\Grids;
 
 use Closure;
+use Illuminate\Support\HtmlString;
 use Leantony\Grid\Grid;
 
 class AdvertisesGrid extends Grid implements AdvertisesGridInterface
@@ -67,22 +68,21 @@ class AdvertisesGrid extends Grid implements AdvertisesGridInterface
 		        ],
 		        "filter" => [
 		            "enabled" => true,
-		            "operator" => "="
+		            "operator" => "like"
 		        ]
 		    ],
 		    "advertise_image" => [
 		        "search" => [
-		            "enabled" => true
+		            "enabled" => false
 		        ],
 		        "filter" => [
-		            "enabled" => true,
+		            "enabled" => false,
 		            "operator" => "="
                 ],
                 'raw' => true,
                 'data' => function ($columnData, $columnName) {
                     // like for instance, displaying an image on the grid...
-                    
-                    return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="40">', asset($columnData->{$columnName}), 'alternative'));
+                    return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="40">', asset('storage/data/upload/images/'.$columnData->{$columnName}), 'alternative'));
                 },
 		    ],
 		];

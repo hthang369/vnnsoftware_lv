@@ -62,3 +62,6 @@
 
 .laravel-grid .grid-wrapper {
   margin-top: 20px; }
+
+.laravel-grid table th {
+  padding: .5rem; }
