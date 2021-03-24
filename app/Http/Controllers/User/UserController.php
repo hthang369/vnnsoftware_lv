@@ -186,9 +186,10 @@ class UserController extends Controller
             return redirect('/system-admin/user-management/update/' . $id)->withInput()->withErrors($validator->errors());
         }
 
-        $role = $user->roles();
+        $roles = $user->roles();
         $hasPermission = false;
-        foreach ($role as $value) {
+
+        foreach ($roles as $value) {
             if ($value->name == config('constants.name.role_permission_name')) {
                 foreach ($request->input('role') as $item) {
                     if ($item == $value->id) {
@@ -199,7 +200,7 @@ class UserController extends Controller
             }
         }
 
-        if (!$hasPermission) {
+        if ($hasPermission == false) {
             if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
                 return redirect()
                     ->intended('/system-admin/user-management/update/' . $id)
@@ -287,6 +288,7 @@ class UserController extends Controller
         }
 
         try {
+            $this->userService->deleteEmail($id);
             $this->userService->delete($id);
         } catch (\Exception $ex) {
             abort(400, $ex->getMessage());

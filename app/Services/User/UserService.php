@@ -187,6 +187,11 @@ class UserService extends MyService
         $this->userRepo->delete($id);
     }
 
+    public function deleteEmail($id)
+    {
+        $this->userRepo->deleteEmail($id);
+    }
+
     /**
      * @param $request
      * @return mixed

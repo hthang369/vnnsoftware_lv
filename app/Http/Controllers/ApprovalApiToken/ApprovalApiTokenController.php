@@ -219,12 +219,8 @@ class ApprovalApiTokenController extends Controller
 
         // add all contacts
         if ($request['add_all_contacts'] != null && $request['company_id'] != null) {
-            $url =  config('constants.api_address').'/api/v1/contact/add-all-contacts-in-company';
 
-            $request1 = $request->except(['add_all_contacts', '_token', 'add_to_all_rooms']);
-            $method = "POST";
-            $response = $this->approvalApiTokenService->sendRequestToAPI($url, $method, $request1);
-            $data1 = $this->approvalApiTokenService->checkAndReturnData($response);
+            $data1 = $this->approvalApiTokenService->addAllContacts($request);
 
             if ($data1['error_code'] == 0 && $data1['error_msg'] == 0) {
                 $addAllContactsResult = true;
@@ -235,12 +231,8 @@ class ApprovalApiTokenController extends Controller
 
         // add to all rooms
         if ($request['add_to_all_rooms'] != null && $request['company_id'] != null) {
-            $url =  config('constants.api_address').'/api/v1/contact/add-to-all-rooms-by-company';
 
-            $request2 = $request->except(['add_all_contacts', '_token', 'add_to_all_rooms']);
-            $method = "POST";
-            $response = $this->approvalApiTokenService->sendRequestToAPI($url, $method, $request2);
-            $data2 = $this->approvalApiTokenService->checkAndReturnData($response);
+            $data2 =  $this->approvalApiTokenService->addToAllRooms($request);
 
             if ($data2['error_code'] == 0 && $data2['error_msg'] == 0) {
                 $addToAllRoomsResult = true;
