@@ -1,6 +1,62 @@
 <?php
 
 return [
+/*
+     * Sections list screens
+     */
+    'sections' => [
+        ['name'=> 'config', 'code' => 'config', 'url' => '', 'api' => 'configs'],
+        ['name'=> 'menu', 'code' => 'menu', 'url' => '', 'api' => 'menus'],
+        ['name'=> 'category', 'code' => 'category', 'url' => '', 'api' => 'categoríes'],
+        ['name'=> 'post', 'code' => 'post', 'url' => '', 'api' => 'posts'],
+        ['name'=> 'page', 'code' => 'page', 'url' => '', 'api' => 'pages'],
+        ['name'=> 'employee', 'code' => 'employee', 'url' => 'employee', 'api' => 'employees'],
+        ['name'=> 'slide', 'code' => 'slide', 'url' => '', 'api' => 'slides'],
+        ['name'=> 'advertise', 'code' => 'advertise', 'url' => '', 'api' => 'advertises'],
+        ['name'=> 'role', 'code' => 'role', 'url' => '', 'api' => 'api/v1/role'],
+        ['name'=> 'role has permissions', 'code' => 'role_has_permissions', 'parent' => 'role', 'url' => '', 'api' => 'api/v1/role_has_permissions'],
+        ['name'=> 'profile', 'code' => 'profile', 'url' => '', 'api' => 'api/v1/employee/profile']
+    ],
+    /*
+     * permission actions
+     */
+    'actions' => ['public', 'view', 'add', 'edit', 'delete', 'download', 'upload', 'print'],
+
+    /**
+     * Some sections only have a few actions, list them here
+     */
+    'section_action' => [
+        'profile'                  => ['view', 'add'],
+    ],
+
+    'custom_section_action' => [
+    ],
+
+    /*
+     * Abilities: maps action controller with permission actions
+     */
+    'abilities' =>  [
+        'index'     => 'view',
+        'edit'      => 'edit',
+        'show'      => 'view',
+        'update'    => 'edit',
+        'create'    => 'add',
+        'store'     => 'add',
+        'destroy'   => 'delete',
+        'download'  => 'download',
+        'upload'    => 'upload',
+        'print'     => 'print'
+    ],
+    /*
+     * Roles default
+     */
+    'roles' => [
+        //important !! index 0 need be System Admin, will set all permissions by default
+        ['level' => 'L1', 'name' => 'System Admin', 'description' => '', 'guard_name'=> 'api', 'roles_status_prop' => 1],
+        ['level' => 'L2', 'name' => 'Admin', 'description' => '', 'guard_name'=> 'api', 'roles_status_prop' => 1],
+        ['level' => 'L3', 'name' => 'Manager', 'description' => '', 'guard_name'=> 'api', 'roles_status_prop' => 1],
+        ['level' => 'L4', 'name' => 'Staff', 'description' => '', 'guard_name'=> 'api', 'roles_status_prop' => 1],
+    ],
 
     'models' => [
 
