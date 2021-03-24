@@ -7,12 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ConfigsModel extends Model
 {
-    use HasFactory;
+    protected $table = 'configs';
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
-    {
-        return \Modules\Admin\Database\factories\ConfigsModelFactory::new();
-    }
+    protected $fillable = [
+        'config_name',
+        'config_value'
+    ];
 }

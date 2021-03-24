@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SlidesModel extends Model
 {
-    use HasFactory;
+    protected $table = 'advertises';
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
-    {
-        return \Modules\Admin\Database\factories\SlidesModelFactory::new();
-    }
+    protected $fillable = [
+        'advertise_name',
+        'advertise_link',
+        'advertise_image',
+        'advertise_type',
+        'sequence'
+    ];
 }

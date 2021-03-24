@@ -3,16 +3,19 @@
 namespace Modules\Admin\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class EmployeeModel extends Model
 {
-    use HasFactory;
+    protected $table = 'employees';
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
-    {
-        return \Modules\Admin\Database\factories\EmployeeModelFactory::new();
-    }
+    protected $fillable = [
+        'employee_no',
+        'first_name',
+        'last_name',
+        'avatar',
+        'birthday',
+        'gender',
+        'phone_number',
+        'email_address'
+    ];
 }

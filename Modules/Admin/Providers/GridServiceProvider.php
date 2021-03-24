@@ -17,6 +17,7 @@ class GridServiceProvider extends ServiceProvider
         $this->app->bind('Modules\Admin\Grids\CategoriesGridInterface', 'Modules\Admin\Grids\CategoriesGrid');
         $this->app->bind('Modules\Admin\Grids\PagesGridInterface', 'Modules\Admin\Grids\PagesGrid');
         $this->app->bind('Modules\Admin\Grids\AdvertisesGridInterface', 'Modules\Admin\Grids\AdvertisesGrid');
+        $this->app->bind('Modules\Admin\Grids\SlidesGridInterface', 'Modules\Admin\Grids\SlidesGrid');
     }
 
     /**

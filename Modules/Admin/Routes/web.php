@@ -11,16 +11,17 @@
 |
 */
 
-Route::prefix('admin')->group(function() {
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
     Route::get('/', 'AdminController@index');
 
     Route::resource('posts', 'PostsController');
     Route::resource('pages', 'PagesController');
     Route::resource('categories', 'CategoriesController');
     Route::resource('menus', 'CategoriesController');
-    Route::resource('configs', 'CategoriesController');
-    Route::resource('slides', 'CategoriesController');
-    
+    Route::resource('configs', 'ConfigsController');
+    Route::resource('slides', 'CategoriesController', ['except' => ['update']]);
+    Route::post('slides/{slides}', 'AdvertisesController@update')->name('slides.update');
+
     Route::resource('advertises', 'AdvertisesController', ['except' => ['update']]);
     Route::post('advertises/{advertise}', 'AdvertisesController@update')->name('advertises.update');
 

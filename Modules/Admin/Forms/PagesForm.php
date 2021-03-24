@@ -17,11 +17,10 @@ class PagesForm extends Form
             ->add('post_link', Field::TEXT, [
                 'rules' => 'required'
             ])
-            ->add('categories', Field::SELECT, [
-                'choices' => [],
-                'selected' => '',
-                'empty_value' => '=== Select category ==='
-            ])
-            ->add('post_content', Field::TEXTAREA);
+            ->add('post_image', Field::FILE)
+            ->add('post_content', Field::TEXTAREA)
+            ->add('ob_title', Field::TEXT)
+            ->add('ob_desception', Field::TEXT)
+            ->add('ob_keyword', Field::TEXT);
     }
 }

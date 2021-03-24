@@ -3,16 +3,17 @@
 namespace Modules\Admin\Grids;
 
 use Closure;
+use Illuminate\Support\HtmlString;
 use Leantony\Grid\Grid;
 
-class PostsGrid extends Grid implements PostsGridInterface
+class SlidesGrid extends Grid implements SlidesGridInterface
 {
     /**
      * The name of the grid
      *
      * @var string
      */
-    protected $name = 'Posts';
+    protected $name = 'advertises';
 
     /**
      * List of buttons to be generated on the grid
@@ -45,14 +46,14 @@ class PostsGrid extends Grid implements PostsGridInterface
             "id" => [
 		        "label" => "ID",
 		        "filter" => [
-		            "enabled" => false,
+		            "enabled" => true,
 		            "operator" => "="
 		        ],
 		        "styles" => [
 		            "column" => "grid-w-10"
 		        ]
 		    ],
-		    "post_title" => [
+		    "advertise_name" => [
 		        "search" => [
 		            "enabled" => true
 		        ],
@@ -61,51 +62,29 @@ class PostsGrid extends Grid implements PostsGridInterface
 		            "operator" => "="
 		        ]
 		    ],
-            "post_image" => [
+		    "advertise_link" => [
 		        "search" => [
 		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-		        ]
-		    ],
-            "category_id" => [
-		        "search" => [
-		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-		        ]
-		    ],
-		    "post_excerpt" => [
-		        "search" => [
-		            "enabled" => true
 		        ],
 		        "filter" => [
 		            "enabled" => true,
 		            "operator" => "like"
 		        ]
 		    ],
-		    "post_date" => [
+		    "advertise_image" => [
 		        "search" => [
 		            "enabled" => false
 		        ],
 		        "filter" => [
 		            "enabled" => false,
 		            "operator" => "="
-		        ]
+                ],
+                'raw' => true,
+                'data' => function ($columnData, $columnName) {
+                    // like for instance, displaying an image on the grid...
+                    return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="40">', asset('storage/data/upload/images/'.$columnData->{$columnName}), 'alternative'));
+                },
 		    ],
-		    "post_status" => [
-		        "search" => [
-		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-		        ]
-		    ]
 		];
     }
 
@@ -117,12 +96,12 @@ class PostsGrid extends Grid implements PostsGridInterface
     public function setRoutes()
     {
         // searching, sorting and filtering
-        $this->setIndexRouteName('posts.index');
+        $this->setIndexRouteName('slides.index');
 
         // crud support
-        $this->setCreateRouteName('posts.create');
-        $this->setViewRouteName('posts.show');
-        $this->setDeleteRouteName('posts.destroy');
+        $this->setCreateRouteName('slides.create');
+        $this->setViewRouteName('slides.show');
+        $this->setDeleteRouteName('slides.destroy');
 
         // default route parameter
         $this->setDefaultRouteParameter('id');

@@ -45,6 +45,8 @@ return [
     'default_namespace' => '',
 
     'custom_fields' => [
-       'custom_file' => Modules\Admin\Forms\Fields\CustomFileType::class
+       'custom_file' => Modules\Admin\Forms\Fields\CustomFileType::class,
+       'image_file' => Modules\Admin\Forms\Fields\ImageFileType::class,
+       'maps' => Modules\Admin\Forms\Fields\MapFieldType::class,
     ]
 ];

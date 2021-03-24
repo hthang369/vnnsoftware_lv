@@ -12,6 +12,8 @@
       </div><!-- /.container-fluid -->
     </div>
     <div class="content">
-        @yield('content')
+        <div class="container-fluid">
+            @yield('content')
+        </div>
     </div>
 </div>

@@ -13,6 +13,7 @@ class AdvertisesModel extends Model
         'advertise_name',
         'advertise_link',
         'advertise_image',
-        'advertise_type'
+        'advertise_type',
+        'sequence'
     ];
 }

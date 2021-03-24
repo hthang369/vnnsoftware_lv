@@ -45,7 +45,7 @@ class PagesGrid extends Grid implements PagesGridInterface
             "id" => [
 		        "label" => "ID",
 		        "filter" => [
-		            "enabled" => true,
+		            "enabled" => false,
 		            "operator" => "="
 		        ],
 		        "styles" => [
@@ -61,94 +61,40 @@ class PagesGrid extends Grid implements PagesGridInterface
 		            "operator" => "="
 		        ]
 		    ],
+            "post_image" => [
+		        "search" => [
+		            "enabled" => false
+		        ],
+		        "filter" => [
+		            "enabled" => false,
+		            "operator" => "="
+		        ]
+		    ],
 		    "post_excerpt" => [
 		        "search" => [
 		            "enabled" => true
 		        ],
 		        "filter" => [
 		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "post_name" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
+		            "operator" => "like"
 		        ]
 		    ],
 		    "post_date" => [
 		        "search" => [
-		            "enabled" => true
+		            "enabled" => false
 		        ],
 		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "post_link" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "post_content" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "ob_title" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "ob_desception" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "ob_keyword" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
+		            "enabled" => false,
 		            "operator" => "="
 		        ]
 		    ],
 		    "post_status" => [
 		        "search" => [
-		            "enabled" => true
+		            "enabled" => false
 		        ],
 		        "filter" => [
-		            "enabled" => true,
+		            "enabled" => false,
 		            "operator" => "="
-		        ]
-		    ],
-		    "created_at" => [
-		        "sort" => false,
-		        "date" => "true",
-		        "filter" => [
-		            "enabled" => true,
-		            "type" => "date",
-		            "operator" => "<="
 		        ]
 		    ]
 		];
