@@ -1,5 +1,6 @@
 {
     "Core": true,
     "Admin": true,
-    "Home": true
+    "Home": true,
+    "Setting": true
 }
