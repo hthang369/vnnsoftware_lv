@@ -31,8 +31,12 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['roles'], function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('level', 10)->default('L1');
             $table->string('name');
+            $table->unsignedInteger('role_rank');
+            $table->string('description')->nullable();
             $table->string('guard_name');
+            $table->unsignedSmallInteger('roles_status_prop');
             $table->timestamps();
 
             $table->unique(['name', 'guard_name']);

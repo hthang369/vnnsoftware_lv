@@ -11,8 +11,8 @@
 |
 */
 
-Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
-    Route::get('/', 'AdminController@index');
+Route::group(['middleware' => 'auth:web', 'prefix' => 'admin'], function() {
+    Route::get('/', 'AdminController@index')->name('admin.view');
 
     Route::resource('posts', 'PostsController');
     Route::resource('pages', 'PagesController');

@@ -5,6 +5,7 @@ return [
      * Sections list screens
      */
     'sections' => [
+        ['name'=> 'admin', 'code' => 'admin', 'url' => '', 'api' => 'admin'],
         ['name'=> 'config', 'code' => 'config', 'url' => '', 'api' => 'configs'],
         ['name'=> 'menu', 'code' => 'menu', 'url' => '', 'api' => 'menus'],
         ['name'=> 'category', 'code' => 'category', 'url' => '', 'api' => 'categoríes'],
@@ -27,6 +28,7 @@ return [
      */
     'section_action' => [
         'profile'                  => ['view', 'add'],
+        'admin'                    => ['view'],
     ],
 
     'custom_section_action' => [
@@ -52,10 +54,10 @@ return [
      */
     'roles' => [
         //important !! index 0 need be System Admin, will set all permissions by default
-        ['level' => 'L1', 'name' => 'System Admin', 'description' => '', 'guard_name'=> 'api', 'roles_status_prop' => 1],
-        ['level' => 'L2', 'name' => 'Admin', 'description' => '', 'guard_name'=> 'api', 'roles_status_prop' => 1],
-        ['level' => 'L3', 'name' => 'Manager', 'description' => '', 'guard_name'=> 'api', 'roles_status_prop' => 1],
-        ['level' => 'L4', 'name' => 'Staff', 'description' => '', 'guard_name'=> 'api', 'roles_status_prop' => 1],
+        ['level' => 'L1', 'name' => 'System Admin', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
+        ['level' => 'L2', 'name' => 'Admin', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
+        ['level' => 'L3', 'name' => 'Manager', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
+        ['level' => 'L4', 'name' => 'Staff', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
     ],
 
     'models' => [
@@ -108,7 +110,7 @@ return [
          * basic default value but you may easily change it to any table you like.
          */
 
-        'model_has_permissions' => 'model_has_permissions',
+        'model_has_permissions' => 'user_has_permissions',
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -116,7 +118,7 @@ return [
          * basic default value but you may easily change it to any table you like.
          */
 
-        'model_has_roles' => 'model_has_roles',
+        'model_has_roles' => 'user_has_roles',
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which

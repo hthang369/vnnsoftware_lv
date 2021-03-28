@@ -41,9 +41,9 @@ trait Authorizable
             }
             return parent::callAction($method, $parameters);
         }
+        
 
-
-          $auth = ['auth:api', 'web:api'];
+          $auth = ['auth:api', 'web:api', 'auth:web'];
           $middleware = \Request::route()->middleware();
 
         //public action in auth. this is mean pulic for every one signed
