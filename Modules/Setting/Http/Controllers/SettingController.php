@@ -13,7 +13,8 @@ class SettingController extends CoreController
     public function __construct(SettingRepository $repository, SettingValidator $validator, SettingResponse $response, SettingCriteria $criteria)
     {
         parent::__construct($repository, $validator, $response, $criteria);
-        $this->setRouteName('settings');
+        $this->setDefaultView('setting::');
+        $this->setRouteName('setting');
         $this->setPathView([
             'edit'  => 'setting::index',
             // 'create' => 'admin::configs.slide_modal',
@@ -36,7 +37,7 @@ class SettingController extends CoreController
 
     private function generateSetting($name, $action = 'edit', $dataBidding = [])
     {
-        list($configs, $formData) = $this->repository->formGenerateConfig($name, route("settings.$action", $name));
+        list($configs, $formData) = $this->repository->formGenerateConfig($name, route("setting.$action", $name));
 
         $configs['method'] = $action == 'edit' ? 'GET' : 'POST';
 

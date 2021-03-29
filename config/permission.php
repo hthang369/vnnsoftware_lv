@@ -6,14 +6,14 @@ return [
      */
     'sections' => [
         ['name'=> 'admin', 'code' => 'admin', 'url' => '', 'api' => 'admin'],
-        ['name'=> 'config', 'code' => 'config', 'url' => '', 'api' => 'configs'],
-        ['name'=> 'menu', 'code' => 'menu', 'url' => '', 'api' => 'menus'],
-        ['name'=> 'category', 'code' => 'category', 'url' => '', 'api' => 'categoríes'],
-        ['name'=> 'post', 'code' => 'post', 'url' => '', 'api' => 'posts'],
-        ['name'=> 'page', 'code' => 'page', 'url' => '', 'api' => 'pages'],
+        ['name'=> 'setting', 'code' => 'setting', 'url' => '', 'api' => 'setting'],
+        ['name'=> 'menus', 'code' => 'menus', 'url' => '', 'api' => 'menus'],
+        ['name'=> 'categories', 'code' => 'categories', 'url' => '', 'api' => 'categoríes'],
+        ['name'=> 'posts', 'code' => 'posts', 'url' => '', 'api' => 'posts'],
+        ['name'=> 'pages', 'code' => 'pages', 'url' => '', 'api' => 'pages'],
         ['name'=> 'employee', 'code' => 'employee', 'url' => 'employee', 'api' => 'employees'],
-        ['name'=> 'slide', 'code' => 'slide', 'url' => '', 'api' => 'slides'],
-        ['name'=> 'advertise', 'code' => 'advertise', 'url' => '', 'api' => 'advertises'],
+        ['name'=> 'slides', 'code' => 'slides', 'url' => '', 'api' => 'slides'],
+        ['name'=> 'advertises', 'code' => 'advertises', 'url' => '', 'api' => 'advertises'],
         ['name'=> 'role', 'code' => 'role', 'url' => '', 'api' => 'api/v1/role'],
         ['name'=> 'role has permissions', 'code' => 'role_has_permissions', 'parent' => 'role', 'url' => '', 'api' => 'api/v1/role_has_permissions'],
         ['name'=> 'profile', 'code' => 'profile', 'url' => '', 'api' => 'api/v1/employee/profile']

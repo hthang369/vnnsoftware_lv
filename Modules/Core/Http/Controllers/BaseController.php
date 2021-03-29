@@ -220,7 +220,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      */
     public function store(Request $request)
     {
-        try {
+        // try {
 
             $this->validator($request->all(), ValidatorInterface::RULE_CREATE);
 
@@ -238,9 +238,9 @@ abstract class BaseController extends Controller implements BaseControllerInterf
             $this->dispatchJobs();
 
             return $this->responseAction($request, $response, 'created');
-        } catch (\Exception $e) {
-            return $this->responseErrorAction($request, $e);
-        }
+        // } catch (\Exception $e) {
+        //     return $this->responseErrorAction($request, $e);
+        // }
     }
 
     /**

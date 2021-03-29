@@ -47,6 +47,10 @@
         }
     },
     "autoload": {
+        "files": [
+            "app/helpers.php",
+            "Modules/Core/constant.php"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Modules\\": "Modules/"

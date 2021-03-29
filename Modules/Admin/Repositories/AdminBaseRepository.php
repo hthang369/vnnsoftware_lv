@@ -16,10 +16,10 @@ abstract class AdminBaseRepository extends BaseRepositoryEloquent
 
         $model = $this->model->newInstance($attributes);
 
-        if ($this->count() == 0 || is_null($attributes[$this->model->getParentId()])) {
+        if ($this->count() == 0 || is_null(data_get($attributes, $this->model->getParentIdName(), null))) {
             $model->saveAsRoot();
         } else {
-            $parent_id = $attributes[$this->model->getParentId()];
+            $parent_id = $attributes[$this->model->getParentIdName()];
 
             $parentNode = $this->find($parent_id);
 
@@ -47,10 +47,10 @@ abstract class AdminBaseRepository extends BaseRepositoryEloquent
 
         $model->fill($attributes);
 
-        if (is_null($attributes[$this->model->getParentId()])) {
+        if (is_null(data_get($attributes, $this->model->getParentIdName(), null))) {
             $model->saveAsRoot();
         } else {
-            $parent_id = $attributes[$this->model->getParentId()];
+            $parent_id = $attributes[$this->model->getParentIdName()];
 
             $parentNode = $this->find($parent_id);
 

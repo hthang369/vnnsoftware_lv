@@ -18,7 +18,6 @@ Route::group(['middleware' => 'auth:web', 'prefix' => 'admin'], function() {
     Route::resource('pages', 'PagesController');
     Route::resource('categories', 'CategoriesController');
     Route::resource('menus', 'CategoriesController');
-    Route::resource('configs', 'ConfigsController');
     Route::resource('slides', 'CategoriesController', ['except' => ['update']]);
     Route::post('slides/{slides}', 'AdvertisesController@update')->name('slides.update');
 

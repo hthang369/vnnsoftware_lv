@@ -87,7 +87,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('configs.index') }}" class="nav-link {{ request()->routeIs('configs.*') ? 'active' : ''}}">
+          <a href="{{ route('setting.index') }}" class="nav-link {{ request()->routeIs('configs.*') ? 'active' : ''}}">
             <i class="nav-icon fas fa-book"></i>
             <p>
               Config
