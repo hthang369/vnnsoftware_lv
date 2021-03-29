@@ -59,7 +59,12 @@
                         <td>
 
                         @if($lakaUser->disabled === 0)
-                                <a onclick="return confirm('@lang('custom_message.confirm_disable')');" class="btn btn-danger" href="/system-admin/user-management-for-app-chat/disable-user/{{$lakaUser->id}}?type=sentmail" role="button">@lang('custom_label.disable')</a>
+                                <a
+                                    onclick="return confirm('@lang('custom_message.confirm_disable')');"
+                                    class="btn btn-danger"
+                                    href="/system-admin/user-management-for-app-chat/disable-user/{{$lakaUser->id}}?type=sentmail"
+                                    role="button">@lang('custom_label.disable')
+                                </a>
                             @else
                             User has disable
                             @endif

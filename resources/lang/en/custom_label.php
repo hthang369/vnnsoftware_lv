@@ -20,6 +20,10 @@ return [
     'status' => 'Status',
     // password confirmation
     'password_confirmation' => 'Password confirmation',
+    // add contact option
+    'add_contact_option' => 'Add contact option',
+    'add_all_contacts' => 'Add all contacts',
+    'add_to_all_rooms' => 'Add to all rooms',
 
 
     // business plan

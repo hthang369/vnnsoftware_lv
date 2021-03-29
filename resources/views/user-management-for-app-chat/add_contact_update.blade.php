@@ -31,6 +31,11 @@
                 </div>
             @endif
         @endif
+        @if(session()->has('user_has_been_disabled'))
+            <div class="alert alert-danger">
+                <strong>@lang('custom_message.user_has_been_disabled')</strong>
+            </div>
+        @endif
         <div class="card-body">
             <div class="form-group">
                 <strong>@lang('custom_label.name'):</strong>
@@ -66,7 +71,7 @@
                 </span>
 
                 <!-- Radio buttons -->
-                <label class="required mt-4 mb-2">Add contact options</label>
+                <label class="required mt-4 mb-2">@lang('custom_label.add_contact_option')</label>
                 <div class="form-group ml-4">
                     <input class="
                     {{ session()->has('has_chosen_add_option') ? (session()->get('has_chosen_add_option') == false ? 'is-invalid' : '') : ''  }}
@@ -75,7 +80,7 @@
                            id="add_all_contacts"
                            name="add_all_contacts"
                            value="1">
-                    <label for="add_all_contacts" class="form-check-label">Add all contacts</label>
+                    <label for="add_all_contacts" class="form-check-label">@lang('custom_label.add_all_contacts')</label>
                 </div>
                 <div class="form-group ml-4">
                     <input class="
@@ -85,7 +90,7 @@
                            id="add_to_all_rooms"
                            name="add_to_all_rooms"
                            value="1">
-                    <label for="add_to_all_rooms" class="form-check-label">Add to all rooms</label>
+                    <label for="add_to_all_rooms" class="form-check-label">@lang('custom_label.add_to_all_rooms')</label>
                 </div>
                 <span class="invalid-feedback mt-0" role="alert">
                     <strong>{{ session()->has('has_chosen_add_option') ? (session()->get('has_chosen_add_option') == false ? 'You must choose at least 1 option' : '') : ''  }}</strong>

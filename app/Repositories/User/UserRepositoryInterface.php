@@ -17,5 +17,6 @@ interface UserRepositoryInterface
     public function checkPassword($id, $current);
     public function changePassword($id, $new);
     public function delete($id);
+    public function deleteEmail($id);
     public function countOthersPermissionUser($id);
 }
