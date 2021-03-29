@@ -54,6 +54,7 @@ class SlidesGrid extends Grid implements SlidesGridInterface
 		        ]
 		    ],
 		    "advertise_name" => [
+                'label' => trans('admin::advertises.advertise_name'),
 		        "search" => [
 		            "enabled" => true
 		        ],
@@ -63,6 +64,7 @@ class SlidesGrid extends Grid implements SlidesGridInterface
 		        ]
 		    ],
 		    "advertise_link" => [
+                'label' => trans('admin::advertises.advertise_link'),
 		        "search" => [
 		            "enabled" => false
 		        ],
@@ -72,6 +74,7 @@ class SlidesGrid extends Grid implements SlidesGridInterface
 		        ]
 		    ],
 		    "advertise_image" => [
+                'label' => trans('admin::advertises.advertise_image'),
 		        "search" => [
 		            "enabled" => false
 		        ],

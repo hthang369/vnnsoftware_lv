@@ -24,33 +24,6 @@ abstract class SettingBaseRepository extends BaseRepositoryEloquent
     public function update(array $settings, $id)
     {
         $result = [];
-        if (isset($settings['working_form'])) {
-            $employeeData = Employee::select('id')->limit(2)->get();
-            $timeStamp = DB::table('timestamp')->select('id')->limit(1)->get();
-            if (sizeof($employeeData) > 1 || sizeof($timeStamp) > 0) {
-                $settingData =  SettingBaseRepository::all('*');
-                // if (sizeof($employeeData) > 1) {
-                //     $settings['code_display_automatically'] = $settingData['code_display_automatically'];
-                // }
-                if (sizeof($timeStamp) > 0) {
-                    $settings['format_hour'] = $settingData['format_hour'];
-                }
-            }
-            foreach ($this->model::$customValueFieldRulesWorkingForm as $field => $key_num) {
-                if ($key_num != $settings['working_form']) {
-                    $settings[$field] = '';
-                }
-            }
-        }
-
-        foreach ($settings as $key => $value) {
-            if (isset($this->model::$fieldHasCustomValue[$key]) && $this->model::$fieldHasCustomValue[$key] != $value) {
-                $settings[$key . '_value'] = null;
-            }
-            if (isset($this->model::$twoFieldHasCustomValue[$key]) && $this->model::$twoFieldHasCustomValue[$key] == $value) {
-                $settings[$key . '_value'] = null;
-            }
-        }
 
         foreach ($settings as $key => $value) {
             $model = $this->updateSettingDetail($this->model::getSettingId(), $key, $value);

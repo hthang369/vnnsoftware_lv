@@ -54,6 +54,7 @@ class AdvertisesGrid extends Grid implements AdvertisesGridInterface
 		        ]
 		    ],
 		    "advertise_name" => [
+                'label' => trans('admin::advertises.advertise_name'),
 		        "search" => [
 		            "enabled" => true
 		        ],
@@ -63,6 +64,7 @@ class AdvertisesGrid extends Grid implements AdvertisesGridInterface
 		        ]
 		    ],
 		    "advertise_link" => [
+                'label' => trans('admin::advertises.advertise_link'),
 		        "search" => [
 		            "enabled" => false
 		        ],
@@ -72,6 +74,7 @@ class AdvertisesGrid extends Grid implements AdvertisesGridInterface
 		        ]
 		    ],
 		    "advertise_image" => [
+                'label' => trans('admin::advertises.advertise_image'),
 		        "search" => [
 		            "enabled" => false
 		        ],

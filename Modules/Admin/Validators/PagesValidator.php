@@ -19,8 +19,14 @@ class PagesValidator extends BaseValidator
      */
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
+            'post_title' => 'required',
+            'post_link' => 'required',
+            'post_image' => 'mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp'
         ],
         ValidatorInterface::RULE_UPDATE => [
+            'post_title' => 'required',
+            'post_link' => 'required',
+            'post_image' => 'mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp'
         ],
     ];
 

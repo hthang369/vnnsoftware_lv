@@ -10,7 +10,7 @@ use Modules\Core\Validators\BaseValidator;
  *
  * @package namespace Modules\AssignLeave\Validators;
  */
-class ConfigsValidator extends BaseValidator
+class MenusValidator extends BaseValidator
 {
     /**
      * Validation Rules
@@ -19,8 +19,14 @@ class ConfigsValidator extends BaseValidator
      */
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
+            'category_name' => 'required',
+            'category_link' => 'url',
+            'parent_id' => 'integer'
         ],
         ValidatorInterface::RULE_UPDATE => [
+            'category_name' => 'required',
+            'category_link' => 'url',
+            'parent_id' => 'integer'
         ],
     ];
 

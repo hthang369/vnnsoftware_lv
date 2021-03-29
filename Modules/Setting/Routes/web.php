@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('setting')->group(function() {
-    Route::get('/', 'SettingController@index');
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
+    Route::resource('setting', 'SettingController');
 });

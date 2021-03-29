@@ -53,6 +53,7 @@ class PostsGrid extends Grid implements PostsGridInterface
 		        ]
 		    ],
 		    "post_title" => [
+                'label' => trans('admin::posts.post_title'),
 		        "search" => [
 		            "enabled" => true
 		        ],
@@ -62,6 +63,7 @@ class PostsGrid extends Grid implements PostsGridInterface
 		        ]
 		    ],
             "post_image" => [
+                'label' => trans('admin::posts.post_image'),
 		        "search" => [
 		            "enabled" => false
 		        ],
@@ -71,6 +73,7 @@ class PostsGrid extends Grid implements PostsGridInterface
 		        ]
 		    ],
             "category_id" => [
+                'label' => trans('admin::posts.category_id'),
 		        "search" => [
 		            "enabled" => false
 		        ],
@@ -80,6 +83,7 @@ class PostsGrid extends Grid implements PostsGridInterface
 		        ]
 		    ],
 		    "post_excerpt" => [
+                'label' => trans('admin::posts.post_excerpt'),
 		        "search" => [
 		            "enabled" => true
 		        ],
@@ -89,6 +93,7 @@ class PostsGrid extends Grid implements PostsGridInterface
 		        ]
 		    ],
 		    "post_date" => [
+                'label' => trans('admin::posts.post_date'),
 		        "search" => [
 		            "enabled" => false
 		        ],
@@ -98,6 +103,7 @@ class PostsGrid extends Grid implements PostsGridInterface
 		        ]
 		    ],
 		    "post_status" => [
+                'label' => trans('admin::posts.post_status'),
 		        "search" => [
 		            "enabled" => false
 		        ],

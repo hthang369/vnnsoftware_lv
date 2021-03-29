@@ -19,8 +19,16 @@ class PostsValidator extends BaseValidator
      */
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
+            'post_title' => 'required',
+            'post_link' => 'required',
+            'post_image' => 'mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp',
+            'category_id' => 'integer'
         ],
         ValidatorInterface::RULE_UPDATE => [
+            'post_title' => 'required',
+            'post_link' => 'required',
+            'post_image' => 'mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp',
+            'category_id' => 'integer'
         ],
     ];
 

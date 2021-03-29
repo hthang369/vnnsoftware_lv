@@ -2,17 +2,16 @@
 
 namespace Modules\Setting\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-class SettingModel extends Model
+class SettingModel extends SettingBaseModel
 {
-    use HasFactory;
+    protected $table = 'settings';
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
+    protected $fillable = [
+        'name'
+    ];
+
+    public function settingDetail()
     {
-        return \Modules\Setting\Database\factories\SettingModelFactory::new();
+        return $this->hasMany(SettingDetailModel::class, 'setting_id');
     }
 }

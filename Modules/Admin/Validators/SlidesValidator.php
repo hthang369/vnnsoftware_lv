@@ -19,8 +19,14 @@ class SlidesValidator extends BaseValidator
      */
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
+            'advertise_name' => 'required',
+            'advertise_link' => 'url',
+            'advertise_image' => 'mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp'
         ],
         ValidatorInterface::RULE_UPDATE => [
+            'advertise_name' => 'required',
+            'advertise_link' => 'url',
+            'advertise_image' => 'mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp'
         ],
     ];
 

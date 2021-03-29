@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Admin\Forms;
+namespace Modules\Setting\Forms;
 
 use Kris\LaravelFormBuilder\Field;
 use Kris\LaravelFormBuilder\Form;
 
-class ConfigsHomeForm extends Form
+class SettingsHomeForm extends Form
 {
     public function buildForm()
     {

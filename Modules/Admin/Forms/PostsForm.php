@@ -10,13 +10,9 @@ class PostsForm extends Form
     public function buildForm()
     {
         $this
-            ->add('post_title', Field::TEXT, [
-                'rules' => 'required'
-            ])
+            ->add('post_title', Field::TEXT)
             ->add('post_excerpt', Field::TEXT)
-            ->add('post_link', Field::TEXT, [
-                'rules' => 'required'
-            ])
+            ->add('post_link', Field::TEXT)
             ->add('category_id', Field::SELECT, [
                 'choices' => [],
                 'selected' => '',

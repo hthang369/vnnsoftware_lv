@@ -53,6 +53,7 @@ class CategoriesGrid extends Grid implements CategoriesGridInterface
 		        ]
 		    ],
 		    "category_name" => [
+                'label' => trans('admin::categories.category_name'),
 		        "search" => [
 		            "enabled" => true
 		        ],
@@ -61,7 +62,8 @@ class CategoriesGrid extends Grid implements CategoriesGridInterface
 		            "operator" => "="
 		        ]
 		    ],
-		    "category_excerpt" => [
+            "parent_name" => [
+                'label' => trans('admin::categories.parent_name'),
 		        "search" => [
 		            "enabled" => true
 		        ],
@@ -71,60 +73,7 @@ class CategoriesGrid extends Grid implements CategoriesGridInterface
 		        ]
 		    ],
 		    "category_link" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "category_image" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "category_lft" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "category_rgt" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "ob_title" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "ob_desception" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "ob_keyword" => [
+                'label' => trans('admin::categories.category_link'),
 		        "search" => [
 		            "enabled" => true
 		        ],
@@ -134,21 +83,13 @@ class CategoriesGrid extends Grid implements CategoriesGridInterface
 		        ]
 		    ],
 		    "category_status" => [
+                'label' => trans('admin::categories.category_status'),
 		        "search" => [
 		            "enabled" => true
 		        ],
 		        "filter" => [
 		            "enabled" => true,
 		            "operator" => "="
-		        ]
-		    ],
-		    "created_at" => [
-		        "sort" => false,
-		        "date" => "true",
-		        "filter" => [
-		            "enabled" => true,
-		            "type" => "date",
-		            "operator" => "<="
 		        ]
 		    ]
 		];

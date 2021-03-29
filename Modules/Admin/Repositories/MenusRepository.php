@@ -2,11 +2,11 @@
 
 namespace Modules\Admin\Repositories;
 
-use Modules\Admin\Entities\CategoriesModel;
-use Modules\Admin\Forms\CategoriesForm;
-use Modules\Admin\Grids\CategoriesGridInterface;
+use Modules\Admin\Entities\MenusModel;
+use Modules\Admin\Forms\MenusForm;
+use Modules\Admin\Grids\MenusGridInterface;
 
-class CategoriesRepository extends AdminBaseRepository
+class MenusRepository extends AdminBaseRepository
 {
     /**
      * Specify Model class name
@@ -15,7 +15,7 @@ class CategoriesRepository extends AdminBaseRepository
      */
     public function model()
     {
-        return CategoriesModel::class;
+        return MenusModel::class;
     }
 
     /**
@@ -23,10 +23,10 @@ class CategoriesRepository extends AdminBaseRepository
      *
      * @return string
      */
-    public function grid()
-    {
-        return CategoriesGridInterface::class;
-    }
+    // public function grid()
+    // {
+    //     return MenusGridInterface::class;
+    // }
 
     /**
      * Specify Form class name
@@ -35,7 +35,7 @@ class CategoriesRepository extends AdminBaseRepository
      */
     public function form()
     {
-        return CategoriesForm::class;
+        return MenusForm::class;
     }
 
     public function create(array $attributes)

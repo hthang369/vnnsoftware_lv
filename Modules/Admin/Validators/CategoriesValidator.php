@@ -19,8 +19,14 @@ class CategoriesValidator extends BaseValidator
      */
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
+            'category_name' => 'required',
+            'category_link' => 'url',
+            'parent_id' => 'integer'
         ],
         ValidatorInterface::RULE_UPDATE => [
+            'category_name' => 'required',
+            'category_link' => 'url',
+            'parent_id' => 'integer'
         ],
     ];
 
