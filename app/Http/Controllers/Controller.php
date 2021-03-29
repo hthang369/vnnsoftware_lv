@@ -10,6 +10,7 @@ use App\Models\LeftMenu;
 use App\Models\TopMenu;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
+use function Sodium\add;
 
 class Controller extends BaseController
 {
@@ -21,6 +22,14 @@ class Controller extends BaseController
 
         $topMenu = TopMenu::orderBy('index')->get();
         $leftMenu = LeftMenu::orderBy('index')->get();
+//
+//        $array = [];
+//        foreach ($leftMenu as $left)
+//        {
+//            array_push($array, $left->route_name);
+//        }
+//
+//        dd($array);
 
         View::share(['TOPMENU' => $topMenu, 'LEFTMENU' => $leftMenu]);
     }
