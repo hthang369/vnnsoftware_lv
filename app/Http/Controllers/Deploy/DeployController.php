@@ -3,26 +3,58 @@
 namespace App\Http\Controllers\Deploy;
 
 use App\Http\Controllers\Controller;
-use App\Services\ApprovalApiToken\ApprovalApiTokenService;
-use App\Services\Company\CompanyService;
-use App\Services\DeployService;
+use App\Models\DeployEnvironment;
 use Illuminate\Http\Request;
+use Laka\Lib\Services\LakaDeploy;
+use function Sodium\add;
 
-class DeployController extends Controller {
+class DeployController extends Controller
+{
+    public function index()
+    {
+        // todo: gọi api để lấy dữ liệu về
 
-    public function index() {
-        return view('deploy.list');
+        $environmentArray = [];
+
+        foreach (config('deploy.list_environment') as $environment => $type) {
+            // array of DeployEnvironment objects
+            $deployEnvironmentArray = [];
+            foreach ($type as $typeName => $value) {
+                $deployEnvironment = new DeployEnvironment();
+                $deployEnvironment->set_environment($environment);
+                $deployEnvironment->set_type($typeName);
+                $deployEnvironment->set_version(DeployEnvironment::getVersion($environment, $typeName));
+                // add DeployEnvironment object to array
+                $deployEnvironmentArray[] = $deployEnvironment;
+            }
+            // add array of DeployEnvironment objects to 1 environment
+            $environmentArray[$environment] = $deployEnvironmentArray;
+        }
+        return view('deploy.list')->with(['environmentArray' => $environmentArray]);
     }
 
-    public function doDeploy(Request $request) {
+    public function doDeploy(Request $request)
+    {
+        // todo: gọi api lên server để deploy
+        $result = LakaDeploy::deploy(
+            $request->get('environment'),
+            $request->get('type'),
+            $request->get('version')
+        );
 
-        $deployService   = new DeployService();
-        return $deployService->getVersionAPI();
+        $status = $result['development']['status'];
+        $environment = $request->get('environment');
+        $type = $request->get('type');
+        $version = $request->get('version');
+        $message = $result['development']['data']->return[0];
 
-        $tag    = $request->input('tag');
-        $server = $request->input('server');
-        $rs     = file_get_contents('http://172.16.3.36:8000/?tag=' . $tag . '&server=' . $server);
-
-        return redirect(route('Deploy.Deploy index'))->with(['errors' => $rs]);
+        return redirect(route('Deploy.Deploy index'))
+            ->with([
+                'status' => $status,
+                'environment' => $environment,
+                'type' => $type,
+                'version' => $version,
+                'message' => $message,
+            ]);
     }
 }
