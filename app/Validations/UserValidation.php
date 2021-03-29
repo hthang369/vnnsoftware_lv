@@ -2,11 +2,10 @@
 
 namespace App\Validations;
 
-use App\Validations\ValidationInterface;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
+
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserValidation implements ValidationInterface {
 

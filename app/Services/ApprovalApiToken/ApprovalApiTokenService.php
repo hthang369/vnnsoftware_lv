@@ -5,6 +5,7 @@ namespace App\Services\ApprovalApiToken;
 use App\Events\sendConfirmEmail;
 use App\Models\User;
 use App\Services\Contract\ApiService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
@@ -191,5 +192,37 @@ class ApprovalApiTokenService extends ApiService
         $contentConfirm = $this->warningExpired(config('laka.time_expired_code'));
         $contentConfirm .= $this->reformatEmailContent($dataContentConfirm);
         (event(new sendConfirmEmail(Auth::user(), ($contentConfirm))));
+    }
+
+
+    /**
+     * @param $request
+     * @return \Illuminate\Http\RedirectResponse|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function addAllContacts($request){
+        $url =  config('constants.api_address').'/api/v1/contact/add-all-contacts-in-company';
+
+        $request = $request->only(['user_id', 'company_id']);
+        $method = "POST";
+        $response = $this->sendRequestToAPI($url, $method, $request);
+
+        return $this->checkAndReturnData($response);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function addToAllRooms( $request)
+    {
+        $url =  config('constants.api_address').'/api/v1/contact/add-to-all-rooms-by-company';
+
+        $request = $request->only(['user_id', 'company_id']);
+        $method = "POST";
+        $response = $this->sendRequestToAPI($url, $method, $request);
+
+        return $this->checkAndReturnData($response);
     }
 }

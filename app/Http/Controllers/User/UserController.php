@@ -186,27 +186,28 @@ class UserController extends Controller
             return redirect('/system-admin/user-management/update/' . $id)->withInput()->withErrors($validator->errors());
         }
 
-        $role = $user->roles();
-        $hasPermission = false;
-        foreach ($role as $value) {
-            if ($value->name == config('constants.name.role_permission_name')) {
-                foreach ($request->input('role') as $item) {
-                    if ($item == $value->id) {
-                        $hasPermission = true;
-                    }
-                }
-                break;
-            }
-        }
-
-        if (!$hasPermission) {
-            if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
-                return redirect()
-                    ->intended('/system-admin/user-management/update/' . $id)
-                    ->withInput()
-                    ->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
-            }
-        }
+//        $roles = $user->roles();
+//        $hasPermission = false;
+//
+//        foreach ($roles as $value) {
+//            if ($value->name == config('constants.name.role_permission_name')) {
+//                foreach ($request->input('role') as $item) {
+//                    if ($item == $value->id) {
+//                        $hasPermission = true;
+//                    }
+//                }
+//                break;
+//            }
+//        }
+//
+//        if ($hasPermission == false) {
+//            if ($this->userService->countOthersPermissionUser(Auth::id())->total == 0) {
+//                return redirect()
+//                    ->intended('/system-admin/user-management/update/' . $id)
+//                    ->withInput()
+//                    ->with('errorCommon', __('custom_message.no_one_has_permission_set_role'));
+//            }
+//        }
 
         if (strlen($request['password']) != 0) {
             $input = request()->except(['_token', 'role']);
@@ -287,6 +288,7 @@ class UserController extends Controller
         }
 
         try {
+            $this->userService->deleteEmail($id);
             $this->userService->delete($id);
         } catch (\Exception $ex) {
             abort(400, $ex->getMessage());

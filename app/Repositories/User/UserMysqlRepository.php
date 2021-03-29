@@ -154,6 +154,11 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
         return User::where('id', $id)->delete();
     }
 
+    public function deleteEmail($id)
+    {
+        return User::where('id', $id)->update(['email' => '' ]);
+    }
+
     public function countOthersPermissionUser($id)
     {
         return DB::table('users')
