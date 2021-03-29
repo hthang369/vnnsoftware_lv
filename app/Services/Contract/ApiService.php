@@ -28,7 +28,7 @@ class ApiService
         $options = [
             'form_params' => $request,
             'headers' => [
-                'token' => 'a600eec62a6b57946e3c756d636c7664',
+                'token' => config('laka.api_token','a600eec62a6b57946e3c756d636c7664'),
                 'userid' => 90,
             ],
         ];

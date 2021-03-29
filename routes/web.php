@@ -25,7 +25,7 @@ Route::post('login', 'User\UserController@login')->name('User.Login');
 Route::post('register', 'User\UserController@register')->name('User.New');
 
 //, 'middleware' => ['auth']
-Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']], function () {
+Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
     // company route
     Route::group(['prefix' => 'company'], function () {
         Route::get('/', 'Company\CompanyController@index')->name('LAKA company manage.Company index');
@@ -90,6 +90,10 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
 
     // version route
     Route::get('version', 'Version\VersionController@index')->name('Version.Version index');
+
+    // version route
+    Route::get('deploy', 'Deploy\DeployController@index')->name('Deploy.Deploy index');
+    Route::post('deploy', 'Deploy\DeployController@doDeploy')->name('Deploy.Deploy doDeploy');
 
     // approval api token route
     Route::group(['prefix' => 'approval-api-token'], function () {
