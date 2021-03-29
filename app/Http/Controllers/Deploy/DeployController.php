@@ -11,7 +11,7 @@ use function Sodium\add;
 class DeployController extends Controller
 {
     public function index()
-    {
+    {   
         // todo: gọi api để lấy dữ liệu về
 
         $environmentArray = [];

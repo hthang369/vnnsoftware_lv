@@ -21,6 +21,6 @@ class DeployEnvironment{
 
     static function getVersion($environment, $type){
         $result = LakaDeploy::getVersion($environment, $type);
-        return $result['development']->return[0];
+        return $result[$type]->return[0];
     }
 }
