@@ -3,26 +3,63 @@
 namespace App\Http\Controllers\Deploy;
 
 use App\Http\Controllers\Controller;
-use App\Services\ApprovalApiToken\ApprovalApiTokenService;
-use App\Services\Company\CompanyService;
-use App\Services\DeployService;
+use App\Models\DeployEnvironment;
+use App\Models\DeployServer;
 use Illuminate\Http\Request;
+use Laka\Lib\Services\LakaDeploy;
 
-class DeployController extends Controller {
+class DeployController extends Controller
+{
+    public function index(Request $request)
+    {
+        preg_match('/deploy\/(development|staging|production)$/', $request->getUri(), $matches);
 
-    public function index() {
-        return view('deploy.list');
+        $environment = $matches[1];
+
+        // each environment has a list of servers
+        $serverArray = [];
+        foreach (config('deploy.list_environment.' . $environment) as $server => $value) {
+            $deployServer = new DeployServer();
+            $deployServer->set_version(DeployServer::getVersion($server, $environment));
+            $deployServer->set_server($server);
+
+            $serverArray[] = $deployServer;
+        }
+
+        return view('deploy.list')->with(['serverArray' => $serverArray, 'environment' => $environment]);
     }
 
-    public function doDeploy(Request $request) {
+    public function doDeploy(Request $request)
+    {
+        $environment = $request->get('environment');
 
-        $deployService   = new DeployService();
-        return $deployService->getVersionAPI();
+        if($request->get('version') == null)
+        {
+            return redirect(route('Version Deploy.Deploy index.' . ucfirst($environment)))
+                ->with([
+                    'status' => false,
+                ]);
+        }
 
-        $tag    = $request->input('tag');
-        $server = $request->input('server');
-        $rs     = file_get_contents('http://172.16.3.36:8000/?tag=' . $tag . '&server=' . $server);
+        // todo: gọi api lên server để deploy
+        $result = LakaDeploy::deploy(
+            $request->get('server'),
+            $request->get('environment'),
+            $request->get('version')
+        );
 
-        return redirect(route('Deploy.Deploy index'))->with(['errors' => $rs]);
+        $status = $result[$environment]['status'];
+        $server = $request->get('server');
+        $version = $request->get('version');
+        $message = $result[$environment]['data']->return[0];
+
+        return redirect(route('Version Deploy.Deploy index.' . ucfirst($environment)))
+            ->with([
+                'status' => $status,
+                'server' => $server,
+                'environment' => $environment,
+                'version' => $version,
+                'message' => $message,
+            ]);
     }
 }
