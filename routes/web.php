@@ -92,8 +92,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function ()
     Route::get('version', 'Version\VersionController@index')->name('Version.Version index');
 
     // version route
-    Route::get('deploy', 'Deploy\DeployController@index')->name('Deploy.Deploy index');
-    Route::post('deploy', 'Deploy\DeployController@doDeploy')->name('Deploy.Deploy doDeploy');
+    Route::get('deploy/{environment}', 'Deploy\DeployController@index')->name('Deploy.Deploy index');
+    Route::post('deploy/{environment}', 'Deploy\DeployController@doDeploy')->name('Deploy.Deploy doDeploy');
 
     // approval api token route
     Route::group(['prefix' => 'approval-api-token'], function () {
