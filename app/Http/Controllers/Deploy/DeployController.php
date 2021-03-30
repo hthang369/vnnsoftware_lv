@@ -10,12 +10,15 @@ use Laka\Lib\Services\LakaDeploy;
 
 class DeployController extends Controller
 {
-    public function index($environment)
+    public function index(Request $request)
     {
+        preg_match('/deploy\/(development|staging|production)$/', $request->getUri(), $matches);
+
+        $environment = $matches[1];
+
         // each environment has a list of servers
         $serverArray = [];
-        foreach (config('deploy.list_environment.' . $environment) as $server => $value)
-        {
+        foreach (config('deploy.list_environment.' . $environment) as $server => $value) {
             $deployServer = new DeployServer();
             $deployServer->set_version(DeployServer::getVersion($server, $environment));
             $deployServer->set_server($server);

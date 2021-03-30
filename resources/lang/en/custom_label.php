@@ -100,4 +100,8 @@ return [
 
     'check_all' => 'Check all',
     'all' => 'All',
+
+    'development' => 'Development',
+    'staging' => 'Staging',
+    'production' => 'Production',
 ];
