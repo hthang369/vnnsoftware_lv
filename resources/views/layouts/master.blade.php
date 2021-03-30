@@ -9,7 +9,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     <meta name="description" content="Adminlte-laravel - {{ trans('adminlte_lang::message.landingdescription') }} ">
     <meta name="author" content="Sergi Tur Badenas - acacha.org">
 
-    <title>@yield('header_title', "{{ trans('admin.administrator') }}")</title>
+    <title>@yield('header_title', "{{ trans('home.title') }}")</title>
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -17,12 +17,13 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
 
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
-    
+
 </head>
 
 <body>
-    <div class="container">
+    <section class="container-fluid">
+
         @yield('content')
-    </div>
+    </section>
 </body>
 </html>

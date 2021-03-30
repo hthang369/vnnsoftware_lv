@@ -11,6 +11,6 @@
 |
 */
 
-// Route::prefix('home')->group(function() {
-//     Route::get('/', 'HomeController@index');
-// });
+Route::group(['prefix' => ''], function() {
+    Route::get('/', 'HomeController@index')->name('home');
+});
