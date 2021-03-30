@@ -8,16 +8,22 @@
 
 @section('content')
     @if(session()->has('status'))
-        <div class="alert {{session()->get('status') == true ? 'alert-success' : 'alert-danger' }}">
-            Deployed to: <strong>server {{session()->get('server')}}</strong>
-            <br>
-            Environment: <strong>{{session()->get('environment')}}</strong>
-            <br>
-            Input version: <strong>{{session()->get('version')}}</strong>
-            <br>
-            Message: <strong> {{session()->get('message')}}</strong>
-            <br>
-        </div>
+        @if(session()->get('status') == true)
+            <div class="alert {{session()->get('status') == true ? 'alert-success' : 'alert-danger' }}">
+                Deployed to: <strong>server {{session()->get('server')}}</strong>
+                <br>
+                Environment: <strong>{{session()->get('environment')}}</strong>
+                <br>
+                Input version: <strong>{{session()->get('version')}}</strong>
+                <br>
+                Message: <strong> {{session()->get('message')}}</strong>
+                <br>
+            </div>
+        @else
+            <div class="alert alert-danger }}">
+                <strong>Please enter version!</strong>
+            </div>
+        @endif
     @endif
     <div class="card mb-5">
         <div class="text-white card-header bg-primary">
@@ -28,9 +34,12 @@
                 <div class="well mb-4">
                     <h3>{{$value->server}}</h3>
                     <div>Current version: <b>{{$value->version}}</b></div>
-                    <form method="post">
+                    <form method="post" action="{{ route('Version Deploy.Deploy doDeploy') }}">
                         @csrf
-                        <input class="form-control" name="version" placeholder="ID commit / Version">
+                        <label class="required">Deploy version:</label>
+                        <input class="form-control
+                        {{ session()->has('status') != null ? (session()->has('status') == false ? 'is-invalid' : '') : ''}}" name="version"
+                               placeholder="ID commit / Version">
                         <input type="hidden" class="form-control" name="server" value="{{$value->server}}">
                         <input type="hidden" class="form-control" name="environment" value="{{$environment}}">
                         <button class="btn btn-primary mt-1">
