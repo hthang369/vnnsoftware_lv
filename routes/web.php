@@ -25,7 +25,7 @@ Route::post('login', 'User\UserController@login')->name('User.Login');
 Route::post('register', 'User\UserController@register')->name('User.New');
 
 //, 'middleware' => ['auth']
-Route::group(['prefix' => 'system-admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']], function () {
     // company route
     Route::group(['prefix' => 'company'], function () {
         Route::get('/', 'Company\CompanyController@index')->name('LAKA company manage.Company index');
