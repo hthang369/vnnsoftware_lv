@@ -20,7 +20,13 @@ class DeployController extends Controller
         $serverArray = [];
         foreach (config('deploy.list_environment.' . $environment) as $server => $value) {
             $deployServer = new DeployServer();
-            $deployServer->set_version(DeployServer::getVersion($server, $environment));
+            $version = DeployServer::getVersion($server, $environment);
+            if ($version == null) {
+                $deployServer->set_version(null);
+            } else {
+                $deployServer->set_version($version);
+            }
+            //$deployServer->set_version($version);
             $deployServer->set_server($server);
 
             $serverArray[] = $deployServer;
@@ -33,8 +39,7 @@ class DeployController extends Controller
     {
         $environment = $request->get('environment');
 
-        if($request->get('version') == null)
-        {
+        if ($request->get('version') == null) {
             return redirect(route('Version Deploy.Deploy index.' . ucfirst($environment)))
                 ->with([
                     'status' => false,
