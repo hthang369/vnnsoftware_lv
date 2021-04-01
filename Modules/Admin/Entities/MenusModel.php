@@ -3,16 +3,22 @@
 namespace Modules\Admin\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Admin\Traits\NestedSetMenuTrait;
 
 class MenusModel extends Model
 {
-    use HasFactory;
+    use NestedSetMenuTrait;
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
-    {
-        return \Modules\Admin\Database\factories\MenusModelFactory::new();
-    }
+    protected $table = 'menus';
+
+    protected $fillable = [
+        'menu_name',
+        'menu_link',
+        'parent_id',
+        'menu_lft',
+        'menu_rgt',
+        'partial_id',
+        'partial_table',
+        'menu_type'
+    ];
 }

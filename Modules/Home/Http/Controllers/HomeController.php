@@ -4,10 +4,19 @@ namespace Modules\Home\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Modules\Core\Http\Controllers\BaseController;
+use Modules\Home\Repositories\HomeCriteria;
+use Modules\Home\Repositories\HomeRepository;
+use Modules\Home\Responses\HomeResponse;
+use Modules\Home\Validators\HomeValidator;
 
-class HomeController extends Controller
+class HomeController extends BaseController
 {
+    public function __construct(HomeRepository $repository, HomeValidator $validator, HomeResponse $response, HomeCriteria $criteria)
+    {
+        parent::__construct($repository, $validator, $response, $criteria);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
