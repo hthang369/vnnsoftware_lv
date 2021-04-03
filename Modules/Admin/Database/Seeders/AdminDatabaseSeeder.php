@@ -16,7 +16,7 @@ class AdminDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(MenuSeederTableSeeder::class);
         $this->call(CategoriesSeederTableSeeder::class);
+        $this->call(MenuSeederTableSeeder::class);
     }
 }

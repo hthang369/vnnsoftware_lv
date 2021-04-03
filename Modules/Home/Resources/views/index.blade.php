@@ -1,7 +1,8 @@
 @extends('home::layouts.master')
 
 @section('content')
-<section class="hero-container">
+<section id="hero">
+  <div class="hero-container">
     <div id="heroCarousel" class="carousel slide" data-ride="carousel">
 
         <ol class="carousel-indicators" id="hero-carousel-indicators">
@@ -59,5 +60,6 @@
       </a>
 
     </div>
+  </div>
 </section>
 @endsection

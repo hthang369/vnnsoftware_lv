@@ -20,16 +20,19 @@ class CategoriesSeederTableSeeder extends Seeder
                 'category_name' => 'Thiết kế web',
                 'category_link' => 'thiet-ke-web',
                 'category_status' => 1,
+                'category_type' => 'post',
                 'children'  => [
                     [
                         'category_name' => 'Web bán hàng',
                         'category_link' => 'web-ban-hang',
                         'category_status' => 1,
+                        'category_type' => 'post',
                     ],
                     [
                         'category_name' => 'Web tin tức',
                         'category_link' => 'web-tin-tuc',
                         'category_status' => 1,
+                        'category_type' => 'post',
                     ]
                 ]
             ],
@@ -37,6 +40,13 @@ class CategoriesSeederTableSeeder extends Seeder
                 'category_name' => 'Ứng dụng',
                 'category_link' => 'ung-dung',
                 'category_status' => 1,
+                'category_type' => 'post',
+            ],
+            [
+                'category_name' => 'Tin tức',
+                'category_link' => 'tin-tuc',
+                'category_status' => 1,
+                'category_type' => 'news',
             ]
         ];
 

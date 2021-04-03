@@ -13,4 +13,6 @@
 
 Route::group(['prefix' => ''], function() {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/{title}-post', 'HomeController@showPost')->name('home');
+    Route::get('/{title}', 'HomeController@show')->name('home');
 });

@@ -6,6 +6,7 @@ return [
      */
     'sections' => [
         ['name'=> 'admin', 'code' => 'admin', 'url' => '', 'api' => 'admin'],
+        ['name'=> 'home', 'code' => 'home', 'url' => '', 'api' => 'home'],
         ['name'=> 'setting', 'code' => 'setting', 'url' => '', 'api' => 'setting'],
         ['name'=> 'menus', 'code' => 'menus', 'url' => '', 'api' => 'menus'],
         ['name'=> 'categories', 'code' => 'categories', 'url' => '', 'api' => 'categoríes'],
@@ -29,6 +30,7 @@ return [
     'section_action' => [
         'profile'                  => ['view', 'add'],
         'admin'                    => ['view'],
+        'home'                     => ['view', 'add'],
     ],
 
     'custom_section_action' => [
