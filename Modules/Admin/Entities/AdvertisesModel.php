@@ -2,10 +2,7 @@
 
 namespace Modules\Admin\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-class AdvertisesModel extends Model
+class AdvertisesModel extends AdminBaseModel
 {
     protected $table = 'advertises';
 

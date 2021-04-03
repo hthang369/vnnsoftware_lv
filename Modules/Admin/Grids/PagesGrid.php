@@ -113,12 +113,12 @@ class PagesGrid extends Grid implements PagesGridInterface
     public function setRoutes()
     {
         // searching, sorting and filtering
-        $this->setIndexRouteName('posts.index');
+        $this->setIndexRouteName('pages.index');
 
         // crud support
-        $this->setCreateRouteName('posts.create');
-        $this->setViewRouteName('posts.show');
-        $this->setDeleteRouteName('posts.destroy');
+        $this->setCreateRouteName('pages.create');
+        $this->setViewRouteName('pages.show');
+        $this->setDeleteRouteName('pages.destroy');
 
         // default route parameter
         $this->setDefaultRouteParameter('id');

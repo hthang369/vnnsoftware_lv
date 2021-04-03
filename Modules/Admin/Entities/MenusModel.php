@@ -5,7 +5,7 @@ namespace Modules\Admin\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Admin\Traits\NestedSetMenuTrait;
 
-class MenusModel extends Model
+class MenusModel extends AdminBaseModel
 {
     use NestedSetMenuTrait;
 

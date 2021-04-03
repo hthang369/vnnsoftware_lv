@@ -11,7 +11,6 @@
         <div class="row content">
           {!! $post_content !!}
         </div>
-
       </div>
     </section>
 </main>

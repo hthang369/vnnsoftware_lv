@@ -13,7 +13,7 @@ class SlidesGrid extends Grid implements SlidesGridInterface
      *
      * @var string
      */
-    protected $name = 'advertises';
+    protected $name = 'Slides';
 
     /**
      * List of buttons to be generated on the grid

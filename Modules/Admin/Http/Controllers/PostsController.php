@@ -22,7 +22,8 @@ class PostsController extends CoreController
         $this->setDefaultView('admin::posts');
         $this->setRouteName('posts');
         $this->setPathView([
-            'create' => 'admin::posts.post_modal'
+            'create' => 'admin::posts.post_modal',
+            'show' => 'admin::posts.post_modal'
         ]);
     }
 

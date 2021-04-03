@@ -2,6 +2,7 @@
 
 namespace Modules\Core\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Modules\Core\Contracts\DataTransformer;
 use Prettus\Repository\Eloquent\BaseRepository as PrettusBaseRepository;
 
@@ -144,7 +145,10 @@ abstract class BaseRepositoryEloquent extends PrettusBaseRepository implements B
         $this->applyCriteria();
         $this->applyScope();
 
-        $results = $this->model::query();
+        if ($this->model instanceof Builder)
+            $results = $this->model;
+        else    
+            $results = $this->model::query();
 
         $this->resetModel();
         $this->resetScope();

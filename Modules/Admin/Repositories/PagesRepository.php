@@ -69,9 +69,12 @@ class PagesRepository extends AdminBaseRepository
         $data = PostImagesModel::find($id, ['post_image']);
         $fileService = resolve(FileManagementService::class);
         $fileService->deleteFileType('images', $data['post_image']);
-        $fileData = $fileService->uploadFileImages([$attributes['post_image']]);
-        $dataImage['post_image'] = $fileData['file_name'];
-        unset($attributes['post_image']);
+        $dataImage = [];
+        if (isset($attributes['post_image'])) {
+            $fileData = $fileService->uploadFileImages([$attributes['post_image']]);
+            $dataImage['post_image'] = $fileData['file_name'];
+            unset($attributes['post_image']);
+        }
 
         if (blank($attributes['post_link']))
             $attributes['post_link'] = str_slug($attributes['post_title']);
@@ -79,8 +82,10 @@ class PagesRepository extends AdminBaseRepository
         return DB::transaction(function () use($attributes, $dataImage, $id) {
             $result = parent::update($attributes, $id);
 
-            $dataImage['post_id'] = $result->id;
-            resolve(PostImagesRepository::class)->updateOrCreate($dataImage, ['post_id' => $result->id]);
+            if (count($dataImage) > 0) {
+                $dataImage['post_id'] = $result->id;
+                resolve(PostImagesRepository::class)->updateOrCreate($dataImage, ['post_id' => $result->id]);
+            }
 
             return $result;
         });

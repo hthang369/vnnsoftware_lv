@@ -4,7 +4,7 @@ namespace Modules\Admin\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EmployeeModel extends Model
+class EmployeeModel extends AdminBaseModel
 {
     protected $table = 'employees';
 

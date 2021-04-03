@@ -56,6 +56,9 @@ class CoreController extends BaseController
      */
     public function index()
     {
+        foreach ($this->defaultCriteria as $criteria) {
+            $this->repository->pushCriteria($criteria);
+        }
         $bases = $this->repository->allDataGrid();
         return $this->renderView($bases, __FUNCTION__);
     }

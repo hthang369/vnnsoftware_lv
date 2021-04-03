@@ -4,6 +4,7 @@ namespace Modules\Core\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Modules\Core\Entities\Concerns\HasTimezone;
 use Modules\Core\Observers\BaseModelObserver;
@@ -100,11 +101,13 @@ abstract class BaseModel extends Model implements Transformable, Presentable
 
     public function setCreatedUpdatedUsers()
     {
-        if ($this->exists)
-            $this->setAttribute(static::UPDATED_USER, $this->auth_user);
-        else {
-            $this->setAttribute(static::CREATED_USER, $this->auth_user);
-            $this->setAttribute(static::UPDATED_USER, $this->auth_user);
+        if (Schema::hasColumn($this->table, static::CREATED_USER) && Schema::hasColumn($this->table, static::UPDATED_USER)) {
+            if ($this->exists)
+                $this->setAttribute(static::UPDATED_USER, $this->auth_user);
+            else {
+                $this->setAttribute(static::CREATED_USER, $this->auth_user);
+                $this->setAttribute(static::UPDATED_USER, $this->auth_user);
+            }
         }
     }
 

@@ -22,7 +22,8 @@ class PagesController extends CoreController
         $this->setDefaultView('admin::pages');
         $this->setRouteName('pages');
         $this->setPathView([
-            'create' => 'admin::pages.page_modal'
+            'create' => 'admin::pages.page_modal',
+            'show' => 'admin::pages.page_modal'
         ]);
     }
 
