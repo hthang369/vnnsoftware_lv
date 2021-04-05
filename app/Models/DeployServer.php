@@ -17,7 +17,8 @@ class DeployServer{
     }
 
     static function getVersion($server, $environment){
-        $result = LakaDeploy::getVersion($server, $environment);
+        //$result = LakaDeploy::getVersion($server, $environment);
+        $result = array([0 => 5]);
         return $result[$environment]->return[0];
     }
 }

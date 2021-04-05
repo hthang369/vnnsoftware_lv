@@ -47,11 +47,11 @@ class CheckPermissionByRole
 
     private function shareNotHasPermission($listFeatureApiName)
     {
-        $permission = [];
+        $NOT_HAS_PERMISSION = [];
         foreach ($listFeatureApiName as $value) {
-            array_push($permission, $value->group . '.' . $value->function);
+            array_push($NOT_HAS_PERMISSION, $value->group . '.' . $value->function);
         }
 
-        View::share('NOT_HAS_PERMISSION', $permission);
+        View::share('NOT_HAS_PERMISSION', $NOT_HAS_PERMISSION);
     }
 }
