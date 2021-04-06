@@ -54,7 +54,7 @@ class DeployController extends Controller
                 break;
         }
 
-        if(strcmp($version[0], 'v') == false)
+        if($version[0] != 'v')
         {
             $version = 'v' . $version;
         }
@@ -68,9 +68,9 @@ class DeployController extends Controller
 
         // todo: gọi api lên server để deploy
         $result = LakaDeploy::deploy(
-            $request->get('server'),
-            $request->get('environment'),
-            $request->get('version')
+            $server,
+            $environment,
+            $version
         );
 
         $status = $result[$environment]['status'];
