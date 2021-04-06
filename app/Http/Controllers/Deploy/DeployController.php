@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DeployEnvironment;
 use App\Models\DeployServer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Laka\Lib\Services\LakaDeploy;
 
 class DeployController extends Controller
@@ -43,26 +44,27 @@ class DeployController extends Controller
         $server = $request->get('server');
         $version = $request->get('version');
 
-        switch ($environment) {
-            case 'development':
-                $version .= '-dev';
-                break;
-            case 'staging':
-                $version .= '-stg';
-                break;
-            default:
-                break;
-        }
-
-        if($version[0] != 'v')
+        if($environment != 'production')
         {
-            $version = 'v' . $version;
+            if ($version[0] == 'v' || $version[0] == 'V')
+            {
+                preg_match('/(-dev|-stg)$/', $version, $match);
+                if($match[0] != '-stg' || $match[0] != '-dev')
+                {
+                    return redirect(route('Version Deploy.Deploy index.' . ucfirst($environment)))
+                        ->with([
+                            'status' => false,
+                            'message' => Lang::get('custom_message.alert_input_environment'),
+                        ]);
+                }
+            }
         }
 
-         if ($request->get('version') == null) {
+        if ($request->get('version') == null) {
             return redirect(route('Version Deploy.Deploy index.' . ucfirst($environment)))
                 ->with([
                     'status' => false,
+                    'message' => Lang::get('custom_message.alert_input_version'),
                 ]);
         }
 
@@ -85,4 +87,7 @@ class DeployController extends Controller
                 'message' => $message,
             ]);
     }
+
+
+
 }

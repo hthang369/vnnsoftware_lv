@@ -27,4 +27,6 @@ return [
     'add_all_contacts_failed' => 'Add all contacts failed',
     'added_to_all_rooms' => 'Added to all rooms',
     'add_to_all_rooms_failed' => 'Add to all rooms failed or the user has already been added',
+    'alert_input_version' => 'Please input version',
+    'alert_input_environment' => 'Please input -stg or -dev'
 ];
