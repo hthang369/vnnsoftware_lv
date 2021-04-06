@@ -37,9 +37,29 @@ class DeployController extends Controller
 
     public function doDeploy(Request $request)
     {
+
         $environment = $request->get('environment');
 
-        if ($request->get('version') == null) {
+        $server = $request->get('server');
+        $version = $request->get('version');
+
+        switch ($environment) {
+            case 'development':
+                $version .= '-dev';
+                break;
+            case 'staging':
+                $version .= '-stg';
+                break;
+            default:
+                break;
+        }
+
+        if(strcmp($version[0], 'v') == false)
+        {
+            $version = 'v' . $version;
+        }
+
+         if ($request->get('version') == null) {
             return redirect(route('Version Deploy.Deploy index.' . ucfirst($environment)))
                 ->with([
                     'status' => false,
@@ -54,8 +74,6 @@ class DeployController extends Controller
         );
 
         $status = $result[$environment]['status'];
-        $server = $request->get('server');
-        $version = $request->get('version');
         $message = $result[$environment]['data']->return[0];
 
         return redirect(route('Version Deploy.Deploy index.' . ucfirst($environment)))
