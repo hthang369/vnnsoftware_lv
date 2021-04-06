@@ -21,7 +21,7 @@
             </div>
         @else
             <div class="alert alert-danger }}">
-                <strong>Please enter version!</strong>
+                <strong>{{session()->get('message')}}</strong>
             </div>
         @endif
     @endif
