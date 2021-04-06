@@ -28,5 +28,6 @@ return [
     'added_to_all_rooms' => 'Added to all rooms',
     'add_to_all_rooms_failed' => 'Add to all rooms failed or the user has already been added',
     'alert_input_version' => 'Please input version',
-    'alert_input_environment' => 'Please input -stg or -dev'
+    'alert_input_environment_dev' => 'Please input -dev',
+    'alert_input_environment_stg' => 'Please input -stg',
 ];

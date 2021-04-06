@@ -44,21 +44,38 @@ class DeployController extends Controller
         $server = $request->get('server');
         $version = $request->get('version');
 
-        if($environment != 'production')
+
+
+        if ($version[0] == 'v' || $version[0] == 'V')
         {
-            if ($version[0] == 'v' || $version[0] == 'V')
+            if($environment == 'development')
             {
-                preg_match('/(-dev|-stg)$/', $version, $match);
-                if($match[0] != '-stg' || $match[0] != '-dev')
+                preg_match('/-dev$/', $version, $match);
+                if($match[0] != '-dev')
                 {
                     return redirect(route('Version Deploy.Deploy index.' . ucfirst($environment)))
                         ->with([
                             'status' => false,
-                            'message' => Lang::get('custom_message.alert_input_environment'),
+                            'message' => Lang::get('custom_message.alert_input_environment_dev'),
+                        ]);
+                }
+            }
+
+            else if($environment == 'staging')
+            {
+                preg_match('/-stg$/', $version, $match);
+                if($match[0] != '-stg')
+                {
+                    return redirect(route('Version Deploy.Deploy index.' . ucfirst($environment)))
+                        ->with([
+                            'status' => false,
+                            'message' => Lang::get('custom_message.alert_input_environment_stg'),
                         ]);
                 }
             }
         }
+
+
 
         if ($request->get('version') == null) {
             return redirect(route('Version Deploy.Deploy index.' . ucfirst($environment)))
@@ -88,6 +105,5 @@ class DeployController extends Controller
             ]);
     }
 
-
-
+     
 }
