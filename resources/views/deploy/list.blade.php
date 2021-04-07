@@ -21,7 +21,7 @@
             </div>
         @else
             <div class="alert alert-danger }}">
-                <strong>Please enter version!</strong>
+                <strong>{{session()->get('message')}}</strong>
             </div>
         @endif
     @endif
@@ -34,8 +34,7 @@
 
                 <div class="well mb-4">
                     <h3>{{$value->server}}</h3>
-                    <div>Current version: {{$value->version != null ? $value->version :  'Can\'t get data'}}/></div>
-                    <div>Current version: {!! $slider->details !!}/></div>
+                    <div>Current version: {{$value->version != null ? $value->version :  'Can\'t get data'}}</div>
                     <form method="post" action="{{ route('Version Deploy.Deploy doDeploy') }}">
                         @csrf
                         <label class="required">Deploy version:</label>
