@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Repositories;
 
+use Illuminate\Support\Facades\DB;
 use Modules\Admin\Entities\SlidesModel;
 use Modules\Admin\Forms\SlidesForm;
 use Modules\Admin\Grids\SlidesGridInterface;
@@ -39,6 +40,16 @@ class SlidesRepository extends AdminBaseRepository
         return SlidesForm::class;
     }
 
+    /**
+     * Specify Service class name
+     *
+     * @return string
+     */
+    public function service()
+    {
+        return FileManagementService::class;
+    }
+
     public function formGenerate($route, $actionName, $config = [])
     {
         return parent::formGenerate($route, $actionName, ['enctype' => 'multipart/form-data']);
@@ -46,20 +57,23 @@ class SlidesRepository extends AdminBaseRepository
 
     public function create(array $attributes)
     {
-        $fileService = resolve(FileManagementService::class);
-        $fileData = $fileService->uploadFileImages([$attributes['advertise_image']]);
-        $attributes['advertise_image'] = data_get($fileData, '0.file_name');
-        $attributes['advertise_type'] = 'silde';
+        $dataImageNew = $this->uploadFile($attributes, 'advertise_image');
+        if ($dataImageNew)
+            $attributes['advertise_image'] = $dataImageNew;
+        $attributes['advertise_type'] = 'slide';
         return parent::create($attributes);
     }
 
     public function update(array $attributes, $id)
     {
-        $data = $this->find($id, ['advertise_image']);
-        $fileService = resolve(FileManagementService::class);
-        $fileService->deleteFileType('images', $data['advertise_image']);
-        $fileData = $fileService->uploadFileImages([$attributes['advertise_image']]);
-        $attributes['advertise_image'] = $fileData['file_name'];
-        return parent::update($attributes, $id);
+        return DB::transaction(function () use($attributes, $id) {
+            $data = $this->find($id, ['advertise_image']);
+            $dataImageNew = $this->uploadFile($attributes, 'advertise_image', null, false);
+            if ($dataImageNew)
+                $attributes['advertise_image'] = $dataImageNew;
+            $base = parent::update($attributes, $id);
+            $this->deleteFile($data['advertise_image']);
+            return $base;
+        });
     }
 }

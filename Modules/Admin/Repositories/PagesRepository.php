@@ -41,24 +41,33 @@ class PagesRepository extends AdminBaseRepository
         return PagesForm::class;
     }
 
+    /**
+     * Specify Service class name
+     *
+     * @return string
+     */
+    public function service()
+    {
+        return FileManagementService::class;
+    }
+
     public function create(array $attributes)
     {
-        $fileService = resolve(FileManagementService::class);
-        $fileData = $fileService->uploadFileImages([$attributes['post_image']]);
-        $data['post_image'] = data_get($fileData, '0.file_name');
-        unset($attributes['post_image']);
-
         $attributes['post_type'] = 'page';
         $attributes['post_date'] = now();
         if (blank($attributes['post_link']))
             $attributes['post_link'] = str_slug($attributes['post_title']);
         $attributes['post_status'] = 1;
 
-        return DB::transaction(function () use($attributes, $data) {
+        return DB::transaction(function () use($attributes) {
             $result = parent::create($attributes);
 
-            $data['post_id'] = $result->id;
-            resolve(PostImagesRepository::class)->updateOrCreate($data, ['post_id' => $result->id]);
+            $dataImageNew = $this->uploadFile($attributes, 'post_image');
+            if ($dataImageNew) {
+                $data['post_id'] = $result->id;
+                $data['post_image'] = $dataImageNew;
+                resolve(PostImagesRepository::class)->updateOrCreate($data, ['post_id' => $result->id]);
+            }
 
             return $result;
         });
@@ -67,23 +76,18 @@ class PagesRepository extends AdminBaseRepository
     public function update(array $attributes, $id)
     {
         $data = PostImagesModel::find($id, ['post_image']);
-        $fileService = resolve(FileManagementService::class);
-        $fileService->deleteFileType('images', $data['post_image']);
-        $dataImage = [];
-        if (isset($attributes['post_image'])) {
-            $fileData = $fileService->uploadFileImages([$attributes['post_image']]);
-            $dataImage['post_image'] = $fileData['file_name'];
-            unset($attributes['post_image']);
-        }
+        $dataImageOld = $data['post_image'];
 
         if (blank($attributes['post_link']))
             $attributes['post_link'] = str_slug($attributes['post_title']);
 
-        return DB::transaction(function () use($attributes, $dataImage, $id) {
+        return DB::transaction(function () use($attributes, $dataImageOld, $id) {
             $result = parent::update($attributes, $id);
 
-            if (count($dataImage) > 0) {
+            $dataImageNew = $this->uploadFile($attributes, 'post_image', $dataImageOld);
+            if ($dataImageNew) {
                 $dataImage['post_id'] = $result->id;
+                $dataImage['post_image'] = $dataImageNew;
                 resolve(PostImagesRepository::class)->updateOrCreate($dataImage, ['post_id' => $result->id]);
             }
 

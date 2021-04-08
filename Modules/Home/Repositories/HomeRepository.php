@@ -23,8 +23,14 @@ class HomeRepository extends HomeBaseRepository
         $menu = MenusModel::where('menu_link', $id)->first();
         if (data_get($menu, 'partial_table') != 'category') {
             $data = PagesModel::find(data_get($menu, 'partial_id'));
-            return $data->toArray();
+            return [
+                'view_name' => $menu->menu_view,
+                'data' => $data->toArray()
+            ];
         }
-        return [];
+        return [
+            'view_name' => $menu->menu_view,
+            'data' => []
+        ];
     }
 }

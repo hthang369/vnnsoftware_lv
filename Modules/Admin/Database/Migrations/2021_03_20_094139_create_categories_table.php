@@ -25,6 +25,7 @@ class CreateCategoriesTable extends Migration
             $table->string('ob_title', 150)->nullable();
             $table->string('ob_desception', 250)->nullable();
             $table->string('ob_keyword', 100)->nullable();
+            $table->string('category_type', 50);
             $table->unsignedTinyInteger('category_status');
             $table->timestamps();
         });

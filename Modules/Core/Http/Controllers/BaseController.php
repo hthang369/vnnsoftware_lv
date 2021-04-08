@@ -281,9 +281,9 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      */
     public function update(Request $request, $id)
     {
-        // try {
+        try {
             $this->validator($request->all(), ValidatorInterface::RULE_UPDATE);
-            
+
             $base = $this->repository->update($request->all(), $id);
 
             if (method_exists($base, 'toArray')) {
@@ -298,9 +298,9 @@ abstract class BaseController extends Controller implements BaseControllerInterf
             $this->dispatchJobs();
 
             return $this->responseAction($request, $response, 'updated');
-        // } catch (\Exception $e){
-        //     return $this->responseErrorAction($request, $e);
-        // }
+        } catch (\Exception $e){
+            return $this->responseErrorAction($request, $e);
+        }
     }
 
     /**

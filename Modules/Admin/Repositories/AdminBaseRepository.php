@@ -3,6 +3,7 @@
 namespace Modules\Admin\Repositories;
 
 use Modules\Core\Repositories\BaseRepositoryEloquent;
+use Modules\Core\Services\FileManagementService;
 use Prettus\Repository\Events\RepositoryEntityCreated;
 use Prettus\Repository\Events\RepositoryEntityCreating;
 use Prettus\Repository\Events\RepositoryEntityUpdated;
@@ -64,5 +65,30 @@ abstract class AdminBaseRepository extends BaseRepositoryEloquent
         event(new RepositoryEntityUpdated($this, $model));
 
         return $this->parserResult($model);
+    }
+
+    protected function uploadFile($attributes, $imageName, $imageOld = null, $isDone = true)
+    {
+        if ($this->service && $this->service instanceof FileManagementService) {
+            if (isset($attributes[$imageName])) {
+                $fileData = array_first($this->service->uploadFileImages([$attributes[$imageName]]));
+                $dataImageName = $fileData['file_name'];
+                unset($attributes[$imageName]);
+                if ($isDone) {
+                    $this->deleteFile($imageOld);
+                }
+            }
+            return $dataImageName;
+        }
+        return null;
+    }
+
+    protected function deleteFile($imageName)
+    {
+        if ($this->service && $this->service instanceof FileManagementService) {
+            if (!is_null($imageName)) {
+                $this->service->deleteFileType('images', $imageName);
+            }
+        }
     }
 }

@@ -23,6 +23,7 @@ class CreateMenusModelsTable extends Migration
             $table->unsignedInteger('partial_id')->nullable();
             $table->string('partial_table')->nullable();
             $table->string('menu_type');
+            $table->string('menu_view', 100)->nullable();
             $table->timestamps();
         });
     }

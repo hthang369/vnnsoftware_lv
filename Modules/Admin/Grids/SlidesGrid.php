@@ -136,9 +136,6 @@ class SlidesGrid extends Grid implements SlidesGridInterface
         // call `editToolbarButton` to edit a toolbar button
         // call `editRowButton` to edit a row button
 		// call `editButtonProperties` to do either of the above. All the edit functions accept the properties as an array
-		$this->editToolbarButton('create', [
-            'dataAttributes' => ['modal-size' => 'modal-xl'],
-        ]);
     }
 
     /**

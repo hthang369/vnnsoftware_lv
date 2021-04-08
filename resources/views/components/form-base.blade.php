@@ -24,7 +24,7 @@
         <div class="sent-message">Your message has been sent. Thank you!</div>
     </div>
     <div class="text-center">
-        {!! Form::submit('Send Message', ['class' => 'btn ']) !!}
+        {!! Form::submit('Send Message', ['class' => 'btn btn-primary']) !!}
     </div>
     {!! Form::close() !!}
 </div>

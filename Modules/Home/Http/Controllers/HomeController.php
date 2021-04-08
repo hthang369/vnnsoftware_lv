@@ -48,7 +48,10 @@ class HomeController extends BaseController
     {
         $base = $this->repository->find($id);
 
-        return view('home::show', array_merge($this->data, $base));
+        $viewName = $base['view_name'];
+        if (blank($viewName)) $viewName = 'show';
+
+        return view("home::$viewName", array_merge($this->data, $base['data']));
     }
 
 }

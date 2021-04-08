@@ -163,6 +163,9 @@ class PostsGrid extends Grid implements PostsGridInterface
 		$this->editToolbarButton('create', [
             'dataAttributes' => ['modal-size' => 'modal-xl'],
         ]);
+        $this->editRowButton('view', [
+            'dataAttributes' => ['modal-size' => 'modal-xl'],
+        ]);
     }
 
     /**

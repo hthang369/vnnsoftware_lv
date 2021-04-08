@@ -354,6 +354,14 @@ var _grids = _grids || {};
       var form = $('#' + formId);
       var submitButton = form.find(':submit');
       var data = new FormData(document.getElementById(formId));
+      var textEditor = form.find('textarea');
+      if (textEditor) {
+        var ckeditorElement = CKEDITOR.instances[textEditor.attr('id')];
+        if (ckeditorElement) {
+            var textEditorData = ckeditorElement.getData();
+            data.set(textEditor.attr('name'), textEditorData);
+        }
+      }
       var action = form.attr('action');
       var method = form.attr('method') || 'POST';
       var originalButtonHtml = $(submitButton).html();

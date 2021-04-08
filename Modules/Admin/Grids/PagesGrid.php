@@ -153,6 +153,9 @@ class PagesGrid extends Grid implements PagesGridInterface
 		$this->editToolbarButton('create', [
             'dataAttributes' => ['modal-size' => 'modal-xl'],
         ]);
+        $this->editRowButton('view', [
+            'dataAttributes' => ['modal-size' => 'modal-xl'],
+        ]);
     }
 
     /**
