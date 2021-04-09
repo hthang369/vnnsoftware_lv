@@ -4,6 +4,7 @@ namespace Modules\Admin\Forms;
 
 use Kris\LaravelFormBuilder\Field;
 use Kris\LaravelFormBuilder\Form;
+use Modules\Admin\Entities\CategoriesModel;
 
 class PostsForm extends Form
 {
@@ -14,7 +15,7 @@ class PostsForm extends Form
             ->add('post_excerpt', Field::TEXT)
             ->add('post_link', Field::TEXT)
             ->add('category_id', Field::SELECT, [
-                'choices' => [],
+                'choices' => CategoriesModel::get()->pluck('category_name', 'id')->toArray(),
                 'selected' => '',
                 'empty_value' => '=== Select category ==='
             ])

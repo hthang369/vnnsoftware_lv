@@ -59,6 +59,7 @@ class PostsRepository extends AdminBaseRepository
         if (blank($attributes['post_link']))
             $attributes['post_link'] = str_slug($attributes['post_title']);
         $attributes['post_status'] = 1;
+        $attributes['post_author'] = user_get('username');
 
         return DB::transaction(function () use($attributes, $data_cat) {
             $result = parent::create($attributes);
@@ -101,5 +102,14 @@ class PostsRepository extends AdminBaseRepository
 
             return $result;
         });
+    }
+
+    public function getAllDataByCategory($id)
+    {
+        return $this->model::select(['posts.*', 'category_id', 'post_image'])
+            ->join('post_categories', 'post_categories.post_id', '=', 'posts.id')
+            ->leftJoin('post_images', 'post_images.post_id', '=', 'posts.id')
+            ->where('category_id', $id)
+            ->get();
     }
 }

@@ -17,7 +17,8 @@ class PostsModel extends AdminBaseModel
         'ob_title',
         'ob_desception',
         'ob_keyword',
+        'post_type',
         'post_status'
     ];
-    
+
 }

@@ -70,6 +70,7 @@ abstract class AdminBaseRepository extends BaseRepositoryEloquent
     protected function uploadFile($attributes, $imageName, $imageOld = null, $isDone = true)
     {
         if ($this->service && $this->service instanceof FileManagementService) {
+            $dataImageName = '';
             if (isset($attributes[$imageName])) {
                 $fileData = array_first($this->service->uploadFileImages([$attributes[$imageName]]));
                 $dataImageName = $fileData['file_name'];
