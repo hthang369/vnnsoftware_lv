@@ -7,13 +7,18 @@ use Illuminate\View\Component;
 class CardText extends Component
 {
     /**
+    * @var string
+    */
+    public $textTag;
+
+    /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($textTag = 'p')
     {
-        //
+        $this->textTag = $textTag;
     }
 
     /**

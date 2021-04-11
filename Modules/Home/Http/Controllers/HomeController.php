@@ -27,7 +27,11 @@ class HomeController extends BaseController
 
         $menus = resolve(HomeServices::class)->getHeaderMenus();
 
-        $this->data = compact('menus');
+        $footerMenu = '';
+        $footerOurMenu = '';
+        $webName = $webAddess = $webPhone = $webEmail = '';
+
+        $this->data = compact('menus', 'footerMenu', 'footerOurMenu', 'webName', 'webAddess', 'webPhone', 'webEmail');
     }
 
     /**

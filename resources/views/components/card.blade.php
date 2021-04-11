@@ -8,7 +8,7 @@
     @endif
 
     @if ($imgSrc && $imgTop)
-
+        <x-img :src="{{$imgSrc}}" />
     @endif
 
     @if (!$noBody)
@@ -17,7 +17,7 @@
             :body-border-variant="{{$bodyBorderVariant}}">
     @endif
 
-        <x-card-title :title="{{ $title }}" :title-tag="{{$titleTag}}" />
+        <x-card-title :title="{{ $title }}" :title-tag="{{ $titleTag }}" />
         @if ($subTitle)
             <x-card-sub-title :sub-title="{{ $subTitle }}" :sub-title-tag="{{$subTitleTag}}" :sub-title-text-variant="{{$subTitleTextVariant}}" />
         @endif
@@ -28,7 +28,7 @@
     @endif
 
     @if ($imgSrc && $imgBottom)
-
+        <x-img :src="{{$imgSrc}}" />
     @endif
 
     @if ($footer)

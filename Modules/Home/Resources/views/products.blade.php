@@ -3,18 +3,13 @@
 @section('content')
 <main id="main">
     <x-section-box id="news" class="news" :title="$category_name">
-        <ul class="list-unstyled">
+        <x-card-group>
             @foreach($post_list as $post)
-                <x-media tag="li">
-                    <x-slot name="aside">
-                        <x-img blank width="150" />
-                    </x-slot>
-
-                    <h4><a href="{{ route('page.show-post', $post['post_link']) }}">{{ $post['post_title'] }}</a></h4>
-                    <p>{{ $post['post_excerpt'] }}</p>
-                </x-media>
+                <x-card title="">
+                {{ $post['post_content'] }}
+                </x-card>
             @endforeach
-        </ul>
+        </x-card-group>
     </x-section-box>
 </main>
 @endsection

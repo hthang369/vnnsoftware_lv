@@ -1,5 +1,6 @@
 <?php
 
+use DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -18,8 +19,8 @@ class CreatePostsTable extends Migration
             $table->string('post_author', 100);
             $table->string('post_title', 150);
             $table->string('post_excerpt')->nullable();
-            $table->string('post_name', 150);
-            $table->datetime('post_date');
+            $table->string('post_name', 150)->nullable();
+            $table->datetime('post_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('post_link');
             $table->text('post_content')->nullable();
             $table->string('ob_title', 150)->nullable();

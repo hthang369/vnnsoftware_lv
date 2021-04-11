@@ -4,12 +4,12 @@
         <div class="row">
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
-              <h3>MyBiz</h3>
-              <p>
+              <h3>MyBiz {{$webName}}</h3>
+              <p> {{$webAddess}}
                 A108 Adam Street <br>
                 NY 535022, USA<br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> info@example.com<br>
+                <strong>Phone:</strong> +1 5589 55488 55 {{ $webPhone }}<br>
+                <strong>Email:</strong> info@example.com {{ $webEmail }}<br>
               </p>
               <div class="social-links mt-3">
                 <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
@@ -23,6 +23,7 @@
 
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Useful Links</h4>
+            {{$footerMenu}}
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
@@ -34,6 +35,7 @@
 
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Services</h4>
+            {{$footerOurMenu}}
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
