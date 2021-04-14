@@ -178,7 +178,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class
+        Collective\Html\HtmlServiceProvider::class,
+        Recca0120\Terminal\TerminalServiceProvider::class,
     ],
 
     /*

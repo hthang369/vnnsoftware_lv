@@ -37,7 +37,7 @@ class HomeRepository extends HomeBaseRepository
                 break;
         }
         return [
-            'view_name' => $menu->menu_view,
+            'view_name' => data_get($menu, 'menu_view'),
             'data' => $results
         ];
     }
