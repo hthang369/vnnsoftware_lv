@@ -91,11 +91,11 @@ class SettingSeederTableSeeder extends Seeder
             SettingModel::truncate();
             SettingDetailModel::truncate();
 
-            foreach(array_merge($infoData, $mapData, $homeData, $widgetData) as $item) {
+            foreach([$infoData, $mapData, $homeData, $widgetData] as $item) {
                 $setting = SettingModel::create(['name' => $item['key']]);
 
                 foreach($item['detail'] as $keyItem => $detail) {
-                    $valueItem = is_string($detail) ? $detail : json_decode($detail);
+                    $valueItem = is_array($detail) ? json_encode($detail) : $detail;
                     SettingDetailModel::create([
                         'setting_id' => $setting->id,
                         'key' => $keyItem,

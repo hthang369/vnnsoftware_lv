@@ -18,5 +18,6 @@ class AdminDatabaseSeeder extends Seeder
 
         $this->call(CategoriesSeederTableSeeder::class);
         $this->call(MenuSeederTableSeeder::class);
+        $this->call(SettingSeederTableSeeder::class);
     }
 }
