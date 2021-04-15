@@ -4,6 +4,8 @@ namespace Modules\Admin\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Admin\Console\GenerateActionCommand;
+use Modules\Admin\Console\ResponseMakeCommand;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,8 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected $moduleNameLower = 'admin';
 
+    protected $commands = [GenerateActionCommand::class, ResponseMakeCommand::class];
+
     /**
      * Boot the application events.
      *
@@ -28,6 +32,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+        $this->commands($this->commands);
     }
 
     /**

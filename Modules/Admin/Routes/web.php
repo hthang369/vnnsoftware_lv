@@ -18,14 +18,15 @@ Route::group(['middleware' => 'auth:web', 'prefix' => 'admin'], function() {
     Route::resource('pages', 'PagesController');
     Route::resource('categories', 'CategoriesController');
     Route::resource('menus', 'CategoriesController');
-    
+
     Route::resource('slides', 'SlidesController', ['except' => ['update']]);
     Route::post('slides/{slides}', 'SlidesController@update')->name('slides.update');
 
     Route::resource('advertises', 'AdvertisesController', ['except' => ['update']]);
     Route::post('advertises/{advertise}', 'AdvertisesController@update')->name('advertises.update');
 
-    Route::resource('group_users', 'CategoriesController');
+    Route::resource('roles', 'RolesController')->names('role');
+    Route::get('permission-role/{id}', 'RolesController@permissionRole')->name('role.permission');
     Route::resource('users', 'CategoriesController');
 });
 

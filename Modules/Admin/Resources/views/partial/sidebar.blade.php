@@ -111,10 +111,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('group_users.index') }}" class="nav-link {{ request()->routeIs('group_users.*') ? 'active' : ''}}">
+          <a href="{{ route('role.index') }}" class="nav-link {{ request()->routeIs('role.*') ? 'active' : ''}}">
             <i class="nav-icon fas fa-book"></i>
             <p>
-              Group User
+              Roles
             </p>
           </a>
         </li>

@@ -169,7 +169,7 @@ return [
         /**
          * Namespace for the generated grid
          */
-        'namespace' => 'App\\Grids',
+        'namespace' => 'Modules\\Admin\\Grids',
 
         /**
          * Columns to skip on generation of the grid
