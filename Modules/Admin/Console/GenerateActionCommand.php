@@ -41,13 +41,14 @@ class GenerateActionCommand extends Command
     {
         $name = $this->argument('name');
         $moduleName = $this->argument('module');
+        $moduleNamespace = config('grid.generation.namespace');
         $this->call('module:make-controller', ['controller' => $name.'Controller', 'module' => $moduleName]);
         $this->call('module:make-model', ['model' => $name.'Model', '--migration' => true, 'module' => $moduleName]);
         $this->call('module:make-repository', ['name' => $name, 'module' => $moduleName]);
         $this->call('module:make-validator', ['name' => $name.'Validator', 'module' => $moduleName]);
         $this->call('module:make-response', ['name' => $name.'Response', 'module' => $moduleName]);
-        $this->call('make:grid', ['--model' => $name.'Model']);
-        $this->call('make:form', ['name' => $name,'--path' => 'Model']);
+        $this->call('make:grid', ['--model' => $moduleNamespace.DIRECTORY_SEPARATOR.'Entities'.DIRECTORY_SEPARATOR.$name.'Model']);
+        $this->call('make:form', ['name' => $name.'Form','--namespace' => $moduleNamespace.DIRECTORY_SEPARATOR.'Forms']);
     }
 
     /**
