@@ -5,6 +5,7 @@ namespace Modules\Admin\Console;
 use Illuminate\Console\Command;
 use Nwidart\Modules\Exceptions\FileAlreadyExistException;
 use Nwidart\Modules\Generators\FileGenerator;
+use Nwidart\Modules\Support\Stub;
 
 abstract class GeneratorMultiCommand extends Command
 {
@@ -37,10 +38,26 @@ abstract class GeneratorMultiCommand extends Command
     abstract protected function getMultiDestinationFilePath($fileName = null);
 
     /**
+     * @return string
+     */
+    protected function getDestinationPath()
+    {
+        return $this->laravel['modules']->getModulePath($this->getModuleName());
+    }
+
+    protected function setStubBasePath()
+    {
+        $path = $this->getDestinationPath();
+
+        Stub::setBasePath(str_replace('\\', '/', $path.'Console'.DIRECTORY_SEPARATOR.'stubs'));
+    }
+
+    /**
      * Execute the console command.
      */
     public function handle(): int
     {
+        $this->setStubBasePath();
         $path = str_replace('\\', '/', $this->getMultiDestinationFilePath());
 
         if (!$this->laravel['files']->isDirectory($dir = dirname($path))) {
@@ -133,5 +150,24 @@ abstract class GeneratorMultiCommand extends Command
         $namespace = str_replace('/', '\\', $namespace);
 
         return trim($namespace, '\\');
+    }
+
+    /**
+     * @return array|string
+     */
+    protected function getArgumentName()
+    {
+        return studly_case($this->argument($this->argumentName));
+    }
+
+    protected function getClassFileName()
+    {
+        $name = $this->getArgumentName();
+
+        if (str_contains(strtolower($name), strtolower($this->className)) === false) {
+            $name .= $this->className;
+        }
+
+        return $name;
     }
 }

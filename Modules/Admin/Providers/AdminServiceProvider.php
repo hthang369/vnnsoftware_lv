@@ -4,6 +4,7 @@ namespace Modules\Admin\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Admin\Console\CoreControllerMakeCommand;
 use Modules\Admin\Console\GenerateActionCommand;
 use Modules\Admin\Console\ResponseMakeCommand;
 
@@ -19,7 +20,11 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected $moduleNameLower = 'admin';
 
-    protected $commands = [GenerateActionCommand::class, ResponseMakeCommand::class];
+    protected $commands = [
+        GenerateActionCommand::class,
+        CoreControllerMakeCommand::class,
+        ResponseMakeCommand::class
+    ];
 
     /**
      * Boot the application events.
