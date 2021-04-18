@@ -4,6 +4,7 @@ namespace Modules\Setting\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Setting\Support\SettingSupport;
 
 class SettingServiceProvider extends ServiceProvider
 {
@@ -38,6 +39,9 @@ class SettingServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->bind('setting', function () {
+            return new SettingSupport();
+        });
     }
 
     /**

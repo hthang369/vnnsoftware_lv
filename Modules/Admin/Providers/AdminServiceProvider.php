@@ -5,8 +5,12 @@ namespace Modules\Admin\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Modules\Admin\Console\CoreControllerMakeCommand;
+use Modules\Admin\Console\EntityMakeCommand;
 use Modules\Admin\Console\GenerateActionCommand;
+use Modules\Admin\Console\GridMakeCommand;
+use Modules\Admin\Console\RepositoryMakeCommand;
 use Modules\Admin\Console\ResponseMakeCommand;
+use Modules\Admin\Console\ValidatorMakeCommand;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -23,7 +27,11 @@ class AdminServiceProvider extends ServiceProvider
     protected $commands = [
         GenerateActionCommand::class,
         CoreControllerMakeCommand::class,
-        ResponseMakeCommand::class
+        ResponseMakeCommand::class,
+        EntityMakeCommand::class,
+        RepositoryMakeCommand::class,
+        ValidatorMakeCommand::class,
+        GridMakeCommand::class
     ];
 
     /**

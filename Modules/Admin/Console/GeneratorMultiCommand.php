@@ -70,9 +70,6 @@ abstract class GeneratorMultiCommand extends Command
 
             return $this->fileGenerate($path, $contents);
         } else {
-            if (!empty($this->argument('name'))) {
-                $this->multiFiles = [$this->argument('name')];
-            }
             foreach ($this->multiFiles as $file_name) {
 
                 $path = str_replace('\\', '/', $this->getMultiDestinationFilePath($file_name));

@@ -9,7 +9,7 @@ class HomeServices
 {
     public function getHeaderMenus()
     {
-        $dataTree = MenusModel::get()->toTree();
+        $dataTree = MenusModel::where('menu_type', 'main')->get()->toTree();
         Menu::create('navbar', function($menu) use($dataTree) {
             $menu->style('navbar_bt4');
             $this->renderMenu($menu, $dataTree);

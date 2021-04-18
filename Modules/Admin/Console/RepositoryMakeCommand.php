@@ -69,7 +69,8 @@ class RepositoryMakeCommand extends GeneratorMultiCommand
 
         return (new Stub($this->getStubName($fileName), [
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS'     => $this->getClass($fileName),
+            'CLASS'     => $this->getFileName($fileName),
+            'CLASSNAME'     => $this->getClass(),
             'MODULE'    => $this->getModuleName()
         ]))->render();
     }
@@ -96,16 +97,6 @@ class RepositoryMakeCommand extends GeneratorMultiCommand
         $moduleName = $this->getModuleName();
         $name = Str::studly($this->argument('name')) ?: $moduleName;
         return $name.$fileName;
-    }
-
-    /**
-     * Get class name.
-     *
-     * @return string
-     */
-    public function getClass($fileName = null)
-    {
-        return parent::getClass() ?: $this->getFileName($fileName);
     }
 
     /**

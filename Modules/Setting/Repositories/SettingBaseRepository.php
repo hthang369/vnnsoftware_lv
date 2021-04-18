@@ -122,13 +122,13 @@ abstract class SettingBaseRepository extends BaseRepositoryEloquent
             return [$item->name => $detail];
         });
         // add property detail of employees status for handle setting color employee status
-        $propertyDetailModel = resolve(PropertyDetail::class);
-        $employeeStatuss = [];
-        $employeeStatusGroup = $propertyDetailModel->propertyDetailGroup('employee_status')->get()->toArray();
-        foreach ($employeeStatusGroup as $employeeStatus) {
-            array_push($employeeStatuss, $employeeStatus->column_name);
-        }
-        $all['general']['employees_status_group'] = $employeeStatuss;
+        // $propertyDetailModel = resolve(PropertyDetail::class);
+        // $employeeStatuss = [];
+        // $employeeStatusGroup = $propertyDetailModel->propertyDetailGroup('employee_status')->get()->toArray();
+        // foreach ($employeeStatusGroup as $employeeStatus) {
+        //     array_push($employeeStatuss, $employeeStatus->column_name);
+        // }
+        // $all['general']['employees_status_group'] = $employeeStatuss;
 
         return $all;
     }

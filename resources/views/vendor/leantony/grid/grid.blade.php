@@ -72,7 +72,9 @@
                         @endif
                     @endif
                 @endforeach
+                @if($grid->shouldRenderGridFilters())
                 <th></th>
+                @endif
             </tr>
             @if($grid->shouldRenderGridFilters())
                 <tr>

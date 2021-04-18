@@ -124,6 +124,7 @@ return [
             'resource' => ['path' => 'Transformers', 'generate' => false],
             'response' => ['path' => 'Responses', 'generate' => true],
             'validator' => ['path' => 'Validators', 'generate' => true],
+            'grid' => ['path' => 'Grids', 'generate' => true],
 
 
         ],

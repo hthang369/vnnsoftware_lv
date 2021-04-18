@@ -4,12 +4,10 @@
         <div class="row">
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
-              <h3>MyBiz {{$webName}}</h3>
-              <p> {{$webAddess}}
-                A108 Adam Street <br>
-                NY 535022, USA<br><br>
-                <strong>Phone:</strong> +1 5589 55488 55 {{ $webPhone }}<br>
-                <strong>Email:</strong> info@example.com {{ $webEmail }}<br>
+              <h3>{{$webName}}</h3>
+              <p> {{$webAddess}}<br>
+                <strong>Phone:</strong> {{ $webPhone }}<br>
+                <strong>Email:</strong> {{ $webEmail }}<br>
               </p>
               <div class="social-links mt-3">
                 <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>

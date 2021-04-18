@@ -2,7 +2,7 @@
 
 namespace Modules\$MODULE$\Entities;
 
-class $CLASS$ extends $MODULE$BaseModel
+class $CLASS$ extends $CLASSNAME$BaseModel
 {
     protected $table = '$LOWER_NAME$';
 

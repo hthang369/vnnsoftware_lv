@@ -99,4 +99,13 @@ class CoreControllerMakeCommand extends BaseGeneratorCommand
     {
         return class_basename($this->getControllerName());
     }
+
+    /**
+     * Get the stub file name based on the options
+     * @return string
+     */
+    protected function getStubName()
+    {
+        return '/controllers/core-controller.stub';
+    }
 }

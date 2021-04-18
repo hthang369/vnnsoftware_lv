@@ -49,8 +49,6 @@ class EntityMakeCommand extends GeneratorMultiCommand
     {
         $path = $this->laravel['modules']->getModulePath($this->getModuleName());
 
-        Stub::setBasePath(str_replace('\\', '/', $path.'Console'.DIRECTORY_SEPARATOR.'stubs'));
-
         $entityPath = GenerateConfigReader::read('model');
 
         return $path . $entityPath->getPath() . '/' . $this->getEntityName($file_name) . '.php';
@@ -65,10 +63,10 @@ class EntityMakeCommand extends GeneratorMultiCommand
 
         return (new Stub($this->getStubName($file_name), [
             'MODULENAME'        => $module->getStudlyName(),
-            'CONTROLLERNAME'    => $this->getEntityName(),
+            'CLASSNAME'         => $this->getEntityName($file_name),
             'NAMESPACE'         => $module->getStudlyName(),
             'CLASS_NAMESPACE'   => $this->getClassNamespace($module),
-            'CLASS'             => $this->getEntityNameWithoutNamespace(),
+            'CLASS'             => $this->getEntityNameWithoutNamespace($file_name),
             'LOWER_NAME'        => $module->getLowerName(),
             'MODULE'            => $this->getModuleName(),
             'NAME'              => $this->getModuleName(),
@@ -115,9 +113,9 @@ class EntityMakeCommand extends GeneratorMultiCommand
     /**
      * @return array|string
      */
-    private function getEntityNameWithoutNamespace()
+    private function getEntityNameWithoutNamespace($file_name = null)
     {
-        return class_basename($this->getEntityName());
+        return class_basename($this->getEntityName($file_name));
     }
 
     public function getDefaultNamespace() : string

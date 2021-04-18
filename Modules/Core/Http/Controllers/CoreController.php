@@ -38,10 +38,10 @@ class CoreController extends BaseController
         $this->routeName = $value;
     }
 
-    public function renderView($dataGrid, $viewName, $customName = null)
+    public function renderView($dataGrid, $viewName, $customName = null, $data = [])
     {
         $defaultName = $customName ?? data_get($this->pathView, $viewName, $this->defaultView . '.' . $viewName);
-        return $dataGrid->renderOn($defaultName);
+        return $dataGrid->renderOn($defaultName, $data);
     }
 
     public function renderViewData($data, $viewName, $customName = null)
@@ -90,7 +90,7 @@ class CoreController extends BaseController
         $form = $this->formBuilder->create($formData, [
             'model' => $base
         ])->renderForm([], false, true, false);
-        
+
         return $this->renderViewData(compact('modal', 'form'), __FUNCTION__);
     }
 }

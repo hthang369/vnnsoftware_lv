@@ -72,26 +72,26 @@ class MenuSeederTableSeeder extends Seeder
             [
                 'menu_name' => 'Trang chủ',
                 'menu_link' => '',
-                'menu_type' => 'main',
+                'menu_type' => 'footer',
             ],
             [
                 'menu_name'     => 'Giới thiệu',
                 'menu_link'     => 'gioi-thieu',
-                'menu_type'     => 'main',
+                'menu_type'     => 'footer',
                 'partial_id'    => 0,
                 'partial_table' => 'page'
             ],
             [
                 'menu_name'     => 'Tin tức',
                 'menu_link'     => 'tin-tuc',
-                'menu_type'     => 'main',
+                'menu_type'     => 'footer',
                 'partial_id'    => 0,
                 'partial_table' => 'category'
             ],
             [
                 'menu_name'     => 'Liên hệ',
                 'menu_link'     => 'lien-he',
-                'menu_type'     => 'main',
+                'menu_type'     => 'footer',
                 'partial_id'    => 0,
                 'partial_table' => 'page'
             ]
@@ -101,14 +101,14 @@ class MenuSeederTableSeeder extends Seeder
             [
                 'menu_name'     => 'Thiết kế web',
                 'menu_link'     => 'thiet-ke-web',
-                'menu_type'     => 'main',
+                'menu_type'     => 'footer_our',
                 'partial_id'    => 0,
                 'partial_table' => 'category'
             ],
             [
                 'menu_name'     => 'Ứng dụng',
                 'menu_link'     => 'ung-dung',
-                'menu_type'     => 'main',
+                'menu_type'     => 'footer_our',
                 'partial_id'    => 0,
                 'partial_table' => 'category'
             ]
