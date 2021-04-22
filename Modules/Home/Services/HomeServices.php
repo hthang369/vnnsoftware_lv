@@ -19,7 +19,7 @@ class HomeServices
 
     public function getFooterOurMenus()
     {
-        return $this->getNavbarMenus('footerOur');
+        return $this->getNavbarMenus('footer_our');
     }
 
     private function getNavbarMenus($type, $menu_style = '')
