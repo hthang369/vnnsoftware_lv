@@ -53,8 +53,8 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
-            'upload' => storage_path('app/public/data/upload'),
-            'download' => storage_path('app/public/data/upload')
+            'upload' => storage_path('app/public/upload'),
+            'download' => storage_path('app/public/upload')
         ],
 
         's3' => [
@@ -81,6 +81,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('storage/images') => storage_path('app/public/upload/images'),
     ],
 
 ];

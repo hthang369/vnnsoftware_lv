@@ -21,22 +21,30 @@ class HomeController extends BaseController
     ];
 
     protected $data;
+    protected $allSetting;
 
     public function __construct(HomeRepository $repository, HomeValidator $validator, HomeResponse $response, HomeCriteria $criteria)
     {
         parent::__construct($repository, $validator, $response, $criteria);
 
         $menus = resolve(HomeServices::class)->getHeaderMenus();
+        $footerMenu = resolve(HomeServices::class)->getFooterMenus();
+        $footerOurMenu = resolve(HomeServices::class)->getFooterOurMenus();
 
-        $allSetting = Setting::getAllSetting();
-        $footerMenu = '';
-        $footerOurMenu = '';
-        $webName = data_get($allSetting, 'info.web_name');
-        $webAddess = data_get($allSetting, 'info.web_address');
-        $webPhone = data_get($allSetting, 'info.web_phone');
-        $webEmail = data_get($allSetting, 'info.web_email');
+        $this->allSetting = Setting::getAllSetting();
+        $webName = data_get($this->allSetting, 'info.web_name');
+        $webAddess = data_get($this->allSetting, 'info.web_address');
+        $webPhone = data_get($this->allSetting, 'info.web_phone');
+        $webEmail = data_get($this->allSetting, 'info.web_email');
 
-        $this->data = compact('menus', 'footerMenu', 'footerOurMenu', 'webName', 'webAddess', 'webPhone', 'webEmail');
+        $webFavicon = data_get($this->allSetting, 'home.web_favicon');
+        $webLogo = data_get($this->allSetting, 'home.web_logo');
+
+        $headerSocial = data_get($this->allSetting, 'widget.text_header_social');
+        $footerSocial = data_get($this->allSetting, 'widget.text_footer_social');
+        $topHeader = data_get($this->allSetting, 'widget.text_top_herder');
+
+        $this->data = compact('menus', 'footerMenu', 'footerOurMenu', 'webName', 'webAddess', 'webPhone', 'webEmail', 'webFavicon', 'webLogo', 'headerSocial', 'footerSocial', 'topHeader');
     }
 
     /**
@@ -59,6 +67,7 @@ class HomeController extends BaseController
 
         $viewName = $base['view_name'];
         if (blank($viewName)) $viewName = 'show';
+        $this->data['mapInfo'] = data_get($this->allSetting, 'map.web_map');
 
         return view("home::$viewName", array_merge($this->data, $base['data']));
     }
