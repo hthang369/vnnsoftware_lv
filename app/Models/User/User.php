@@ -44,4 +44,12 @@ class User extends Authenticatable
         // Todo Get employee's timezone
         return 'Asia/Ho_Chi_Minh';
     }
+
+    // public function toArray()
+    // {
+    //     echo '<pre>';
+    //     print_r($this->getAllPermissions());
+    //     echo '</pre>';
+    //     exit;
+    // }
 }
