@@ -107,7 +107,7 @@ h1, h2, h3, h4, h5, h6 {
 # Header
 --------------------------------------------------------------*/
 #header {
-  height: 70px;
+  min-height: 70px;
   transition: all 0.5s;
   z-index: 997;
   transition: all 0.5s;
@@ -417,6 +417,8 @@ h1, h2, h3, h4, h5, h6 {
   animation-delay: 0.4s;
   margin: 0 auto 30px auto;
   color: #fff;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 #hero .carousel-inner .carousel-item {

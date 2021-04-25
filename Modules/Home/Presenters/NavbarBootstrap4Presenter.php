@@ -2,7 +2,7 @@
 
 namespace Modules\Home\Presenters;
 
-use Illuminate\Support\Collection;
+use Collective\Html\FormFacade;
 use Nwidart\Menus\Presenters\Presenter;
 
 /**
@@ -17,7 +17,14 @@ class NavbarBootstrap4Presenter extends Presenter
      */
     public function getOpenTagWrapper()
     {
-        return PHP_EOL . '<ul class="navbar-nav mr-auto">' . PHP_EOL;
+        return PHP_EOL .
+            FormFacade::button('<span class="navbar-toggler-icon"></span>', ['class' => 'navbar-toggler',
+                'data-toggle' => 'collapse', 'data-target' => '#navbarContent',
+                'aria-controls' => 'navbarContent',
+                'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation']) .
+            '<div class="collapse navbar-collapse" id="navbarContent">' .
+            '<ul class="navbar-nav mr-auto">' .
+             PHP_EOL;
     }
 
     /**
@@ -25,7 +32,7 @@ class NavbarBootstrap4Presenter extends Presenter
      */
     public function getCloseTagWrapper()
     {
-        return PHP_EOL . '</ul>' . PHP_EOL;
+        return PHP_EOL . '</ul></div>' . PHP_EOL;
     }
 
     /**
