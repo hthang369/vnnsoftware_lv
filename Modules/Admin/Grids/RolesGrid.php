@@ -75,7 +75,7 @@ class RolesGrid extends Grid implements RolesGridInterface
                 'raw' => true,
                 'data' => function ($columnData, $columnName) {
                     // like for instance, displaying an image on the grid...
-                    return new HtmlString(sprintf('<a href="%s">%s</a>', route('role.permission',$columnData->id), $columnData->{$columnName}));
+                    return new HtmlString(sprintf('<a href="%s">%s</a>', route('role_has_permissions.show',$columnData->id), $columnData->{$columnName}));
                 },
 		    ],
             "updated_at" => [

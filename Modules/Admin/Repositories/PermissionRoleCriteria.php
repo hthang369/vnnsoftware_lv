@@ -31,7 +31,7 @@ class PermissionRoleCriteria extends BaseCriteriaEloquent implements CriteriaInt
                     DB::raw('@curID := section_parent_id as parentID'),'sec.*'])
                 ->fromSub(
                     $model->select(DB::raw("sections.id AS section_id,
-                                                    sections.parent_id AS section_parent_id,
+                                                    max(sections.parent_id) AS section_parent_id,
                                                     sections.name AS section_name,
                                                     sections.code AS section_code,
                                                     sections.url AS section_url,

@@ -79,10 +79,10 @@ class PermissionRoleGrid extends Grid implements PermissionRoleGridInterface
                     foreach($permissions as $key => $value) {
                         if (!in_array($key, data_get($section_actions, $columnData['section_code'], $actions))) continue;
                         $name = sprintf('%s[%s]', $columnData['section_code'], $key);
-                        $listAction[] = FormFacade::checkbox($name, $value, $value).
+                        $listAction[] = FormFacade::checkbox($name, $value, $value, ['id' => $name]).
                         FormFacade::label($name, $key);
                     }
-                    return new HtmlString(implode(' ', $listAction));
+                    return new HtmlString(implode(' &nbsp; ', $listAction));
                     // like for instance, displaying an image on the grid...
                     // return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="40">', asset('storage/data/upload/images/'.$columnData->{$columnName}), 'alternative'));
                 },

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5eb66708ec1f4752f39581bcca9ea37",
+    "content-hash": "60ca46de6c9b001f7512908aca639bd6",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1559,12 +1559,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hthang369/laravel-grid.git",
-                "reference": "b3effa19d5069ce4603ba9dbbcd637407191cde5"
+                "reference": "41da92800455a707c73f1525b5b95abcba990615"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hthang369/laravel-grid/zipball/b3effa19d5069ce4603ba9dbbcd637407191cde5",
-                "reference": "b3effa19d5069ce4603ba9dbbcd637407191cde5",
+                "url": "https://api.github.com/repos/hthang369/laravel-grid/zipball/41da92800455a707c73f1525b5b95abcba990615",
+                "reference": "41da92800455a707c73f1525b5b95abcba990615",
                 "shasum": ""
             },
             "require": {
@@ -1599,7 +1599,7 @@
                     }
                 },
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "autoload": {
@@ -1633,7 +1633,7 @@
                 "leantony",
                 "pjax"
             ],
-            "time": "2021-03-19T02:03:06+00:00"
+            "time": "2021-04-26T07:39:20+00:00"
         },
         {
             "name": "hthang369/nestedset",
