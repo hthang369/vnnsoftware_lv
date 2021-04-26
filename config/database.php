@@ -59,6 +59,7 @@ return [
             'strict' => true,
             'engine' => null,
             // 'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock'
+            'unix_socket' => '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock'
         ],
 
         'pgsql' => [
