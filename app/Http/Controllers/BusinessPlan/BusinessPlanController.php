@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Redirect;
 
-
 class BusinessPlanController extends Controller
 {
     private $businessPlanService;
