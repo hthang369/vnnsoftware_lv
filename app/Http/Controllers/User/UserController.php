@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Redirect;
 use Illuminate\Support\Facades\Input;
+use App\Services\LogActivity\LogActivityService;
+
 
 class UserController extends Controller
 {
@@ -29,6 +31,7 @@ class UserController extends Controller
     private $userService;
     private $roleService;
     private $userValidate;
+    private $logActivityService;
 
     /**
      * UserController constructor.
@@ -39,12 +42,14 @@ class UserController extends Controller
     public function __construct(
         UserService $userService,
         RoleService $roleService,
-        UserValidation $userValidate)
+        UserValidation $userValidate,
+        LogActivityService $logActivityService)
     {
         parent::__construct();
         $this->userService = $userService;
         $this->roleService = $roleService;
         $this->userValidate = $userValidate;
+        $this->logActivityService = $logActivityService;
     }
 
     /**
@@ -76,6 +81,9 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+
+            $this->logActivityService->addToLog($request, Auth::user()->name." logged successfull");
+
             return redirect()->intended('home');
         } else {
             return redirect()->back()
