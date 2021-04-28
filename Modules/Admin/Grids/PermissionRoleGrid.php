@@ -135,7 +135,9 @@ class PermissionRoleGrid extends Grid implements PermissionRoleGridInterface
         // call `makeCustomButton` to do either of the above, but passing in the button properties as an array
         $this->makeCustomButton([
             'name' => 'Save',
-            'url' => 'abc',
+            'pjaxEnabled' => true,
+            'gridId' => 'frmPermissionRole',
+            'class' => 'btn btn-info data-remote'
         ], static::$TYPE_TOOLBAR);
         // call `editToolbarButton` to edit a toolbar button
         // call `editRowButton` to edit a row button
