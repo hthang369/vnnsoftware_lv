@@ -17,6 +17,23 @@ var _grids = _grids || {};
     throw new Error('Requires jQuery');
   }
 
+  $.fn.serializeObject = function()
+	{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+			if (o[this.name]) {
+				if (!o[this.name].push) {
+					o[this.name] = [o[this.name]];
+				}
+				o[this.name].push(this.value || '');
+			} else {
+				o[this.name] = this.value || '';
+			}
+    });
+    return o;
+  };
+
   /**
    * Shared utilities
    *
@@ -45,6 +62,9 @@ var _grids = _grids || {};
         var pjaxContainer = obj.data('pjax-target');
         var refresh = obj.data('refresh-page');
         var isForm = obj.is('form');
+        var ajaxMethod = isForm ? obj.attr('method') : obj.data('method') || 'POST';
+        var ajaxUrl = isForm ? obj.attr('action') : obj.attr('href');
+        var ajaxData = isForm ? obj.serialize() : (obj.data('form-id') ? $('#' + obj.data('form-id')).serialize() : null);
 
         obj.on(event, function (e) {
           e.preventDefault();
@@ -54,9 +74,9 @@ var _grids = _grids || {};
             }
           }
           $.ajax({
-            method: isForm ? obj.attr('method') : obj.data('method') || 'POST',
-            url: isForm ? obj.attr('action') : obj.attr('href'),
-            data: isForm ? obj.serialize() : null,
+            method: ajaxMethod,
+            url: ajaxUrl,
+            data: ajaxData,
             beforeSend: function beforeSend() {
               if (options.beforeSend) {
                 options.beforeSend.call(this);

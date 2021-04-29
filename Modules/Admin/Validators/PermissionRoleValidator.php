@@ -19,11 +19,8 @@ class PermissionRoleValidator extends BaseValidator
      */
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
-            'name' => 'required',
-            'age'  => 'required|numeric'
         ],
         ValidatorInterface::RULE_UPDATE => [
-            'name' => 'required'
         ],
     ];
 }

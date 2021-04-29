@@ -1,7 +1,7 @@
 @extends('admin::layouts.master')
 
 @section('content')
-    {!! Form::open(['route' => ['role_has_permissions.update', $role_id], 'id' => 'frmPermissionRole']) !!}
+    {!! Form::open(['route' => ['role_has_permissions.update', $role_id], 'method' => 'PUT', 'id' => 'frmPermissionRole']) !!}
     {!! $grid !!}
     {!! Form::close() !!}
 @endsection
@@ -9,14 +9,23 @@
 @section('scripts')
 <script>
 $(document).ready(function() {
-    $('.btn-save').on('click', function() {
-        console.log($('#frmPermissionRole'))
-        $('#frmPermissionRole').submit(function(e) {
-            // e.preventDefault();
-            let frm = $(this);
-            $.post(frm.attr('action'), frm.serialize(), function(res) {
-                console.log(res)
-            });
+    $('.btn-save').on('click', function(e) {
+        e.preventDefault();
+        let frm = $('#frmPermissionRole');
+        $.ajax({
+            method: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serializeObject(),
+            success: function success(data) {
+                // location.reload()
+            },
+            error: function error(data) {
+                if (typeof toastr !== 'undefined') {
+                    toastr.error('An error occurred', 'Whoops!');
+                } else {
+                    alert('An error occurred');
+                }
+            }
         });
     });
 });

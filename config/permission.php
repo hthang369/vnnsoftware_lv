@@ -31,6 +31,16 @@ return [
         'profile'                  => ['view', 'add'],
         'admin'                    => ['view'],
         'home'                     => ['view', 'add'],
+        'setting'                  => ['public', 'view', 'add', 'edit', 'delete'],
+        'menus'                    => ['public', 'view', 'add', 'edit', 'delete'],
+        'categories'               => ['public', 'view', 'add', 'edit', 'delete'],
+        'posts'                    => ['public', 'view', 'add', 'edit', 'delete'],
+        'pages'                    => ['public', 'view', 'add', 'edit', 'delete'],
+        'employee'                 => ['view', 'add', 'edit', 'delete'],
+        'slides'                   => ['public', 'view', 'add', 'edit', 'delete'],
+        'advertises'               => ['public', 'view', 'add', 'edit', 'delete'],
+        'role'                     => ['view', 'add', 'edit', 'delete'],
+        'role_has_permissions'     => ['view', 'add', 'edit', 'delete'],
     ],
 
     'custom_section_action' => [

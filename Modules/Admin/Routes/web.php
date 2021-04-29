@@ -26,7 +26,9 @@ Route::group(['middleware' => 'auth:web', 'prefix' => 'admin'], function() {
     Route::post('advertises/{advertise}', 'AdvertisesController@update')->name('advertises.update');
 
     Route::resource('roles', 'RolesController')->names('role');
+
     Route::resource('permission-role', 'PermissionRoleController')->names('role_has_permissions');
+
     Route::resource('users', 'CategoriesController');
 });
 

@@ -78,8 +78,8 @@ class PermissionRoleGrid extends Grid implements PermissionRoleGridInterface
                     $listAction = [];
                     foreach($permissions as $key => $value) {
                         if (!in_array($key, data_get($section_actions, $columnData['section_code'], $actions))) continue;
-                        $name = sprintf('%s[%s]', $columnData['section_code'], $key);
-                        $listAction[] = FormFacade::checkbox($name, $value, $value, ['id' => $name]).
+                        $name = sprintf('%s_%s', $key, $columnData['section_code']);
+                        $listAction[] = FormFacade::checkbox($name, null, $value, ['id' => $name]).
                         FormFacade::label($name, $key);
                     }
                     return new HtmlString(implode(' &nbsp; ', $listAction));
@@ -137,7 +137,8 @@ class PermissionRoleGrid extends Grid implements PermissionRoleGridInterface
             'name' => 'Save',
             'pjaxEnabled' => true,
             'gridId' => 'frmPermissionRole',
-            'class' => 'btn btn-info data-remote'
+            'dataAttributes' => ['form-id' => 'frmPermissionRole'],
+            'class' => 'btn btn-info btn-save'
         ], static::$TYPE_TOOLBAR);
         // call `editToolbarButton` to edit a toolbar button
         // call `editRowButton` to edit a row button
