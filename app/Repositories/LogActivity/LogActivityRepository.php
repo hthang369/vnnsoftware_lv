@@ -25,15 +25,16 @@ class LogActivityRepository {
        return;
     }
 
-    public function getLogActivityList()
+    public function getLogActivityList($itemsPerPage)
     {
         //return LogActivity::latest()->get();
-        return LogActivity::latest()->paginate(20);
+        return LogActivity::latest()->paginate($itemsPerPage);
+        //return LogActivity::latest()->perPage($itemsPerPage);
     }
 
-    public function getLogActivityByUserId($id)
+    public function getLogActivityByUserId($id, $itemsPerPage)
     {
-        return LogActivity::where("user_id", "=", $id)->latest()->paginate(20);
+        return LogActivity::where("user_id", "=", $id)->latest()->paginate($itemsPerPage);
     }
 
 }

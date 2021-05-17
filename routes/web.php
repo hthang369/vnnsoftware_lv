@@ -127,7 +127,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
     });
 
     Route::group(['prefix' => 'log'], function () {
-        Route::get("/", "LogActivity\LogActivityController@getAll");
+        Route::get("/", "LogActivity\LogActivityController@getAll")->name("LAKA Log User Activities By Items Per Page");
         Route::get("/{id}", "LogActivity\LogActivityController@getLogActivityByUserId")->name("Log Activity By User Id");
     });
 });
