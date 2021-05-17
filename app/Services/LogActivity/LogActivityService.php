@@ -19,14 +19,14 @@ class LogActivityService{
         return;
     }
 
-    public function getLogActivityList()
+    public function getLogActivityList($itemsPerPage)
     {
-        return $this->logActivityRepository->getLogActivityList();
+        return $this->logActivityRepository->getLogActivityList($itemsPerPage);
     }
 
-    public function getLogActivityByUserId($id)
+    public function getLogActivityByUserId($id, $itemsPerPage)
     {
-        return $this->logActivityRepository->getLogActivityByUserId($id);
+        return $this->logActivityRepository->getLogActivityByUserId($id, $itemsPerPage);
     }
 
 }
