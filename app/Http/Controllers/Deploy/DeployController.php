@@ -11,6 +11,8 @@ use Laka\Lib\Services\LakaDeploy;
 
 class DeployController extends Controller
 {
+
+
     public function index(Request $request)
     {
         preg_match('/deploy\/(development|staging|production)$/', $request->getUri(), $matches);
@@ -105,5 +107,5 @@ class DeployController extends Controller
             ]);
     }
 
-     
+
 }

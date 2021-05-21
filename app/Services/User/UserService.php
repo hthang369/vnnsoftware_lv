@@ -7,10 +7,17 @@ use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Contract\MyService;
 use App\Services\Role\RoleService;
 use App\Validations\UserValidation;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class UserService extends MyService
 {
@@ -37,7 +44,7 @@ class UserService extends MyService
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function login(Request $request)
     {
@@ -56,7 +63,7 @@ class UserService extends MyService
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function newForm()
     {
@@ -66,7 +73,7 @@ class UserService extends MyService
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function detailForm($id)
     {
@@ -92,7 +99,7 @@ class UserService extends MyService
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function Create($input)
     {
@@ -102,7 +109,7 @@ class UserService extends MyService
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update($id, $input)
     {
@@ -130,7 +137,7 @@ class UserService extends MyService
     }
 
     /**
-     * @return User[]|\Illuminate\Database\Eloquent\Collection
+     * @return User[]|Collection
      */
     public function getAllEmail()
     {
@@ -163,7 +170,7 @@ class UserService extends MyService
     // insert for sync_data version
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     * @return Builder[]|Collection
      */
     public function getAllUser()
     {
@@ -171,7 +178,7 @@ class UserService extends MyService
     }
 
     /**
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return Authenticatable|null
      */
     public function getCurrentUser()
     {
@@ -180,7 +187,7 @@ class UserService extends MyService
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($id)
     {

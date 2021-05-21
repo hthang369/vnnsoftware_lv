@@ -37,10 +37,19 @@
                     <div>Current version: {{$value->version != null ? $value->version :  'Can\'t get data'}}</div>
                     <form method="post" action="{{ route('Version Deploy.Deploy doDeploy') }}">
                         @csrf
+                        <label class="required">Redmine Ticket:</label>
+                        <input class="form-control"
+                               name="redmine_id"
+                               placeholder="Input redmine ticket"
+                               required
+                        >
                         <label class="required">Deploy version:</label>
                         <input class="form-control
-                        {{ session()->has('status') != null ? (session()->has('status') == false ? 'is-invalid' : '') : ''}}" name="version"
-                               placeholder="ID commit / Version">
+                        {{ session()->has('status') != null ? (session()->has('status') == false ? 'is-invalid' : '') : ''}}"
+                               name="version"
+                               placeholder="ID commit / Version"
+                               required>
+
                         <input type="hidden" class="form-control" name="server" value="{{$value->server}}">
                         <input type="hidden" class="form-control" name="environment" value="{{$environment}}">
                         <button class="btn btn-primary mt-1">

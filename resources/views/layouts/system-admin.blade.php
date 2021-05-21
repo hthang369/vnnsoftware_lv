@@ -55,6 +55,7 @@
             color: red;
             font-weight: bold;
         }
+        @yield('style')
     </style>
 </head>
 <body>

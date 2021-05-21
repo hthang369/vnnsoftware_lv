@@ -11,7 +11,7 @@
 |
 */
 
-if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
+if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
     error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 }
 
@@ -59,7 +59,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('detail/{id}', 'User\UserController@detail')->name('LMT user manage.LMT user info (detail)')->middleware("log.activity:LMT user info (detail)");
         Route::get('update/{id}', 'User\UserController@updateForm')->name('LMT user manage.Update')->middleware("log.activity:Update LMT user");
         Route::post('update/{id}', 'User\UserController@update')->name('LMT user manage.Update')->middleware("log.activity:Update LMT user");
-        Route::get('update-password/{id}','User\UserController@updatePasswordForm')->name('LMT user manage.Update Password')->middleware("log.activity:Update Password LMT user");
+        Route::get('update-password/{id}', 'User\UserController@updatePasswordForm')->name('LMT user manage.Update Password')->middleware("log.activity:Update Password LMT user");
         Route::post('update-password', 'User\UserController@updatePassword')->name('LMT user manage.Update Password')->middleware("log.activity:Update Password LMT user");
         Route::get('new', 'User\UserController@newForm')->name('LMT user manage.Add LMT user')->middleware("log.activity:Add LMT user");
         Route::post('new', 'User\UserController@register')->name('LMT user manage.Add LMT user')->middleware("log.activity:Add LMT user");
@@ -91,10 +91,23 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
     Route::get('version', 'Version\VersionController@index')->name('Version.Version index')->middleware("log.activity:Version index");
 
     // version route
-    Route::get('deploy/development', 'Deploy\DeployController@index')->name('Version Deploy.Deploy index.Development')->middleware("log.activity:Version Deploy");
-    Route::get('deploy/staging', 'Deploy\DeployController@index')->name('Version Deploy.Deploy index.Staging')->middleware("log.activity:Version Deploy");
-    Route::get('deploy/production', 'Deploy\DeployController@index')->name('Version Deploy.Deploy index.Production')->middleware("log.activity:Version Deploy");
-    Route::post('deploy', 'Deploy\DeployController@doDeploy')->name('Version Deploy.Deploy doDeploy')->middleware("log.activity:Version Deploy");
+    Route::group(['prefix' => 'deploy'], function () {
+        Route::get('/development', 'Deploy\DeployController@index')->name('Version Deploy.Deploy index.Development')->middleware("log.activity:Version Deploy");
+        Route::get('/staging', 'Deploy\DeployController@index')->name('Version Deploy.Deploy index.Staging')->middleware("log.activity:Version Deploy");
+        Route::get('/production', 'Deploy\DeployController@index')->name('Version Deploy.Deploy index.Production')->middleware("log.activity:Version Deploy");
+
+        Route::group(['prefix' => 'log-release'], function () {
+            Route::get('/', [App\Http\Controllers\LogRelease\LogReleaseController::class, 'getLogReleaseList'])->name('Version Deploy.Deploy index.Show Log Release');
+            Route::get('/{user_id}', [App\Http\Controllers\LogRelease\LogReleaseController::class, 'getLogReleaseByUserId'])->name('Version Deploy.Deploy index.Show Log Release By User Id');
+            Route::get('/search-log', [App\Http\Controllers\LogRelease\LogReleaseController::class, 'searchLogRelease'])->name('Version Deploy.Deploy index.Get Log Release By User Keyword');
+        });
+    });
+    Route::middleware(['log.activity:Version Deploy', 'log.release'])->group(function () {
+        Route::post('deploy', 'Deploy\DeployController@doDeploy')->name('Version Deploy.Deploy doDeploy');
+    });
+
+
+//    Route::post('deploy', 'Deploy\DeployController@doDeploy')->name('Version Deploy.Deploy doDeploy')->middleware("log.activity:Version Deploy");
 
     // approval api token route
     Route::group(['prefix' => 'approval-api-token'], function () {
@@ -130,4 +143,5 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get("/", "LogActivity\LogActivityController@getAll")->name("LAKA Log User Activities By Items Per Page");
         Route::get("/{id}", "LogActivity\LogActivityController@getLogActivityByUserId")->name("Log Activity By User Id");
     });
+
 });

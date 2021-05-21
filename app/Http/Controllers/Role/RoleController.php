@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Role;
 use App\Http\Controllers\Controller;
 use App\Services\Role\RoleService;
 use App\Validations\RoleValidation;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class RoleController extends Controller
 {
@@ -26,7 +31,7 @@ class RoleController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -34,7 +39,7 @@ class RoleController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function list(Request $request)
     {
@@ -44,7 +49,7 @@ class RoleController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function detail($id)
     {
@@ -53,7 +58,7 @@ class RoleController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function newForm()
     {
@@ -62,7 +67,7 @@ class RoleController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function updateForm($id)
     {
@@ -77,7 +82,7 @@ class RoleController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function register(Request $request)
     {
@@ -94,7 +99,7 @@ class RoleController extends Controller
 
             $role = $this->roleService->create($input);
             return redirect()->intended('/system-admin/role/detail/' . $role->id)->with('saved', true);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(400,$ex->getMessage());
         }
     }
@@ -102,7 +107,7 @@ class RoleController extends Controller
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update($id, Request $request)
     {
@@ -126,7 +131,7 @@ class RoleController extends Controller
 
         try {
             $role->update($input);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(400, $ex->getMessage());
         }
 
@@ -135,7 +140,7 @@ class RoleController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($id)
     {
@@ -156,7 +161,7 @@ class RoleController extends Controller
             $role->role_has_feature_api()->delete();
             $role->role_user()->delete();
             DB::commit();
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             DB::rollBack();
             abort(400, $ex->getMessage());
         }

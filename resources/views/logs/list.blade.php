@@ -1,30 +1,27 @@
 @extends('layouts.system-admin')
 
-@section('content')
-
-<style>
-
-  .table-log{
+@section('style')
+    .table-log{
     position:relative;
     width:100%;
     height: 750px;
     overflow-y: scroll;
-  }
-  .table-log table{
+    }
+    .table-log table{
     position:absolute;
     width:1400px;
     height:100%;
-  }
-
-  @media screen and (max-width: 1400px) {
-    .table-log{
-      height:450px;
-      overflow-x: scroll;
-      overflow-y: scroll;
     }
-  }
 
-</style>
+    @media screen and (max-width: 1400px) {
+    .table-log{
+    height:450px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    }
+@endsection
+@section('content')
+
 <?php $stt = 1; $id_user?>
 <div class="table-log">
   <table class="table table-hover table-bordered" style="font-size: 13px;">
@@ -97,6 +94,6 @@
 
 
 
-  
+
 
 @endsection

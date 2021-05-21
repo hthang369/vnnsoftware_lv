@@ -8,9 +8,15 @@ use App\Repositories\BusinessPlan\BusinessPlanRepositoryInterface;
 use App\Services\Contract\MyService;
 use App\User;
 use App\Validations\BusinessPlanValidation;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class BusinessPlanService extends MyService
 {
@@ -29,7 +35,7 @@ class BusinessPlanService extends MyService
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function list(Request $request)
     {
@@ -39,7 +45,7 @@ class BusinessPlanService extends MyService
 
     /**
      * @param $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create($request)
     {
@@ -48,7 +54,7 @@ class BusinessPlanService extends MyService
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update($id, $input)
     {
@@ -66,7 +72,7 @@ class BusinessPlanService extends MyService
 
         try {
             $businessPlan = $this->businessPLanRepo->update($id, $input);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(400, $ex->getMessage());
         }
 
@@ -101,7 +107,7 @@ class BusinessPlanService extends MyService
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($id)
     {
@@ -114,7 +120,7 @@ class BusinessPlanService extends MyService
 
         try {
             $this->businessPLanRepo->delete($id);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(400, $ex->getMessage());
         }
 
@@ -123,7 +129,7 @@ class BusinessPlanService extends MyService
 
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function newForm()
     {
@@ -134,7 +140,7 @@ class BusinessPlanService extends MyService
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function detailForm($id)
     {
@@ -145,7 +151,7 @@ class BusinessPlanService extends MyService
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function updateForm($id)
     {
@@ -155,7 +161,7 @@ class BusinessPlanService extends MyService
     }
 
     /**
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function getAllBusinessPlan()
     {

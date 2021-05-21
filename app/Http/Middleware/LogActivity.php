@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Services\LogActivity\LogActivityService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LogActivity
@@ -11,8 +12,8 @@ class LogActivity
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Request  $request
+     * @param Closure $next
      * @return mixed
      */
     private $logActivityService;

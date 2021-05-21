@@ -5,6 +5,7 @@ namespace App\Services\UserManagementForAppChat;
 use App\Models\Company;
 use App\Services\Contract\ApiService;
 use App\Validations\UserManagementForAppChatValidation;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -20,7 +21,7 @@ class UserManagementForAppChatService extends ApiService
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create(Request $request)
     {

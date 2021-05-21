@@ -4,11 +4,13 @@ namespace App\Services;
 
 use App\Services\Contract\ApiService;
 use GuzzleHttp\Client;
+use Illuminate\Config\Repository;
+use Illuminate\Contracts\Foundation\Application;
 
 class DeployService {
 
     /**
-     * @var \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     * @var Repository|Application|mixed
      */
     private $listEnvironment;
 
