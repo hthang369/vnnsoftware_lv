@@ -99,7 +99,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::group(['prefix' => 'log-release'], function () {
             Route::get('/', [App\Http\Controllers\LogRelease\LogReleaseController::class, 'getLogReleaseList'])->name('Version Deploy.Deploy index.Show Log Release');
             Route::get('/{user_id}', [App\Http\Controllers\LogRelease\LogReleaseController::class, 'getLogReleaseByUserId'])->name('Version Deploy.Deploy index.Show Log Release By User Id');
-            Route::get('/search-log', [App\Http\Controllers\LogRelease\LogReleaseController::class, 'searchLogRelease'])->name('Version Deploy.Deploy index.Get Log Release By User Keyword');
+            Route::post('/search-log', [App\Http\Controllers\LogRelease\LogReleaseController::class, 'searchLogRelease'])->name('Version Deploy.Deploy index.Search LogRelease');
         });
     });
     Route::middleware(['log.activity:Version Deploy', 'log.release'])->group(function () {

@@ -36,7 +36,8 @@ class LogReleaseRepository
     }
     public function searchLogRelease($request){
         $logs = LogRelease::query();
-        dd($request);die();
+        dd(1);die();
+//        dd($request);die();
         if ($request->has('filter_field')){
             dd(123);
         }

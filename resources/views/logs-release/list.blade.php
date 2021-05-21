@@ -41,7 +41,7 @@
 @section('content')
     <div class="data-table table-responsive-md">
 
-        <form action="{{route('Version Deploy.Deploy index.Get Log Release By User Keyword')}}" method="get">
+        <form action="{{route('Version Deploy.Deploy index.Search LogRelease')}}" method="post">
             @csrf
             <div class="search-group">
                 <div class="input-search">
@@ -77,9 +77,9 @@
 
 
                 <button class="btn btn-success" type="submit">Search</button>
-        </form>
-    </div>
 
+    </div>
+    </form>
     </div>
 
     <div class="table-log">
