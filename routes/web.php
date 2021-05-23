@@ -96,6 +96,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('/staging', 'Deploy\DeployController@index')->name('Version Deploy.Deploy index.Staging')->middleware("log.activity:Version Deploy");
         Route::get('/production', 'Deploy\DeployController@index')->name('Version Deploy.Deploy index.Production')->middleware("log.activity:Version Deploy");
 
+        // Route log-release
         Route::group(['prefix' => 'log-release'], function () {
             Route::get('/', [App\Http\Controllers\LogRelease\LogReleaseController::class, 'getLogReleaseList'])->name('Version Deploy.Deploy index.Show Log Release');
             Route::get('/{user_id}', [App\Http\Controllers\LogRelease\LogReleaseController::class, 'getLogReleaseByUserId'])->name('Version Deploy.Deploy index.Show Log Release By User Id');

@@ -27,7 +27,7 @@ class LogReleaseController extends Controller
         return view('logs-release.list',compact('logReleaseList'));
     }
    public function searchLogRelease(Request $request){
-        dd(1);
+
         $logReleaseList = $this->logReleaseService->searchLogRelease($request);
         return $logReleaseList;
 //        return view('logs-release.list',compact('logReleaseList'));
