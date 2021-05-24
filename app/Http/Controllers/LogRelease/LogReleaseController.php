@@ -24,12 +24,11 @@ class LogReleaseController extends Controller
     }
     public function getLogReleaseByUserId($user_id){
         $logReleaseList = $this->logReleaseService->getLogReleaseByUserId($user_id);
-        return view('logs-release.list',compact('logReleaseList'));
+        return view('logs-release.list',compact('logReleaseList','user_id'));
     }
    public function searchLogRelease(Request $request){
-
         $logReleaseList = $this->logReleaseService->searchLogRelease($request);
-        return $logReleaseList;
-//        return view('logs-release.list',compact('logReleaseList'));
+
+        return view('logs-release.list',compact('logReleaseList'));
    }
 }

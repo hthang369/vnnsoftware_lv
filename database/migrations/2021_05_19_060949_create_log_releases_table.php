@@ -16,6 +16,7 @@ class CreateLogReleasesTable extends Migration
         Schema::create('log_releases', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
+            $table->string('user_name');
             $table->string('redmine_id');
             $table->string('version');
             $table->integer('release_type');

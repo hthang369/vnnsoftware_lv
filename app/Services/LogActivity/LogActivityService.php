@@ -15,7 +15,7 @@ class LogActivityService{
     public function addToLog(Request $request, $subject)
     {
         $this->logActivityRepository->addToLog($request, $subject);
-        //dd($request);
+
         return;
     }
 

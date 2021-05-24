@@ -29,7 +29,6 @@ class LogRelease
         $version= $request->input('version');
         $environment = $request->input('environment');
         $this->logReleaseService->addLogRelease($user_id,$redmine_id,$version,$environment);
-        die();
         return $next($request);
     }
 }

@@ -33,6 +33,6 @@ class LogReleaseService
     public function searchLogRelease($request)
     {
         return $this->logReleaseRepository->searchLogRelease($request);
-        dd(1);
+
     }
 }

@@ -37,107 +37,111 @@
     .data-table {
 
     }
+
+    .select-group {
+        display: flex;
+        justify-content: space-around;
+    }
+
 </style>
 @section('content')
 
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Library</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Data</li>
-        </ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Library</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Data</li>
+    </ol>
 
     <div class="card">
         <div class="card-header">
             Data Table
         </div>
 
-{{--            <div class="card-header">--}}
-{{--                Search Data--}}
-{{--            </div>--}}
-            <div class="card-body">
-                <div class="search-form">
-                    <form action="{{route('Version Deploy.Deploy index.Search LogRelease')}}" method="post">
-                        @csrf
 
-                        <div class="search-group">
-                            <div class="input-search">
-                                <input name="keyword" class="form-control" id="exampleDataList"
-                                       placeholder="Type to search..."
-                                       required>
-                            </div>
-                            {{--                <div class="form-check form-check-inline">--}}
-                            {{--                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">--}}
-                            {{--                    <label class="form-check-label" for="inlineCheckbox1">User ID</label>--}}
-                            {{--                </div>--}}
-                            {{--                <div class="form-check form-check-inline">--}}
-                            {{--                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">--}}
-                            {{--                    <label class="form-check-label" for="inlineCheckbox1">User ID</label>--}}
-                            {{--                </div>--}}
-                            {{--                <div class="form-check form-check-inline">--}}
-                            {{--                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">--}}
-                            {{--                    <label class="form-check-label" for="inlineCheckbox1">User ID</label>--}}
-                            {{--                </div>--}}
-                            {{--                <div class="form-check form-check-inline">--}}
-                            {{--                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">--}}
-                            {{--                    <label class="form-check-label" for="inlineCheckbox2">2</label>--}}
-                            {{--                </div>--}}
-                            {{--                <div class="">--}}
-
-                            {{--                    <select class="form-control " id="exampleFormControlSelect1" name="filter_field">--}}
-                            {{--                        <option selected disabled>Field Filter</option>--}}
-                            {{--                        <option value="user_id">User ID</option>--}}
-                            {{--                        <option value="user_name">User name</option>--}}
-                            {{--                        <option value="redmine_id">Redmine ID</option>--}}
-                            {{--                        <option value="version">Version</option>--}}
-
-                            {{--                    </select>--}}
-                            {{--                </div>--}}
-                            {{--                <div class="">--}}
-                            {{--                    <select class="form-control " id="exampleFormControlSelect1">--}}
-                            {{--                        <option selected disabled>Release Type</option>--}}
-                            {{--                        <option value="0">New</option>--}}
-                            {{--                        <option value="1">Back</option>--}}
-                            {{--                    </select>--}}
-                            {{--                </div>--}}
-                            {{--                <div class="">--}}
-                            {{--                    <select class="form-control " id="exampleFormControlSelect1">--}}
-                            {{--                        <option selected disabled>Enviroment</option>--}}
-                            {{--                        <option value="development">Development</option>--}}
-                            {{--                        <option value="staging">Staging</option>--}}
-                            {{--                        <option value="production">Production</option>--}}
-                            {{--                    </select>--}}
-                            {{--                </div>--}}
-
-                            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Advance Search
-                            </button>
-                            <button class="btn btn-success" type="submit">Search</button>
-{{--                            <div class="">--}}
-{{--                                <p>--}}
-{{--                                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">--}}
-{{--                                        Link with href--}}
-{{--                                    </a>--}}
-{{--                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">--}}
-{{--                                        Button with data-target--}}
-{{--                                    </button>--}}
-{{--                                </p>--}}
-{{--                                <div class="collapse" id="collapseExample">--}}
-{{--                                    <div class="card card-body">--}}
-{{--                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-{{--        <div class="card-body">--}}
-{{--            --}}
-{{--        </div>--}}
         <div class="card-body">
+            <div class="search-form">
+                <form action="{{route('Version Deploy.Deploy index.Search LogRelease')}}" method="post">
+                    @csrf
+                     @isset($user_id)
+                        <input type="hidden" value="{{$user_id}}" name="log_user_id">
+                    @endisset
 
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <div class="input-group flex-nowrap">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-wrapping">User ID</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="User ID.." aria-label="Username"
+                                       aria-describedby="addon-wrapping" name="user_id">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="input-group flex-nowrap">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-wrapping">User Name</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="User name.." aria-label="Username"
+                                       aria-describedby="addon-wrapping" name="user_name">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="input-group flex-nowrap">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-wrapping">Redmine ID</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Redmine ID.." aria-label="Username"
+                                       aria-describedby="addon-wrapping" name="redmine_id">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-group col-md-4">
+                            <div class="input-group flex-nowrap">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-wrapping">Version</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Version.." aria-label="Username"
+                                       aria-describedby="addon-wrapping" name="version">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="input-group flex-nowrap">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-wrapping">Release Type</span>
+                                </div>
+                                <select class="form-control " id="exampleFormControlSelect1" name="release_type">
+                                    <option selected disabled>Release Type</option>
+                                    <option value="0">New</option>
+                                    <option value="1">Back</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="input-group flex-nowrap">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-wrapping">Enviroment</span>
+                                </div>
+                                <select class="form-control " id="exampleFormControlSelect1" name="environment">
+                                    <option selected disabled>Enviroment</option>
+                                    <option value="development">Development</option>
+                                    <option value="staging">Staging</option>
+                                    <option value="production">Production</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="btn btn-success" type="submit">Search</button>
+                </form>
+
+            </div>
+        </div>
+
+
+        <div class="card-body">
 
 
             <div class="data-table table-responsive-md">
@@ -181,13 +185,7 @@
                                     <p>{{ Carbon\Carbon::createFromTimeStamp(strtotime($log->created_at))->diffForHumans() }}</p>
                                     <p>{{ $log->created_at }}</p>
                                 </td>
-                                {{--                    <td><a href="{{ route('Log Activity By User Id', $log->user_id) }}">{{ $log->user_name }}</a></td>--}}
-                                {{--                    <td width="140px">--}}
-                                {{--                                            <p>{{ Carbon\Carbon::createFromTimeStamp(strtotime($log->created_at))->diffForHumans() }}</p>--}}
-                                {{--                                            <p>{{ $log->created_at }}</p>--}}
-                                {{--                    </td>--}}
-                                {{--                    <td width="250px">{{ $log->agent }}</td>--}}
-                                {{--                    <td style="width:350px;word-break:break-all">{{ $log->input }}</td>--}}
+
                             </tr>
                         @endforeach
                         </tbody>
@@ -198,4 +196,15 @@
         </div>
     </div>
 @endsection
-
+<script>
+    $(function () {
+        var requiredCheckboxes = $('.browsers :checkbox[required]');
+        requiredCheckboxes.change(function () {
+            if (requiredCheckboxes.is(':checked')) {
+                requiredCheckboxes.removeAttr('required');
+            } else {
+                requiredCheckboxes.attr('required', 'required');
+            }
+        });
+    });
+</script>
