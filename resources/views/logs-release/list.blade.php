@@ -60,9 +60,9 @@
 
         <div class="card-body">
             <div class="search-form">
-                <form action="{{route('Version Deploy.Deploy index.Search LogRelease')}}" method="post">
-                    @csrf
-                     @isset($user_id)
+                <form method="get" action="{{route('Version Deploy.Deploy index.Search LogRelease')}}" >
+
+                    @isset($user_id)
                         <input type="hidden" value="{{$user_id}}" name="log_user_id">
                     @endisset
 

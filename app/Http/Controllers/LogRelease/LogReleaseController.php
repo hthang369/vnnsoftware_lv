@@ -13,6 +13,7 @@ class LogReleaseController extends Controller
     private $logReleaseService;
     public function __construct(LogReleaseService $logReleaseService)
     {
+
         parent::__construct();
         $this->logReleaseService = $logReleaseService;
     }
@@ -27,6 +28,7 @@ class LogReleaseController extends Controller
         return view('logs-release.list',compact('logReleaseList','user_id'));
     }
    public function searchLogRelease(Request $request){
+
         $logReleaseList = $this->logReleaseService->searchLogRelease($request);
 
         return view('logs-release.list',compact('logReleaseList'));

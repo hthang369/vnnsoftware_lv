@@ -39,6 +39,7 @@ class LogReleaseRepository
 
     public function searchLogRelease($request)
     {
+
         $logs = LogRelease::query();
         $field_filter = $request->all();
         $field_not_filter = ["_token", "log_user_id"];
