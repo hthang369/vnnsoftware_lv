@@ -9,11 +9,13 @@ use App\Models\LogRelease;
 class LogReleaseRepository
 {
 
-    public function addLogRelease($user_id, $redmine_id, $version, $environment)
+    public function addLogRelease($user_id,$user_name,$deploy_server_id, $redmine_id, $version, $environment)
     {
 
         LogRelease::create([
             'user_id' => $user_id,
+            'user_name'=>$user_name,
+            'deploy_server_id'=>$deploy_server_id,
             'redmine_id' => $redmine_id,
             'version' => $version,
             'environment' => $environment,
@@ -25,15 +27,15 @@ class LogReleaseRepository
     public function getLogReleaseList()
     {
 
-        return LogRelease::latest()->get();
+        return LogRelease::latest()->paginate(1);
 
     }
 
     public function getLogReleaseByUserId($user_id)
     {
-        $logs = LogRelease::where("user_id", "=", $user_id)->latest()->get();
+        $logs = LogRelease::where("user_id", "=", $user_id);
 
-        return $logs;
+        return $logs->latest()->paginate(1);
 
     }
 
@@ -42,24 +44,15 @@ class LogReleaseRepository
 
         $logs = LogRelease::query();
         $field_filter = $request->all();
-        $field_not_filter = ["_token", "log_user_id"];
-        $log_user_id = $field_filter[log_user_id];
-
-        if ($log_user_id != null) {
-
-            $logs = $this->getLogReleaseByUserId($log_user_id);
-        }
+        $field_not_filter = ["_token"];
 
         foreach ($field_filter as $field => $value) {
-            if (!in_array($field, $field_not_filter) && $value != null) {
+            if (!in_array($field, $field_not_filter) && $value != null && $value!='default') {
                 $logs = $logs->where($field, $value);
-                if ($log_user_id == null) {
-                    $logs = $logs->get();
-                }
             }
         }
 
-        return $logs;
+        return $logs->latest()->paginate(1);
     }
 
     public function getReleaseType($redmine_id)

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\LogRelease;
 use Illuminate\Database\Seeder;
 
 class LogReleaseSeeder extends Seeder
@@ -12,6 +13,6 @@ class LogReleaseSeeder extends Seeder
     public function run()
     {
         //
-        factory(\App\Models\LogRelease::class, 20)->create();
+        factory(LogRelease::class, 20)->create();
     }
 }

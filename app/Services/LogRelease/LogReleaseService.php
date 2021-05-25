@@ -15,9 +15,9 @@ class LogReleaseService
         $this->logReleaseRepository = $logReleaseRepository;
     }
 
-    public function addLogRelease($user_id, $redmine_id, $version, $environment)
+    public function addLogRelease($user_id, $user_name,$deploy_server_id,$redmine_id, $version, $environment)
     {
-        $this->logReleaseRepository->addLogRelease($user_id, $redmine_id, $version, $environment);
+        $this->logReleaseRepository->addLogRelease($user_id,$user_name, $deploy_server_id,$redmine_id, $version, $environment);
     }
 
     public function getLogReleaseList()

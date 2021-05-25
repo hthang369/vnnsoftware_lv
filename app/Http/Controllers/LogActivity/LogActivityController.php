@@ -10,9 +10,10 @@ class LogActivityController extends Controller
 {
     private $logActivityService;
     private $itemsPerPage;
-    
+
     public function __construct(LogActivityService $logActivityService)
     {
+        parent::__construct();
         $this->logActivityService = $logActivityService;
         if (session_id() === '')
             session_start();

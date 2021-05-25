@@ -29,7 +29,7 @@ class DeployController extends Controller
             } else {
                 $deployServer->set_version($version);
             }
-            //$deployServer->set_version($version);
+
             $deployServer->set_server($server);
 
             $serverArray[] = $deployServer;
