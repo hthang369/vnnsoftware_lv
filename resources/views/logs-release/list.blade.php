@@ -59,18 +59,15 @@
         <div class="card-body">
             <div class="search-form">
                 <form method="get" action="{{route('Version Deploy.Deploy index.Search LogRelease')}}">
-                                        @csrf
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="addon-wrapping">User ID</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="User ID.."
+                                <input id="user-id" type="text" class="form-control" placeholder="User ID.."
                                        aria-describedby="addon-wrapping" name="user_id"
-                                       @isset($user_id) value="{{$user_id}}" @endisset
-
-
+                                        value="{{$user_id}}"
                                 >
                             </div>
 
@@ -80,9 +77,10 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="addon-wrapping">User Name</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="User name.." aria-label="Username"
+                                <input id="user-name" type="text" class="form-control" placeholder="User name.."
+                                       aria-label="Username"
                                        aria-describedby="addon-wrapping" name="user_name"
-                                       @isset($user_name) value="{{$user_name}}" @endisset>
+                                        value="{{$user_name}}" >
                             </div>
 
                         </div>
@@ -91,9 +89,9 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="addon-wrapping">Redmine ID</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Redmine ID.."
+                                <input id="redmine-id" type="text" class="form-control" placeholder="Redmine ID.."
                                        aria-describedby="addon-wrapping" name="redmine_id"
-                                       @isset($redmine_id) value="{{$redmine_id}}" @endisset>
+                                       value="{{$redmine_id}}" >
 
                             </div>
                         </div>
@@ -102,9 +100,9 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="addon-wrapping">Version</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Version.."
+                                <input id="version" type="text" class="form-control" placeholder="Version.."
                                        aria-describedby="addon-wrapping" name="version"
-                                       @isset($version) value="{{$version}}" @endisset>
+                                     value="{{$version}}">
                             </div>
                         </div>
                     </div>
@@ -112,31 +110,35 @@
                         <div class="form-group col-md-3">
                             <div class="input-group flex-nowrap">
 
-                                <select class="form-control " id="exampleFormControlSelect1" name="release_type">
+                                <select class="form-control" name="release_type"
+                                        id="release-type">
                                     <option selected value="default">-- Release Type --</option>
-                                    <option value="0"
-                                            @isset($release_type) @if($release_type==0) selected @endif @endisset> New
+                                    <option value="New"
+                                          @if($release_type==="New") selected @endif >
+                                        New
                                     </option>
-                                    <option value="1"
-                                            @isset($release_type) @if($release_type==1) selected @endif @endisset>Back
+                                    <option value="Back"
+                                             @if($release_type==="Back") selected @endif>
+                                        Back
                                     </option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group col-md-3">
                             <div class="input-group flex-nowrap">
-                                <select class="form-control " id="exampleFormControlSelect1" name="environment">
+                                <select class="form-control" name="environment"
+                                        id="environment">
                                     <option selected value="default">-- Enviroment --</option>
                                     <option value="development"
-                                            @isset($environment) @if($environment=='development') selected @endif @endisset>
+                                            @if($environment=='development') selected @endif >
                                         Development
                                     </option>
                                     <option value="staging"
-                                            @isset($environment) @if($environment=='staging') selected @endif @endisset>
+                                            @if($environment=='staging') selected @endif >
                                         Staging
                                     </option>
                                     <option value="production"
-                                            @isset($environment) @if($environment=='production') selected @endif @endisset>
+                                            @if($environment=='production') selected @endif >
                                         Production
                                     </option>
                                 </select>
@@ -145,12 +147,14 @@
                         <div class="form-group col-md-3">
                             <div class="input-group flex-nowrap">
 
-                                <select class="form-control " id="exampleFormControlSelect1" name="deploy_server_id">
+                                <select class="form-control " name="deploy_server_id"
+                                        id="deploy-server">
                                     <option selected value="default">
-                                       -- Deploy Server --
+                                        -- Deploy Server --
                                     </option>
                                     @foreach($deploy_server as $key => $value)
-                                        <option value={{$value->id}} @isset($deploy_server_id) @if($deploy_server_id==$value->id) selected @endif @endisset>
+                                        <option
+                                            value={{$value->id}} @isset($deploy_server_id) @if($deploy_server_id==$value->id) selected @endif @endisset>
                                             {{$value->name}}
                                         </option>
                                     @endforeach
@@ -159,13 +163,27 @@
                         </div>
                     </div>
                     <button class="btn btn-success" type="submit">Search</button>
-                    <button class="btn btn-danger" type="reset">Reset</button>
+                    <button id="reset-search-form" type="button" class="btn btn-danger">Reset</button>
                 </form>
+
             </div>
         </div>
-
-
         <div class="card-body">
+            <div class="select-perpage">{{$paramRoute}}
+                <form method="get"
+                    action="{{route($currentRoute,['user_id'=>$paramRoute])}}" >
+                    Show
+                    <select name="perPage" onchange="this.form.submit()">
+                        <option value="1" @if($perPage == "5") selected @endif>1</option>
+                        <option value="2" @if($perPage == "10") selected @endif>2</option>
+                        <option value="3" @if($perPage == "15") selected @endif>3</option>
+                        <option value="20" @if($perPage == "20") selected @endif>20</option>
+                    </select>
+
+                </form>
+
+
+            </div>
             <div class="data-table table-responsive-md">
                 <div class="table-log">
                     <table class="table table-hover table-bordered" style="font-size: 13px;">
@@ -173,8 +191,8 @@
                         <tr class="text-center">
                             <th scope="col">Log ID</th>
                             <th scope="col">User ID</th>
-
-                            <th scope="col">User name</th><th scope="col">Deploy Server </th>
+                            <th scope="col">User name</th>
+                            <th scope="col">Deploy Server</th>
                             <th scope="col">Redmine ID</th>
                             <th scope="col">Version</th>
                             <th scope="col">Release Type</th>
@@ -214,10 +232,30 @@
                     </table>
                 </div>
             </div>
-{{$logReleaseList->links()}}
+            {{$logReleaseList->appends(request()->input())->links()}}
+
         </div>
     </div>
 @endsection
-<script>
+@section('script')
+    <script>
+        const btnReset = document.getElementById("reset-search-form");
+        const inputUserID = document.getElementById("user-id");
+        const inputUserName = document.getElementById("user-name");
+        const inputRedmineID = document.getElementById("redmine-id");
+        const inputVersion = document.getElementById("version");
+        const selectRelease = document.getElementById("release-type");
+        const selectEnvironment = document.getElementById("environment");
+        const selectDeployServer = document.getElementById("deploy-server");
+        btnReset.addEventListener("click", function () {
+            inputUserID.value = "";
+            inputUserName.value = "";
+            inputRedmineID.value = "";
+            inputVersion.value = "";
+            selectRelease.selectedIndex = "0";
+            selectEnvironment.selectedIndex = "0";
+            selectDeployServer.selectedIndex = "0";
+        });
+    </script>
+@endsection
 
-</script>

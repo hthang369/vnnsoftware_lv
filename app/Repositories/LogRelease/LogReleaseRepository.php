@@ -27,7 +27,8 @@ class LogReleaseRepository
     public function getLogReleaseList()
     {
 
-        return LogRelease::latest()->paginate(1);
+//        dd(LogRelease::latest()->get());
+        return LogRelease::latest();
 
     }
 
@@ -35,7 +36,7 @@ class LogReleaseRepository
     {
         $logs = LogRelease::where("user_id", "=", $user_id);
 
-        return $logs->latest()->paginate(1);
+        return $logs->latest();
 
     }
 
@@ -44,7 +45,7 @@ class LogReleaseRepository
 
         $logs = LogRelease::query();
         $field_filter = $request->all();
-        $field_not_filter = ["_token"];
+        $field_not_filter = ["_token","page","perPage"];
 
         foreach ($field_filter as $field => $value) {
             if (!in_array($field, $field_not_filter) && $value != null && $value!='default') {
@@ -52,15 +53,15 @@ class LogReleaseRepository
             }
         }
 
-        return $logs->latest()->paginate(1);
+        return $logs->latest();
     }
 
     public function getReleaseType($redmine_id)
     {
         if (LogRelease::where("redmine_id", "=", $redmine_id)->first() == null) {
-            return 0;
+            return "New";
         } else {
-            return 1;
+            return "Back";
         }
     }
 }

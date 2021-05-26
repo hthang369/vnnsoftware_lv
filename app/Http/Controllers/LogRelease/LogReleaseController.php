@@ -19,35 +19,67 @@ class LogReleaseController extends Controller
         $this->logReleaseService = $logReleaseService;
     }
 
-    public function getLogReleaseList()
+    public function getLogReleaseList(Request $request)
     {
-        $deploy_server = DeployServer::get();
-        $logReleaseList = $this->logReleaseService->getLogReleaseList();
 
-        return view('logs-release.list', compact('logReleaseList', 'deploy_server'));
+        $deploy_server = DeployServer::get();
+
+        $perPage = $request->input('perPage');
+        if ($perPage == null) {
+            $perPage = 5;
+        }
+        $logReleaseList = $this->logReleaseService->getLogReleaseList()->paginate($perPage);
+
+//        dd($logReleaseList);
+        $currentRoute = $request->route()->getName();
+
+        return view('logs-release.list', compact('logReleaseList', 'deploy_server', 'currentRoute', 'perPage'));
     }
 
-    public function getLogReleaseByUserId($user_id)
+    public function getLogReleaseByUserId($user_id, Request $request)
     {
-        $deploy_server = DeployServer::get();
 
-        $logReleaseList = $this->logReleaseService->getLogReleaseByUserId($user_id);
-        return view('logs-release.list', compact('logReleaseList', 'user_id','deploy_server'));
+        $deploy_server = DeployServer::get();
+        $currentRoute = $request->route()->getName();
+        $paramRoute= $user_id;
+        $perPage = $request->input('perPage');
+        if ($perPage == null) {
+            $perPage = 1;
+        }
+
+        $logReleaseList = $this->logReleaseService->getLogReleaseByUserId($user_id)->paginate($perPage);
+        return view('logs-release.list', compact('logReleaseList', 'user_id', 'deploy_server', 'currentRoute', 'perPage','paramRoute'));
     }
 
     public function searchLogRelease(Request $request)
     {
         $deploy_server = DeployServer::get();
 
-        $logReleaseList = $this->logReleaseService->searchLogRelease($request);
+        $currentRoute = $request->route()->getName();
+        $requestUri=$request->getRequestUri();
+//        dd($requestUri);
+////        dd(strlen($requestUri)-strpos($requestUri,'?'));
+        $paramRoute= substr($requestUri,-(strlen($requestUri)-strpos($requestUri,'?')-1));
+//        dd($paramRoute);
+//        dd($paramRoute);
+//        $currentRoute = $request->getRequestUri();
+//        dd($currentRoute);
+//        dd($request->getRequestUri());
+////dd($currentRoute);
+        $perPage = $request->input('perPage');
+        if ($perPage == null) {
+            $perPage = 1;
+        }
+        $logReleaseList = $this->logReleaseService->searchLogRelease($request)->paginate($perPage);
 
         $user_id = $request->input('user_id');
         $user_name = $request->input('user_name');
         $redmine_id = $request->input('redmine_id');
         $version = $request->input('version');
         $release_type = $request->input('release_type');
+
         $environment = $request->input('environment');
         $deploy_server_id = $request->input('deploy_server_id');
-        return view('logs-release.list', compact('logReleaseList', 'deploy_server','deploy_server_id','user_id', 'user_name', 'redmine_id', 'version', 'release_type', 'environment'));
+        return view('logs-release.list', compact('logReleaseList', 'deploy_server', 'deploy_server_id', 'user_id', 'user_name', 'redmine_id', 'version', 'release_type', 'environment', 'currentRoute', 'perPage','paramRoute'));
     }
 }

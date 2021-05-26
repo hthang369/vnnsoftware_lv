@@ -55,7 +55,7 @@ class LogActivityController extends Controller
         {
             $this->itemsPerPage = $_SESSION['itemsPerPage'];
         } else {
-            dd(3);
+
             $this->itemsPerPage = 5;
         }
 
