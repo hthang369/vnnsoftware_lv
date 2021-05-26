@@ -67,7 +67,7 @@
                                 </div>
                                 <input id="user-id" type="text" class="form-control" placeholder="User ID.."
                                        aria-describedby="addon-wrapping" name="user_id"
-                                        value="{{$user_id}}"
+                                       value="{{$user_id}}"
                                 >
                             </div>
 
@@ -80,7 +80,7 @@
                                 <input id="user-name" type="text" class="form-control" placeholder="User name.."
                                        aria-label="Username"
                                        aria-describedby="addon-wrapping" name="user_name"
-                                        value="{{$user_name}}" >
+                                       value="{{$user_name}}">
                             </div>
 
                         </div>
@@ -91,7 +91,7 @@
                                 </div>
                                 <input id="redmine-id" type="text" class="form-control" placeholder="Redmine ID.."
                                        aria-describedby="addon-wrapping" name="redmine_id"
-                                       value="{{$redmine_id}}" >
+                                       value="{{$redmine_id}}">
 
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                 </div>
                                 <input id="version" type="text" class="form-control" placeholder="Version.."
                                        aria-describedby="addon-wrapping" name="version"
-                                     value="{{$version}}">
+                                       value="{{$version}}">
                             </div>
                         </div>
                     </div>
@@ -114,11 +114,11 @@
                                         id="release-type">
                                     <option selected value="default">-- Release Type --</option>
                                     <option value="New"
-                                          @if($release_type==="New") selected @endif >
+                                            @if($release_type==="New") selected @endif >
                                         New
                                     </option>
                                     <option value="Back"
-                                             @if($release_type==="Back") selected @endif>
+                                            @if($release_type==="Back") selected @endif>
                                         Back
                                     </option>
                                 </select>
@@ -169,20 +169,28 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="select-perpage">{{$paramRoute}}
+            <div class="select-perpage">
                 <form method="get"
-                    action="{{route($currentRoute,['user_id'=>$paramRoute])}}" >
+                      action="{{route($currentRoute,['user_id'=>$user_id])}}">
                     Show
                     <select name="perPage" onchange="this.form.submit()">
-                        <option value="1" @if($perPage == "5") selected @endif>1</option>
-                        <option value="2" @if($perPage == "10") selected @endif>2</option>
-                        <option value="3" @if($perPage == "15") selected @endif>3</option>
+                        <option value="5" @if($perPage == "5") selected @endif>5</option>
+                        <option value="10" @if($perPage == "10") selected @endif>10</option>
+                        <option value="15" @if($perPage == "15") selected @endif>15</option>
                         <option value="20" @if($perPage == "20") selected @endif>20</option>
                     </select>
-
+                    <input type="hidden" name="user_id" value="{{$user_id}}">
+                    <input type="hidden" name="user_name"
+                           value="{{$user_name}}">
+                    <input type="hidden"
+                           name="redmine_id"
+                           value="{{$redmine_id}}">
+                    <input type="hidden" name="release_type" value="{{$release_type}}">
+                    <input type="hidden" name="environment"
+                           value="{{$environment}}">
+                    <input type="hidden" name="deploy_server_id"
+                           value="{{$deploy_server_id}}">
                 </form>
-
-
             </div>
             <div class="data-table table-responsive-md">
                 <div class="table-log">
@@ -232,7 +240,10 @@
                     </table>
                 </div>
             </div>
-            {{$logReleaseList->appends(request()->input())->links()}}
+            <div class="pagination d-flex justify-content-center mt-2">
+                {{$logReleaseList->appends(request()->input())->links()}}
+            </div>
+
 
         </div>
     </div>

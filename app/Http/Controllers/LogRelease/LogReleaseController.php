@@ -30,7 +30,7 @@ class LogReleaseController extends Controller
         }
         $logReleaseList = $this->logReleaseService->getLogReleaseList()->paginate($perPage);
 
-//        dd($logReleaseList);
+
         $currentRoute = $request->route()->getName();
 
         return view('logs-release.list', compact('logReleaseList', 'deploy_server', 'currentRoute', 'perPage'));
@@ -40,15 +40,14 @@ class LogReleaseController extends Controller
     {
 
         $deploy_server = DeployServer::get();
-        $currentRoute = $request->route()->getName();
-        $paramRoute= $user_id;
         $perPage = $request->input('perPage');
-        if ($perPage == null) {
-            $perPage = 1;
-        }
+        $currentRoute = $request->route()->getName();
 
+        if ($perPage == null) {
+            $perPage = 5;
+        }
         $logReleaseList = $this->logReleaseService->getLogReleaseByUserId($user_id)->paginate($perPage);
-        return view('logs-release.list', compact('logReleaseList', 'user_id', 'deploy_server', 'currentRoute', 'perPage','paramRoute'));
+        return view('logs-release.list', compact('logReleaseList', 'user_id', 'deploy_server', 'currentRoute', 'perPage', 'user_id'));
     }
 
     public function searchLogRelease(Request $request)
@@ -56,19 +55,10 @@ class LogReleaseController extends Controller
         $deploy_server = DeployServer::get();
 
         $currentRoute = $request->route()->getName();
-        $requestUri=$request->getRequestUri();
-//        dd($requestUri);
-////        dd(strlen($requestUri)-strpos($requestUri,'?'));
-        $paramRoute= substr($requestUri,-(strlen($requestUri)-strpos($requestUri,'?')-1));
-//        dd($paramRoute);
-//        dd($paramRoute);
-//        $currentRoute = $request->getRequestUri();
-//        dd($currentRoute);
-//        dd($request->getRequestUri());
-////dd($currentRoute);
+
         $perPage = $request->input('perPage');
         if ($perPage == null) {
-            $perPage = 1;
+            $perPage = 5;
         }
         $logReleaseList = $this->logReleaseService->searchLogRelease($request)->paginate($perPage);
 
@@ -80,6 +70,6 @@ class LogReleaseController extends Controller
 
         $environment = $request->input('environment');
         $deploy_server_id = $request->input('deploy_server_id');
-        return view('logs-release.list', compact('logReleaseList', 'deploy_server', 'deploy_server_id', 'user_id', 'user_name', 'redmine_id', 'version', 'release_type', 'environment', 'currentRoute', 'perPage','paramRoute'));
+        return view('logs-release.list', compact('logReleaseList', 'deploy_server', 'deploy_server_id', 'user_id', 'user_name', 'redmine_id', 'version', 'release_type', 'environment', 'currentRoute', 'perPage', 'user_id'));
     }
 }
