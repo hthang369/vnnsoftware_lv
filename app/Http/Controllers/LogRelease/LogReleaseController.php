@@ -14,7 +14,6 @@ class LogReleaseController extends Controller
 
     public function __construct(LogReleaseService $logReleaseService)
     {
-
         parent::__construct();
         $this->logReleaseService = $logReleaseService;
     }
@@ -29,8 +28,6 @@ class LogReleaseController extends Controller
             $perPage = 5;
         }
         $logReleaseList = $this->logReleaseService->getLogReleaseList()->paginate($perPage);
-
-
         $currentRoute = $request->route()->getName();
 
         return view('logs-release.list', compact('logReleaseList', 'deploy_server', 'currentRoute', 'perPage'));

@@ -26,16 +26,12 @@ class LogReleaseRepository
 
     public function getLogReleaseList()
     {
-
-//        dd(LogRelease::latest()->get());
         return LogRelease::latest();
-
     }
 
     public function getLogReleaseByUserId($user_id)
     {
         $logs = LogRelease::where("user_id", "=", $user_id);
-
         return $logs->latest();
 
     }
@@ -52,7 +48,6 @@ class LogReleaseRepository
                 $logs = $logs->where($field, $value);
             }
         }
-
         return $logs->latest();
     }
 

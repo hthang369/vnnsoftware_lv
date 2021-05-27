@@ -29,7 +29,7 @@ class LogActivityRepository {
     {
         //return LogActivity::latest()->get();
         return LogActivity::latest()->paginate($itemsPerPage);
-        //return LogActivity::latest()->perPage($itemsPerPage);
+
     }
 
     public function getLogActivityByUserId($id, $itemsPerPage)

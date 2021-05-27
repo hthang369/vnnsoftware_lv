@@ -6,44 +6,18 @@
     @parent
 @endsection
 
-@section('style')
+@section('bootstrap-css')
+    <style>
 
+        @media screen and (max-width: 1400px) {
+            .data-table {
+                height: 450px;
 
+                overflow-x: scroll;
+                overflow-y: scroll;
+            }
 
-
-@endsection
-<style>
-    .search-group {
-        /*margin: 20px 0px 25px 0;*/
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .search-group .input-search {
-        width: 75%;
-
-    }
-
-    @media screen and (max-width: 1400px) {
-        .data-table {
-            height: 450px;
-
-            overflow-x: scroll;
-            overflow-y: scroll;
-        }
-    }
-
-    .data-table {
-
-    }
-
-    .select-group {
-        display: flex;
-        justify-content: space-around;
-    }
-
-</style>
+    </style>
 @section('content')
 
     <ol class="breadcrumb">

@@ -40,7 +40,7 @@ class LogRelease
         $environment = $request->input('environment');
 
         $this->logReleaseService->addLogRelease($user_id, $user_name, $deploy_server_id, $redmine_id, $version, $environment);
-        die();
+
         return $next($request);
     }
 }
