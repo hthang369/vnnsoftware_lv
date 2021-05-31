@@ -16,19 +16,12 @@
                 overflow-x: scroll;
                 overflow-y: scroll;
             }
-
+        }
     </style>
 @section('content')
-
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Library</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Data</li>
-    </ol>
-
     <div class="card">
         <div class="card-header">
-            Data Table
+            Log Release List
         </div>
         <div class="card-body">
             <div class="search-form">
@@ -43,7 +36,7 @@
                                        aria-describedby="addon-wrapping" name="user_id"
                                        value="{{$user_id}}"
                                 >
-                            </div>
+                           </div>
 
                         </div>
                         <div class="form-group col-md-3">
@@ -86,13 +79,13 @@
 
                                 <select class="form-control" name="release_type"
                                         id="release-type">
-                                    <option selected value="default">-- Release Type --</option>
+                                    <option selected value="">-- Release Type --</option>
                                     <option value="New"
-                                            @if($release_type==="New") selected @endif >
+                                            @if($release_type=="New") selected @endif >
                                         New
                                     </option>
                                     <option value="Back"
-                                            @if($release_type==="Back") selected @endif>
+                                            @if($release_type=="Back") selected @endif>
                                         Back
                                     </option>
                                 </select>
@@ -102,7 +95,7 @@
                             <div class="input-group flex-nowrap">
                                 <select class="form-control" name="environment"
                                         id="environment">
-                                    <option selected value="default">-- Enviroment --</option>
+                                    <option selected value="">-- Enviroment --</option>
                                     <option value="development"
                                             @if($environment=='development') selected @endif >
                                         Development
@@ -123,7 +116,7 @@
 
                                 <select class="form-control " name="deploy_server_id"
                                         id="deploy-server">
-                                    <option selected value="default">
+                                    <option selected value="">
                                         -- Deploy Server --
                                     </option>
                                     @foreach($deploy_server as $key => $value)
@@ -136,8 +129,11 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-success" type="submit">Search</button>
-                    <button id="reset-search-form" type="button" class="btn btn-danger">Reset</button>
+                    <div class="d-flex justify-content-center mt-2">
+                        <button class="btn btn-success mr-2" type="submit">Search</button>
+                        <button id="reset-search-form" type="button" class="btn btn-danger ml-2">Reset</button>
+                    </div>
+
                 </form>
 
             </div>
@@ -197,7 +193,7 @@
                                 <td>{{$log->redmine_id}}</td>
                                 <td>{{ $log->version }}</td>
                                 <td>
-                                    @if($log->release_type===0)
+                                    @if($log->release_type=="New")
                                         New
                                     @else
                                         Back

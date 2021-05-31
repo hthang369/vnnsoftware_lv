@@ -44,7 +44,7 @@ class LogReleaseRepository
         $field_not_filter = ["_token","page","perPage"];
 
         foreach ($field_filter as $field => $value) {
-            if (!in_array($field, $field_not_filter) && $value != null && $value!='default') {
+            if (!in_array($field, $field_not_filter) && $value != null) {
                 $logs = $logs->where($field, $value);
             }
         }
