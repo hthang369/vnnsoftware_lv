@@ -7,7 +7,11 @@ use App\Services\BusinessPlan\BusinessPlanService;
 use App\Services\Contract\MyService;
 use App\Company;
 use App\Validations\CompanyValidation;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CompanyService extends MyService
 {
@@ -32,7 +36,7 @@ class CompanyService extends MyService
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function list(Request $request)
     {
@@ -45,7 +49,7 @@ class CompanyService extends MyService
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function detail($id)
     {
@@ -59,7 +63,7 @@ class CompanyService extends MyService
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function newForm()
     {
@@ -68,7 +72,7 @@ class CompanyService extends MyService
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create($input)
     {
@@ -99,7 +103,7 @@ class CompanyService extends MyService
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update($company, $input)
     {
@@ -108,7 +112,7 @@ class CompanyService extends MyService
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($company)
     {

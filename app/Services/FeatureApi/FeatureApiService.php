@@ -5,7 +5,10 @@ namespace App\Services\FeatureApi;
 use App\Repositories\FeatureApi\FeatureApiRepositoryInterface;
 use App\Services\Contract\MyService;
 use App\Services\RoleHasFeatureApi\RoleHasFeatureApiService;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Route;
 
 class FeatureApiService extends MyService
 {
@@ -21,11 +24,11 @@ class FeatureApiService extends MyService
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function saveAllRoutesToDB()
     {
-        $routeCollection = \Route::getRoutes();
+        $routeCollection = Route::getRoutes();
         try {
             $listOldId = [];
             DB::beginTransaction();
@@ -52,7 +55,7 @@ class FeatureApiService extends MyService
             }
             $this->featureApiRepo->deleteOld($listOldId);
             DB::commit();
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             DB::rollBack();
             abort(400, $ex->getMessage());
         }

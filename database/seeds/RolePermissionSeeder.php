@@ -1,7 +1,9 @@
 <?php
 
 use App\Services\FeatureApi\FeatureApiService;
+use App\Services\User\UserService;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class RolePermissionSeeder extends Seeder
@@ -13,7 +15,7 @@ class RolePermissionSeeder extends Seeder
      * FeatureApiController constructor.
      * @param FeatureApiService $featureApiService
      */
-    public function __construct(FeatureApiService $featureApiService, \App\Services\User\UserService $userService)
+    public function __construct(FeatureApiService $featureApiService, UserService $userService)
     {
         $this->featureApiService = $featureApiService;
         $this->userService = $userService;
@@ -36,8 +38,8 @@ class RolePermissionSeeder extends Seeder
             DB::table('role')->insert([
                 'name' => config('constants.name.role_permission_name'),
                 'description' => 'Role for set permission',
-                'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
         }
 
@@ -54,8 +56,8 @@ class RolePermissionSeeder extends Seeder
             DB::table('role_has_feature_api')->insert([
                 'feature_api_id' => $item->id,
                 'role_id' => $role->id,
-                'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
         }
 

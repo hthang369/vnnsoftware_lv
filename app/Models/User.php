@@ -55,4 +55,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Role', 'role_user', 'user_id', 'role_id');
     }
+    public function logReleases(){
+        return $this->hasMany(LogRelease::class);
+    }
 }

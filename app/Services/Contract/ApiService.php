@@ -8,10 +8,12 @@
 
 namespace App\Services\Contract;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Http;
 
 
 use GuzzleHttp\RequestOptions;
+use Psr\Http\Message\ResponseInterface;
 
 class ApiService
 {
@@ -19,12 +21,12 @@ class ApiService
      * @param string $string
      * @param $method
      * @param $request
-     * @return \Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return ResponseInterface
+     * @throws GuzzleException
      */
     public function sendRequestToAPI(string $string, $method, $request)
     {
-        $client = new \GuzzleHttp\Client(['verify' => false]);
+        $client = new Client(['verify' => false]);
         $options = [
             'form_params' => $request,
             'headers' => [

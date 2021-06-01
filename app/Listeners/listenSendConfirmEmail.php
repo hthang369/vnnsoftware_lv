@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
+use stdClass;
 
 class listenSendConfirmEmail {
 
@@ -29,7 +30,7 @@ class listenSendConfirmEmail {
      */
     public function handle(sendConfirmEmail $event) {
 
-        $user           = new \stdClass();
+        $user           = new stdClass();
         $user->email    = $event->email;
         $user->name     = $event->email;
         $contentConfirm = $event->confirmContent;

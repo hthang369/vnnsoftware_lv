@@ -5,10 +5,14 @@ namespace App\Http\Controllers\BusinessPlan;
 use App\Http\Controllers\Controller;
 use App\Services\BusinessPlan\BusinessPlanService;
 use App\Validations\BusinessPlanValidation;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\View\View;
 use Redirect;
-
 
 class BusinessPlanController extends Controller
 {
@@ -29,7 +33,7 @@ class BusinessPlanController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -37,7 +41,7 @@ class BusinessPlanController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function list(Request $request)
     {
@@ -48,7 +52,7 @@ class BusinessPlanController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function detailForm($id)
     {
@@ -58,7 +62,7 @@ class BusinessPlanController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function newForm() {
         return view('/business-plan/add_form', [])->with('isNew', true);
@@ -67,7 +71,7 @@ class BusinessPlanController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function new(Request $request)
     {
@@ -81,7 +85,7 @@ class BusinessPlanController extends Controller
         try {
             $businessPlan = $this->businessPlanService->create($input);
             return redirect()->intended('/system-admin/business-plan/detail/' . $businessPlan->id);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(500, $ex->getMessage());
         }
     }
@@ -89,7 +93,7 @@ class BusinessPlanController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function updateForm($id) {
         return view('/business-plan/update_form', [
@@ -100,7 +104,7 @@ class BusinessPlanController extends Controller
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update($id, Request $request)
     {
@@ -120,7 +124,7 @@ class BusinessPlanController extends Controller
 
         try {
             $businessPlan = $this->businessPlanService->update($id, $input);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(400, $ex->getMessage());
         }
 
@@ -129,7 +133,7 @@ class BusinessPlanController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($id)
     {
@@ -141,7 +145,7 @@ class BusinessPlanController extends Controller
 
         try {
             $this->businessPlanService->delete($id);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(400, $ex->getMessage());
         }
 
@@ -149,7 +153,7 @@ class BusinessPlanController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function searchForm() {
         return view('/business-plan/search');

@@ -8,8 +8,13 @@ use App\Repositories\Role\RoleRepositoryInterface;
 use App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiRepositoryInterface;
 use App\Services\Contract\MyService;
 use App\Validations\RoleHasFeatureApiValidation;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class RoleHasFeatureApiService extends MyService
 {
@@ -56,7 +61,7 @@ class RoleHasFeatureApiService extends MyService
 
     /**
      * @param $feature_id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function ajaxCheckIsUsedFeatureApi($feature_id)
     {
@@ -66,7 +71,7 @@ class RoleHasFeatureApiService extends MyService
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function setPermissionForm($id)
     {
@@ -87,7 +92,7 @@ class RoleHasFeatureApiService extends MyService
 
     /**
      * @param $input
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return Validator
      */
     public function updateValidate($input) {
         return $this->roleHasFeatureApiValidation->updateValidate($input);
