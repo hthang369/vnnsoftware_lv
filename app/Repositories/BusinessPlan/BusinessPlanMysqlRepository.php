@@ -5,6 +5,7 @@ namespace App\Repositories\BusinessPlan;
 use App\Models\BusinessPlan;
 use App\Models\Company;
 use App\Repositories\MyRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -47,7 +48,7 @@ class BusinessPlanMysqlRepository extends MyRepository implements BusinessPlanRe
     }
 
     /**
-     * @return BusinessPlan[]|\Illuminate\Database\Eloquent\Collection
+     * @return BusinessPlan[]|Collection
      */
     public function getAllBusinessPlan()
     {

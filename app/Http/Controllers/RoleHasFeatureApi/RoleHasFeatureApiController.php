@@ -9,8 +9,14 @@ use App\Services\FeatureApi\FeatureApiService;
 use App\Services\Role\RoleService;
 use App\Services\RoleHasFeatureApi\RoleHasFeatureApiService;
 use App\Validations\RoleHasFeatureApiValidation;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class RoleHasFeatureApiController extends Controller
 {
@@ -44,7 +50,7 @@ class RoleHasFeatureApiController extends Controller
 
     /**
      * @param $feature_id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function ajaxCheckIsUsedFeatureApi($feature_id)
     {
@@ -53,7 +59,7 @@ class RoleHasFeatureApiController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function setPermissionForm($id)
     {
@@ -79,7 +85,7 @@ class RoleHasFeatureApiController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function setPermission(Request $request)
     {
@@ -132,7 +138,7 @@ class RoleHasFeatureApiController extends Controller
             }
             DB::commit();
             return redirect()->intended('/system-admin/role/set-permission/' . $request->input('role_id'))->with('saved', true);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             DB::rollBack();
             abort(400, $ex->getMessage());
         }

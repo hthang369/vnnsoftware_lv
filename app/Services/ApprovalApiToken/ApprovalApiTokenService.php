@@ -5,6 +5,10 @@ namespace App\Services\ApprovalApiToken;
 use App\Events\sendConfirmEmail;
 use App\Models\User;
 use App\Services\Contract\ApiService;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -17,7 +21,7 @@ class ApprovalApiTokenService extends ApiService
     const STATUS = [1 => 'Not accepted', 2 => 'Accepted', 3 => 'Paused'];
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|\Illuminate\View\View
      */
     public function list()
     {
@@ -32,7 +36,7 @@ class ApprovalApiTokenService extends ApiService
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function disableUser($id) {
         $codeDisableUser = Cache::get('codeDisableUser');
@@ -79,7 +83,7 @@ class ApprovalApiTokenService extends ApiService
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function approvalToken($id)
     {
@@ -93,7 +97,7 @@ class ApprovalApiTokenService extends ApiService
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function stopToken($id)
     {
@@ -107,7 +111,7 @@ class ApprovalApiTokenService extends ApiService
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function reopenToken($id)
     {
@@ -121,7 +125,7 @@ class ApprovalApiTokenService extends ApiService
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteToken($id)
     {
@@ -135,7 +139,7 @@ class ApprovalApiTokenService extends ApiService
 
     /**
      * @param $response
-     * @return \Illuminate\Http\RedirectResponse|mixed
+     * @return RedirectResponse|mixed
      */
     public function checkAndReturnData($response)
     {
@@ -197,8 +201,8 @@ class ApprovalApiTokenService extends ApiService
 
     /**
      * @param $request
-     * @return \Illuminate\Http\RedirectResponse|mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return RedirectResponse|mixed
+     * @throws GuzzleException
      */
     public function addAllContacts($request){
         $url =  config('constants.api_address').'/api/v1/contact/add-all-contacts-in-company';
@@ -212,8 +216,8 @@ class ApprovalApiTokenService extends ApiService
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return RedirectResponse|mixed
+     * @throws GuzzleException
      */
     public function addToAllRooms( $request)
     {

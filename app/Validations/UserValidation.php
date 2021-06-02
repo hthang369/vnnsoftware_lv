@@ -6,6 +6,7 @@ namespace App\Validations;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UserValidation implements ValidationInterface {
 
@@ -46,7 +47,7 @@ class UserValidation implements ValidationInterface {
 
     /**
      * @param $request
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function loginValidate($request)
     {
@@ -67,7 +68,7 @@ class UserValidation implements ValidationInterface {
 
     /**
      * @param $request
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function changePasswordValidate($request)
     {

@@ -15,11 +15,18 @@ use App\Services\Role\RoleService;
 use App\Services\User\UserService;
 use App\Models\User;
 use App\Validations\UserValidation;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 use Redirect;
 use Illuminate\Support\Facades\Input;
+use App\Services\LogActivity\LogActivityService;
+
 
 class UserController extends Controller
 {
@@ -29,6 +36,7 @@ class UserController extends Controller
     private $userService;
     private $roleService;
     private $userValidate;
+    private $logActivityService;
 
     /**
      * UserController constructor.
@@ -39,16 +47,19 @@ class UserController extends Controller
     public function __construct(
         UserService $userService,
         RoleService $roleService,
-        UserValidation $userValidate)
+        UserValidation $userValidate,
+        LogActivityService $logActivityService)
     {
         parent::__construct();
+
         $this->userService = $userService;
         $this->roleService = $roleService;
         $this->userValidate = $userValidate;
+        $this->logActivityService = $logActivityService;
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -56,7 +67,7 @@ class UserController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function list(Request $request)
     {
@@ -66,7 +77,7 @@ class UserController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function login(Request $request)
     {
@@ -76,6 +87,9 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+
+            $this->logActivityService->addToLog($request, Auth::user()->name." logged successfull");
+
             return redirect()->intended('home');
         } else {
             return redirect()->back()
@@ -85,7 +99,7 @@ class UserController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function newForm()
     {
@@ -95,7 +109,7 @@ class UserController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function updateForm($id)
     {
@@ -117,7 +131,7 @@ class UserController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function updatePasswordForm($id)
     {
@@ -139,7 +153,7 @@ class UserController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function register(Request $request)
     {
@@ -159,7 +173,7 @@ class UserController extends Controller
             return redirect()
                 ->intended('/system-admin/user-management/detail/' . $user->id)
                 ->with('saved', true);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             echo $ex->getMessage();
 
         }
@@ -168,7 +182,7 @@ class UserController extends Controller
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update($id, Request $request)
     {
@@ -196,7 +210,7 @@ class UserController extends Controller
             $user->roles()->detach();
             $user->roles()->attach($request->role);
             $user = $this->userService->update($id, $input);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(400, $ex->getMessage());
         }
 
@@ -205,7 +219,7 @@ class UserController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function detail($id)
     {
@@ -220,7 +234,7 @@ class UserController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function updatePassword(Request $request)
     {
@@ -236,7 +250,7 @@ class UserController extends Controller
                 return redirect()
                     ->intended('/system-admin/user-management/update-password/' . Auth::id())
                     ->with('success', true);
-            } catch (\Exception $ex) {
+            } catch (Exception $ex) {
                 return $this->sentResponseFail($this->errorStatus, 'Can not create', $ex->getMessage());
             }
         } else {
@@ -249,7 +263,7 @@ class UserController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($id)
     {
@@ -262,7 +276,7 @@ class UserController extends Controller
         try {
             $this->userService->deleteEmail($id);
             $this->userService->delete($id);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(400, $ex->getMessage());
         }
         return redirect()->intended('/system-admin/user-management/list');

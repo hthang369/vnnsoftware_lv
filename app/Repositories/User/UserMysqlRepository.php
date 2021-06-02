@@ -4,6 +4,7 @@ namespace App\Repositories\User;
 
 use App\Repositories\MyRepository;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -133,7 +134,7 @@ class UserMysqlRepository extends MyRepository implements UserRepositoryInterfac
     {
         $user = User::select(['password'])->find($id);
         if (strlen($current) !== strlen(trim($current))) {
-            throw new \Exception('Password does not allow spaces before and after');
+            throw new Exception('Password does not allow spaces before and after');
         }
 
         if (Hash::check($current, $user->password)

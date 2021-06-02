@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(ListFunctionSeeder::class);
         $this->call(RolePermissionSeeder::class);
+        $this->call(LogReleaseSeeder::class);
     }
 }

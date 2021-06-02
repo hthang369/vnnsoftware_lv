@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\ListFunction;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ListFunctionSeeder extends Seeder
@@ -13,7 +15,7 @@ class ListFunctionSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\ListFunction::truncate();
+        ListFunction::truncate();
         $listFunction = [
             'LMT user manage' => [
                 'LMT user list',
@@ -74,8 +76,8 @@ class ListFunctionSeeder extends Seeder
                 DB::table('list_function')->insert([
                     'group' => $group,
                     'function' => $function,
-                    'created_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s'),
-                    'updated_at' => \Illuminate\Support\Carbon::now()->format('Y-m-d H:i:s')
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ]);
             }
         }

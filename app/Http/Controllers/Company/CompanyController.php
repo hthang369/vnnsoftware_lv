@@ -7,7 +7,12 @@ use App\Repositories\Company\CompanyRepositoryInterface;
 use App\Models\Company;
 use App\Services\Company\CompanyService;
 use App\Services\BusinessPlan\BusinessPlanService;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CompanyController extends Controller
 {
@@ -31,7 +36,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -39,7 +44,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function list(Request $request)
     {
@@ -49,7 +54,7 @@ class CompanyController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function detail($id)
     {
@@ -58,7 +63,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function newForm() {
         $listBusinessPlan = $this->companyService->newForm();
@@ -67,7 +72,7 @@ class CompanyController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function updateForm($id) {
 
@@ -83,7 +88,7 @@ class CompanyController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function register(Request $request)
     {
@@ -97,7 +102,7 @@ class CompanyController extends Controller
         try {
             $company = $this->companyService->create($input);
             return redirect()->intended('/system-admin/company/detail/' . $company->id)->with('saved', true);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(400 , $ex->getMessage());
         }
     }
@@ -105,7 +110,7 @@ class CompanyController extends Controller
     /**
      * @param $id
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update($id, Request $request)
     {
@@ -127,14 +132,14 @@ class CompanyController extends Controller
         try {
             $this->companyService->update($company, $input);
             return redirect()->intended('/system-admin/company/detail/' . $id)->with('saved', true);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(400, $ex->getMessage());
         }
     }
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($id)
     {
@@ -145,7 +150,7 @@ class CompanyController extends Controller
 
         try {
             $this->companyService->delete($company);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             abort(500, $ex->getMessage());
         }
 

@@ -6,7 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Services\ApprovalApiToken\ApprovalApiTokenService;
 use App\Services\UserManagementForAppChat\UserManagementForAppChatService;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class UserManagementForAppChatController extends Controller
 {
@@ -29,7 +34,7 @@ class UserManagementForAppChatController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -37,7 +42,7 @@ class UserManagementForAppChatController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function list()
     {
@@ -46,7 +51,7 @@ class UserManagementForAppChatController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function detail($id)
     {
@@ -55,7 +60,7 @@ class UserManagementForAppChatController extends Controller
 
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function newForm()
     {
@@ -65,8 +70,8 @@ class UserManagementForAppChatController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return RedirectResponse
+     * @throws GuzzleException
      */
     public function register(Request $request)
     {
@@ -126,7 +131,7 @@ class UserManagementForAppChatController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete($id)
     {

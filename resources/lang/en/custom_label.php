@@ -104,4 +104,5 @@ return [
     'development' => 'Development',
     'staging' => 'Staging',
     'production' => 'Production',
+    'show_logs_release'=>'Log Release'
 ];

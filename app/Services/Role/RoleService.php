@@ -5,8 +5,12 @@ namespace App\Services\Role;
 use App\Repositories\Role\RoleRepositoryInterface;
 use App\Services\Contract\MyService;
 use App\Validations\RoleValidation;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class RoleService extends MyService
 {
@@ -25,7 +29,7 @@ class RoleService extends MyService
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function list(Request $request)
     {
@@ -38,7 +42,7 @@ class RoleService extends MyService
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function detail($id)
     {
@@ -50,7 +54,7 @@ class RoleService extends MyService
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function getById($id)
     {
@@ -61,7 +65,7 @@ class RoleService extends MyService
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function create($input)
     {

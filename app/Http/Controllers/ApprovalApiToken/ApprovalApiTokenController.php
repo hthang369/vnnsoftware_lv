@@ -5,7 +5,12 @@ namespace App\Http\Controllers\ApprovalApiToken;
 use App\Http\Controllers\Controller;
 use App\Services\ApprovalApiToken\ApprovalApiTokenService;
 use App\Services\Company\CompanyService;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 
 class ApprovalApiTokenController extends Controller
@@ -28,7 +33,7 @@ class ApprovalApiTokenController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -36,7 +41,7 @@ class ApprovalApiTokenController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function list()
     {
@@ -46,7 +51,7 @@ class ApprovalApiTokenController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function approvalToken($id)
     {
@@ -55,7 +60,7 @@ class ApprovalApiTokenController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function stopToken($id)
     {
@@ -64,7 +69,7 @@ class ApprovalApiTokenController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function reopenToken($id)
     {
@@ -73,7 +78,7 @@ class ApprovalApiTokenController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteToken($id)
     {
@@ -81,7 +86,7 @@ class ApprovalApiTokenController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function listForControl()
     {
@@ -102,7 +107,7 @@ class ApprovalApiTokenController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function disableUser($id)
     {
@@ -111,7 +116,7 @@ class ApprovalApiTokenController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function addContactList(Request $request)
     {
@@ -145,8 +150,8 @@ class ApprovalApiTokenController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return Application|Factory|View
+     * @throws GuzzleException
      */
     public function addContactUpdatePage(Request $request)
     {
@@ -167,8 +172,8 @@ class ApprovalApiTokenController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return RedirectResponse|mixed
+     * @throws GuzzleException
      */
     public function getUserDetail(Request $request){
         $url = config('constants.api_address') . '/api/v1/user/get-detail-user/' . $request['id'];
@@ -180,8 +185,8 @@ class ApprovalApiTokenController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return RedirectResponse
+     * @throws GuzzleException
      */
     public function addContactsAndRoomsByCompany(Request $request)
     {
