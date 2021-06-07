@@ -24,7 +24,7 @@ return [
     'add_contact_option' => 'Add contact option',
     'add_all_contacts' => 'Add all contacts',
     'add_to_all_rooms' => 'Add to all rooms',
-
+    'reset_password' => 'Reset password',
 
     // business plan
     'business_plan' => 'Business plan',
@@ -104,5 +104,5 @@ return [
     'development' => 'Development',
     'staging' => 'Staging',
     'production' => 'Production',
-    'show_logs_release'=>'Log Release'
+    'show_logs_release' => 'Log Release'
 ];

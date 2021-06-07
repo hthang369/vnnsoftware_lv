@@ -7,13 +7,12 @@
  */
 
 namespace App\Services\Contract;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Http;
-
-
-use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
+
 
 class ApiService
 {
@@ -30,7 +29,7 @@ class ApiService
         $options = [
             'form_params' => $request,
             'headers' => [
-                'token' => config('laka.api_token','a600eec62a6b57946e3c756d636c7664'),
+                'token' => config('laka.api_token'),
                 'userid' => 90,
             ],
         ];

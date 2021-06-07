@@ -136,6 +136,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         Route::get('list-user-for-control', 'ApprovalApiToken\ApprovalApiTokenController@listForControl')->name('LAKA user manage.LAKA User list for control')->middleware("log.activity:LAKA User list for control");
         Route::get('disable-user/{id}', 'ApprovalApiToken\ApprovalApiTokenController@disableUser')->name('LAKA user manage.LAKA disable user')->middleware("log.activity:LAKA disable user");
         Route::get('add-contact', 'ApprovalApiToken\ApprovalApiTokenController@addContactList')->name('LAKA user manage.LAKA User add company')->middleware("log.activity:LAKA User add company");
+        Route::post('add-contact/update/reset-pass', 'ApprovalApiToken\ApprovalApiTokenController@resetPassword')->name('LAKA user manage.LAKA User reset password')->middleware("log.activity:LAKA User reset password");
         Route::get('add-contact/update/{id}', 'ApprovalApiToken\ApprovalApiTokenController@addContactUpdatePage')->name('LAKA user manage.LAKA User add company update')->middleware("log.activity:LAKA User add company update");
         Route::post('add-contact/update/{id}', 'ApprovalApiToken\ApprovalApiTokenController@addContactsAndRoomsByCompany')->name('LAKA user manage.LAKA User add company update')->middleware("log.activity:LAKA User add company update");
 
