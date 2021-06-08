@@ -36,12 +36,18 @@
     @endif
     @if(session()->has('isResetPass'))
         @if(session()->get('isResetPass')==true)
-            <div class="alert alert-success">
-                <strong>@lang('custom_message.reset_password_success')</strong>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{session('message')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @else
-            <div class="alert alert-danger">
-                <strong>{{session()->get('message')}}</strong>
+            <div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                {{session('message')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
     @endif

@@ -266,7 +266,9 @@ class ApprovalApiTokenController extends Controller
 
         // Submit request has error
         if ($dataResponse['error_code'] != 0) {
+
             $message = $dataResponse['error_msg'];
+
         }
         // Submit request success
         else {
