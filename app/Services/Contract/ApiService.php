@@ -33,7 +33,6 @@ class ApiService
                 'userid' => 90,
             ],
         ];
-
         $response = $client->request($method, $string, $options);
         return $response;
     }

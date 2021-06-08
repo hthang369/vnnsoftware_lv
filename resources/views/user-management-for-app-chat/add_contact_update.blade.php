@@ -7,25 +7,38 @@
 @endsection
 
 @section('content')
+    <!-- Show notification when redirect action-->
     @if(session()->has('added_all_contact'))
         @if(session()->get('added_all_contact') == true)
-            <div class="alert alert-success">
-                <strong>@lang('custom_message.added_all_contacts')</strong>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @lang('custom_message.added_all_contacts')
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @else
-            <div class="alert alert-danger">
-                <strong>@lang('custom_message.add_all_contacts_failed')</strong>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @lang('custom_message.add_all_contacts_failed')
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
     @endif
     @if(session()->has('added_to_all_rooms'))
         @if(session()->get('added_to_all_rooms') == true)
-            <div class="alert alert-success">
-                <strong>@lang('custom_message.added_to_all_rooms')</strong>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @lang('custom_message.added_to_all_rooms')
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @else
-            <div class="alert alert-danger">
-                <strong>@lang('custom_message.add_to_all_rooms_failed')</strong>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @lang('custom_message.add_to_all_rooms_failed')
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
     @endif
@@ -43,7 +56,7 @@
                 </button>
             </div>
         @else
-            <div class="alert alert-danger  alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{session('message')}}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -51,6 +64,7 @@
             </div>
         @endif
     @endif
+    <!--    End show notification-->
     <div class="card">
         <h5 class="card-header">@lang('custom_title.laka_user_update_contact')</h5>
 
