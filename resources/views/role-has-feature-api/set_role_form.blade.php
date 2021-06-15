@@ -38,6 +38,7 @@
                         $isAll = true;
                     @endphp
                     @foreach($listFeatureApi as $i => $featureApi)
+
                         @php
                             if (!in_array($featureApi->id, $arrayOldFeatureApi)) {
                                 $isAll = false;
@@ -56,6 +57,7 @@
                                             $isAllGroup = false;
                                         }
                                     @endphp
+
                                     <div class="form-check ml-3">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck{{$i}}" name="feature_api_id[]" value="{{$featureApi->id}}" {{in_array($featureApi->id, $arrayOldFeatureApi) ? 'checked' : ''}}>
                                         <label class="form-check-label" for="exampleCheck{{$i}}">{{$featureApi->name}}</label>
@@ -69,6 +71,7 @@
                             </div>
                             <hr>
                         @endif
+
                     @endforeach
                     <div class="form-check mb-2">
                         <input onchange="checkAll(this)" type="checkbox" class="form-check-input" id="check-all-feature-check-all" data-feature="check-all" {{$isAll ? 'checked' : ''}}>

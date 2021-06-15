@@ -2,7 +2,6 @@
 
 namespace App\Services\RoleHasFeatureApi;
 
-use App\Repositories\FeatureApi\FeatureApiMysqlRepository;
 use App\Repositories\FeatureApi\FeatureApiRepositoryInterface;
 use App\Repositories\Role\RoleRepositoryInterface;
 use App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiRepositoryInterface;
@@ -12,8 +11,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class RoleHasFeatureApiService extends MyService
@@ -94,7 +91,8 @@ class RoleHasFeatureApiService extends MyService
      * @param $input
      * @return Validator
      */
-    public function updateValidate($input) {
+    public function updateValidate($input)
+    {
         return $this->roleHasFeatureApiValidation->updateValidate($input);
     }
 

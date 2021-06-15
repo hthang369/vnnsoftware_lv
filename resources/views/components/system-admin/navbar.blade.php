@@ -7,6 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
             @foreach($TOPMENU as $itemTop)
                 @foreach($LEFTMENU as $itemLeft)
                     @if($itemTop->group == $itemLeft->group || $itemTop->is_no_left_menu == 1)

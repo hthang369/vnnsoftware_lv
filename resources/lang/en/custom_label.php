@@ -104,5 +104,7 @@ return [
     'development' => 'Development',
     'staging' => 'Staging',
     'production' => 'Production',
-    'show_logs_release' => 'Log Release'
+    'show_log_release' => 'Log Release',
+    'show_log_activity' =>'Log Activity',
+    'show_log_access_laka' =>'Log Access Laka'
 ];

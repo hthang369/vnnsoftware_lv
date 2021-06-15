@@ -12,7 +12,6 @@
         @media screen and (max-width: 1400px) {
             .data-table {
                 height: 450px;
-
                 overflow-x: scroll;
                 overflow-y: scroll;
             }

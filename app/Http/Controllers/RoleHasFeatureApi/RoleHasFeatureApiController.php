@@ -68,13 +68,16 @@ class RoleHasFeatureApiController extends Controller
         if (is_null($role)) {
             abort(400, __('custom_message.role_plan_not_found'));
         }
+
         $listFeatureApi = $this->featureApiService->getJustNeedForPermission();
 
         $listOldFeatureApi = $this->roleHasFeatureApiService->getByRoleId($id);
+
         $arrayOldFeatureApi = [];
         foreach ($listOldFeatureApi as $item) {
             array_push($arrayOldFeatureApi, $item['feature_api_id']);
         }
+
         return view('/role-has-feature-api/set_role_form')
             ->with([
                 'arrayOldFeatureApi' => $arrayOldFeatureApi,

@@ -20,4 +20,5 @@ return [
     'user_management_for_app_chat' => 'LAKA user manage',
     'laka_user_update_contact' => 'LAKA user update contact',
     'deploy' => 'Deploy version',
+    'log' =>'LMT log manage'
     ];

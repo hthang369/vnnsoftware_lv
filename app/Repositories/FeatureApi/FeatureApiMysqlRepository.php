@@ -17,12 +17,14 @@ class FeatureApiMysqlRepository extends MyRepository implements FeatureApiReposi
     public function getJustNeedForPermission()
     {
         $featureApi = new FeatureApi();
+
         return $featureApi->select('feature_api.*')
             ->join('list_function', 'list_function.function', '=', 'feature_api.name')
             ->whereNull('feature_api.deleted_at')
             ->orderBy('feature')
             ->orderBy('name')
             ->get();
+
     }
 
     public function updateOrCreate($input)

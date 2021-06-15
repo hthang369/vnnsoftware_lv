@@ -11,6 +11,9 @@
 |
 */
 
+use App\Http\Controllers\LogAccessLaka\LogAccessLakaController;
+use App\Http\Controllers\LogRelease\LogReleaseController;
+
 if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
     error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 }
@@ -98,9 +101,9 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
 
         // Route log-release
         Route::group(['prefix' => 'log-release'], function () {
-            Route::get('/', [App\Http\Controllers\LogRelease\LogReleaseController::class, 'getLogReleaseList'])->name('Version Deploy.Deploy index.Show Log Release');
-            Route::get('search-log',[App\Http\Controllers\LogRelease\LogReleaseController::class,'searchLogRelease'])->name('Version Deploy.Deploy index.Search LogRelease');
-            Route::get('/{user_id}', [App\Http\Controllers\LogRelease\LogReleaseController::class, 'getLogReleaseByUserId'])->name('Version Deploy.Deploy index.Show Log Release By User Id');
+            Route::get('/', [LogReleaseController::class, 'getLogReleaseList'])->name('Version Deploy.Deploy index.Show Log Release')->middleware('log.activity:Show Log Release');
+            Route::get('search-log', [LogReleaseController::class, 'searchLogRelease'])->name('Version Deploy.Deploy index.Search LogRelease')->middleware('log.activity:Search Log Release');
+            Route::get('/{user_id}', [LogReleaseController::class, 'getLogReleaseByUserId'])->name('Version Deploy.Deploy index.Show Log Release By User Id')->middleware('log.activity:Show Log Release By User Id');
         });
     });
 
@@ -143,8 +146,14 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
     });
 
     Route::group(['prefix' => 'log'], function () {
-        Route::get("/", "LogActivity\LogActivityController@getAll")->name("LAKA Log User Activities By Items Per Page");
-        Route::get("/{id}", "LogActivity\LogActivityController@getLogActivityByUserId")->name("Log Activity By User Id");
+        Route::get('/', 'Log\LogController@index')->name('LMT log manage.Log index')->middleware('log.activity:LMT Log index');
+        Route::group(['prefix' => 'log-activity'], function () {
+            Route::get("/", "LogActivity\LogActivityController@getAll")->name("LMT log manage.Show Log Activity");
+            Route::get("/{id}", "LogActivity\LogActivityController@getLogActivityByUserId")->name("LMT log manage.Log Activity By User Id");
+        });
+        Route::group(['prefix' => 'log-access-laka'], function () {
+            Route::get("/", [LogAccessLakaController::class, 'getLogAccessLakaList'])->name('LMT log manage.Show Log Access Laka');
+        });
     });
 
 });
