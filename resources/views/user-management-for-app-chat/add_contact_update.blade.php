@@ -143,13 +143,17 @@
 
                 </div>
             </form>
-            <form id="form-reset-pass" method="post" action="{{route('LAKA user manage.LAKA User reset password')}}">
-                @csrf
-                <input hidden type="text" name="user_id" value={{$userId}}>
-                <!-- Btn reset password -->
-                <button class="btn btn-warning" type="submit"
-                >@lang('custom_label.reset_password')</button>
-            </form>
+
+            @if(!in_array('LAKA user manage.Reset password',$NOT_HAS_PERMISSION))
+                <form id="form-reset-pass" method="post"
+                      action="{{route('LAKA user manage.LAKA User reset password')}}">
+                    @csrf
+                    <input hidden type="text" name="user_id" value={{$userId}}>
+                    <!-- Btn reset password -->
+                    <button class="btn btn-warning" type="submit"
+                    >@lang('custom_label.reset_password')</button>
+                </form>
+            @endif
         </div>
 
 
