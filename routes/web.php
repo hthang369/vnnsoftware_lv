@@ -102,7 +102,7 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
         // Route log-release
         Route::group(['prefix' => 'log-release'], function () {
             Route::get('/', [LogReleaseController::class, 'getLogReleaseList'])->name('Version Deploy.Deploy index.Show Log Release')->middleware('log.activity:Show Log Release');
-            Route::get('search-log', [LogReleaseController::class, 'searchLogRelease'])->name('Version Deploy.Deploy index.Search LogRelease')->middleware('log.activity:Search Log Release');
+            Route::get('/search-log', [LogReleaseController::class, 'searchLogRelease'])->name('Version Deploy.Search Log Release')->middleware('log.activity:Search Log Release');
             Route::get('/{user_id}', [LogReleaseController::class, 'getLogReleaseByUserId'])->name('Version Deploy.Deploy index.Show Log Release By User Id')->middleware('log.activity:Show Log Release By User Id');
         });
     });
@@ -145,14 +145,20 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth', 'permission']
 
     });
 
+    // Route for LMT log manage
     Route::group(['prefix' => 'log'], function () {
         Route::get('/', 'Log\LogController@index')->name('LMT log manage.Log index')->middleware('log.activity:LMT Log index');
+
+        // Route for Log Activity
         Route::group(['prefix' => 'log-activity'], function () {
             Route::get("/", "LogActivity\LogActivityController@getAll")->name("LMT log manage.Show Log Activity");
             Route::get("/{id}", "LogActivity\LogActivityController@getLogActivityByUserId")->name("LMT log manage.Log Activity By User Id");
         });
+
+        //Route for Log Access Laka
         Route::group(['prefix' => 'log-access-laka'], function () {
-            Route::get("/", [LogAccessLakaController::class, 'getLogAccessLakaList'])->name('LMT log manage.Show Log Access Laka');
+            Route::get("/", [LogAccessLakaController::class, 'getListLogAccessLaka'])->name('LMT log manage.Show Log Access Laka')->middleware('log.activity:Show Log Access Laka');
+            Route::get("/search-log", [LogAccessLakaController::class, 'searchLog'])->name('LMT log manage.Search Log Access Laka')->middleware('log.activity:Search Log Access Laka');
         });
     });
 

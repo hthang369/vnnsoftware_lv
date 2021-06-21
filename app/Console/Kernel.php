@@ -4,8 +4,6 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Carbon\Carbon;
-use App\Console\Commands\LogCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-        "App\Console\Commands\LogCommand"
+        "App\Console\Commands\LogCommand",
+        "App\Console\Commands\LogAccessLakaCommand"
     ];
 
     /**
@@ -27,8 +26,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('log:logactivity')->everyMinute();
-        //->hourly();
+//        $schedule->command('log:logactivity')->everyMinute();
+//        ->hourly();
+
+        $schedule->command('log:logaccesslaka')->timezone('Asia/Ho_Chi_Minh')->dailyAt('23:00')->withoutOverlapping();
 
     }
 
@@ -39,7 +40,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

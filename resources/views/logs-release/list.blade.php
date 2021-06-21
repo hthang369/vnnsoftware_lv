@@ -23,119 +23,120 @@
             Log Release List
         </div>
         <div class="card-body">
-            <div class="search-form">
-                <form method="get" action="{{route('Version Deploy.Deploy index.Search LogRelease')}}">
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <div class="input-group flex-nowrap">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="addon-wrapping">User ID</span>
+            @if(!in_array('Version Deploy.Search Log Release',$NOT_HAS_PERMISSION))
+                <div class="search-form">
+                    <form method="get" action="{{route('Version Deploy.Search Log Release')}}">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <div class="input-group flex-nowrap">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="addon-wrapping">User ID</span>
+                                    </div>
+                                    <input id="user-id" type="text" class="form-control" placeholder="User ID.."
+                                           aria-describedby="addon-wrapping" name="user_id"
+                                           value="{{$user_id}}"
+                                    >
                                 </div>
-                                <input id="user-id" type="text" class="form-control" placeholder="User ID.."
-                                       aria-describedby="addon-wrapping" name="user_id"
-                                       value="{{$user_id}}"
-                                >
-                           </div>
-
-                        </div>
-                        <div class="form-group col-md-3">
-                            <div class="input-group flex-nowrap">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="addon-wrapping">User Name</span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="input-group flex-nowrap">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="addon-wrapping">User Name</span>
+                                    </div>
+                                    <input id="user-name" type="text" class="form-control" placeholder="User name.."
+                                           aria-label="Username"
+                                           aria-describedby="addon-wrapping" name="user_name"
+                                           value="{{$user_name}}">
                                 </div>
-                                <input id="user-name" type="text" class="form-control" placeholder="User name.."
-                                       aria-label="Username"
-                                       aria-describedby="addon-wrapping" name="user_name"
-                                       value="{{$user_name}}">
-                            </div>
 
-                        </div>
-                        <div class="form-group col-md-3">
-                            <div class="input-group flex-nowrap">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="addon-wrapping">Redmine ID</span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="input-group flex-nowrap">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="addon-wrapping">Redmine ID</span>
+                                    </div>
+                                    <input id="redmine-id" type="text" class="form-control" placeholder="Redmine ID.."
+                                           aria-describedby="addon-wrapping" name="redmine_id"
+                                           value="{{$redmine_id}}">
+
                                 </div>
-                                <input id="redmine-id" type="text" class="form-control" placeholder="Redmine ID.."
-                                       aria-describedby="addon-wrapping" name="redmine_id"
-                                       value="{{$redmine_id}}">
-
                             </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <div class="input-group flex-nowrap">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="addon-wrapping">Version</span>
+                            <div class="form-group col-md-3">
+                                <div class="input-group flex-nowrap">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="addon-wrapping">Version</span>
+                                    </div>
+                                    <input id="version" type="text" class="form-control" placeholder="Version.."
+                                           aria-describedby="addon-wrapping" name="version"
+                                           value="{{$version}}">
                                 </div>
-                                <input id="version" type="text" class="form-control" placeholder="Version.."
-                                       aria-describedby="addon-wrapping" name="version"
-                                       value="{{$version}}">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <div class="input-group flex-nowrap">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <div class="input-group flex-nowrap">
 
-                                <select class="form-control" name="release_type"
-                                        id="release-type">
-                                    <option selected value="">-- Release Type --</option>
-                                    <option value="New"
-                                            @if($release_type=="New") selected @endif >
-                                        New
-                                    </option>
-                                    <option value="Back"
-                                            @if($release_type=="Back") selected @endif>
-                                        Back
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <div class="input-group flex-nowrap">
-                                <select class="form-control" name="environment"
-                                        id="environment">
-                                    <option selected value="">-- Enviroment --</option>
-                                    <option value="development"
-                                            @if($environment=='development') selected @endif >
-                                        Development
-                                    </option>
-                                    <option value="staging"
-                                            @if($environment=='staging') selected @endif >
-                                        Staging
-                                    </option>
-                                    <option value="production"
-                                            @if($environment=='production') selected @endif >
-                                        Production
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <div class="input-group flex-nowrap">
-
-                                <select class="form-control " name="deploy_server_id"
-                                        id="deploy-server">
-                                    <option selected value="">
-                                        -- Deploy Server --
-                                    </option>
-                                    @foreach($deploy_server as $key => $value)
-                                        <option
-                                            value={{$value->id}} @isset($deploy_server_id) @if($deploy_server_id==$value->id) selected @endif @endisset>
-                                            {{$value->name}}
+                                    <select class="form-control" name="release_type"
+                                            id="release-type">
+                                        <option selected value="">-- Release Type --</option>
+                                        <option value="New"
+                                                @if($release_type=="New") selected @endif >
+                                            New
                                         </option>
-                                    @endforeach
-                                </select>
+                                        <option value="Back"
+                                                @if($release_type=="Back") selected @endif>
+                                            Back
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="input-group flex-nowrap">
+                                    <select class="form-control" name="environment"
+                                            id="environment">
+                                        <option selected value="">-- Enviroment --</option>
+                                        <option value="development"
+                                                @if($environment=='development') selected @endif >
+                                            Development
+                                        </option>
+                                        <option value="staging"
+                                                @if($environment=='staging') selected @endif >
+                                            Staging
+                                        </option>
+                                        <option value="production"
+                                                @if($environment=='production') selected @endif >
+                                            Production
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="input-group flex-nowrap">
+
+                                    <select class="form-control " name="deploy_server_id"
+                                            id="deploy-server">
+                                        <option selected value="">
+                                            -- Deploy Server --
+                                        </option>
+                                        @foreach($deploy_server as $key => $value)
+                                            <option
+                                                value={{$value->id}} @isset($deploy_server_id) @if($deploy_server_id==$value->id) selected @endif @endisset>
+                                                {{$value->name}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="d-flex justify-content-center mt-2">
-                        <button class="btn btn-success mr-2" type="submit">Search</button>
-                        <button id="reset-search-form" type="button" class="btn btn-danger ml-2">Reset</button>
-                    </div>
+                        <div class="d-flex justify-content-center mt-2">
+                            <button class="btn btn-success mr-2" type="submit">Search</button>
+                            <button id="reset-search-form" type="button" class="btn btn-danger ml-2">Reset</button>
+                        </div>
 
-                </form>
+                    </form>
 
-            </div>
+                </div>
+            @endif
         </div>
         <div class="card-body">
             <div class="select-perpage">

@@ -12,14 +12,14 @@ class LogAccessLakaCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'log:logaccesslaka';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Log Access Laka Command';
 
     private $logAccessLakaService;
 
@@ -30,8 +30,11 @@ class LogAccessLakaCommand extends Command
      */
     public function __construct(LogAccessLakaService $logAccessLakaService)
     {
-        $this->logAccessLakaService = $logAccessLakaService;
+
         parent::__construct();
+
+
+        $this->logAccessLakaService = $logAccessLakaService;
     }
 
     /**
@@ -42,12 +45,18 @@ class LogAccessLakaCommand extends Command
     public function handle()
     {
         $response = $this->sendRequest();
-        $dataResponse = json_decode($response,true);
-        $dataResponse = $this->logAccessLakaService->sendRequestToLakaBackEnd();
-        $this->logAccessLakaService->saveLogAccessLaka($dataResponse);
+        $dataResponse = json_decode($response->getBody()->getContents(), true);
+
+        $this->saveLogAccessLaka($dataResponse);
     }
-    public function sendRequest(){
+
+    public function sendRequest()
+    {
         return $this->logAccessLakaService->sendRequestToLakaBackEnd();
     }
 
+    public function saveLogAccessLaka($dataResponse)
+    {
+        return $this->logAccessLakaService->saveLogAccessLaka($dataResponse);
+    }
 }

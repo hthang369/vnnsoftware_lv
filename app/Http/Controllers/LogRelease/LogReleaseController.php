@@ -50,7 +50,6 @@ class LogReleaseController extends Controller
     public function searchLogRelease(Request $request)
     {
         $deploy_server = DeployServer::get();
-
         $currentRoute = $request->route()->getName();
 
         $perPage = $request->input('perPage');
