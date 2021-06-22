@@ -29,7 +29,10 @@ class Kernel extends ConsoleKernel
 //        $schedule->command('log:logactivity')->everyMinute();
 //        ->hourly();
 
-        $schedule->command('log:logaccesslaka')->timezone('Asia/Ho_Chi_Minh')->dailyAt('23:00')->withoutOverlapping();
+        $schedule->command('log:logaccesslaka')
+            ->timezone('Asia/Ho_Chi_Minh')
+            ->dailyAt('23:00')
+            ->withoutOverlapping();
 
     }
 

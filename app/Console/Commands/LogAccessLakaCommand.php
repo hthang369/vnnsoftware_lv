@@ -32,8 +32,6 @@ class LogAccessLakaCommand extends Command
     {
 
         parent::__construct();
-
-
         $this->logAccessLakaService = $logAccessLakaService;
     }
 

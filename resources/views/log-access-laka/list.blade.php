@@ -148,7 +148,6 @@
                                 </td>
                                 <td>
                                     <p><b>{{$log->time_sent_request}}</b></p>
-                                    <p>{{ Carbon\Carbon::createFromTimeStamp(strtotime($log->time_sent_request))->diffForHumans() }}</p>
                                 </td>
                                 <td>
                                     {{$log->result}}
