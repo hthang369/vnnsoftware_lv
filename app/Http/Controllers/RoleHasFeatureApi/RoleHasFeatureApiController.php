@@ -103,9 +103,11 @@ class RoleHasFeatureApiController extends Controller
         try {
             DB::beginTransaction();
             $input['role_id'] = $request->input('role_id');
+
             $listOldFeatureApi = $this->roleHasFeatureApiService->getByRoleId($input['role_id']);
 
             if ($request->has('feature_api_id')) {
+
                 foreach ($request->input('feature_api_id') as $item) {
                     $has = false;
                     foreach ($listOldFeatureApi as $value) {
@@ -117,10 +119,12 @@ class RoleHasFeatureApiController extends Controller
 
                     if (!$has) {
                         $input['feature_api_id'] = $item;
+
                         $this->roleHasFeatureApiService->create($input);
                     }
                 }
             }
+
             foreach ($listOldFeatureApi as $value) {
                 $has = false;
                 if ($request->has('feature_api_id')) {
@@ -142,5 +146,6 @@ class RoleHasFeatureApiController extends Controller
             DB::rollBack();
             abort(400, $ex->getMessage());
         }
+
     }
 }

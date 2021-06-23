@@ -95,7 +95,7 @@ class UserManagementForAppChatController extends Controller
 
         $dataResponse = json_decode($response->getBody()->getContents(), true);
 
-        // Check if new user has been created successfully
+       // Check if new user has been created successfully
         if ($dataResponse['error_code'] != 0) {
             return redirect()->intended('/system-admin/user-management-for-app-chat/new')
                 ->withInput()->with('errorCommon', $dataResponse['error_msg']);

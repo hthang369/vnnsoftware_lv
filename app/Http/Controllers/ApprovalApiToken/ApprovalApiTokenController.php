@@ -175,7 +175,8 @@ class ApprovalApiTokenController extends Controller
      * @return RedirectResponse|mixed
      * @throws GuzzleException
      */
-    public function getUserDetail(Request $request){
+    public function getUserDetail(Request $request)
+    {
         $url = config('constants.api_address') . '/api/v1/user/get-detail-user/' . $request['id'];
         $request = null;
         $method = "GET";
@@ -190,11 +191,11 @@ class ApprovalApiTokenController extends Controller
      */
     public function addContactsAndRoomsByCompany(Request $request)
     {
+
         // Check if user has been disabled or not
         $request['id'] = $request['user_id'];
         $user = $this->getUserDetail($request);
-        if ($user['disabled'] == 1)
-        {
+        if ($user['disabled'] == 1) {
             return redirect()
                 ->intended('/system-admin/user-management-for-app-chat/add-contact/update/' . $request['user_id'])
                 ->with(['user_has_been_disabled' => 1]);
@@ -237,7 +238,7 @@ class ApprovalApiTokenController extends Controller
         // add to all rooms
         if ($request['add_to_all_rooms'] != null && $request['company_id'] != null) {
 
-            $data2 =  $this->approvalApiTokenService->addToAllRooms($request);
+            $data2 = $this->approvalApiTokenService->addToAllRooms($request);
 
             if ($data2['error_code'] == 0 && $data2['error_msg'] == 0) {
                 $addToAllRoomsResult = true;
@@ -250,5 +251,33 @@ class ApprovalApiTokenController extends Controller
             ->intended('/system-admin/user-management-for-app-chat/add-contact/update/' . $request['user_id'])
             ->with(['added_all_contact' => $addAllContactsResult, 'added_to_all_rooms' => $addToAllRoomsResult]);
 
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws GuzzleException
+     */
+    public function resetPassword(Request $request)
+    {
+        $isResetPass = false;
+        $message = "";
+        $dataResponse = $this->approvalApiTokenService->resetPassword($request);
+
+        // Submit request has error
+        if ($dataResponse['error_code'] != 0) {
+
+            $message = $dataResponse['error_msg'];
+
+        }
+        // Submit request success
+        else {
+            $isResetPass = true;
+            $message = __('custom_message.reset_password_success');
+        }
+        return redirect()->intended('/system-admin/user-management-for-app-chat/add-contact/update/' . $request['user_id'])->with([
+            'isResetPass' => $isResetPass,
+            'message' => $message,
+        ]);
     }
 }
