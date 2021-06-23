@@ -5,9 +5,7 @@ namespace App\Events;
 use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -19,6 +17,7 @@ class sendConfirmEmail
      * @var mixed
      */
     public $email;
+    public $user_name;
     /**
      * @var String
      */
@@ -29,9 +28,10 @@ class sendConfirmEmail
      *
      * @return void
      */
-    public function __construct(User $user,String $confirmContent)
+    public function __construct(User $user, string $confirmContent)
     {
         $this->email = $user->email;
+        $this->user_name = $user->name;
         $this->confirmContent = $confirmContent;
     }
 

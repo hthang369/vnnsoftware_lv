@@ -1,8 +1,8 @@
 <!doctype html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title></title>
     <style>
         /* -------------------------------------
@@ -33,7 +33,9 @@
             border-collapse: separate;
             mso-table-lspace: 0pt;
             mso-table-rspace: 0pt;
-            width: 100%; }
+            width: 100%;
+        }
+
         table td {
             font-family: sans-serif;
             font-size: 14px;
@@ -93,6 +95,7 @@
             text-align: center;
             width: 100%;
         }
+
         .footer td,
         .footer p,
         .footer span,
@@ -133,6 +136,7 @@
             margin: 0;
             margin-bottom: 15px;
         }
+
         p li,
         ul li,
         ol li {
@@ -150,17 +154,23 @@
         ------------------------------------- */
         .btn {
             box-sizing: border-box;
-            width: 100%; }
+            width: 100%;
+        }
+
         .btn > tbody > tr > td {
-            padding-bottom: 15px; }
+            padding-bottom: 15px;
+        }
+
         .btn table {
             width: auto;
         }
+
         .btn table td {
             background-color: #ffffff;
             border-radius: 5px;
             text-align: center;
         }
+
         .btn a {
             background-color: #ffffff;
             border: solid 1px #3498db;
@@ -253,6 +263,7 @@
                 font-size: 28px !important;
                 margin-bottom: 10px !important;
             }
+
             table[class=body] p,
             table[class=body] ul,
             table[class=body] ol,
@@ -261,28 +272,35 @@
             table[class=body] a {
                 font-size: 16px !important;
             }
+
             table[class=body] .wrapper,
             table[class=body] .article {
                 padding: 10px !important;
             }
+
             table[class=body] .content {
                 padding: 0 !important;
             }
+
             table[class=body] .container {
                 padding: 0 !important;
                 width: 100% !important;
             }
+
             table[class=body] .main {
                 border-left-width: 0 !important;
                 border-radius: 0 !important;
                 border-right-width: 0 !important;
             }
+
             table[class=body] .btn table {
                 width: 100% !important;
             }
+
             table[class=body] .btn a {
                 width: 100% !important;
             }
+
             table[class=body] .img-responsive {
                 height: auto !important;
                 max-width: 100% !important;
@@ -297,6 +315,7 @@
             .ExternalClass {
                 width: 100%;
             }
+
             .ExternalClass,
             .ExternalClass p,
             .ExternalClass span,
@@ -305,6 +324,7 @@
             .ExternalClass div {
                 line-height: 100%;
             }
+
             .apple-link a {
                 color: inherit !important;
                 font-family: inherit !important;
@@ -313,6 +333,7 @@
                 line-height: inherit !important;
                 text-decoration: none !important;
             }
+
             #MessageViewBody a {
                 color: inherit;
                 text-decoration: none;
@@ -321,9 +342,11 @@
                 font-weight: inherit;
                 line-height: inherit;
             }
+
             .btn-primary table td:hover {
                 background-color: #34495e !important;
             }
+
             .btn-primary a:hover {
                 background-color: #34495e !important;
                 border-color: #34495e !important;
@@ -351,14 +374,17 @@
                                     <td>
                                         <p>Hi there,</p>
                                         <p>This is code to verify the user from a management tool</p>
-                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0"
+                                               class="btn btn-primary">
                                             <tbody>
                                             <tr>
                                                 <td align="left">
-                                                    <table style="display:none" role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                                    <table style="display:none" role="presentation" border="0"
+                                                           cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                         <tr>
-                                                            <td> <a href="http://htmlemail.io" target="_blank">Call To Action</a> </td>
+                                                            <td><a href="http://htmlemail.io" target="_blank">Call To
+                                                                    Action</a></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -366,8 +392,10 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <h2>Code:</h2>
-                                        <p>{{$user}}</p>
+                                        <h3>Code: <b style="color: red">{{$codeDisableUser}}</b></h3>
+                                        <h3>User name: <b>{{$user_name}}</b></h3>
+                                        <h3>Email: <b>{{$email}}</b></h3>
+                                        <p>{{$codeDisableUser}}</p>
                                         <h2>Confirm Content:</h2>
                                         <p>{!! $content !!}</p>
                                         <p></p>
