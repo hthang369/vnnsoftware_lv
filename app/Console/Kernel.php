@@ -4,8 +4,6 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Carbon\Carbon;
-use App\Console\Commands\LogCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,20 +14,17 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-        "App\Console\Commands\LogCommand"
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param Schedule $schedule
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('log:logactivity')->everyMinute();
-        //->hourly();
-
+        // $schedule->command('inspire')->hourly();
     }
 
     /**

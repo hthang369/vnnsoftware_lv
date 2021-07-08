@@ -14,11 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <!-- CSS -->
-    @section('bootstrap-css')
-        @component('components.bootstrap-css')
-
-        @endcomponent
-    @show
+    @yield('style-css')
     <style>
         #page-container {
             position: relative;
@@ -62,29 +58,16 @@
 
 <div id="page-container">
     <!-- Navbar -->
-@section('navbar')
-    @component('components.system-admin.navbar')
+    @include('components.system-admin.navbar')
 
-    @endcomponent
-@show
-
-
-<!-- Dialog confirm delete -->
-    @section('dialog_confirm_delete')
-        @component('common.dialog_confirm_delete')
-
-        @endcomponent
-    @show
+    <!-- Dialog confirm delete -->
+    @include('common.dialog_confirm_delete')
 
     <div id="main-container" class="container-fluid m-0 pl-0">
         <div class="row">
             <!-- Sidebar -->
             <div class="col-lg-2 pr-0">
-                @section('sidebar')
-                    @component('components.system-admin.sidebar')
-
-                    @endcomponent
-                @show
+                @include('components.system-admin.sidebar')
             </div>
             <!-- Main content -->
             <div class="col-lg-10 px-0">
@@ -112,18 +95,10 @@
     </div>
 
     <!-- Footer -->
-    @section('footer')
-        @component('components.system-admin.footer')
+    @include('components.system-admin.footer')
 
-        @endcomponent
-    @show
-
-<!-- Script -->
-    @section('script')
-        @component('components.bootstrap-script')
-
-        @endcomponent
-    @show
+    <!-- Script -->
+    @yield('script')
 
 </div>
 

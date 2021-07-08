@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Core\Support\QueryLogger;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,14 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Repositories\User\UserRepositoryInterface', 'App\Repositories\User\UserMysqlRepository');
-        $this->app->bind('App\Repositories\Company\CompanyRepositoryInterface', 'App\Repositories\Company\CompanyMysqlRepository');
-        $this->app->bind('App\Repositories\Role\RoleRepositoryInterface', 'App\Repositories\Role\RoleMysqlRepository');
-        $this->app->bind('App\Repositories\BusinessPlan\BusinessPlanRepositoryInterface', 'App\Repositories\BusinessPlan\BusinessPlanMysqlRepository');
-        $this->app->bind('App\Repositories\FeatureApi\FeatureApiRepositoryInterface', 'App\Repositories\FeatureApi\FeatureApiMysqlRepository');
-        $this->app->bind('App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiRepositoryInterface', 'App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiMysqlRepository');
-        $this->app->bind('App\Repositories\TopMenu\TopMenuRepositoryInterface', 'App\Repositories\TopMenu\TopMenuMysqlRepository');
-        $this->app->bind('App\Repositories\LeftMenu\LeftMenuRepositoryInterface', 'App\Repositories\LeftMenu\LeftMenuMysqlRepository');
+        //
     }
 
     /**
@@ -30,5 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        DB::connection()->enableQueryLog();
+        // DB::listen(function($query) {
+        //     QueryLogger::log($query);
+        // });
     }
 }

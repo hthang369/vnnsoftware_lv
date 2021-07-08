@@ -76,29 +76,6 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function login(Request $request)
-    {
-        $this->userService->loginValidate($request);
-
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-
-            $this->logActivityService->addToLog($request, Auth::user()->name." logged successfull");
-
-            return redirect()->intended('home');
-        } else {
-            return redirect()->back()
-                ->withInput($request->only('email', 'remember'))
-                ->withErrors(['passcsscfsword' => 'fsdsfsdfdsf']);
-        }
-    }
-
-    /**
      * @return Application|Factory|View
      */
     public function newForm()

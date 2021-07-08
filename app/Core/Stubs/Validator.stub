@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Validators\$NAME$s;
+
+use App\Core\Validators\BaseValidator;
+
+class $NAME$Validator extends BaseValidator
+{
+
+}

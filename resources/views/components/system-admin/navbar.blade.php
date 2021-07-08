@@ -8,17 +8,10 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
             @foreach($TOPMENU as $itemTop)
-                @foreach($LEFTMENU as $itemLeft)
-                    @if($itemTop->group == $itemLeft->group || $itemTop->is_no_left_menu == 1)
-                        @if(!in_array($itemLeft->route_name, $NOT_HAS_PERMISSION))
-                            <li class="nav-item {{ substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), '.')) == $itemTop->group ? 'active font-weight-bold border-bottom' : '' }}">
-                                <a class="text-light nav-link" style="font-size: 14px" aria-current="page"
-                                   href="{{$itemTop->url}}">@lang($itemTop->lang)</a>
-                            </li>
-                            @break
-                        @endif
-                    @endif
-                @endforeach
+                <li class="nav-item {{ substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), '.')) == $itemTop->group ? 'active font-weight-bold border-bottom' : '' }}">
+                    <a class="text-light nav-link" style="font-size: 14px" aria-current="page"
+                        href="{{$itemTop->url}}">@lang($itemTop->lang)</a>
+                </li>
             @endforeach
         </ul>
     </div>
@@ -26,7 +19,7 @@
         <div class="p-2 bd-highlight dropdown dropdown-menu-left">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                User
+                {{ Auth::user()->name }}
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="">
                 <a class="dropdown-item d-flex" href="{{ route('logout') }}"

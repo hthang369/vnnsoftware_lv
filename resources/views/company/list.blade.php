@@ -60,9 +60,9 @@
         </form>
     </div>--}}
 
-    <strong>Total: </strong><label>{{$list->total()}}</label>
-    <strong>Page: </strong><label>{{$list->currentPage() . '/' . $list->lastPage()}}</label>
-    @if(count($list) == 0)
+    <strong>Total: </strong><label>{{$data['total']}}</label>
+    {{-- <strong>Page: </strong><label>{{$list->currentPage() . '/' . $list->lastPage()}}</label> --}}
+    @if(count($data['rows']) == 0)
         <div class="alert alert-warning">
             @lang('custom_message.no_item_found')
         </div>
@@ -112,9 +112,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($list as $i => $company)
+                @foreach($data['rows'] as $i => $company)
                     <tr>
-                        <th>{{($list->currentPage() - 1) * $list->perPage() + ($i + 1)}}</th>
+                        <th>{{$loop->index + 1}}</th>
+                        {{-- <th>{{($list->currentPage() - 1) * $list->perPage() + ($i + 1)}}</th> --}}
                         <td>{{$company->name}}</td>
                         <td>{{$company->email}}</td>
                         <td>{{$company->phone}}</td>
@@ -138,7 +139,7 @@
                 </tbody>
             </table>
         </div>
-        {{ $list->appends(request()->input())->links() }}
+        {{-- {{ $list->appends(request()->input())->links() }} --}}
     @endif
 @endsection
 

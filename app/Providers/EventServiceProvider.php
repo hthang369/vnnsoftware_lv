@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use App\Events\sendConfirmEmail;
-use App\Listeners\listenSendConfirmEmail;
-use App\Listeners\listenSendConfirmEmail2;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -21,8 +18,8 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        sendConfirmEmail::class=>[
-            listenSendConfirmEmail::class
+        QueryExecuted::class => [
+            \App\Listeners\QueryListener::class,
         ],
     ];
 
@@ -33,8 +30,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        parent::boot();
 
-        //
     }
 }

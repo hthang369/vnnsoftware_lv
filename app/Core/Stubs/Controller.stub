@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Controllers\$NAME$s;
+
+use App\Core\Http\Controllers\BaseController;
+use App\Repositories\$NAME$s\$NAME$Repository;
+use App\Validators\$NAME$s\$NAME$Validator;
+
+/**
+ * Class $NAME$Controller
+ * @package App\Http\Controllers\$NAME$s
+ * @property $NAME$Repository $LOWER_NAME$Repository
+ */
+class $NAME$Controller extends BaseController
+{
+    public function __construct($NAME$Validator $validator) {
+        parent::__construct($validator);
+
+        $this->repository = $this->factory->makeRepository($NAME$Repository::class);
+    }
+}

@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Repositories\$NAME$s;
+
+use App\Core\Repositories\BaseRepository;
+use App\Models\$NAME$s\$NAME$;
+use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
+
+class $NAME$Repository extends BaseRepository
+{
+    protected $modelClass = $NAME$::class;
+
+    protected $filters = [
+        'name' => WhereClause::class
+    ];
+}

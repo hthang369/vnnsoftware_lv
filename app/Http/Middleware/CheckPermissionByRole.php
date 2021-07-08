@@ -2,21 +2,21 @@
 
 namespace App\Http\Middleware;
 
-use App\Repositories\RoleHasFeatureApi\RoleHasFeatureApiRepositoryInterface;
+use App\Repositories\Menus\MenuRepository;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 
 class CheckPermissionByRole
 {
 
-    private $roleHasFeatureApiRepo;
+    private $menuRepo;
 
-    public function __construct(RoleHasFeatureApiRepositoryInterface $roleHasFeatureApiRepo)
+    public function __construct(MenuRepository $menuRepo)
     {
-        $this->roleHasFeatureApiRepo = $roleHasFeatureApiRepo;
+        $this->menuRepo = $menuRepo;
     }
 
     /**
@@ -32,27 +32,10 @@ class CheckPermissionByRole
             return abort(403);
         }
 
-        $currentRouteName = Route::currentRouteName();
+        Schema::defaultStringLength(191);
+        $menu = $this->menuRepo->getAllMenus(Auth::id());
+        View::share(['TOPMENU' => data_get($menu, 'topMenu'), 'LEFTMENU' => data_get($menu, 'leftMenu')]);
 
-        $listFeatureApiName = $this->roleHasFeatureApiRepo->getListNotHasPermissionByUserId(Auth::id());
-
-        foreach ($listFeatureApiName as $item) {
-            if (strpos($currentRouteName, $item->group . '.' . $item->function) !== false) {
-                return abort(403);
-            }
-        }
-
-        $this->shareNotHasPermission($listFeatureApiName);
         return $next($request);
-    }
-
-    private function shareNotHasPermission($listFeatureApiName)
-    {
-        $NOT_HAS_PERMISSION = [];
-        foreach ($listFeatureApiName as $value) {
-            array_push($NOT_HAS_PERMISSION, $value->group . '.' . $value->function);
-        }
-
-        View::share('NOT_HAS_PERMISSION', $NOT_HAS_PERMISSION);
     }
 }
