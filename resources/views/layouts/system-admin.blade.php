@@ -71,7 +71,7 @@
             </div>
             <!-- Main content -->
             <div class="col-lg-10 px-0">
-                <div class="mt-2 container-fluid">
+                <div class="card px-3">
                     @if (session('messCommon'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('messCommon') }}

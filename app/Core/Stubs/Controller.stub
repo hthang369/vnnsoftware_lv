@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\$NAME$s;
 
-use App\Core\Http\Controllers\BaseController;
+use App\Http\Controllers\Core\CoreController;
 use App\Repositories\$NAME$s\$NAME$Repository;
 use App\Validators\$NAME$s\$NAME$Validator;
 
@@ -11,8 +11,10 @@ use App\Validators\$NAME$s\$NAME$Validator;
  * @package App\Http\Controllers\$NAME$s
  * @property $NAME$Repository $LOWER_NAME$Repository
  */
-class $NAME$Controller extends BaseController
+class $NAME$Controller extends CoreController
 {
+    protected $listViewName = [];
+
     public function __construct($NAME$Validator $validator) {
         parent::__construct($validator);
 

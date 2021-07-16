@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Repositories\Core;
+
+use App\Core\Repositories\BaseRepository;
+use App\Traits\PresenterDataGrid;
+
+abstract class CoreRepository extends BaseRepository
+{
+    use PresenterDataGrid;
+
+    public function formGenerate()
+    {
+        return null;
+    }
+}

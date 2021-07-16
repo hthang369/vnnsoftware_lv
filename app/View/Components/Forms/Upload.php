@@ -45,7 +45,6 @@ class Upload extends Component
             $this->attrs['class'] = Classes::get([
                 'form-control',
                 $this->attrs['class'],
-
             ]);
         }
         $this->label['class'] = Classes::get([

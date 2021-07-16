@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Traits;
+
+use App\Contracts\PresenterInterface;
+use App\Core\Exceptions\RepositoryException;
+
+trait PresenterRepository
+{
+    /**
+     * @var bool
+     */
+    protected $skipPresenter = false;
+
+    /**
+     * Specify Presenter class name
+     *
+     * @return string
+     */
+    public function presenter()
+    {
+        return $this->presenterClass;
+    }
+
+    /**
+     * Set Presenter
+     *
+     * @param $presenter
+     *
+     * @return $this
+     */
+    public function setPresenter($presenter)
+    {
+        $this->makePresenter($presenter);
+
+        return $this;
+    }
+
+    /**
+     * @param null $presenter
+     *
+     * @return PresenterInterface
+     * @throws RepositoryException
+     */
+    public function makePresenter($presenter = null)
+    {
+        $presenter = !is_null($presenter) ? $presenter : $this->presenter();
+
+        if (!is_null($presenter)) {
+            $presenterObject = is_string($presenter) ? resolve($presenter) : $presenter;
+
+            if (!$presenterObject instanceof PresenterInterface) {
+                throw new RepositoryException("Class {$presenter} must be an instance of Prettus\\Repository\\Contracts\\PresenterInterface");
+            }
+
+            return $presenterObject;
+        }
+
+        return null;
+    }
+}

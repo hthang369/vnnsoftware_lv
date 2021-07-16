@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class OrderbyClause extends BaseClause {
 
-    protected $orderValueKey = 'orderValue';
+    protected $orderValueKey = 'direction';
     protected $defaultSortValue = 'asc';
 
     protected function apply($query): Builder

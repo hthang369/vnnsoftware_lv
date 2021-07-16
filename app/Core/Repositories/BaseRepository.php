@@ -5,6 +5,7 @@ namespace App\Core\Repositories;
 use App\Core\Contracts\RepositoryInterface;
 use App\Core\Exceptions\RepositoryException;
 use App\Core\Repositories\FilterQueryString\FilterQueryString;
+use App\Core\Repositories\FilterQueryString\Filters\OrderbyClause;
 use App\Core\Traits\RequestParamTrait;
 use Closure;
 use Exception;
@@ -43,14 +44,44 @@ abstract class BaseRepository implements RepositoryInterface
     protected $select;
 
     private $baseFilters = [
-        'orderBy' => OrderbyClause::class
+        'sort' => OrderbyClause::class
     ];
 
     protected $filters = [];
 
+    /**
+     * The array of booted models.
+     *
+     * @var array
+     */
+    protected $traitBoots = [];
+
     public function __construct()
     {
         $this->makeModel();
+        $this->bootTraits();
+        $this->initializeTraits();
+    }
+
+    protected function bootTraits()
+    {
+        foreach (class_uses_recursive($this) as $trait) {
+            $method = 'boot'.class_basename($trait);
+            if (method_exists($this, $method)) {
+                $this->traitBoots[] = $method;
+            }
+
+            if (method_exists($this, $method = 'initialize'.class_basename($trait))) {
+                $this->traitBoots[] = $method;
+            }
+        }
+    }
+
+    protected function initializeTraits()
+    {
+        foreach(array_unique($this->traitBoots) as $method) {
+            $this->{$method}();
+        }
     }
 
     /**
@@ -186,7 +217,7 @@ abstract class BaseRepository implements RepositoryInterface
         return $this->find($id, $columns);
     }
 
-    public function find($id, $columns = ['*'])
+    final public function find($id, $columns = ['*'])
     {
         $model = $this->model->findOrFail($id, $columns);
         $this->resetQuery();
@@ -355,7 +386,7 @@ abstract class BaseRepository implements RepositoryInterface
         if ($result instanceof LengthAwarePaginator) {
             return [
                 'rows' => $result->items(),
-                'total' => $result->total()
+                'total' => $result->total(),
             ];
         }
         return $result;

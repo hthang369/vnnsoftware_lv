@@ -91,8 +91,20 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      * @return Response|mixed
      * @throws Exception
      */
-    public function create(Request $request) {
+    public function create() {
         $data = null;
+        return WebResponse::success($this->getViewName(__FUNCTION__), $data);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param $id
+     * @return Response|mixed
+     * @throws Exception
+     */
+    public function edit($id) {
+        $data = $this->repository->show($id);
         return WebResponse::success($this->getViewName(__FUNCTION__), $data);
     }
 
@@ -170,7 +182,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
         $this->validator->with($data)->passesOrFail($rules);
     }
 
-    private function getViewName($key)
+    protected function getViewName($key)
     {
         return data_get($this->listDefaultViewName, $key, $this->defaultName.'.'.$key);
     }

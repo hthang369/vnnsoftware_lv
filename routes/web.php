@@ -27,33 +27,13 @@ Route::get('research-list', 'ResearchLaravel\ResearchLaravelController@list');
 Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permission']], function () {
     // version route
     Route::get('version', 'Versions\VersionController@index')->name('version.index');//->middleware("log.activity:Version index");
-
+    // company route
     Route::resource('company', 'Companys\CompanyController');
-//     // company route
-//     Route::group(['prefix' => 'company'], function () {
-//         Route::get('/', 'Company\CompanyController@index')->name('LAKA company manage.Company index')->middleware("log.activity:Company index");
-//         Route::get('list', 'Company\CompanyController@list')->name('LAKA company manage.Company list')->middleware("log.activity:Company list");
-//         Route::get('detail/{id}', 'Company\CompanyController@detail')->name('LAKA company manage.Detail')->middleware("log.activity:Company detail");
-//         Route::get('update/{id}', 'Company\CompanyController@updateForm')->name('LAKA company manage.Update company info')->middleware("log.activity:Update company info");
-//         Route::post('update/{id}', 'Company\CompanyController@update')->name('LAKA company manage.Update company info')->middleware("log.activity:Update company info");
-//         Route::get('new', 'Company\CompanyController@newForm')->name('LAKA company manage.Add company')->middleware("log.activity:Add company");
-//         Route::post('new', 'Company\CompanyController@register')->name('LAKA company manage.Add company')->middleware("log.activity:Add company");
-//         Route::get('delete/{id}', 'Company\CompanyController@delete')->name('LAKA company manage.Delete company')->middleware("log.activity:Delete company");
-//         Route::get('search', 'Company\CompanyController@searchForm')->name('LAKA company manage.Search company')->middleware("log.activity:Search company");
-//     });
-
-//     // business plan route
-//     Route::group(['prefix' => 'business-plan'], function () {
-//         Route::get('/', 'BusinessPlan\BusinessPlanController@index')->name('LAKA business plan.Business plan index')->middleware("log.activity:Business plan index");
-//         Route::get('list', 'BusinessPlan\BusinessPlanController@list')->name('LAKA business plan.Business plan list')->middleware("log.activity:Business plan list");
-//         Route::get('detail/{id}', 'BusinessPlan\BusinessPlanController@detailForm')->name('LAKA business plan.Detail')->middleware("log.activity:Business plan detail");
-//         Route::get('new', 'BusinessPlan\BusinessPlanController@newForm')->name('LAKA business plan.Add business plan')->middleware("log.activity:Add business plan");
-//         Route::post('new', 'BusinessPlan\BusinessPlanController@new')->name('LAKA business plan.Add business plan')->middleware("log.activity:Add business plan");
-//         Route::get('update/{id}', 'BusinessPlan\BusinessPlanController@updateForm')->name('LAKA business plan.Update business plan info')->middleware("log.activity:Update business plan info");
-//         Route::post('update/{id}', 'BusinessPlan\BusinessPlanController@update')->name('LAKA business plan.Update business plan info')->middleware("log.activity:Update business plan info");
-//         Route::get('delete/{id}', 'BusinessPlan\BusinessPlanController@delete')->name('LAKA business plan.Delete business plan')->middleware("log.activity:Delete business plan");
-//         Route::get('search', 'BusinessPlan\BusinessPlanController@searchForm')->name('LAKA business plan.Search business plan')->middleware("log.activity:Search business plan");
-//     });
+    // business plan
+    Route::resource('bussiness-plan', 'BusinessPlans\BusinessPlanController');
+    // role management
+    Route::resource('role', 'Roles\RoleController')->names('role-management');
+    Route::get('role/set-permission/{id}', 'RoleHasPermissions\RoleHasPermissionController@showByRole')->name('role.permission');
 
 //     // user management route
 //     Route::group(['prefix' => 'user-management'], function () {

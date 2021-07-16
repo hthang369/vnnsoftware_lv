@@ -33,10 +33,10 @@ class BaseModel extends Model
     public function setCreatedUpdatedUsers()
     {
         if ($this->exists) {
-            $this->setAttribute(static::UPDATED_USER, $this->auth_user);
+            $this->setAttributeValue(static::UPDATED_USER, $this->auth_user);
         } else {
-            $this->setAttribute(static::CREATED_USER, $this->auth_user);
-            $this->setAttribute(static::UPDATED_USER, $this->auth_user);
+            $this->setAttributeValue(static::CREATED_USER, $this->auth_user);
+            $this->setAttributeValue(static::UPDATED_USER, $this->auth_user);
         }
     }
 
@@ -55,7 +55,7 @@ class BaseModel extends Model
         return $this->fillableColumns;
     }
 
-    public function setAttribute($key, $value)
+    public function setAttributeValue($key, $value)
     {
         if (Schema::hasColumn($this->getTable(), $key)) {
             return parent::setAttribute($key, $value);

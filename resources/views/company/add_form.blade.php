@@ -1,10 +1,6 @@
 @extends('layouts.system-admin')
 
-@section('title', ' ')
-
-@section('sidebar')
-    @parent
-@endsection
+@section('title', $titlePage)
 
 @section('content')
     <div class="card">

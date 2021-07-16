@@ -3,18 +3,23 @@
   if (isset($errors)) {
     $attr['class'] .= $errors->has($attr['name']) ? ' is-invalid' : '';
   }
+  $labelFor = sprintf('checkbox-%s', $attr['name']);
+  $value = request()->input($attr['name'], old($attr['name']));
+  $attrCheckbox = $attr->except(['inputClass', 'type', 'name'])->merge(['id' => $labelFor])->getAttributes();
 @endphp
 
-<div{!! $group['attrs'] !!}>
-  @isset($grid[0])
-    <div class="{{ $grid[0] }}">
-      @endisset
+<div {!! $group['attrs'] !!}>
+    @if (!empty($label['text']))
+        {!! Form::label($attr['name'], $label['text'] ?? '', array_except($label, ['text'])) !!}
+    @endif
+
+    <div class="{{ $attr['inputClass'] }}">
 
       <div class="custom-control custom-checkbox">
-        <input value="{{ request()->input($attr['name'], old($attr['name'])) }}" {!! $attr->merge($attrs) !!} type="checkbox" id="checkbox-{{ $attr['name'] }}">
+        {!! Form::checkbox($attr['name'], $value, false, $attrCheckbox) !!}
 
-        @if(!empty($label['text']))
-          <label{!! $label['attrs'] !!} for="checkbox-{{ $attr['name'] }}">{!! $label['text'] ?? '' !!}</label>
+        @if(!empty($caption['text']))
+            {!! Form::label($labelFor, $caption['text'], array_except($caption, ['text'])) !!}
         @endif
 
         @if(isset($errors) && $errors->has($attr['name']))
@@ -24,7 +29,5 @@
         @endif
       </div>
 
-      @isset($grid[0])
     </div>
-  @endisset
 </div>

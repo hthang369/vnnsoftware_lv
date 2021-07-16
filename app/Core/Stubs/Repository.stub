@@ -2,15 +2,18 @@
 
 namespace App\Repositories\$NAME$s;
 
-use App\Core\Repositories\BaseRepository;
+use App\Repositories\Core\CoreRepository;
 use App\Models\$NAME$s\$NAME$;
+use App\Presenters\$NAME$s\$NAME$GridPresenter;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
-class $NAME$Repository extends BaseRepository
+class $NAME$Repository extends CoreRepository
 {
     protected $modelClass = $NAME$::class;
 
     protected $filters = [
         'name' => WhereClause::class
     ];
+
+    protected $presenterClass = $NAME$GridPresenter::class;
 }

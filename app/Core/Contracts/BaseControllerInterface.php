@@ -32,13 +32,19 @@ interface BaseControllerInterface
      * @param Request $request
      * @return mixed
      */
-    public function create(Request $request);
+    public function create();
 
     /**
      * @param Request $request
      * @return mixed
      */
     public function store(Request $request);
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function edit(int $id);
 
     /**
      * @param int $id

@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Presenters\$NAME$s;
+
+use App\Presenters\BaseGridPresenter;
+
+class $NAME$GridPresenter extends BaseGridPresenter
+{
+    protected function setColumns()
+    {
+        return [
+        ];
+    }
+}

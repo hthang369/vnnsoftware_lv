@@ -2,7 +2,7 @@
 
 namespace App\Core\Traits;
 
-use App\Core\Helpers\Mysql;
+use App\Core\Support\Mysql;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Expression;
 /*

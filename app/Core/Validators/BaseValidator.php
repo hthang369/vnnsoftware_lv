@@ -2,7 +2,7 @@
 
 namespace App\Core\Validators;
 
-use App\Core\Helpers\Mysql;
+use App\Core\Support\Mysql;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\LaravelValidator;
 

@@ -3,7 +3,7 @@
 namespace App\Repositories\Menus;
 
 use App\Core\Repositories\BaseRepository;
-use App\Core\Support\CommonHelper;
+use App\Support\CommonHelper;
 use App\Models\Menus\LeftMenu;
 use App\Models\Menus\TopMenu;
 use App\Repositories\Sections\SectionRepository;

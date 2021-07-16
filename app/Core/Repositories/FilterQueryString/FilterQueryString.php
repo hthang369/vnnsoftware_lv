@@ -4,6 +4,7 @@ namespace App\Core\Repositories\FilterQueryString;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\Schema;
 
 trait FilterQueryString {
 
@@ -42,7 +43,10 @@ trait FilterQueryString {
     {
         $defaultOrderByColumn = config('repository.default_order_by_column', 'created_at');
         $defaultOrderByValue = config('repository.default_order_by_value', 'desc');
-        return $query->orderBy($defaultOrderByColumn, $defaultOrderByValue);
+        if (Schema::hasColumn($query->getModel()->getTable(), $defaultOrderByColumn)) {
+            return $query->orderBy($defaultOrderByColumn, $defaultOrderByValue);
+        }
+        return $query;
     }
 
     private function getFilters()

@@ -43,6 +43,7 @@ trait Authorizable
         if ($this->isMiddleWareRolesPermission()) {
             return $this->callPermissionAction($method, $parameters);
         }
+
         //check permission action
         if ($ability = $this->getAbility($method)) {
             if (!preg_match('/^public_/', $ability)) {
@@ -89,7 +90,7 @@ trait Authorizable
     public function isMiddleWareRolesPermission()
     {
         $middleware = \Request::route()->middleware();
-        $guard = ['role', 'permission', 'role_or_permission'];
+        $guard = ['role', 'role_or_permission'];
         foreach ($middleware as $m) {
             $t  = explode(':', $m);
             if (in_array($t[0], $guard)) {

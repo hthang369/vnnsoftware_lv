@@ -2,10 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Core\Repositories\BaseRepository;
 use Illuminate\Http\Request;
 
-class MyRepository
+class MyRepository extends BaseRepository
 {
+    use PresenterDataGrid;
+
     protected function querySearch($query, Request $request, $contactable)
     {
         foreach ($contactable as $column => $field) {

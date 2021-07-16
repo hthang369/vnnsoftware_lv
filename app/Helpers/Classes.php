@@ -6,17 +6,17 @@ class Classes
 {
     public static function get($classes)
     {
-        $result = '';
+        $result = [];
+        $spacer = ' ';
 
         foreach($classes as $class) {
-            $spacer = empty($result) ? '' : ' ';
             if (isset($class['class']) && !empty($class['class'])) {
-                $result .= $spacer . $class['class'];
+                array_push($result, $class['class']);
             } elseif(!empty($class) && !is_array($class)) {
-                $result .= $spacer . $class;
+                array_push($result, $class);
             }
         }
 
-        return $result;
+        return join($spacer, $result);
     }
 }
