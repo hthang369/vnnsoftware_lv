@@ -5,14 +5,14 @@ namespace App\Transformers;
 class RoleHasPermissionsTransformer
 {
 	protected $menuList = [
-		['sectionCode' => 'company', 'text' => 'dashboard.dashboard'],
-		['sectionCode' => 'bussiness-plan', 'text' => 'dashboard.timestamp.clock'],
-		['sectionCode' => 'user-management', 'text' => 'dashboard.workingtime'],
-		['sectionCode' => 'laka-user-management', 'text' => 'dashboard.leaveday'],
-		['sectionCode' => 'role-management', 'text' => 'dashboard.overtime.index'],
-		['sectionCode' => 'version', 'text' => 'timestamp-history.list.title'],
-		['sectionCode' => 'version-deloy', 'text' => 'timestamp-history.list.title'],
-		['sectionCode' => 'approval-api', 'text' => 'timestamp-history.list.title'],
+		['sectionCode' => 'company', 'text' => 'modules.company'],
+		['sectionCode' => 'bussiness-plan', 'text' => 'modules.bussiness_plan'],
+		['sectionCode' => 'user-management', 'text' => 'modules.user_management'],
+		['sectionCode' => 'laka-user-management', 'text' => 'modules.laka_user_management'],
+		['sectionCode' => 'role-management', 'text' => 'modules.role_management'],
+		['sectionCode' => 'version', 'text' => 'modules.version'],
+		['sectionCode' => 'version-deloy', 'text' => 'modules.version_deloy'],
+		['sectionCode' => 'permission-role', 'text' => 'modules.permission_role'],
 	];
 	protected $language = [
 	];

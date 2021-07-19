@@ -13,6 +13,7 @@ return [
         ['name'=> 'version', 'code' => 'version', 'url' => '', 'api' => ''],
         ['name'=> 'version-deloy', 'code' => 'version-deloy', 'url' => '', 'api' => ''],
         ['name'=> 'approval-api', 'code' => 'approval-api', 'url' => '', 'api' => ''],
+        ['name'=> 'permission-role', 'code' => 'permission-role', 'url' => '', 'api' => ''],
     ],
     /*
      * permission actions
@@ -31,6 +32,7 @@ return [
         'version'               => ['view', 'add', 'edit', 'delete'],
         'version-deloy'         => ['view', 'add', 'edit', 'delete'],
         'approval-api'          => ['view', 'add', 'edit', 'delete'],
+        'permission-role'       => ['view', 'edit'],
     ],
 
     'custom_section_action' => [

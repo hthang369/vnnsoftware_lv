@@ -30,7 +30,8 @@ class Table extends Component
      * @return void
      */
     public function __construct($items, $total, $pages, $currentPage, $from, $to,
-        $fields = null, $striped = false, $bordered = false, $hover = false)
+        $fields = null, $striped = false, $bordered = false, $hover = false,
+        $responsive = false)
     {
         $this->attrs = [
             'class' => Classes::get([
@@ -45,6 +46,7 @@ class Table extends Component
         $this->total = $total;
         $this->pages = $pages;
         $this->currentPage = $currentPage;
+        $this->responsive = $responsive;
         $this->showingResult = sprintf(trans('table.show_result'), $from, $to, $total);
     }
 

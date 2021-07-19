@@ -16,7 +16,7 @@ class BusinessPlanController extends BaseController
 {
     protected $listViewName = [
         'index'     => 'business-plan.list',
-        'create'    => 'business-plan.add_form',
+        'create'    => 'business-plan.create',
     ];
 
     public function __construct(BusinessPlanValidator $validator) {

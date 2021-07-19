@@ -3,18 +3,22 @@
   if (isset($errors)) {
     $attr['class'] .= $errors->has($attr['name']) ? ' is-invalid' : '';
   }
+  $labelFor = sprintf('input-%s', $attr['name']);
+  $classInput = $attr->except(['inputClass', 'type', 'name'])
+    ->merge(['id' => $labelFor, 'aria-describedby' => sprintf('help-%s', $attr['name'])])->getAttributes();
+  if ($attr->has('required') && !str_contains($label['class'], 'required')) {
+      $label['class'] .= ' required';
+  }
 @endphp
 
-<div{!! $group['attrs'] !!}>
-  @if(!empty($label['text']))
-    <label{!! $label['attrs'] !!} for="input-{{ $attr['name'] }}">{!! $label['text'] ?? '' !!}</label>
-  @endif
+<div {!! $group['attrs'] !!}>
+    @if (!empty($label['text']))
+        {!! Form::label($labelFor, $label['text'] ?? '', array_except($label, ['text'])) !!}
+    @endif
 
-  @isset($grid[1])
-    <div class="{{ $grid[1] }}">
-      @endisset
+    <div class="{{ $attr['inputClass'] }}">
 
-      <textarea {!! $attr !!} id="input-{{ $attr['name'] }}" aria-describedby="help-{{ $attr['name'] }}">{{ request()->input($attr['name'], old($attr['name'])) }}</textarea>
+        {!! Form::textarea($attr['name'], request()->input($attr['name'], old($attr['name'])), $classInput) !!}
 
       @if(!empty($help))
         <small id="help-{{ $attr['name'] }}" class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -26,7 +30,5 @@
         </div>
       @endif
 
-      @isset($grid[1])
     </div>
-  @endisset
 </div>

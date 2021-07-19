@@ -1,7 +1,7 @@
 @extends('components.system-admin.detail')
 
 @section('body_content')
-    {!! Form::open(['route' => "{$sectionCode}.store", 'method' => 'POST']) !!}
+    {!! Form::open(['route' => ["{$sectionCode}.update", request('id')], 'method' => 'PUT']) !!}
         @yield('form_content')
 
         <div class="form-row">

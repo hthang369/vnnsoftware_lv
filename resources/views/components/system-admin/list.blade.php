@@ -11,6 +11,11 @@
     @show
 
     <div class="card-body px-0">
+        @section('message_content')
+            @if (session('message'))
+            <x-alert type="info" dismissible>{{session('message')}}</x-alert>
+            @endif
+        @show
         @section('caption_page')
             <div class="d-flex justify-content-between">
                 <p>
@@ -27,9 +32,10 @@
         @show
 
         <x-table
-            responsive
+            :responsive="true"
             bordered
             hover
+            id="gridData"
             :sectionCode="$sectionCode"
             :items="data_get($data, 'rows')"
             :fields="data_get($data, 'fields')"
@@ -44,4 +50,31 @@
     </div>
 
     @yield('footer_page')
+@endsection
+
+@section('script')
+<script>
+    (function($) {
+      var grid = "#gridData";
+      var filterForm = "";
+      var searchForm = "";
+      _grids.grid.init({
+        id: grid,
+        filterForm: filterForm,
+        dateRangeSelector: '.date-range',
+        searchForm: searchForm,
+        pjax: {
+          pjaxOptions: {
+            scrollTo: false,
+          },
+          // what to do after a PJAX request. Js plugins have to be re-intialized
+          afterPjax: function(e) {
+            _grids.init();
+          },
+        },
+      });
+      _grids.init()
+
+    })(jQuery);
+  </script>
 @endsection

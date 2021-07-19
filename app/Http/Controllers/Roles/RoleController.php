@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\View;
 class RoleController extends CoreController
 {
     protected $listViewName = [
-        'index'     => 'role.list'
+        'index'     => 'role.list',
+        'create'    => 'role.add_form'
     ];
 
     public function __construct(RoleValidator $validator) {

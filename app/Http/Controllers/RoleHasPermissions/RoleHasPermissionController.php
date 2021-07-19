@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\View;
  */
 class RoleHasPermissionController extends CoreController
 {
-    protected $listViewName = [];
+    protected $listViewName = [
+        'update' => 'permission-role.show'
+    ];
 
     public function __construct(RoleHasPermissionValidator $validator) {
         parent::__construct($validator);

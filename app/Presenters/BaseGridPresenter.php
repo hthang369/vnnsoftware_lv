@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Contracts\PresenterInterface;
 use App\Helpers\Attributes;
+use App\Helpers\Classes;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 abstract class BaseGridPresenter implements PresenterInterface
@@ -42,9 +43,13 @@ abstract class BaseGridPresenter implements PresenterInterface
     protected function getColumns()
     {
         $fields = collect($this->fields);
-        $fields->push(Attributes::getField($this->indexName, trans('table.index'), $this->getIndexOptions()));
+        $indexColumn = Attributes::getField($this->indexName, trans('table.index'), $this->getIndexOptions());
+        $indexColumn['class'] = Classes::get(['table-index', $indexColumn['class']]);
+        $fields->push($indexColumn);
         $fields = $fields->merge($this->setColumns());
-        $fields->push(Attributes::getField($this->actionName, trans('table.action'), $this->getActionOptions()));
+        $actionColumn = Attributes::getField($this->actionName, trans('table.action'), $this->getActionOptions());
+        $actionColumn['class'] = Classes::get(['table-action', $actionColumn['class']]);
+        $fields->push($actionColumn);
 
         return $fields->all();
     }
@@ -58,9 +63,9 @@ abstract class BaseGridPresenter implements PresenterInterface
             }
             if (blank($item->{$this->actionName})) {
                 $actions = [
-                    Attributes::getFieldButton('edit', trans('table.btn_edit'), ['class' => 'btn-primary']),
-                    Attributes::getFieldButton('show', trans('table.btn_detail'), ['class' => 'btn-info']),
-                    Attributes::getFieldButton('destroy', trans('table.btn_delete'), ['class' => 'btn-danger'])
+                    Attributes::getFieldButton('edit', '', ['class' => 'btn-primary', 'icon' => 'far fa-edit', 'title' => trans('table.btn_edit')]),
+                    Attributes::getFieldButton('show', '', ['class' => 'btn-info', 'icon' => 'fas fa-info-circle', 'title' => trans('table.btn_detail')]),
+                    Attributes::getFieldButton('destroy', '', ['class' => 'btn-danger', 'icon' => 'far fa-trash-alt', 'title' => trans('table.btn_delete')])
                 ];
                 data_set($item, $this->actionName, $actions);
             }

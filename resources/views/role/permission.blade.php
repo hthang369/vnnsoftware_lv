@@ -6,8 +6,15 @@
 </h2>
 @endsection
 
+@section('message_content')
+    @if (!blank(session('message')))
+        <x-alert type="success">{!! session('message') !!}</x-alert>
+    @elseif (!blank(session('errors')))
+        <x-alert type="danger">{!! session('errors') !!}</x-alert>
+    @endif
+@endsection
+
 @section('form_content')
-    {!! Form::hidden('role_id', data_get($data, 'role.id')) !!}
    <x-table
         responsive
         bordered

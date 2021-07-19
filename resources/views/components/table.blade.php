@@ -4,7 +4,7 @@
             <tr>
             @foreach ($fields as $field)
                 @continue(!$field['visible'])
-                <th>
+                <th {!! attributes_get(array_only($field, ['class'])) !!}>
                     {{ $field['label'] }}
                     @if ($field['sortable'])
                         <x-tables.table-sort :field="$field['key']" />
@@ -23,7 +23,7 @@
                 <tr>
                     @foreach ($fields as $field)
                         @continue(!$field['visible'])
-                        <td>
+                        <td {!! attributes_get(array_only($field, ['class'])) !!}>
                             @if (blank($field['cell']))
                                 {{ $item[$field['key']] }}
                             @else

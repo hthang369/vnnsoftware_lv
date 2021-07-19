@@ -25,6 +25,7 @@ Auth::routes();
 Route::get('research-list', 'ResearchLaravel\ResearchLaravelController@list');
 
 Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permission']], function () {
+    Route::get('confirm-dialog/{id}', 'Commons\CommonController@confirmDialog')->name('common.confirm');
     // version route
     Route::get('version', 'Versions\VersionController@index')->name('version.index');//->middleware("log.activity:Version index");
     // company route
@@ -33,7 +34,8 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
     Route::resource('bussiness-plan', 'BusinessPlans\BusinessPlanController');
     // role management
     Route::resource('role', 'Roles\RoleController')->names('role-management');
-    Route::get('role/set-permission/{id}', 'RoleHasPermissions\RoleHasPermissionController@showByRole')->name('role.permission');
+    Route::get('role/set-permission/{id}', 'RoleHasPermissions\RoleHasPermissionController@showByRole')->name('permission-role.show');
+    Route::post('role/set-permission/{id}', 'RoleHasPermissions\RoleHasPermissionController@update')->name('permission-role.update');
 
 //     // user management route
 //     Route::group(['prefix' => 'user-management'], function () {

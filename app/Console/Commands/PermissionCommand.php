@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Permission\Permission;
-use App\Models\Permission\Role;
-use App\Models\Permission\RoleHasPermissions;
-use App\Models\Section\Sections;
+use App\Models\Permissions\Permission;
+use App\Models\Permissions\Role;
+use App\Models\Permissions\RoleHasPermissions;
+use App\Models\Sections\Sections;
 use App\Models\User\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -54,6 +54,7 @@ class PermissionCommand extends Command
                 $this->seedSection();
                 $defaultPermissions = $this->seedPermission();
                 $this->deleteOldPermission($defaultPermissions);
+                $this->grantPermissionsToRoles();
             }
         });
     }

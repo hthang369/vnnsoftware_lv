@@ -47,7 +47,7 @@ trait Authorizable
         //check permission action
         if ($ability = $this->getAbility($method)) {
             if (!preg_match('/^public_/', $ability)) {
-                $this->authorize($ability);
+                // $this->authorize($ability);
             }
             return $this->callPermissionAction($method, $parameters);
         }
@@ -68,7 +68,7 @@ trait Authorizable
             try {
                 DB::beginTransaction();
 
-                $data = call_user_func([$this, $method], ...$params);
+                $data = parent::callAction($method, head($params));
 
                 DB::commit();
 
@@ -79,7 +79,7 @@ trait Authorizable
                 throw $ex;
             }
         } else {
-            return parent::callAction($method, $params);
+            return parent::callAction($method, head($params));
         }
     }
 

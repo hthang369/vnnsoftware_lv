@@ -17,6 +17,8 @@ class CompanyController extends CoreController
     protected $listViewName = [
         'index'     => 'company.list',
         'create'    => 'company.create',
+        'edit'    => 'company.update',
+        'update' => 'company.index'
     ];
 
     public function __construct(CompanyValidator $validator) {

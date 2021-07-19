@@ -7,6 +7,8 @@ use App\Models\RoleHasPermissions\RoleHasPermission;
 use App\Presenters\RoleHasPermissions\RoleHasPermissionGridPresenter;
 use Illuminate\Support\Facades\DB;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleHasPermissionRepository extends CoreRepository
 {
@@ -67,4 +69,13 @@ class RoleHasPermissionRepository extends CoreRepository
 
         return $this->parserResult($results);
     }
+
+    public function update(array $attributes, $id)
+    {
+        $role = Role::find($id);
+        $permissions = Permission::whereIn('name', array_keys(array_except(array_filter($attributes), ['_token'])))->get();
+        $role->syncPermissions($permissions);
+        return $role;
+    }
+
 }

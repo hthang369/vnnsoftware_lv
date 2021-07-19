@@ -7,5 +7,6 @@ return [
     'btn_edit' => 'Edit',
     'btn_detail' => 'Detail',
     'btn_delete' => 'Delete',
-    'show_result' => 'Showing %d to %d of %d results'
+    'show_result' => 'Showing %d to %d of %d results',
+    'action'    => 'Action'
 ];

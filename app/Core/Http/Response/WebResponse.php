@@ -38,7 +38,7 @@ class WebResponse
         if ($message === null) {
             $message = trans('response.created');
         }
-        return static::makeResponse($viewName, true, Response::HTTP_CREATED, $message, $data);
+        return static::makeRedirect($viewName, true, Response::HTTP_FOUND, $message, $data);
     }
 
     public static function updated($viewName, $data, $message = null)
@@ -46,7 +46,7 @@ class WebResponse
         if ($message === null) {
             $message = trans('response.updated');
         }
-        return static::makeResponse($viewName, true, Response::HTTP_OK, $message, $data);
+        return static::makeRedirect($viewName, true, Response::HTTP_FOUND, $message, $data);
     }
 
     public static function deleted($viewName, $message = null)
@@ -54,7 +54,7 @@ class WebResponse
         if ($message === null) {
             $message = trans('response.deleted');
         }
-        return static::makeResponse($viewName, true, Response::HTTP_OK, $message);
+        return static::makeRedirect($viewName, true, Response::HTTP_FOUND, $message);
     }
 
     public static function validateFail($routeName, array $errors, $message = null)

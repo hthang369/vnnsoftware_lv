@@ -23,4 +23,12 @@ class CompanyRepository extends CoreRepository
         $businessPlanRepo = resolve(BusinessPlanRepository::class);
         return ['listBusinessPlan' => $businessPlanRepo->all()];
     }
+
+    public function show($id, $columns = [])
+    {
+        $data = parent::show($id, $columns);
+        $bussines = $this->formGenerate();
+        $data['listBusinessPlan'] = $bussines['listBusinessPlan'];
+        return $data;
+    }
 }

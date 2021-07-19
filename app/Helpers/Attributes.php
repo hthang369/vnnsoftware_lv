@@ -45,6 +45,7 @@ class Attributes
             'label' => '',
             'class' => '',
             'title'  => '',
+            'icon'  => '',
             'visible' => true
         ];
     }

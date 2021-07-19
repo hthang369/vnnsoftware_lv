@@ -124,7 +124,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
             $data = $data->toArray();
         }
 
-        return WebResponse::created($this->getViewName(__FUNCTION__), $data);
+        return WebResponse::created(route($this->getViewName(__FUNCTION__)), $data);
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
             $data = $data->toArray();
         }
 
-        return WebResponse::updated($this->getViewName(__FUNCTION__), $data);
+        return WebResponse::updated(route($this->getViewName(__FUNCTION__), $id), $data);
     }
 
     /**
@@ -169,7 +169,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     public function destroy($id) {
         $this->repository->delete($id);
 
-        return WebResponse::deleted($this->getViewName(__FUNCTION__));
+        return WebResponse::deleted(route($this->getViewName(__FUNCTION__), $id));
     }
 
     /**

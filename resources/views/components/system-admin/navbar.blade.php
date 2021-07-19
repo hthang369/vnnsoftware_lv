@@ -10,7 +10,7 @@
             @foreach($TOPMENU as $itemTop)
                 <li class="nav-item {{ substr(Route::currentRouteName(), 0, strpos(Route::currentRouteName(), '.')) == $itemTop->group ? 'active font-weight-bold border-bottom' : '' }}">
                     <a class="text-light nav-link" style="font-size: 14px" aria-current="page"
-                        href="{{$itemTop->url}}">@lang($itemTop->lang)</a>
+                        href="{{$itemTop->route_name ? route($itemTop->route_name) : $itemTop->url}}">@lang($itemTop->lang)</a>
                 </li>
             @endforeach
         </ul>
