@@ -56,10 +56,10 @@ return [
      * important !! index 0 need be System Admin, will set all permissions by default
      */
     'roles' => [
-        ['level' => 'L1', 'name' => 'System Admin', 'description' => 'Role For Set Permission', 'guard_name'=> 'web'],
-        ['level' => 'L2', 'name' => 'Admin', 'description' => 'Admin', 'guard_name'=> 'web'],
-        ['level' => 'L3', 'name' => 'Member', 'description' => 'Member', 'guard_name'=> 'web'],
-        ['level' => 'L4', 'name' => 'Staff', 'description' => 'System operator', 'guard_name'=> 'web'],
+        ['level' => 'L1', 'name' => 'System Admin', 'description' => 'Role For Set Permission', 'guard_name'=> 'web', 'role_rank' => 1],
+        ['level' => 'L2', 'name' => 'Admin', 'description' => 'Admin', 'guard_name'=> 'web', 'role_rank' => 2],
+        ['level' => 'L3', 'name' => 'Member', 'description' => 'Member', 'guard_name'=> 'web', 'role_rank' => 3],
+        ['level' => 'L4', 'name' => 'Staff', 'description' => 'System operator', 'guard_name'=> 'web', 'role_rank' => 4],
     ],
     'models' => [
 
