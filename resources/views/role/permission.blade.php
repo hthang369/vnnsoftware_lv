@@ -1,4 +1,4 @@
-@extends('components.system-admin.create')
+@extends('components.system-admin.update')
 
 @section('header_page')
 <h2 class="card-header px-0">

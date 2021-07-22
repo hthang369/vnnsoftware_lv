@@ -22,7 +22,6 @@ class CreateTopMenuTable extends Migration
             $table->string('description', 500);
             $table->boolean('is_no_left_menu');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

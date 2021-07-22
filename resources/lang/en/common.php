@@ -10,5 +10,21 @@ return [
     'total'                     => 'Total',
     'action_question_delete'    => 'Are you sure you want to delete?',
     'dialog_confirm_title'      => 'Notification',
-    'pages'                     => 'Showing pages'
+    'pages'                     => 'Showing pages',
+    // Action
+    'list'                      => 'List',
+    'delete'                    => 'Delete',
+    'add_new'                   => 'Add New',
+    'update'                    => 'Update',
+    'detail'                    => 'Detail',
+    'save'                      => 'Save',
+    'cancel'                    => 'Cancel',
+    'back'                      => 'Back',
+    'pause'                     => 'Pause',
+    'accept'                    => 'Accept',
+    'role_setting'              => 'Role setting',
+    'back'                      => 'Back',
+    'disable'                   => 'Disable',
+    // caption
+    'choose_company'            => 'Choose company'
 ];

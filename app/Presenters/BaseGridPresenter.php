@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Contracts\PresenterInterface;
+use App\Facades\Common;
 use App\Helpers\Attributes;
 use App\Helpers\Classes;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -28,6 +29,11 @@ abstract class BaseGridPresenter implements PresenterInterface
     protected function setColumns()
     {
         return [];
+    }
+
+    private function getSectionCode()
+    {
+        return Common::getSectionCode();
     }
 
     private function getIndexOptions()
@@ -58,19 +64,67 @@ abstract class BaseGridPresenter implements PresenterInterface
     {
         $range = range($data->firstItem(), $data->lastItem());
         return collect($data->items())->map(function(&$item, $key) use($range) {
+            if (method_exists($this, 'customItemData')) {
+                $item = call_user_func([$this, 'customItemData'], $item);
+            }
             if (blank($item->{$this->indexName})) {
                 data_set($item, $this->indexName, $range[$key]);
             }
             if (blank($item->{$this->actionName})) {
                 $actions = [
-                    Attributes::getFieldButton('edit', '', ['class' => 'btn-primary', 'icon' => 'far fa-edit', 'title' => trans('table.btn_edit')]),
-                    Attributes::getFieldButton('show', '', ['class' => 'btn-info', 'icon' => 'fas fa-info-circle', 'title' => trans('table.btn_detail')]),
-                    Attributes::getFieldButton('destroy', '', ['class' => 'btn-danger', 'icon' => 'far fa-trash-alt', 'title' => trans('table.btn_delete')])
+                    $this->getEditActionBtn($item),
+                    $this->getDetailActionBtn($item),
+                    $this->getDeleteActionBtn($item)
                 ];
                 data_set($item, $this->actionName, $actions);
             }
             return $item;
         })->all();
+    }
+
+    private function getEditActionBtn($item)
+    {
+        return Attributes::getFieldButton('edit', '', [
+            'class' => 'btn-primary',
+            'icon' => 'far fa-edit',
+            'title' => trans('table.btn_edit'),
+            'visible' => $this->visibleEdit($item)
+        ]);
+    }
+
+    private function getDetailActionBtn($item)
+    {
+        return Attributes::getFieldButton('show', '', [
+            'class' => 'btn-info',
+            'icon' => 'fas fa-info-circle',
+            'title' => trans('table.btn_detail'),
+            'visible' => $this->visibleDetail($item)
+        ]);
+    }
+
+    private function getDeleteActionBtn($item)
+    {
+        return Attributes::getFieldButton('destroy', '', [
+            'class' => 'btn-danger',
+            'icon' => 'far fa-trash-alt',
+            'title' => trans('table.btn_delete'),
+            'visible' => $this->visibleDelete($item)
+        ]);
+    }
+
+    protected function visibleEdit($item)
+    {
+        return user_can("edit_{$this->getSectionCode()}");
+    }
+
+    protected function visibleDetail($item)
+    {
+        return user_can("view_{$this->getSectionCode()}");
+    }
+
+    protected function visibleDelete($item)
+    {
+        return user_can("delete_{$this->getSectionCode()}");
     }
 
     /**

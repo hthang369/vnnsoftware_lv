@@ -27,10 +27,10 @@
     @endif
     <div class="card mb-5">
         <div class="text-white card-header bg-primary">
-            <h2>{{$environment}} </h2>
+            <h2>{{$data['environment']}} </h2>
         </div>
         <div class="card-body ">
-            @foreach($serverArray as $key => $value)
+            @foreach($data['serverArray'] as $key => $value)
 
                 <div class="well mb-4">
                     <h3>{{$value->server}}</h3>
@@ -38,7 +38,7 @@
                         <p>Current version: {{$value->version != null ? $value->version :  'Can\'t get data'}}</p>
                     </div>
 
-                    <form method="post" action="{{ route('Version Deploy.Deploy doDeploy') }}">
+                    <form method="post" action="{{ route('version-deploy.deploy') }}">
                         @csrf
                         <div class="form-group ">
                             <label for="redmine-ticket" class="required">Redmine Ticket:</label>

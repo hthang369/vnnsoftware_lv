@@ -47,7 +47,7 @@ trait Authorizable
         //check permission action
         if ($ability = $this->getAbility($method)) {
             if (!preg_match('/^public_/', $ability)) {
-                // $this->authorize($ability);
+                $this->authorize($ability);
             }
             return $this->callPermissionAction($method, $parameters);
         }

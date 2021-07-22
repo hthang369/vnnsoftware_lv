@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Versions;
 use App\Core\Http\Controllers\BaseController;
 use App\Repositories\Versions\VersionRepository;
 use App\Validators\Versions\VersionValidator;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class VersionController
@@ -21,6 +22,9 @@ class VersionController extends BaseController
         parent::__construct($validator);
 
         $this->repository = $this->factory->makeRepository(VersionRepository::class);
+
+        View::share('titlePage', __('version.page_title'));
+        View::share('headerPage', 'version.page_header');
     }
 
 }

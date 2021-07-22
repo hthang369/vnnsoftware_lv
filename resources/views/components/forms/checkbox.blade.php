@@ -15,19 +15,19 @@
 
     <div class="{{ $attr['inputClass'] }}">
 
-      <div class="custom-control custom-checkbox">
-        {!! Form::checkbox($attr['name'], $value, false, $attrCheckbox) !!}
+        <div class="custom-control custom-checkbox">
+            {!! Form::checkbox($attr['name'], 1, false, $attrCheckbox) !!}
 
-        @if(!empty($caption['text']))
-            {!! Form::label($labelFor, $caption['text'], array_except($caption, ['text'])) !!}
-        @endif
+            @if(!empty($caption['text']))
+                {!! Form::label($labelFor, $caption['text'], array_except($caption, ['text'])) !!}
+            @endif
 
-        @if(isset($errors) && $errors->has($attr['name']))
-          <div class="{{ $errors->has($attr['name']) ? 'invalid' : '' }}-feedback d-block">
-            {!! $errors->first($attr['name']) !!}
-          </div>
-        @endif
-      </div>
+            @if(isset($errors) && $errors->has($attr['name']))
+            <div class="{{ $errors->has($attr['name']) ? 'invalid' : '' }}-feedback d-block">
+                {!! $errors->first($attr['name']) !!}
+            </div>
+            @endif
+        </div>
 
     </div>
 </div>

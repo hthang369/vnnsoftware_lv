@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\BusinessPlans;
 
-use App\Core\Http\Controllers\BaseController;
+use App\Http\Controllers\Core\CoreController;
 use App\Repositories\BusinessPlans\BusinessPlanRepository;
 use App\Validators\BusinessPlans\BusinessPlanValidator;
 use Illuminate\Support\Facades\View;
@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\View;
  * @package App\Http\Controllers\BusinessPlans
  * @property BusinessPlanRepository businessplanRepository
  */
-class BusinessPlanController extends BaseController
+class BusinessPlanController extends CoreController
 {
     protected $listViewName = [
         'index'     => 'business-plan.list',
         'create'    => 'business-plan.create',
+        'edit'      => 'business-plan.update',
+        'show'      => 'business-plan.detail',
     ];
 
     public function __construct(BusinessPlanValidator $validator) {
@@ -24,8 +26,7 @@ class BusinessPlanController extends BaseController
 
         $this->repository = $this->factory->makeRepository(BusinessPlanRepository::class);
 
-        View::share('titlePage', 'Chi tiết công ty');
-        View::share('headerPage', 'custom_title.business_plan');
-        View::share('sectionCode', $this->getSectionCode());
+        View::share('titlePage', __('business_plan.page_title'));
+        View::share('headerPage', 'business_plan.page_header');
     }
 }

@@ -1,6 +1,7 @@
 @props(['data'])
 <div>
     @foreach ($data['action'] as $item)
+        @continue(!$item['visible'])
         @php
             $component = "tables.action_{$item['key']}";
         @endphp

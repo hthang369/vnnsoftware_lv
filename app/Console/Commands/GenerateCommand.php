@@ -44,10 +44,6 @@ class GenerateCommand extends BaseCommand
             'path' => 'app/Validators/%s',
             'suffix' => 'Validator'
         ],
-        'permission' => [
-            'path'  => 'database/seeders',
-            'suffix' => 'Permission'
-        ],
         'presenter' => [
             'path'  => 'app/Presenters/%s',
             'suffix' => 'GridPresenter'

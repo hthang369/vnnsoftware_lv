@@ -12,7 +12,8 @@ class CompanyGridPresenter extends BaseGridPresenter
             'name',
             'email',
             'phone',
-            'address'
+            'address',
+            'business_plan_name'
         ];
     }
 }

@@ -1,16 +1,16 @@
 @extends('layouts.system-admin')
 
-@section('title', 'Danh sách version')
-
-@section('sidebar')
-    @parent
-@endsection
+@section('title', $titlePage)
 
 @section('content')
-    <div class="alert alert-primary" role="alert">
-        <h1>@lang('custom_title.version')</h1>
-    </div>
-    <div class="mt-5">
+    <!-- TITLE -->
+    @section('header_page')
+        <h2 class="card-header px-0">
+            @lang($headerPage)
+        </h2>
+    @show
+
+    <div class="card-body px-0">
         @if($versions['socket_version'] == null)
             <div class="alert alert-warning">
                 <strong>Sorry!</strong> No Socket Version Found.

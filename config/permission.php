@@ -11,8 +11,7 @@ return [
         ['name'=> 'laka-user-management', 'code' => 'laka-user-management', 'url' => '', 'api' => ''],
         ['name'=> 'role-management', 'code' => 'role-management', 'url' => '', 'api' => ''],
         ['name'=> 'version', 'code' => 'version', 'url' => '', 'api' => ''],
-        ['name'=> 'version-deloy', 'code' => 'version-deloy', 'url' => '', 'api' => ''],
-        ['name'=> 'approval-api', 'code' => 'approval-api', 'url' => '', 'api' => ''],
+        ['name'=> 'version-deploy', 'code' => 'version-deploy', 'url' => '', 'api' => ''],
         ['name'=> 'permission-role', 'code' => 'permission-role', 'url' => '', 'api' => ''],
     ],
     /*
@@ -30,8 +29,7 @@ return [
         'laka-user-management'  => ['view', 'add', 'edit', 'delete'],
         'role-management'       => ['view', 'add', 'edit', 'delete'],
         'version'               => ['view', 'add', 'edit', 'delete'],
-        'version-deloy'         => ['view', 'add', 'edit', 'delete'],
-        'approval-api'          => ['view', 'add', 'edit', 'delete'],
+        'version-deploy'        => ['view', 'add'],
         'permission-role'       => ['view', 'edit'],
     ],
 

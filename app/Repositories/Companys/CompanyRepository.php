@@ -16,6 +16,10 @@ class CompanyRepository extends CoreRepository
         'name' => WhereClause::class
     ];
 
+    protected $select = [
+        'business_plan_name:business_plan,business_plan_id,name'
+    ];
+
     protected $presenterClass = CompanyGridPresenter::class;
 
     public function formGenerate()

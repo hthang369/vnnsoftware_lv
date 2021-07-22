@@ -18,7 +18,8 @@ class CompanyController extends CoreController
         'index'     => 'company.list',
         'create'    => 'company.create',
         'edit'    => 'company.update',
-        'update' => 'company.index'
+        'update' => 'company.index',
+        'show' => 'company.detail',
     ];
 
     public function __construct(CompanyValidator $validator) {
@@ -26,8 +27,7 @@ class CompanyController extends CoreController
 
         $this->repository = $this->factory->makeRepository(CompanyRepository::class);
 
-        View::share('titlePage', 'Danh sách công ty');
-        View::share('headerPage', 'custom_title.company');
-        View::share('routeLink', 'company.store');
+        View::share('titlePage', 'company.page_title');
+        View::share('headerPage', 'company.page_header');
     }
 }

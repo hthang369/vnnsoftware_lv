@@ -1,45 +1,19 @@
-@extends('layouts.system-admin')
+@extends('components.system-admin.detail')
 
-@section('title', 'Company Details')
-
-@section('sidebar')
-    @parent
+@section('message_content')
+    @if(session()->has('saved'))
+        <div class="alert alert-success">
+            <strong>@lang('custom_message.saved')</strong>
+        </div>
+    @endif
 @endsection
 
-@section('content')
-    <div class="card">
-        <h5 class="card-header">@lang('custom_title.company_detail')</h5>
-        @if(session()->has('saved'))
-            <div class="alert alert-success">
-                <strong>@lang('custom_message.saved')</strong>
-            </div>
-        @endif
-        <div class="card-body">
-            <div class="form-group">
-                <strong>@lang('custom_label.name'):</strong>
-                <label>{{$company->name}}</label>
-            </div>
-            <div class="form-group">
-                <strong>@lang('custom_label.email'):</strong>
-                <label>{{$company->email}}</label>
-            </div>
-            <div class="form-group">
-                <strong>@lang('custom_label.phone'):</strong>
-                <label>{{$company->phone}}</label>
-            </div>
-            <div class="form-group">
-                <strong>@lang('custom_label.address'):</strong>
-                <label>{{$company->address}}</label>
-            </div>
-            <div class="form-group">
-                <strong>@lang('custom_label.business_plan'):</strong>
-                <label>{{$company->business_plan->name}}</label>
-            </div>
-            @if(!in_array('LAKA company manage.Update company info', $NOT_HAS_PERMISSION))
-                <a class="btn btn-primary" href="/system-admin/company/update/{{$company->id}}"
-                   role="button">@lang('custom_label.update')</a>
-            @endif
-            <a class="btn btn-danger ml-2" onclick="history.back()" role="button">@lang('custom_label.back')</a>
-        </div>
+@section('body_content')
+    @foreach (['name', 'email', 'phone', 'address'] as $key)
+    <div class="form-row">
+        {!! Form::label($key, __("company.fields.{$key}"), ['class' => 'col-2 font-weight-bold']) !!}
+        {!! Form::label('', $data[$key], ['class' => 'col-10']) !!}
     </div>
+    @endforeach
+
 @endsection

@@ -19,10 +19,9 @@ class Company extends BaseModel
 
     protected $fillableColumns = [
         'id',
-        'name',
+        'company.name',
         'email',
         'phone',
-        'business_plan_id',
         'address'
     ];
 }

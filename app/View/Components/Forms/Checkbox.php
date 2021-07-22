@@ -10,6 +10,7 @@ class Checkbox extends FormComponent
 {
     public $type;
     public $validation = [];
+    public $caption;
 
     public function __construct(
         $all = [],
@@ -20,7 +21,7 @@ class Checkbox extends FormComponent
         $name = '',
         $variant = '',
         $class = '',
-        $caption = '',
+        $caption = ''
     )
     {
         parent::__construct($all, $group, $label, $name, '', $help, $variant, $class);

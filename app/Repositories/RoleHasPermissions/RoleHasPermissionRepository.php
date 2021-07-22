@@ -67,7 +67,7 @@ class RoleHasPermissionRepository extends CoreRepository
 
         $this->resetQuery();
 
-        return $this->parserResult($results);
+        return $this->parserResult(['data' => $results, 'user_count' => Role::find($role_id)->users()->count()]);
     }
 
     public function update(array $attributes, $id)

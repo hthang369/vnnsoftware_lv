@@ -26,6 +26,8 @@
                         <td {!! attributes_get(array_only($field, ['class'])) !!}>
                             @if (blank($field['cell']))
                                 {{ $item[$field['key']] }}
+                            @elseif (is_callable($field['cell']))
+                                {!! $field['cell']($item) !!}
                             @else
                                 <x-dynamic-component :component="$field['cell']" :data="$item"/>
                             @endif

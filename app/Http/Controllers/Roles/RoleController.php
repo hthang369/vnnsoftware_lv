@@ -16,7 +16,9 @@ class RoleController extends CoreController
 {
     protected $listViewName = [
         'index'     => 'role.list',
-        'create'    => 'role.add_form'
+        'create'    => 'role.create',
+        'edit'      => 'role.update',
+        'show'      => 'role.detail',
     ];
 
     public function __construct(RoleValidator $validator) {
@@ -24,8 +26,8 @@ class RoleController extends CoreController
 
         $this->repository = $this->factory->makeRepository(RoleRepository::class);
 
-        View::share('titlePage', 'Role');
-        View::share('headerPage', 'custom_title.role');
+        View::share('titlePage', __('role.page_title'));
+        View::share('headerPage', 'role.page_header');
         View::share('routeLink', 'role.store');
     }
 }

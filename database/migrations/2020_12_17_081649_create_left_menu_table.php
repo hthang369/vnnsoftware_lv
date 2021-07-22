@@ -22,7 +22,6 @@ class CreateLeftMenuTable extends Migration
             $table->string('url')->nullable();
             $table->string('lang');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

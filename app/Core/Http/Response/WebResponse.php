@@ -23,7 +23,7 @@ class WebResponse
         return static::makeResponse($viewName, true, Response::HTTP_OK, $message, $data);
     }
 
-    public static function error($routeName, $message, int $code = Response::HTTP_INTERNAL_SERVER_ERROR)
+    public static function error($routeName, $message, int $code = Response::HTTP_FOUND)
     {
         return static::makeRedirect($routeName, false, $code, $message);
     }

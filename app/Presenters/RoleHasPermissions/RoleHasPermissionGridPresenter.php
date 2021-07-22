@@ -4,6 +4,7 @@ namespace App\Presenters\RoleHasPermissions;
 
 use App\Presenters\BaseGridPresenter;
 use App\Transformers\RoleHasPermissionsTransformer;
+use Illuminate\Support\Facades\View;
 
 class RoleHasPermissionGridPresenter extends BaseGridPresenter
 {
@@ -25,7 +26,8 @@ class RoleHasPermissionGridPresenter extends BaseGridPresenter
 
     public function present($results)
     {
-        $results = with(new RoleHasPermissionsTransformer())->transformList($results->toArray());
-        return $this->parsePresent($results, count($results));
+        View::share(array_only($results, ['user_count']));
+        $resultData = with(new RoleHasPermissionsTransformer())->transformList($results['data']->toArray());
+        return $this->parsePresent($resultData, count($resultData));
     }
 }

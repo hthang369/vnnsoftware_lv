@@ -1,20 +1,10 @@
-@extends('layouts.system-admin')
+@extends('components.system-admin.form')
 
-@section('title', $titlePage)
-
-@section('content')
-    <!-- TITLE -->
-    @section('header_page')
-        <h2 class="card-header px-0">
-            @lang($headerPage)
-        </h2>
-    @show
-
-    <div class="card-body px-0">
-        @yield('message_content')
-
-        @yield('body_content')
-    </div>
-
-    @yield('footer_page')
+@section('body_button')
+<div class="form-row">
+    @if (user_can("edit_{$sectionCode}"))
+    {!! Route::has("{$sectionCode}.edit") ? link_to(route("{$sectionCode}.edit", $data['id']), __('common.update'), ['class' => 'btn btn-sm btn-primary']) : '' !!}
+    @endif
+    {!! Html::tag('a', __('common.back'), ['class' => 'btn btn-sm btn-danger ml-2', 'onclick' => "history.back()"]) !!}
+</div>
 @endsection

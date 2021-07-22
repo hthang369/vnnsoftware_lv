@@ -43,8 +43,9 @@ trait FilterQueryString {
     {
         $defaultOrderByColumn = config('repository.default_order_by_column', 'created_at');
         $defaultOrderByValue = config('repository.default_order_by_value', 'desc');
-        if (Schema::hasColumn($query->getModel()->getTable(), $defaultOrderByColumn)) {
-            return $query->orderBy($defaultOrderByColumn, $defaultOrderByValue);
+        $model = $query->getModel();
+        if (Schema::hasColumn($model->getTable(), $defaultOrderByColumn)) {
+            return $query->orderBy($model->qualifyColumn($defaultOrderByColumn), $defaultOrderByValue);
         }
         return $query;
     }

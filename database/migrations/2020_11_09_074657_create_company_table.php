@@ -21,7 +21,6 @@ class CreateCompanyTable extends Migration
             $table->string('phone')->nullable();
             $table->integer('business_plan_id')->index();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

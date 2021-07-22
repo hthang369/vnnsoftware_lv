@@ -11,7 +11,7 @@ class RoleHasPermissionsTransformer
 		['sectionCode' => 'laka-user-management', 'text' => 'modules.laka_user_management'],
 		['sectionCode' => 'role-management', 'text' => 'modules.role_management'],
 		['sectionCode' => 'version', 'text' => 'modules.version'],
-		['sectionCode' => 'version-deloy', 'text' => 'modules.version_deloy'],
+		['sectionCode' => 'version-deploy', 'text' => 'modules.version_deploy'],
 		['sectionCode' => 'permission-role', 'text' => 'modules.permission_role'],
 	];
 	protected $language = [

@@ -15,13 +15,13 @@ class DeployController extends Controller
 
     public function index(Request $request)
     {
-        preg_match('/deploy\/(development|staging|production)$/', $request->getUri(), $matches);
+        preg_match('/Deploy\/(development|staging|production)$/', $request->getUri(), $matches);
 
         $environment = $matches[1];
 
         // each environment has a list of servers
         $serverArray = [];
-        foreach (config('deploy.list_environment.' . $environment) as $server => $value) {
+        foreach (config('Deploy.list_environment.' . $environment) as $server => $value) {
             $deployServer = new DeployServer();
             $version = DeployServer::getVersion($server, $environment);
             if ($version == null) {
@@ -35,7 +35,7 @@ class DeployController extends Controller
             $serverArray[] = $deployServer;
         }
 
-        return view('deploy.list')->with(['serverArray' => $serverArray, 'environment' => $environment]);
+        return view('Deploy.list')->with(['serverArray' => $serverArray, 'environment' => $environment]);
     }
 
     public function doDeploy(Request $request)
@@ -87,8 +87,8 @@ class DeployController extends Controller
                 ]);
         }
 
-        // todo: gọi api lên server để deploy
-        $result = LakaDeploy::deploy(
+        // todo: gọi api lên server để Deploy
+        $result = LakaDeploy::Deploy(
             $server,
             $environment,
             $version

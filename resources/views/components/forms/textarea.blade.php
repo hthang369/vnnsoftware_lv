@@ -5,7 +5,7 @@
   }
   $labelFor = sprintf('input-%s', $attr['name']);
   $classInput = $attr->except(['inputClass', 'type', 'name'])
-    ->merge(['id' => $labelFor, 'aria-describedby' => sprintf('help-%s', $attr['name'])])->getAttributes();
+    ->merge(['id' => $labelFor, 'aria-describedby' => sprintf('help-%s', $attr['name']), 'rows' => 5])->getAttributes();
   if ($attr->has('required') && !str_contains($label['class'], 'required')) {
       $label['class'] .= ' required';
   }

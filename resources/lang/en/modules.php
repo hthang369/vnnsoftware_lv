@@ -7,6 +7,6 @@ return [
     'laka_user_management' => 'Laka user management',
     'role_management' => 'LMT role management',
     'version' => 'Version',
-    'version_deloy' => 'Version deloy',
+    'version_deploy' => 'Version deploy',
     'permission_role' => 'Permission role'
 ];

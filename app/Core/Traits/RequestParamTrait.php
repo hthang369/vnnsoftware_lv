@@ -30,7 +30,9 @@ trait RequestParamTrait
             $this->select = explode(',', $this->select);
         }
 
-        foreach (array_reverse($this->getModel()->getFillableColumns()) as $column)
+        $listColumn = array_merge($this->getModel()->getFillableColumns(), $this->select);
+        $this->select = [];
+        foreach (array_reverse($listColumn) as $column)
         {
             $list = explode(':', $column);
             if (count($list) == 1) {

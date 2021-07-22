@@ -3,7 +3,7 @@
 namespace App\Repositories\Menus;
 
 use App\Core\Repositories\BaseRepository;
-use App\Support\CommonHelper;
+use App\Facades\Common;
 use App\Models\Menus\LeftMenu;
 use App\Models\Menus\TopMenu;
 use App\Repositories\Sections\SectionRepository;
@@ -16,7 +16,7 @@ class MenuRepository extends BaseRepository
     {
         $sectionRepo = resolve(SectionRepository::class);
         $listCode = $sectionRepo->getDataByPermissionUserId($userId)->pluck('code')->all();
-        $sectionCode = CommonHelper::getSectionCode();
+        $sectionCode = Common::getSectionCode();
         $topMenu = TopMenu::whereIn('group', $listCode)->orderBy('index')->get();
         $leftMenu = LeftMenu::where('group', $sectionCode)->orderBy('index')->get();
 
