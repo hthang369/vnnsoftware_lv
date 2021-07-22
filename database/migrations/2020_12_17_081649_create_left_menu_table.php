@@ -16,9 +16,9 @@ class CreateLeftMenuTable extends Migration
         Schema::create('left_menu', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('top_menu_id')->index();
-            $table->string('group');
-            $table->string('route_name');
-            $table->string('index')->nullable();
+            $table->string('group', 100);
+            $table->string('route_name', 100);
+            $table->unsignedInteger('index')->nullable();
             $table->string('url')->nullable();
             $table->string('lang');
             $table->timestamps();
