@@ -19,6 +19,7 @@ class BusinessPlanController extends CoreController
         'create'    => 'business-plan.create',
         'edit'      => 'business-plan.update',
         'show'      => 'business-plan.detail',
+        'store'     => 'business-plan.create',
     ];
 
     public function __construct(BusinessPlanValidator $validator) {

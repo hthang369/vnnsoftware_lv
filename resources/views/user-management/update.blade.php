@@ -21,9 +21,9 @@
         placeholder="{{__('custom_label.phone')}}" autocomplete
         label="{{__('custom_label.phone')}}" />
 
-    <x-forms.textarea type="text" name="description" group="row"
-        placeholder="{{__('custom_label.description')}}" autocomplete
-        label="{{__('custom_label.description')}}" />
+    <x-forms.textarea type="text" name="address" group="row"
+        placeholder="{{__('custom_label.address')}}" autocomplete
+        label="{{__('custom_label.address')}}" />
 
     <div class="form-group row">
         {!! Form::label('roles', __('custom_label.role'), ['class' => 'col-sm-2 col-form-label']) !!}

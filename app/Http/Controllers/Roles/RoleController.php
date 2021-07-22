@@ -19,6 +19,7 @@ class RoleController extends CoreController
         'create'    => 'role.create',
         'edit'      => 'role.update',
         'show'      => 'role.detail',
+        'store'     => 'role.create',
     ];
 
     public function __construct(RoleValidator $validator) {

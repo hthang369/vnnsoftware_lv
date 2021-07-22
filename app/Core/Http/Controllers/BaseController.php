@@ -116,15 +116,19 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      * @throws ValidatorException
      */
     public function store(Request $request) {
-        $this->validator($request->all(), ValidatorInterface::RULE_CREATE);
+        try {
+            $this->validator($request->all(), ValidatorInterface::RULE_CREATE);
 
-        $data = $this->repository->create($request->all());
+            $data = $this->repository->create($request->all());
 
-        if (method_exists($data, 'toArray')) {
-            $data = $data->toArray();
+            if (method_exists($data, 'toArray')) {
+                $data = $data->toArray();
+            }
+
+            return WebResponse::created(route($this->getViewName(__FUNCTION__)), $data);
+        } catch (ValidatorException $e) {
+            return WebResponse::exception(route($this->getViewName(__FUNCTION__)), null, $e->getMessageBag());
         }
-
-        return WebResponse::created(route($this->getViewName(__FUNCTION__)), $data);
     }
 
     /**
@@ -148,16 +152,20 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      * @throws ValidatorException
      */
     public function update(Request $request, $id) {
-        $this->validator->setId($id);
-        $this->validator($request->all(), ValidatorInterface::RULE_UPDATE);
+        try {
+            $this->validator->setId($id);
+            $this->validator($request->all(), ValidatorInterface::RULE_UPDATE);
 
-        $data = $this->repository->update($request->all(), $id);
+            $data = $this->repository->update($request->all(), $id);
 
-        if (method_exists($data, 'toArray')) {
-            $data = $data->toArray();
+            if (method_exists($data, 'toArray')) {
+                $data = $data->toArray();
+            }
+
+            return WebResponse::updated(route($this->getViewName(__FUNCTION__), $id), $data);
+        } catch (ValidatorException $e) {
+            return WebResponse::exception(route($this->getViewName(__FUNCTION__)), null, $e->getMessageBag());
         }
-
-        return WebResponse::updated(route($this->getViewName(__FUNCTION__), $id), $data);
     }
 
     /**

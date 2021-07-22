@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Core\Http\Response\WebResponse;
+use App\Facades\Common;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Prettus\Validator\Exceptions\ValidatorException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -28,14 +31,19 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Register the exception handling callbacks for the application.
+     * Render an exception into an HTTP response.
      *
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $e
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
      */
-    public function register()
+    public function render($request, Throwable $e)
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        if ($e instanceof ValidatorException) {
+            return WebResponse::exception(route(Common::getSectionCode().'.index'), null, $e->getMessageBag()->toArray());
+        }
+        return parent::render($request, $e);
     }
 }

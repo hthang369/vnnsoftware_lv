@@ -20,6 +20,7 @@ class UserController extends CoreController
         'edit'      => 'user-management.update',
         'show'      => 'user-management.detail',
         'update'    => 'user-management.edit',
+        'store'     => 'user-management.create',
     ];
 
     public function __construct(UserValidator $validator) {

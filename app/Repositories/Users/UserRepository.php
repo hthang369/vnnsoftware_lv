@@ -37,7 +37,17 @@ class UserRepository extends CoreRepository
     public function update(array $attributes, $id)
     {
         return DB::transaction(function () use($attributes, $id) {
-            $user = parent::update($attributes, $id);
+            $user = parent::update(array_filter($attributes), $id);
+            $roles = array_keys($attributes['roles']);
+            $user->syncRoles($roles);
+            return $user;
+        });
+    }
+
+    public function create(array $attributes)
+    {
+        return DB::transaction(function () use($attributes) {
+            $user = parent::create(array_filter($attributes));
             $roles = array_keys($attributes['roles']);
             $user->syncRoles($roles);
             return $user;

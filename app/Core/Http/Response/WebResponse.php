@@ -25,11 +25,17 @@ class WebResponse
 
     public static function error($routeName, $message, int $code = Response::HTTP_FOUND)
     {
+        if ($message === null) {
+            $message = trans('response.error');
+        }
         return static::makeRedirect($routeName, false, $code, $message);
     }
 
-    public static function exception($routeName, int $code, string $message, array $errors = [], array $headers = [])
+    public static function exception($routeName, $message, $errors = [], int $code = Response::HTTP_FOUND, array $headers = [])
     {
+        if ($message === null) {
+            $message = trans('response.exception');
+        }
         return static::makeRedirect($routeName, false, $code, $message, null, $errors, $headers);
     }
 
@@ -77,7 +83,7 @@ class WebResponse
         return response()->view($viewName, $content, $code, $headers);
     }
 
-    protected static function makeRedirect(string $routeName, bool $success, int $code, string $message, $data = null, array $errors = [], array $headers = [])
+    protected static function makeRedirect(string $routeName, bool $success, int $code, string $message, $data = null, $errors = [], array $headers = [])
     {
         $content = [
             'success' => $success,
