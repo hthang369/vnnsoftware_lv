@@ -9,6 +9,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "laka/core": "^1.1",
         "laka/lib": "^1.20",
         "laravel/framework": "^8.40",
         "laravel/helpers": "^1.4",
@@ -74,6 +75,10 @@
         "laka/lib-dev": {
             "type": "vcs",
             "url": "https://Lampart_Vi_Hoang_Son@bitbucket.org/Lampart_Vi_Hoang_Son/laka-lib.git"
+        },
+        "laka/core": {
+            "type": "vcs",
+            "url": "https://github.com/hthang369/laka-core.git"
         }
     }
 }
