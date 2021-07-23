@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Menus\LeftMenu;
 use App\Models\Menus\TopMenu;
 use Illuminate\Console\Command;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -59,6 +60,16 @@ class LakaInitDataCommand extends Command
 
             foreach(array_column($results, 'TABLE_NAME') as $table) {
                 Schema::dropColumns($table, 'deleted_at');
+            }
+
+            if (Schema::hasColumn('users', 'role_id')) {
+                Schema::dropColumns('users', 'role_id');
+            }
+
+            if (!Schema::hasColumn('top_menu', 'route_name')) {
+                Schema::table($table, function (Blueprint $blueprint) {
+                    $blueprint->string('route_name', 150)->after('index')->nullable();
+                });
             }
 
             $this->info('Reset database: Done!');
