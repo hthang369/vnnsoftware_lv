@@ -1,26 +1,32 @@
 @extends('components.system-admin.create')
 
 @section('form_content')
-    <x-forms.input type="text" name="name" group="row"
-        placeholder="{{__('users.fields.name')}}" required autocomplete
-        label="{{__('users.fields.name')}}" />
+    <x-form-group :inline="true">
+        <x-form-label class="col-sm-2 col-form-label required">@lang('users.fields.name')</x-form-label>
+        <x-form-input type="text" name="name" groupClass="col-sm-10 form-row"
+            placeholder="{{__('users.fields.name')}}" required autocomplete />
+    </x-form-group>
 
-    <x-forms.input type="email" name="email" group="row"
-        placeholder="{{__('users.fields.email')}}" required autocomplete
-        label="{{__('users.fields.email')}}" />
-
-    <x-forms.input type="password" name="password" group="row"
-        placeholder="{{__('users.fields.password')}}" required autocomplete
-        label="{{__('users.fields.password')}}" />
-
-    <x-forms.input type="password" name="confirm_password" group="row"
-        placeholder="{{__('users.fields.confirm_password')}}" required autocomplete
-        label="{{__('users.fields.confirm_password')}}" />
-
-    <x-forms.select name="company_id" group="row"
-        :options="$data['company_list']"
-        placeholder=" "
-        label="{{__('users.laka.fields.company')}}" />
+    <x-form-group :inline="true">
+        <x-form-label class="col-sm-2 col-form-label required">@lang('users.fields.email')</x-form-label>
+        <x-form-input type="email" name="email" groupClass="col-sm-10 form-row"
+            placeholder="{{__('users.fields.email')}}" required autocomplete />
+    </x-form-group>
+    <x-form-group :inline="true">
+        <x-form-label class="col-sm-2 col-form-label required">@lang('users.fields.password')</x-form-label>
+        <x-form-input type="password" name="password" groupClass="col-sm-10 form-row"
+            placeholder="{{__('users.fields.password')}}" required autocomplete />
+    </x-form-group>
+    <x-form-group :inline="true">
+        <x-form-label class="col-sm-2 col-form-label">@lang('users.fields.confirm_password')</x-form-label>
+        <x-form-input type="password" name="confirm_password" groupClass="col-sm-10 form-row"
+            placeholder="{{__('users.fields.confirm_password')}}" autocomplete />
+    </x-form-group>
+    <x-form-group :inline="true">
+        <x-form-label class="col-sm-2 col-form-label">@lang('users.laka.fields.company')</x-form-label>
+        <x-form-select name="company_id" :items="$data['company_list']" placeholder=" "
+            groupClass="col-sm-10 form-row" />
+    </x-form-group>
 
     <div class="form-group row">
         {!! Form::label('', __('users.laka.add_contact_option'), ['class' => 'col-2 col-form-label required']) !!}

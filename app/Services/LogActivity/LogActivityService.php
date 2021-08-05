@@ -1,32 +1,37 @@
 <?php
+
 namespace App\Services\LogActivity;
 
-use App\Repositories\LogActivity\LogActivityRepository;
+use App\Repositories\LogActivitys\LogActivityRepository;
 use Illuminate\Http\Request;
 
-class LogActivityService{
-
+class LogActivityService
+{
     private $logActivityRepository;
 
-    public function __construct(LogActivityRepository $logActivityRepository) {
+    public function __construct(LogActivityRepository $logActivityRepository)
+    {
         $this->logActivityRepository = $logActivityRepository;
     }
 
     public function addToLog(Request $request, $subject)
     {
-        $this->logActivityRepository->addToLog($request, $subject);
+        $data = array_filter($request->all(), function($item) {
+            return !in_array($item, ['_token', 'password']);
+        }, ARRAY_FILTER_USE_KEY);
+
+        $attributes = [
+            'subject'   => $subject,
+            'url'       => $request->fullUrl(),
+            'method'    => $request->method(),
+            'ip'        => $request->ip(),
+            'agent'     => $request->header('user-agent'),
+            'user_id'   => user_get('id') ?? 0,
+            'user_name' => user_get('name') ?? '',
+            'input'     => json_encode($data)
+        ];
+        $this->logActivityRepository->create($attributes);
 
         return;
     }
-
-    public function getLogActivityList($itemsPerPage)
-    {
-        return $this->logActivityRepository->getLogActivityList($itemsPerPage);
-    }
-
-    public function getLogActivityByUserId($id, $itemsPerPage)
-    {
-        return $this->logActivityRepository->getLogActivityByUserId($id, $itemsPerPage);
-    }
-
 }

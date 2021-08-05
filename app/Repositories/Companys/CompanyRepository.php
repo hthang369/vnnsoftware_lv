@@ -17,7 +17,8 @@ class CompanyRepository extends CoreRepository
     ];
 
     protected $select = [
-        'business_plan_name:business_plan,business_plan_id,name'
+        'business_plan_id'
+        // 'business_plan_name:business_plan,business_plan_id,name'
     ];
 
     protected $presenterClass = CompanyGridPresenter::class;

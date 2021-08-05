@@ -6,6 +6,7 @@ use Closure;
 use App\Services\LogActivity\LogActivityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class LogActivity
 {
@@ -23,9 +24,11 @@ class LogActivity
         $this->logActivityService = $logActivityService;
     }
 
-    public function handle($request, Closure $next, $action)
+    public function handle($request, Closure $next)
     {
-        $this->logActivityService->addToLog($request, Auth::user()->name . " access to: " . $action);
+        $action = config('constants.'. Route::currentRouteName());
+        $name = user_get('name') ?? 'Login';
+        $this->logActivityService->addToLog($request, $name . " access to: " . $action);
 
         return $next($request);
     }

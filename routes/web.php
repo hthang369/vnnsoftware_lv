@@ -19,11 +19,13 @@ Route::get('/', function () {
     return redirect('system-admin/version');
 });
 
-Auth::routes();
+Route::group(['middleware' => ['log-activity']], function() {
+    Auth::routes();
+});
 
 Route::get('research-list', 'ResearchLaravel\ResearchLaravelController@list');
 
-Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permission']], function () {
+Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permission', 'log-activity']], function () {
     Route::get('confirm-dialog/{id}', 'Commons\CommonController@confirmDialog')->name('common.confirm');
     // version route
     Route::get('version', 'Versions\VersionController@index')->name('version.index');//->middleware("log.activity:Version index");

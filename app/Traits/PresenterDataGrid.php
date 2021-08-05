@@ -1,7 +1,7 @@
 <?php
 namespace App\Traits;
 
-use App\Contracts\PresenterInterface;
+use Laka\Core\Contracts\PresenterInterface;
 
 trait PresenterDataGrid
 {

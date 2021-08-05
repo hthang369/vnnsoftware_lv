@@ -6,7 +6,7 @@ use App\Core\Entities\BaseModel;
 
 class LogActivity extends BaseModel
 {
-    protected $table = 'logactivity';
+    protected $table = 'log_activities';
 
     /**
      * The attributes that are mass assignable.
@@ -14,13 +14,11 @@ class LogActivity extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'status'
+        'subject', 'url', 'method', 'ip', 'agent', 'user_id', 'user_name', 'input'
     ];
 
     protected $fillableColumns = [
         'id',
-        'name',
-        'description',
-        'status'
+        'subject', 'url', 'method', 'ip', 'agent', 'user_id', 'user_name', 'input'
     ];
 }

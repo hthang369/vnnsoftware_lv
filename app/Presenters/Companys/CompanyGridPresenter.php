@@ -3,6 +3,7 @@
 namespace App\Presenters\Companys;
 
 use App\Presenters\BaseGridPresenter;
+use App\Repositories\BusinessPlans\BusinessPlanRepository;
 
 class CompanyGridPresenter extends BaseGridPresenter
 {
@@ -13,7 +14,15 @@ class CompanyGridPresenter extends BaseGridPresenter
             'email',
             'phone',
             'address',
-            'business_plan_name'
+            [
+                'key' => 'business_plan_id',
+                // 'filtering' => true,
+                'lookup' => [
+                    'dataSource' => resolve(BusinessPlanRepository::class)->all(),
+                    'displayExpr' => 'name',
+                    'valueExpr' => 'id'
+                ]
+            ]
         ];
     }
 }

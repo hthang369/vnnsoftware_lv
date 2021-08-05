@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Users;
 
+use App\Core\Repositories\FilterQueryString\Filters\WhereClause;
 use App\Repositories\Core\CoreRepository;
 use App\Models\Users\User;
 use App\Presenters\Users\UserGridPresenter;
 use Illuminate\Support\Facades\DB;
-use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 use Spatie\Permission\Models\Role;
 
 class UserRepository extends CoreRepository

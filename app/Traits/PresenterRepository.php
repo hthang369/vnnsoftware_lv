@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use App\Contracts\PresenterInterface;
 use App\Core\Exceptions\RepositoryException;
+use Laka\Core\Contracts\PresenterInterface;
 
 trait PresenterRepository
 {
@@ -50,7 +50,7 @@ trait PresenterRepository
             $presenterObject = is_string($presenter) ? resolve($presenter) : $presenter;
 
             if (!$presenterObject instanceof PresenterInterface) {
-                throw new RepositoryException("Class {$presenter} must be an instance of Prettus\\Repository\\Contracts\\PresenterInterface");
+                throw new RepositoryException("Class {$presenter} must be an instance of Laka\\Core\\Contracts\\PresenterInterface");
             }
 
             return $presenterObject;

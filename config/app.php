@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         App\Providers\ComponentsScopedSlotsServiceProvider::class,
+        Laka\Core\LakaCoreServiceProvider::class,
     ],
 
     /*

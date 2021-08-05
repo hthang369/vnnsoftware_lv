@@ -80,7 +80,8 @@
     <?php echo $__env->make('components.system-admin.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <!-- Script -->
-    <?php echo $__env->yieldContent('script'); ?>
+    <?php echo $__env->yieldPushContent('scripts'); ?>
+    <?php echo $__env->yieldPushContent('styles'); ?>
 
 </div>
 

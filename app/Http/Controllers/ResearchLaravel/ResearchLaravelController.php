@@ -4,9 +4,11 @@ namespace App\Http\Controllers\ResearchLaravel;
 
 use App\Core\Http\Controllers\BaseController;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema\Builder;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Str;
 use ReflectionClass;
 
@@ -19,16 +21,18 @@ class ResearchLaravelController extends BaseController
             // Arr::class,
             // Str::class,
             // Route::class
-            Router::class
+            // Router::class
+            // Builder::class
+            Facade::class
         ];
 
         foreach($classArr as $class) {
             echo $class.PHP_EOL;
             $classReflection   = new ReflectionClass($class);
-            print_r(array_map(function($item) {
-                return data_get($item, 'name');
-            }, $classReflection->getProperties()));
-            echo PHP_EOL;
+            // print_r(array_map(function($item) {
+            //     return data_get($item, 'name');
+            // }, $classReflection->getProperties()));
+            // echo PHP_EOL;
             print_r(array_map(function($item) {
                 return data_get($item, 'name');
             }, $classReflection->getMethods()));

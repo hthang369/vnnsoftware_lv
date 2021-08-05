@@ -67,7 +67,8 @@
     @include('components.system-admin.footer')
 
     <!-- Script -->
-    @yield('script')
+    @stack('scripts')
+    @stack('styles')
 
 </div>
 

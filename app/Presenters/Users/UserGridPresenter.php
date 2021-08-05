@@ -3,7 +3,6 @@
 namespace App\Presenters\Users;
 
 use App\Presenters\BaseGridPresenter;
-use Illuminate\Support\HtmlString;
 
 class UserGridPresenter extends BaseGridPresenter
 {
