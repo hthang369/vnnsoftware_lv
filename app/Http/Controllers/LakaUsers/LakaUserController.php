@@ -21,6 +21,10 @@ class LakaUserController extends CoreController
         'create' => 'laka-user-management.create'
     ];
 
+    protected $permissionActions = [
+        'disableUser' => 'update'
+    ];
+
     public function __construct(LakaUserValidator $validator) {
         parent::__construct($validator);
 

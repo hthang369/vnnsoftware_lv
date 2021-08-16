@@ -66,4 +66,6 @@ Route::group(['prefix' => 'system-admin', 'middleware' => ['auth:web', 'permissi
         });
     });
 
+    // laka log route
+    Route::resource('laka-log', 'LakaLogs\LakaLogController');
 });

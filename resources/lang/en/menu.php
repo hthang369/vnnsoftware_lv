@@ -19,6 +19,7 @@ return [
     'laka_user_management' => 'LAKA user manage',
     'laka_user_update_contact' => 'LAKA user update contact',
     'version_deploy' => 'Deploy version',
+    'laka_log' => 'Laka log',
 
     // left menu
     'user_management_index' => 'LMT user list',
