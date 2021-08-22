@@ -16,6 +16,7 @@ use Modules\Core\Contracts\PaginationTransformer;
 use Modules\Core\Emails\EmailService;
 use Modules\Core\Repositories\BaseRepository;
 use Modules\Core\Responses\BaseResponse;
+use Modules\Core\Responses\WebResponse;
 use Modules\Core\Support\Carbon;
 use Modules\Core\Traits\Authorizable;
 use Modules\Core\Validators\BaseValidator;
@@ -72,6 +73,10 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      * @var array
      */
     protected $actionPermissionList = [];
+
+    protected $redirectRoute = [
+        'error' => ''
+    ];
 
     /**
      * BasesController constructor.
@@ -167,7 +172,8 @@ abstract class BaseController extends Controller implements BaseControllerInterf
         if ($e instanceof ValidatorException) {
             return $message = $e->getMessageBag();
         }
-        return $request->back()->withErrors($message)->withInput();
+
+        return WebResponse::error(route($this->redirectRoute['error']), $message);
     }
 
     /**

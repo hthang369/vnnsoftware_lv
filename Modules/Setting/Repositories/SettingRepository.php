@@ -39,7 +39,7 @@ class SettingRepository extends SettingBaseRepository
 
     protected function getDataConfig($id)
     {
-        return $this->getQuery()->join('settings', 'settings.id', '=', 'setting_details.setting_id')->where('name', $id)->pluck('value', 'key');
+        return $this->getQuery()->join('settings', 'settings.id', '=', 'setting_details.setting_id')->where('name', $id)->pluck('value', 'key')->toArray();
     }
 
     /**

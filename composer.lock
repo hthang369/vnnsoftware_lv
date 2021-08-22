@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "60ca46de6c9b001f7512908aca639bd6",
+    "content-hash": "f8d176eac22d7e14d38bc237009beea1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -197,16 +197,16 @@
         },
         {
             "name": "ckfinder/ckfinder-laravel-package",
-            "version": "v3.5.1.7",
+            "version": "v3.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ckfinder/ckfinder-laravel-package.git",
-                "reference": "714afc01c36a17ad46fca43c288353b66cd3d1e1"
+                "reference": "256fd25deb7b53d1e0015d3260f8001f52eed289"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ckfinder/ckfinder-laravel-package/zipball/714afc01c36a17ad46fca43c288353b66cd3d1e1",
-                "reference": "714afc01c36a17ad46fca43c288353b66cd3d1e1",
+                "url": "https://api.github.com/repos/ckfinder/ckfinder-laravel-package/zipball/256fd25deb7b53d1e0015d3260f8001f52eed289",
+                "reference": "256fd25deb7b53d1e0015d3260f8001f52eed289",
                 "shasum": ""
             },
             "require": {
@@ -237,7 +237,7 @@
                 "MIT"
             ],
             "description": "CKFinder 3 package for Laravel",
-            "time": "2021-03-15T08:58:20+00:00"
+            "time": "2021-07-27T06:42:32+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",

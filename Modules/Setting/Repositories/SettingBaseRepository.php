@@ -24,9 +24,10 @@ abstract class SettingBaseRepository extends BaseRepositoryEloquent
     public function update(array $settings, $id)
     {
         $result = [];
+        $updateData = array_diff_key($settings, array_flip(['_method', '_token']));
 
-        foreach ($settings as $key => $value) {
-            $model = $this->updateSettingDetail($this->model::getSettingId(), $key, $value);
+        foreach ($updateData as $key => $value) {
+            $model = $this->updateSettingDetail($this->model::getSettingId($id), $key, $value);
             $result[$model->key] = $model->value;
         }
 

@@ -10,6 +10,10 @@ use Modules\Setting\Validators\SettingValidator;
 
 class SettingController extends CoreController
 {
+    protected $redirectRoute = [
+        'error' => 'setting.index'
+    ];
+
     public function __construct(SettingRepository $repository, SettingValidator $validator, SettingResponse $response, SettingCriteria $criteria)
     {
         parent::__construct($repository, $validator, $response, $criteria);
@@ -39,7 +43,7 @@ class SettingController extends CoreController
     {
         list($configs, $formData) = $this->repository->formGenerateConfig($name, route("setting.$action", $name));
 
-        $configs['method'] = $action == 'edit' ? 'GET' : 'POST';
+        $configs['method'] = $action == 'edit' ? 'GET' : 'PUT';
 
         return $this->formBuilder->create($formData, $configs, $dataBidding);
     }

@@ -375,7 +375,7 @@ var _grids = _grids || {};
       var submitButton = form.find(':submit');
       var data = new FormData(document.getElementById(formId));
       var textEditor = form.find('textarea');
-      if (textEditor) {
+      if (textEditor && typeof CKEDITOR != 'undefined') {
         var ckeditorElement = CKEDITOR.instances[textEditor.attr('id')];
         if (ckeditorElement) {
             var textEditorData = ckeditorElement.getData();

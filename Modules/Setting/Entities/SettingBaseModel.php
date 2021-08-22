@@ -9,9 +9,10 @@ abstract class SettingBaseModel extends BaseModel
 {
     protected static $settingName;
 
-    public static function getSettingId()
+    public static function getSettingId($name = '')
     {
-        $id = SettingModel::where('name', static::$settingName)->value('id');
+        $settingName = static::$settingName ?? $name;
+        $id = SettingModel::where('name', $settingName)->value('id');
 
         if (!$id) {
             throw new ModelNotFoundException('Cannot get id of ' . static::$settingName . ' setting');
