@@ -44,5 +44,8 @@ return [
     'version_deploy_development' => 'Development',
     'version_deploy_staging' => 'Staging',
     'version_deploy_production' => 'Production',
-    'version_deploy_log_release' => 'Log Release'
+    'version_deploy_log_release' => 'Log Release',
+
+    'laka_log_index' => 'Laka log report',
+    'laka_log_create' => 'Laka log parse',
 ];

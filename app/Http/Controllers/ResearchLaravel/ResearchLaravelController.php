@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\ResearchLaravel;
 
 use App\Core\Http\Controllers\BaseController;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Builder;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
@@ -23,7 +23,8 @@ class ResearchLaravelController extends BaseController
             // Route::class
             // Router::class
             // Builder::class
-            Facade::class
+            // Facade::class
+            Builder::class
         ];
 
         foreach($classArr as $class) {
