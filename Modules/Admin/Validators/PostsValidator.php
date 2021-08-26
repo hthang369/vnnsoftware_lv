@@ -21,13 +21,13 @@ class PostsValidator extends BaseValidator
         ValidatorInterface::RULE_CREATE => [
             'post_title' => 'required',
             'post_link' => 'required|alpha_dash',
-            'post_image' => 'nullable|image|mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp',
+            'post_image' => 'nullable|image|mimes:jpg,bmp,png,webp|mimetypes:image/png,image/jpeg,image/bmp,image/webp',
             'category_id' => 'integer'
         ],
         ValidatorInterface::RULE_UPDATE => [
             'post_title' => 'required',
             'post_link' => 'required|alpha_dash',
-            'post_image' => 'nullable|image|mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp',
+            'post_image' => 'nullable|image|mimes:jpg,bmp,png,webp|mimetypes:image/png,image/jpeg,image/bmp,image/webp',
             'category_id' => 'integer'
         ],
     ];

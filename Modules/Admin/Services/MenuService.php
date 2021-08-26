@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Services;
 
+use Illuminate\Support\Facades\Auth;
 use Modules\Admin\Entities\MenusModel;
 use Nwidart\Menus\Facades\Menu;
 
@@ -29,20 +30,19 @@ class MenuService
 
     public function getAdminSlidebars()
     {
-        $path = module_path('Admin/Config');
-        $results = include_once $path;
+        $results = config('admin.menus');
 
         $dataTree = array_map(function($item) {
-            $item['actived'] = request()->routeIs($item['menu_name']) ? 'active' : '';
-            $item['menu_link'] = route($item['menu_link']);
+            $item['actived'] = request()->routeIs($item['menu_name']);
+            $item['menu_link'] = empty($item['menu_link']) ? '#' : route($item['menu_link']);
             $item['menu_title'] = trans($item['menu_title']);
-            $item['visiable'] = user_can($item['section']);
+            $item['visiable'] = user_can('view_'.$item['section']);
             return $item;
         }, $results);
 
         Menu::create('slidebar', function($menu) use($dataTree) {
-            // $menu->style('navbar_bt4');
-            $this->renderMenu($menu, $dataTree);
+            $menu->style('slidebar_bt4');
+            $this->renderMenu($menu, collect($dataTree));
         });
         return Menu::get('slidebar');
     }
@@ -57,7 +57,12 @@ class MenuService
                         $this->renderMenu($subMenu, $childrens, 'dropdown-item');
                     });
                 } else {
-                    $menu->url(data_get($item, 'menu_link'), data_get($item, 'menu_title'), ['class' => $class]);
+                    $menu->url(data_get($item, 'menu_link'), data_get($item, 'menu_title'),
+                        [
+                            'class' => $class,
+                            'icon' => data_get($item, 'menu_icon'),
+                            'active' => data_get($item, 'actived')
+                        ]);
                 }
             }
         });

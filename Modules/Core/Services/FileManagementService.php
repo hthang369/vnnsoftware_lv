@@ -134,7 +134,7 @@ class FileManagementService
 
         return [
             'file_name' => $file_name,
-            'path' => $this->storage->url($this->getDirectories($type).DIRECTORY_SEPARATOR.$file_name)
+            'path' => $this->getDirectories($type).DIRECTORY_SEPARATOR.$file_name
         ];
     }
 

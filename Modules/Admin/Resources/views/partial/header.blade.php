@@ -117,9 +117,12 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-link">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </form>
       </li>
     </ul>
   </nav>

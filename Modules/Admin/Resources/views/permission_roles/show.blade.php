@@ -17,7 +17,7 @@ $(document).ready(function() {
             url: frm.attr('action'),
             data: frm.serializeObject(),
             success: function success(data) {
-                // location.reload()
+                $.pjax.reload({ container: '#frmPermissionRole' });
             },
             error: function error(data) {
                 if (typeof toastr !== 'undefined') {

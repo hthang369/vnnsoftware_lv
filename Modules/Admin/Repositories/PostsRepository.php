@@ -112,4 +112,14 @@ class PostsRepository extends AdminBaseRepository
             ->where('category_id', $id)
             ->get();
     }
+
+    public function getAllDataByCategoryParent($id)
+    {
+        return $this->model::select(['posts.*', 'category_id', 'post_image', 'category_name', 'category_link', 'category_image'])
+            ->join('post_categories', 'post_categories.post_id', '=', 'posts.id')
+            ->join('categories', 'post_categories.category_id', '=', 'categories.id')
+            ->leftJoin('post_images', 'post_images.post_id', '=', 'posts.id')
+            ->where('categories.parent_id', $id)
+            ->get();
+    }
 }

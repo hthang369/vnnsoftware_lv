@@ -85,7 +85,7 @@ class SlidesGrid extends Grid implements SlidesGridInterface
                 'raw' => true,
                 'data' => function ($columnData, $columnName) {
                     // like for instance, displaying an image on the grid...
-                    return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="40">', asset('storage/data/upload/images/'.$columnData->{$columnName}), 'alternative'));
+                    return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="80">', asset('storage/images/'.$columnData->{$columnName}), 'alternative'));
                 },
 		    ],
 		];

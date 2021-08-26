@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="index3.html" class="brand-link">
-    <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <img src="{{asset('img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">AdminLTE 3</span>
   </a>
 
@@ -10,10 +10,10 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        <img src="{{asset('img/avatar_placeholder.png')}}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block">@auth {{Auth::user()->name}} @endauth</a>
       </div>
     </div>
 
@@ -41,92 +41,7 @@
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column nav-compact nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-        <li class="nav-item">
-          <a href="#" class="nav-link {{ request()->routeIs('admin') ? 'active' : ''}}">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Dashboard
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('posts.index') }}" class="nav-link {{ request()->routeIs('posts.*') ? 'active' : ''}}">
-            <i class="nav-icon fas fa-edit"></i>
-            <p>
-              Bài viết
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : ''}}">
-            <i class="nav-icon fas fa-calendar-alt"></i>
-            <p>
-              Category
-              <span class="badge badge-info right">2</span>
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('pages.index') }}" class="nav-link {{ request()->routeIs('pages.*') ? 'active' : ''}}">
-            <i class="nav-icon fas fa-book"></i>
-            <p>
-              Pages
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('menus.index') }}" class="nav-link {{ request()->routeIs('menus.*') ? 'active' : ''}}">
-            <i class="nav-icon fas fa-book"></i>
-            <p>
-              Menu
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('setting.index') }}" class="nav-link {{ request()->routeIs('configs.*') ? 'active' : ''}}">
-            <i class="nav-icon fas fa-book"></i>
-            <p>
-              Config
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('slides.index') }}" class="nav-link {{ request()->routeIs('slides.*') ? 'active' : ''}}">
-            <i class="nav-icon fas fa-book"></i>
-            <p>
-              Slides
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('advertises.index') }}" class="nav-link {{ request()->routeIs('advertises.*') ? 'active' : ''}}">
-            <i class="nav-icon fas fa-book"></i>
-            <p>
-              Advertises
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('role.index') }}" class="nav-link {{ request()->routeIs('role.*') ? 'active' : ''}}">
-            <i class="nav-icon fas fa-book"></i>
-            <p>
-              Roles
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : ''}}">
-            <i class="nav-icon fas fa-book"></i>
-            <p>
-              Users
-            </p>
-          </a>
-        </li>
-      </ul>
+        {!! $slidebar !!}
     </nav>
     <!-- /.sidebar-menu -->
   </div>

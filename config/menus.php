@@ -12,7 +12,8 @@ return [
         'adminlte' => \Nwidart\Menus\Presenters\Admin\AdminltePresenter::class,
         'zurbmenu' => \Nwidart\Menus\Presenters\Foundation\ZurbMenuPresenter::class,
 
-        'navbar_bt4' => \Modules\Home\Presenters\NavbarBootstrap4Presenter::class
+        'navbar_bt4' => \Modules\Home\Presenters\NavbarBootstrap4Presenter::class,
+        'slidebar_bt4' => \Modules\Admin\Presenters\SlideBarBootstrap4Presenter::class
     ],
 
     'ordering' => false,

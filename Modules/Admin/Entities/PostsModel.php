@@ -21,4 +21,8 @@ class PostsModel extends AdminBaseModel
         'post_status'
     ];
 
+    public function getCategoryIdAttribute()
+    {
+        return data_get(PostCategoriesModel::where('post_id', $this->id)->first(['category_id']), 'category_id');
+    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
 use Modules\Core\Contracts\PaginationTransformer;
 use Modules\Core\Repositories\StubPaginationTransformer;
+use Modules\Core\Services\FileManagementService;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,10 @@ class CoreServiceProvider extends ServiceProvider
      * @var bool
      */
     protected $defer = false;
+
+    private $initFacades = [
+        'file-management' => FileManagementService::class
+    ];
 
     /**
      * Boot the application events.
@@ -40,6 +45,22 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
 
         $this->app->bind(PaginationTransformer::class, StubPaginationTransformer::class);
+
+        $this->registerFacade();
+    }
+
+    /**
+     * Register facade.
+     *
+     * @return void
+     */
+    protected function registerFacade()
+    {
+        foreach($this->initFacades as $key => $class) {
+            $this->app->singleton($key, function () use($class) {
+                return new $class();
+            });
+        }
     }
 
     /**

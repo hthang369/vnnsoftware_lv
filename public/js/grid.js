@@ -341,7 +341,8 @@ var _grids = _grids || {};
         } else {
           html += response.message || 'Please fix the following errors';
           html = '<strong>' + html + '</strong>';
-          var errs = this.getValidationErrors(response.errors || {});
+          var listErr = response.errors || response.validation || {}
+          var errs = this.getValidationErrors(listErr);
           return html + errs + '</div>';
         }
       } else {

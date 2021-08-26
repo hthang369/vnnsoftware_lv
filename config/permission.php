@@ -17,7 +17,8 @@ return [
         ['name'=> 'advertises', 'code' => 'advertises', 'url' => '', 'api' => 'advertises'],
         ['name'=> 'role', 'code' => 'role', 'url' => '', 'api' => 'api/v1/role'],
         ['name'=> 'role has permissions', 'code' => 'role_has_permissions', 'parent' => 'role', 'url' => '', 'api' => 'api/v1/role_has_permissions'],
-        ['name'=> 'profile', 'code' => 'profile', 'url' => '', 'api' => 'api/v1/employee/profile']
+        ['name'=> 'profile', 'code' => 'profile', 'url' => '', 'api' => 'api/v1/employee/profile'],
+        ['name'=> 'media', 'code' => 'media', 'url' => '', 'api' => 'media']
     ],
     /*
      * permission actions

@@ -20,12 +20,12 @@ class SlidesValidator extends BaseValidator
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
             'advertise_name' => 'required',
-            'advertise_link' => 'string|alpha_dash',
+            'advertise_link' => 'nullable|string|alpha_dash',
             'advertise_image' => 'nullable|image|mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp'
         ],
         ValidatorInterface::RULE_UPDATE => [
             'advertise_name' => 'required',
-            'advertise_link' => 'string|alpha_dash',
+            'advertise_link' => 'nullable|string|alpha_dash',
             'advertise_image' => 'nullable|image|mimes:jpg,bmp,png|mimetypes:image/png,image/jpeg,image/bmp'
         ],
     ];

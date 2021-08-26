@@ -3,6 +3,7 @@
 namespace Modules\Admin\Grids;
 
 use Closure;
+use Illuminate\Support\HtmlString;
 use Leantony\Grid\Grid;
 
 class PostsGrid extends Grid implements PostsGridInterface
@@ -70,7 +71,12 @@ class PostsGrid extends Grid implements PostsGridInterface
 		        "filter" => [
 		            "enabled" => false,
 		            "operator" => "="
-		        ]
+                ],
+                'raw' => true,
+                'data' => function ($columnData, $columnName) {
+                    // like for instance, displaying an image on the grid...
+                    return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="80">', asset('storage/images/'.$columnData->{$columnName}), 'alternative'));
+                },
 		    ],
             "category_id" => [
                 'label' => trans('admin::posts.category_id'),

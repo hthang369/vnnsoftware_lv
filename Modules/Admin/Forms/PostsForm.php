@@ -15,8 +15,8 @@ class PostsForm extends Form
             ->add('post_excerpt', Field::TEXT)
             ->add('post_link', Field::TEXT)
             ->add('category_id', Field::SELECT, [
-                'choices' => CategoriesModel::get()->pluck('category_name', 'id')->toArray(),
-                'selected' => '',
+                'choices' => CategoriesModel::pluck('category_name', 'id')->toArray(),
+                'selected' => data_get($this->getModel(), 'category_id'),
                 'empty_value' => '=== Select category ==='
             ])
             ->add('post_image', Field::FILE)

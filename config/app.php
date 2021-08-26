@@ -180,6 +180,7 @@ return [
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Recca0120\Terminal\TerminalServiceProvider::class,
+        Laka\Core\LakaCoreServiceProvider::class,
     ],
 
     /*

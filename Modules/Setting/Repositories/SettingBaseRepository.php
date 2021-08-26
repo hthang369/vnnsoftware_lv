@@ -13,6 +13,8 @@ use Modules\Employee\Models\Employee\Employee;
 use Modules\Employee\Models\SettingDetails;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
+use Modules\Core\Facades\FileManagement;
 use Modules\Core\Helpers\CollectionHelper;
 /**
  * @property SettingBaseModel model
@@ -27,7 +29,13 @@ abstract class SettingBaseRepository extends BaseRepositoryEloquent
         $updateData = array_diff_key($settings, array_flip(['_method', '_token']));
 
         foreach ($updateData as $key => $value) {
-            $model = $this->updateSettingDetail($this->model::getSettingId($id), $key, $value);
+            $itemValue = $value;
+            if ($value instanceof UploadedFile) {
+                list($fileInfo) = FileManagement::uploadFileImages([$value]);
+                $itemValue = $fileInfo['file_name'];
+            }
+
+            $model = $this->updateSettingDetail($this->model::getSettingId($id), $key, $itemValue);
             $result[$model->key] = $model->value;
         }
 

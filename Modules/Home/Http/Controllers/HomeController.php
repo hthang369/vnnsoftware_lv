@@ -53,7 +53,9 @@ class HomeController extends BaseController
      */
     public function index()
     {
-        return view('home::index', $this->data);
+        $slides = $this->repository->getAllSlide();
+        $products = $this->repository->getHomeProducts();
+        return view('home::index', array_merge($this->data, compact('slides', 'products')));
     }
 
     /**
@@ -72,4 +74,13 @@ class HomeController extends BaseController
         return view("home::$viewName", array_merge($this->data, $base['data']));
     }
 
+    public function showPost($id)
+    {
+        $base = $this->repository->findPost($id);
+
+        $viewName = 'show';
+        $this->data['mapInfo'] = data_get($this->allSetting, 'map.web_map');
+
+        return view("home::$viewName", array_merge($this->data, $base));
+    }
 }

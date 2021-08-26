@@ -6,7 +6,8 @@
     "priority": 0,
     "providers": [
         "Modules\\Admin\\Providers\\AdminServiceProvider",
-        "Modules\\Admin\\Providers\\GridServiceProvider"
+        "Modules\\Admin\\Providers\\GridServiceProvider",
+        "Modules\\Admin\\Providers\\ComposerServiceProvider"
     ],
     "aliases": {},
     "files": [],
