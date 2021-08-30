@@ -14,12 +14,15 @@ class LakaLog extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'ip', 'url', 'message'
+        'ip', 'url', 'message', 'date_log', 'log_level', 'log_type'
     ];
 
     protected $fillableColumns = [
         'id',
         'ip',
-        'url'
+        'url',
+        'log_level',
+        'date_log',
+        'message'
     ];
 }

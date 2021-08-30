@@ -42,9 +42,9 @@ class LakaLogRepository extends CoreRepository
 
     public function create(array $attributes)
     {
-        print_r($attributes);
         $files = $attributes['files'];
         $dataFiles = $this->storage->files(DIRECTORY_SEPARATOR);
+        $dataLog = [];
         foreach ($dataFiles as $file) {
             if (in_array($file, $files)) {
                 $data = [];
@@ -52,7 +52,16 @@ class LakaLogRepository extends CoreRepository
                     $data = LogParser::parse($this->storage->get($file));
                     $data = array_map(function($item) {
                         $item['date_log'] = LogParser::extractDateTime($item['header']);
-                        return array_only($item, ['level', 'header', 'date_log']);
+                        return [
+                            'ip' => request()->ip(),
+                            'url' => '',
+                            'date_log' => $item['date_log'],
+                            'message' => $item['header'],
+                            'log_level' => $item['level'],
+                            'log_type' => 'laravel',
+                            'created_at' => now(),
+                            'updated_at' => now()
+                        ];
                     }, $data);
                 } else {
                     $result = file(storage_path('logs'.DIRECTORY_SEPARATOR.$file), FILE_IGNORE_NEW_LINES);
@@ -60,13 +69,10 @@ class LakaLogRepository extends CoreRepository
                         array_push($data, HttpLogParser::parse($line));
                     }
                 }
-
-                foreach ($data as $item) {
-                    $this->model->create($item);
-                }
+                $dataLog = array_merge($dataLog, $data);
             }
         }
-        exit;
 
+        return $this->model::insert($dataLog);
     }
 }

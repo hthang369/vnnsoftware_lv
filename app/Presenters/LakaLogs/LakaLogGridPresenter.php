@@ -9,7 +9,9 @@ class LakaLogGridPresenter extends BaseGridPresenter
     protected function setColumns()
     {
         return [
+            'log_level',
             'ip',
+            'date_log',
             'url'
         ];
     }

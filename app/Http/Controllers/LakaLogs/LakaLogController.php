@@ -18,6 +18,7 @@ class LakaLogController extends CoreController
         'index' => 'laka-log.list',
         'create' => 'laka-log.create',
         'store' => 'laka-log.create',
+        'show' => 'laka-log.detail',
     ];
 
     public function __construct(LakaLogValidator $validator) {
@@ -30,11 +31,14 @@ class LakaLogController extends CoreController
     }
 
     public function index() {
-        $dtFrom = request('dtFrom');
-        $dtTo = request('dtTo');
+        $now = today();
+        $dtFrom = request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
+        $dtTo = request('dtTo', $now->clone()->lastOfMonth()->toDateString());
         if ($dtFrom && $dtTo) {
             request()->merge(['date_log' => ['start' => $dtFrom, 'end' => $dtTo]]);
         }
+        View::share('dtFrom', $dtFrom);
+        View::share('dtTo', $dtTo);
         return parent::index();
     }
 }

@@ -17,8 +17,10 @@ class CreateLakaLogTable extends Migration
             $table->id();
             $table->string('ip', 50);
             $table->string('url', 150);
-            $table->date('date_log');
+            $table->datetime('date_log');
             $table->text('message');
+            $table->string('log_level', 50);
+            $table->string('log_type', 50);
             $table->timestamps();
         });
     }
