@@ -11,6 +11,7 @@ return [
         ['name'=> 'menus', 'code' => 'menus', 'url' => '', 'api' => 'menus'],
         ['name'=> 'categories', 'code' => 'categories', 'url' => '', 'api' => 'categoríes'],
         ['name'=> 'posts', 'code' => 'posts', 'url' => '', 'api' => 'posts'],
+        ['name'=> 'news', 'code' => 'news', 'url' => '', 'api' => 'news'],
         ['name'=> 'pages', 'code' => 'pages', 'url' => '', 'api' => 'pages'],
         ['name'=> 'employee', 'code' => 'employee', 'url' => 'employee', 'api' => 'employees'],
         ['name'=> 'slides', 'code' => 'slides', 'url' => '', 'api' => 'slides'],
@@ -18,7 +19,8 @@ return [
         ['name'=> 'role', 'code' => 'role', 'url' => '', 'api' => 'api/v1/role'],
         ['name'=> 'role has permissions', 'code' => 'role_has_permissions', 'parent' => 'role', 'url' => '', 'api' => 'api/v1/role_has_permissions'],
         ['name'=> 'profile', 'code' => 'profile', 'url' => '', 'api' => 'api/v1/employee/profile'],
-        ['name'=> 'media', 'code' => 'media', 'url' => '', 'api' => 'media']
+        ['name'=> 'media', 'code' => 'media', 'url' => '', 'api' => 'media'],
+        ['name'=> 'users', 'code' => 'users', 'url' => '', 'api' => 'users']
     ],
     /*
      * permission actions
@@ -36,12 +38,14 @@ return [
         'menus'                    => ['public', 'view', 'add', 'edit', 'delete'],
         'categories'               => ['public', 'view', 'add', 'edit', 'delete'],
         'posts'                    => ['public', 'view', 'add', 'edit', 'delete'],
+        'news'                     => ['public', 'view', 'add', 'edit', 'delete'],
         'pages'                    => ['public', 'view', 'add', 'edit', 'delete'],
         'employee'                 => ['view', 'add', 'edit', 'delete'],
         'slides'                   => ['public', 'view', 'add', 'edit', 'delete'],
         'advertises'               => ['public', 'view', 'add', 'edit', 'delete'],
         'role'                     => ['view', 'add', 'edit', 'delete'],
         'role_has_permissions'     => ['view', 'add', 'edit', 'delete'],
+        'users'                    => ['view', 'add', 'edit', 'delete'],
     ],
 
     'custom_section_action' => [

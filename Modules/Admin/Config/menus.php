@@ -12,6 +12,16 @@ return [
         'children' => []
     ],
     [
+        'menu_title' => 'admin::menus.categories',
+        'menu_name' => 'categories.*',
+        'menu_link' => 'categories.index',
+        'menu_icon' => 'nav-icon fas fa-calendar-alt',
+        'actived' => '',
+        'section' => 'categories',
+        'visiable' => false,
+        'children' => []
+    ],
+    [
         'menu_title' => 'admin::menus.posts',
         'menu_name' => 'posts.*',
         'menu_link' => 'posts.index',
@@ -22,12 +32,12 @@ return [
         'children' => []
     ],
     [
-        'menu_title' => 'admin::menus.categories',
-        'menu_name' => 'categories.*',
-        'menu_link' => 'categories.index',
-        'menu_icon' => 'nav-icon fas fa-calendar-alt',
+        'menu_title' => 'admin::menus.news',
+        'menu_name' => 'news.*',
+        'menu_link' => 'news.index',
+        'menu_icon' => 'nav-icon fas fa-edit',
         'actived' => '',
-        'section' => 'categories',
+        'section' => 'news',
         'visiable' => false,
         'children' => []
     ],

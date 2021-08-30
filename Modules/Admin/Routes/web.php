@@ -15,6 +15,7 @@ Route::group(['middleware' => 'auth:web', 'prefix' => 'admin'], function() {
     Route::get('/', 'AdminController@index')->name('admin.view');
 
     Route::resource('posts', 'PostsController');
+    Route::resource('news', 'NewsController');
     Route::resource('pages', 'PagesController');
     Route::resource('categories', 'CategoriesController');
     Route::resource('menus', 'CategoriesController');

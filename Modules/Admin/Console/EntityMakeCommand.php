@@ -63,7 +63,7 @@ class EntityMakeCommand extends GeneratorMultiCommand
 
         return (new Stub($this->getStubName($file_name), [
             'MODULENAME'        => $module->getStudlyName(),
-            'CLASSNAME'         => $this->getEntityName($file_name),
+            'CLASSNAME'         => studly_case($this->argument('name')),
             'NAMESPACE'         => $module->getStudlyName(),
             'CLASS_NAMESPACE'   => $this->getClassNamespace($module),
             'CLASS'             => $this->getEntityNameWithoutNamespace($file_name),

@@ -1,6 +1,6 @@
 <?php
 
-namespace $CLASS_NAMESPACE$;
+namespace $CLASS_NAMESPACE$\Http\Controllers;
 
 use Modules\$MODULENAME$\Repositories\$CLASS_NAME$Criteria;
 use Modules\$MODULENAME$\Repositories\$CLASS_NAME$Repository;

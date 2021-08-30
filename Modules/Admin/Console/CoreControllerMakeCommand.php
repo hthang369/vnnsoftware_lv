@@ -14,7 +14,7 @@ class CoreControllerMakeCommand extends BaseGeneratorCommand
      *
      * @var string
      */
-    protected $argumentName = 'controller';
+    protected $argumentName = 'name';
 
     /**
      * The console command name.

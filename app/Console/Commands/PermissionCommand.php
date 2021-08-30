@@ -54,6 +54,7 @@ class PermissionCommand extends Command
                 $this->seedSection();
                 $defaultPermissions = $this->seedPermission();
                 $this->deleteOldPermission($defaultPermissions);
+                $this->assignRoleToUsers();
             }
         });
     }
