@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['domain' => 'demo.'.env('APP_URL')], function() {
+Route::group(['prefix' => 'demo'], function() {
     Route::get('/', 'DemoController@index');
 
     Route::get('detail/{detail}', function () {

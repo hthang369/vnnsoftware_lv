@@ -11,8 +11,10 @@
                 @yield('data')
             </div>
             <div class="card-footer">
-                {!! $grid->renderPaginationInfoAtFooter() !!}
-                {!! $grid->renderPaginationLinksSection() !!}
+                <div class="d-flex justify-content-between align-items-center">
+                    {!! $grid->renderPaginationInfoAtFooter() !!}
+                    {!! $grid->renderPaginationLinksSection() !!}
+                </div>
             </div>
         </div>
     </div>

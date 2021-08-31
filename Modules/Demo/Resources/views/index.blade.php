@@ -237,19 +237,26 @@
     </section>
 
     <footer class="container-xl">
-    <div class="d-flex justify-content-center">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                <a class="nav-link active" href="/">Trang chủ</a>
-                <a class="nav-link" href="#">Tin tức</a>
-                <a class="nav-link" href="#">Liên hệ</a>
-                </div>
-            </div>
-        </nav>
+    <div class="row">
+        <div class="col-3">
+            <p>Công ty TNHH .....</p>
+            <p>Địa chỉ .....</p>
+            <p>Website .....</p>
+            <p>Điện thoại .....</p>
+        </div>
+        <div class="col-5">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tin tức</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Liên hệ</a>
+                </li>
+            </ul>
+        </div>
         </div>
     </footer>
 </section>
