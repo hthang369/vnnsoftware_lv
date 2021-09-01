@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Admin\Entities\PostImagesModel;
 use Modules\Admin\Entities\PostsModel;
 use Modules\Admin\Forms\PostsForm;
-use Modules\Admin\Grids\PostsGridInterface;
+use Modules\Admin\Grids\PostsGrid;
 use Modules\Core\Services\FileManagementService;
 
 class PostsRepository extends AdminBaseRepository
@@ -28,7 +28,7 @@ class PostsRepository extends AdminBaseRepository
      */
     public function grid()
     {
-        return PostsGridInterface::class;
+        return PostsGrid::class;
     }
 
     /**
@@ -104,22 +104,49 @@ class PostsRepository extends AdminBaseRepository
         });
     }
 
-    public function getAllDataByCategory($id)
+    public function getAllDataByCategory($id, $type = 'post')
     {
-        return $this->model::select(['posts.*', 'category_id', 'post_image'])
+        $limit = 15;
+        $query = $this->model::select(['posts.*', 'category_id', 'post_image'])
             ->join('post_categories', 'post_categories.post_id', '=', 'posts.id')
             ->leftJoin('post_images', 'post_images.post_id', '=', 'posts.id')
-            ->where('category_id', $id)
-            ->get();
+            ->where('post_type', $type)
+            ->where('category_id', $id);
+
+        return $query->paginate($limit);
     }
 
-    public function getAllDataByCategoryParent($id)
+    public function getAllDataByCategoryParent($id, $limit = 0)
     {
-        return $this->model::select(['posts.*', 'category_id', 'post_image', 'category_name', 'category_link', 'category_image'])
+        $query = $this->model::select(['posts.*', 'category_id', 'post_image', 'category_name', 'category_link', 'category_image'])
+            ->join('post_categories', 'post_categories.post_id', '=', 'posts.id')
+            ->join('categories', 'post_categories.category_id', '=', 'categories.id')
+            ->leftJoin('post_images', 'post_images.post_id', '=', 'posts.id')
+            ->where('categories.parent_id', $id);
+        if ($limit > 0)
+            $query->limit($limit);
+
+        return $query->get();
+    }
+
+    public function getAllDataWithCategoryParent($id)
+    {
+        $mainQuery = clone $this->model;
+        $subQuery = clone $this->model;
+        $query = $this->model::select(['posts.*', 'category_id', 'post_image', 'category_name', 'category_link', 'category_image'])
             ->join('post_categories', 'post_categories.post_id', '=', 'posts.id')
             ->join('categories', 'post_categories.category_id', '=', 'categories.id')
             ->leftJoin('post_images', 'post_images.post_id', '=', 'posts.id')
             ->where('categories.parent_id', $id)
+            ->orderBy('post_date', 'desc');
+
+        return $mainQuery->select(['tmp1.*'])
+            ->fromSub($subQuery->select([
+                    DB::raw('ROW_NUMBER() over(PARTITION By category_id) stt'),
+                    'tmp.*'
+                ])
+                ->fromSub($query, 'tmp'), 'tmp1')
+            ->where('stt', '<=', 8)
             ->get();
     }
 }

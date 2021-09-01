@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Admin\Entities\PagesModel;
 use Modules\Admin\Entities\PostImagesModel;
 use Modules\Admin\Forms\PagesForm;
-use Modules\Admin\Grids\PagesGridInterface;
+use Modules\Admin\Grids\PagesGrid;
 use Modules\Core\Services\FileManagementService;
 
 class PagesRepository extends AdminBaseRepository
@@ -28,7 +28,7 @@ class PagesRepository extends AdminBaseRepository
      */
     public function grid()
     {
-        return PagesGridInterface::class;
+        return PagesGrid::class;
     }
 
     /**

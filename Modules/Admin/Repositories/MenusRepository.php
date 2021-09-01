@@ -4,7 +4,7 @@ namespace Modules\Admin\Repositories;
 
 use Modules\Admin\Entities\MenusModel;
 use Modules\Admin\Forms\MenusForm;
-use Modules\Admin\Grids\MenusGridInterface;
+use Modules\Admin\Grids\MenusGrid;
 
 class MenusRepository extends AdminBaseRepository
 {
@@ -25,7 +25,7 @@ class MenusRepository extends AdminBaseRepository
      */
     // public function grid()
     // {
-    //     return MenusGridInterface::class;
+    //     return MenusGrid::class;
     // }
 
     /**

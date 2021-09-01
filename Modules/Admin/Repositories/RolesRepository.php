@@ -5,7 +5,7 @@ namespace Modules\Admin\Repositories;
 use Illuminate\Support\Facades\DB;
 use Modules\Admin\Entities\RolesModel;
 use Modules\Admin\Forms\RolesForm;
-use Modules\Admin\Grids\RolesGridInterface;
+use Modules\Admin\Grids\RolesGrid;
 use Modules\Core\Services\FileManagementService;
 
 class RolesRepository extends AdminBaseRepository
@@ -27,7 +27,7 @@ class RolesRepository extends AdminBaseRepository
      */
     public function grid()
     {
-        return RolesGridInterface::class;
+        return RolesGrid::class;
     }
 
     protected function getQuery()

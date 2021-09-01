@@ -30,6 +30,12 @@ class PermissionRoleRepository extends AdminBaseRepository
         return PermissionRoleGrid::class;
     }
 
+    protected function getGridParams()
+    {
+        $params = parent::getGridParams();
+        return array_merge($params, ['paginationSize' => 100]);
+    }
+
     public function update(array $attributes, $id)
     {
         $attributes = array_diff_key($attributes, array_flip(['_method', '_token', 'q']));

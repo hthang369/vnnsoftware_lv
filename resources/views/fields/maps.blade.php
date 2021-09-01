@@ -8,7 +8,11 @@
 
 @if ($showField)
 <div class="embed-responsive {{ data_get($options, 'attr.parent_class') }}">
-    <iframe src="{{ data_get($options, 'src', '') }}" class="{{ join(' ', data_get($options, 'attr.class', [])) }}"></iframe>
+    @isset($option['src'])
+        <iframe src="{{ data_get($options, 'src', '') }}" class="{{ join(' ', data_get($options, 'attr.class', [])) }}"></iframe>
+    @else
+        {!! $options['value'] !!}
+    @endisset
 </div>
 <? include helpBlockPath(); ?>
 @endif

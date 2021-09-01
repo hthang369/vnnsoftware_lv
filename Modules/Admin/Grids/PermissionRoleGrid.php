@@ -3,11 +3,11 @@
 namespace Modules\Admin\Grids;
 
 use Closure;
-use Collective\Html\FormFacade;
+use Collective\Html\FormFacade as Form;
 use Illuminate\Support\HtmlString;
 use Leantony\Grid\Grid;
 
-class PermissionRoleGrid extends Grid implements PermissionRoleGridInterface
+class PermissionRoleGrid extends BaseGrid
 {
     /**
      * The name of the grid
@@ -16,25 +16,14 @@ class PermissionRoleGrid extends Grid implements PermissionRoleGridInterface
      */
     protected $name = 'Permission Role';
 
-    /**
-     * List of buttons to be generated on the grid
-     *
-     * @var array
-     */
-    protected $buttonsToGenerate = [
-        'save',
-        // 'view',
-        // 'delete',
-        // 'refresh',
-        // 'export'
-    ];
+    protected $sectionCode = 'role_has_permissions';
 
-    /**
-     * Specify if the rows on the table should be clicked to navigate to the record
-     *
-     * @var bool
-     */
-    protected $linkableRows = false;
+    protected function getActionButtons()
+    {
+        return array_filter([
+            'save' => user_can('add_'.$this->sectionCode)
+        ]);
+    }
 
     /**
     * Set the columns to be displayed.
@@ -79,10 +68,9 @@ class PermissionRoleGrid extends Grid implements PermissionRoleGridInterface
                     foreach($permissions as $key => $value) {
                         if (!in_array($key, data_get($section_actions, $columnData['section_code'], $actions))) continue;
                         $name = sprintf('%s_%s', $key, $columnData['section_code']);
-                        $listAction[] = FormFacade::checkbox($name, null, $value, ['id' => $name]).
-                        FormFacade::label($name, $key);
+                        $listAction[] = $this->getTemplateAction($name, $value, $key);
                     }
-                    return new HtmlString(implode(' &nbsp; ', $listAction));
+                    return new HtmlString(implode(' ', $listAction));
                     // like for instance, displaying an image on the grid...
                     // return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="40">', asset('storage/data/upload/images/'.$columnData->{$columnName}), 'alternative'));
                 },
@@ -91,35 +79,12 @@ class PermissionRoleGrid extends Grid implements PermissionRoleGridInterface
 		];
     }
 
-    /**
-     * Set the links/routes. This are referenced using named routes, for the sake of simplicity
-     *
-     * @return void
-     */
-    public function setRoutes()
+    private function getTemplateAction($name, $value, $key)
     {
-        // searching, sorting and filtering
-        $this->setIndexRouteName('role_has_permissions.index');
-
-        // crud support
-        $this->setCreateRouteName('role_has_permissions.create');
-        $this->setViewRouteName('role_has_permissions.show');
-        // $this->setDeleteRouteName('role_has_permissions.destroy');
-
-        // default route parameter
-        $this->setDefaultRouteParameter('id');
-    }
-
-    /**
-    * Return a closure that is executed per row, to render a link that will be clicked on to execute an action
-    *
-    * @return Closure
-    */
-    public function getLinkableCallback(): Closure
-    {
-        return function ($gridName, $item) {
-            return route($this->getViewRouteName(), [$gridName => $item->id]);
-        };
+        return '<div class="custom-control custom-checkbox custom-control-inline">'.
+            Form::checkbox($name, null, $value, ['id' => $name, 'class' => 'custom-control-input']).
+            Form::label($name, $key, ['class' => 'custom-control-label'])
+            .'</div>';
     }
 
     /**
@@ -130,33 +95,15 @@ class PermissionRoleGrid extends Grid implements PermissionRoleGridInterface
     public function configureButtons()
     {
         $this->clearAllButtons();
-        // call `addRowButton` to add a row button
-        // call `addToolbarButton` to add a toolbar button
-        // call `makeCustomButton` to do either of the above, but passing in the button properties as an array
         $this->makeCustomButton([
             'name' => 'Save',
             'pjaxEnabled' => true,
             'gridId' => 'frmPermissionRole',
             'dataAttributes' => ['form-id' => 'frmPermissionRole'],
-            'class' => 'btn btn-info btn-save'
+            'class' => 'btn btn-info btn-save',
+            'renderIf' => function () {
+                return in_array('save', $this->buttonsToGenerate);
+            }
         ], static::$TYPE_TOOLBAR);
-        // call `editToolbarButton` to edit a toolbar button
-        // call `editRowButton` to edit a row button
-        // call `editButtonProperties` to do either of the above. All the edit functions accept the properties as an array
-    }
-
-    /**
-    * Returns a closure that will be executed to apply a class for each row on the grid
-    * The closure takes two arguments - `name` of grid, and `item` being iterated upon
-    *
-    * @return Closure
-    */
-    public function getRowCssStyle(): Closure
-    {
-        return function ($gridName, $item) {
-            // e.g, to add a success class to specific table rows;
-            // return $item->id % 2 === 0 ? 'table-success' : '';
-            return "";
-        };
     }
 }

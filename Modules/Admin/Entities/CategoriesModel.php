@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Entities;
 
+use Modules\Admin\Repositories\PostsRepository;
 use Modules\Admin\Traits\NestedSetCategoryTrait;
 
 class CategoriesModel extends AdminBaseModel
@@ -23,4 +24,9 @@ class CategoriesModel extends AdminBaseModel
         'ob_keyword',
         'category_status',
     ];
+
+    public function getPostListAttribute()
+    {
+        return resolve(PostsRepository::class)->getAllDataByCategory($this->id, 8);
+    }
 }

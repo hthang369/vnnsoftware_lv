@@ -5,7 +5,7 @@ namespace Modules\Admin\Repositories;
 use Illuminate\Support\Facades\DB;
 use Modules\Admin\Entities\SlidesModel;
 use Modules\Admin\Forms\SlidesForm;
-use Modules\Admin\Grids\SlidesGridInterface;
+use Modules\Admin\Grids\SlidesGrid;
 use Modules\Core\Services\FileManagementService;
 
 class SlidesRepository extends AdminBaseRepository
@@ -27,7 +27,7 @@ class SlidesRepository extends AdminBaseRepository
      */
     public function grid()
     {
-        return SlidesGridInterface::class;
+        return SlidesGrid::class;
     }
 
     /**

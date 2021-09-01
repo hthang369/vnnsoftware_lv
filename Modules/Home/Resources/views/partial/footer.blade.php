@@ -40,7 +40,7 @@
 
     <div class="container text-center">
       <div class="copyright">
-        © Copyright <strong><span>MyBiz</span></strong>. All Rights Reserved
+        © Copyright <strong><span>VNNIT</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->

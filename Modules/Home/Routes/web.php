@@ -14,5 +14,6 @@
 Route::group(['prefix' => ''], function() {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/post/{title}', 'HomeController@showPost')->name('page.show-post');
+    Route::get('/detail/{title}', 'HomeController@showPostDetail')->name('page.show-detail');
     Route::get('/{title}', 'HomeController@show')->name('page.show');
 });

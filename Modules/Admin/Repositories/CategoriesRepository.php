@@ -4,7 +4,7 @@ namespace Modules\Admin\Repositories;
 
 use Modules\Admin\Entities\CategoriesModel;
 use Modules\Admin\Forms\CategoriesForm;
-use Modules\Admin\Grids\CategoriesGridInterface;
+use Modules\Admin\Grids\CategoriesGrid;
 
 class CategoriesRepository extends AdminBaseRepository
 {
@@ -25,7 +25,7 @@ class CategoriesRepository extends AdminBaseRepository
      */
     public function grid()
     {
-        return CategoriesGridInterface::class;
+        return CategoriesGrid::class;
     }
 
     /**

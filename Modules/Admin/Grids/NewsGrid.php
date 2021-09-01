@@ -4,16 +4,15 @@ namespace Modules\Admin\Grids;
 
 use Closure;
 use Illuminate\Support\HtmlString;
-use Leantony\Grid\Grid;
 
-class RolesGrid extends BaseGrid
+class NewsGrid extends BaseGrid
 {
     /**
      * The name of the grid
      *
      * @var string
      */
-    protected $name = 'Roles';
+    protected $name = 'News';
 
     /**
     * Set the columns to be displayed.
@@ -24,18 +23,18 @@ class RolesGrid extends BaseGrid
     public function setColumns()
     {
         $this->columns = [
-            "id" => [
+		    "id" => [
 		        "label" => "ID",
 		        "filter" => [
-		            "enabled" => true,
+		            "enabled" => false,
 		            "operator" => "="
 		        ],
 		        "styles" => [
 		            "column" => "grid-w-10"
 		        ]
 		    ],
-		    "level" => [
-                'label' => trans('admin::roles.role_level'),
+		    "post_title" => [
+                'label' => trans('admin::posts.post_title'),
 		        "search" => [
 		            "enabled" => true
 		        ],
@@ -44,51 +43,77 @@ class RolesGrid extends BaseGrid
 		            "operator" => "="
 		        ]
 		    ],
-		    "name" => [
-                'label' => trans('admin::roles.role_name'),
+            "post_image" => [
+                'label' => trans('admin::posts.post_image'),
 		        "search" => [
 		            "enabled" => false
 		        ],
 		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "like"
+		            "enabled" => false,
+		            "operator" => "="
                 ],
                 'raw' => true,
                 'data' => function ($columnData, $columnName) {
                     // like for instance, displaying an image on the grid...
-                    return new HtmlString(sprintf('<a href="%s">%s</a>', route('role_has_permissions.show',$columnData->id), $columnData->{$columnName}));
+                    return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="80">', asset('storage/images/'.$columnData->{$columnName}), 'alternative'));
                 },
 		    ],
-            "updated_at" => [
-                'label' => trans('admin::roles.advertise_link'),
+            "category_id" => [
+                'label' => trans('admin::posts.category_id'),
 		        "search" => [
 		            "enabled" => false
+		        ],
+		        "filter" => [
+		            "enabled" => false,
+		            "operator" => "="
+		        ]
+		    ],
+		    "post_excerpt" => [
+                'label' => trans('admin::posts.post_excerpt'),
+		        "search" => [
+		            "enabled" => true
 		        ],
 		        "filter" => [
 		            "enabled" => true,
 		            "operator" => "like"
 		        ]
 		    ],
-		    "role_rank" => [
-                'label' => trans('admin::roles.advertise_image'),
+		    "post_date" => [
+                'label' => trans('admin::posts.post_date'),
 		        "search" => [
 		            "enabled" => false
 		        ],
 		        "filter" => [
 		            "enabled" => false,
 		            "operator" => "="
-                ]
+		        ]
 		    ],
-		    "users_count" => [
-                'label' => trans('admin::roles.advertise_image'),
+		    "post_status" => [
+                'label' => trans('admin::posts.post_status'),
 		        "search" => [
 		            "enabled" => false
 		        ],
 		        "filter" => [
 		            "enabled" => false,
 		            "operator" => "="
-                ]
-		    ],
+		        ]
+		    ]
 		];
+    }
+
+    /**
+    * Configure rendered buttons, or add your own
+    *
+    * @return void
+    */
+    public function configureButtons()
+    {
+        parent::configureButtons();
+		$this->editToolbarButton('create', [
+            'dataAttributes' => ['modal-size' => 'modal-xl'],
+        ]);
+        $this->editRowButton('view', [
+            'dataAttributes' => ['modal-size' => 'modal-xl'],
+        ]);
     }
 }

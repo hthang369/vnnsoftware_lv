@@ -19,7 +19,7 @@ class SettingsMapForm extends Form
             ]);
             $this->add('cancel_info', Field::BUTTON_SUBMIT, [
                 'label' => trans('setting::configs.cancel_info'),
-                'attr' => ['class' => 'btn btn-secondary', 'formaction' => route('configs.index'), 'formmethod' => 'get']
+                'attr' => ['class' => 'btn btn-secondary', 'formaction' => route('setting.index'), 'formmethod' => 'get']
             ]);
         } else {
             $this->add('web_map', 'maps', [

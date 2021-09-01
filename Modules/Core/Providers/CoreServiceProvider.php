@@ -4,6 +4,7 @@ namespace Modules\Core\Providers;
 
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
+use Modules\Core\Support\CommonHelper;
 use Modules\Core\Contracts\PaginationTransformer;
 use Modules\Core\Repositories\StubPaginationTransformer;
 use Modules\Core\Services\FileManagementService;
@@ -18,7 +19,8 @@ class CoreServiceProvider extends ServiceProvider
     protected $defer = false;
 
     private $initFacades = [
-        'file-management' => FileManagementService::class
+        'file-management' => FileManagementService::class,
+        'common-helper' => CommonHelper::class,
     ];
 
     /**

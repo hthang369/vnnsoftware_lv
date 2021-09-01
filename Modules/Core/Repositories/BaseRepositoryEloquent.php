@@ -17,7 +17,7 @@ abstract class BaseRepositoryEloquent extends PrettusBaseRepository implements B
      * $var service;
      */
     protected $service;
-    
+
     /**
      * $var grid;
      */
@@ -37,7 +37,7 @@ abstract class BaseRepositoryEloquent extends PrettusBaseRepository implements B
     {
         return null;
     }
-    
+
     /**
      * Specify Grid class name
      *
@@ -47,7 +47,7 @@ abstract class BaseRepositoryEloquent extends PrettusBaseRepository implements B
     {
         return null;
     }
-    
+
     /**
      * Specify Form class name
      *
@@ -74,7 +74,7 @@ abstract class BaseRepositoryEloquent extends PrettusBaseRepository implements B
 
         return $this->service;
     }
-    
+
     /**
      * @param null $grid
      *
@@ -91,7 +91,7 @@ abstract class BaseRepositoryEloquent extends PrettusBaseRepository implements B
 
         return $this->dataGrid;
     }
-    
+
     /**
      * @param null $form
      *
@@ -132,12 +132,17 @@ abstract class BaseRepositoryEloquent extends PrettusBaseRepository implements B
     public function allDataGrid()
     {
         if ($this->dataGrid) {
-            return $this->dataGrid->create([
-                'query' => $this->getQuery(),
-                'request' => request()
-            ]);
+            return $this->dataGrid->create($this->getGridParams());
         }
         return null;
+    }
+
+    protected function getGridParams()
+    {
+        return [
+            'query' => $this->getQuery(),
+            'request' => request()
+        ];
     }
 
     protected function getQuery()
@@ -147,7 +152,7 @@ abstract class BaseRepositoryEloquent extends PrettusBaseRepository implements B
 
         if ($this->model instanceof Builder)
             $results = $this->model;
-        else    
+        else
             $results = $this->model::query();
 
         $this->resetModel();

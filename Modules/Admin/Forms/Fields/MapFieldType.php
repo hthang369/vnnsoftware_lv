@@ -18,6 +18,7 @@ class MapFieldType extends FormField
     public function render(array $options = [], $showLabel = true, $showField = true, $showError = true)
     {
         data_set($options, 'attr.class', array_merge(data_get($options, 'attr.class', []), ['embed-responsive-item']));
+        data_set($options, 'attr.parent_class', 'embed-responsive-16by9');
         return parent::render($options, $showLabel, $showField, $showError);
     }
 }

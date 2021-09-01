@@ -11,12 +11,11 @@
                         <x-image :src='asset("storage/images/$post_image")' :alt="$post_image" width="200" class="mr-3" />
                     </x-slot>
 
-                    <h5><a href="{{ route('page.show-detail', $post['post_link']) }}">{{ $post['post_title'] }}</a></h5>
+                    <h4><a href="{{ route('page.show-post', $post['post_link']) }}">{{ $post['post_title'] }}</a></h4>
                     <p>{{ $post['post_excerpt'] }}</p>
                 </x-media>
             @endforeach
         </ul>
-        <x-pagination :total="$post_list['total']" :current="$post_list['current_page']" :pages="$post_list['last_page']" />
     </x-section-box>
 </main>
 @endsection

@@ -5,7 +5,7 @@ namespace Modules\Admin\Repositories;
 use Illuminate\Support\Facades\DB;
 use Modules\Admin\Entities\AdvertisesModel;
 use Modules\Admin\Forms\AdvertisesForm;
-use Modules\Admin\Grids\AdvertisesGridInterface;
+use Modules\Admin\Grids\AdvertisesGrid;
 use Modules\Core\Services\FileManagementService;
 
 class AdvertisesRepository extends AdminBaseRepository
@@ -27,7 +27,7 @@ class AdvertisesRepository extends AdminBaseRepository
      */
     public function grid()
     {
-        return AdvertisesGridInterface::class;
+        return AdvertisesGrid::class;
     }
 
     /**

@@ -30,12 +30,18 @@ class SettingsHomeForm extends Form
         } else {
             $this->add('web_favicon', 'image_file', [
                 'label' => trans('setting::configs.web_favicon'),
+                'src' => 'storage/images/',
+                'width' => '150'
             ]);
             $this->add('web_logo', 'image_file', [
                 'label' => trans('setting::configs.web_logo'),
+                'src' => 'storage/images/',
+                'width' => '150'
             ]);
             $this->add('web_banner', 'image_file', [
                 'label' => trans('setting::configs.web_banner'),
+                'src' => 'storage/images/',
+                'width' => '150'
             ]);
             $this->add('edit', Field::BUTTON_SUBMIT, [
                 'label' => trans('admin::common.edit'),

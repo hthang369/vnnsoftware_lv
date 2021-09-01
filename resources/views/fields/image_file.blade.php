@@ -8,7 +8,10 @@
 
 @if ($showField)
 <div class="image-file">
-    <img src="{{ data_get($options, 'src', '') }}" class="{{ join(' ', data_get($options, 'attr.class', [])) }}" />
+    @php($imgSrc = data_get($options, 'src').data_get($options, 'value'))
+    <img src="{{ asset($imgSrc) }}"
+        class="{{ join(' ', data_get($options, 'attr.class', [])) }}"
+        loading="lazy" {!! attributes_get(array_only($options, ['width', 'height'])) !!} />
 </div>
 <? include helpBlockPath(); ?>
 @endif

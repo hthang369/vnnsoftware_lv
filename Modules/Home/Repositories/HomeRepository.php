@@ -39,7 +39,7 @@ class HomeRepository extends HomeBaseRepository
             case 'news':
                 $data = CategoriesModel::find(data_get($menu, 'partial_id'));
                 $results = $data->toArray();
-                $results['post_list'] = resolve(PostsRepository::class)->getAllDataByCategory($data->id)->toArray();
+                $results['post_list'] = resolve(PostsRepository::class)->getAllDataByCategory($data->id, 'news')->toArray();
                 break;
         }
         return [
@@ -53,14 +53,14 @@ class HomeRepository extends HomeBaseRepository
         $results = resolve(SlidesRepository::class)->all();
         return $results->map(function($item) {
             return [
-                'image' => ['src' => asset('storage/images/'.$item->advertise_image), 'lazyload' => false]
+                'image' => ['src' => asset('storage/images/'.$item->advertise_image), 'lazyload' => false, 'height' => 350]
             ];
         })->all();
     }
 
     protected function getProductsData($category_id)
     {
-        $results = resolve(PostsRepository::class)->getAllDataByCategoryParent($category_id);
+        $results = resolve(PostsRepository::class)->getAllDataWithCategoryParent($category_id);
         return $results->groupBy('category_id')->map(function($item) {
             $categoryColumns = ['category_id', 'category_name', 'category_link', 'category_image'];
             $categoryInfo = $item->first()->only($categoryColumns);
@@ -75,7 +75,15 @@ class HomeRepository extends HomeBaseRepository
     public function getHomeProducts()
     {
         $menu = CategoriesModel::where('category_link', 'thiet-ke-web')->first();
-        return resolve(PostsRepository::class)->getAllDataByCategoryParent($menu->id);
+        return resolve(PostsRepository::class)->getAllDataByCategoryParent($menu->id, 8);
+    }
+
+    public function findPostCategory($id)
+    {
+        $cat = CategoriesModel::where('category_link', $id)->first();
+        $results = $cat->toArray();
+        $results['post_list'] = resolve(PostsRepository::class)->getAllDataByCategory($cat->id)->toArray();
+        return $results;
     }
 
     public function findPost($id)

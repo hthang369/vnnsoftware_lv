@@ -17,7 +17,8 @@ class HomeController extends BaseController
     protected $actionPermissionList = [
         'index' => 'public',
         'show' => 'public',
-        'showPost' => 'public'
+        'showPost' => 'public',
+        'showPostDetail' => 'public'
     ];
 
     protected $data;
@@ -75,6 +76,16 @@ class HomeController extends BaseController
     }
 
     public function showPost($id)
+    {
+        $base = $this->repository->findPostCategory($id);
+
+        $viewName = 'category';
+        $this->data['mapInfo'] = data_get($this->allSetting, 'map.web_map');
+
+        return view("home::$viewName", array_merge($this->data, $base));
+    }
+
+    public function showPostDetail($id)
     {
         $base = $this->repository->findPost($id);
 

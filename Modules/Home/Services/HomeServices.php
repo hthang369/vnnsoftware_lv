@@ -42,7 +42,10 @@ class HomeServices
                     $this->renderMenu($subMenu, $childrens, 'dropdown-item');
                 });
             } else {
-                $menu->url(data_get($item, 'menu_link'), data_get($item, 'menu_name'), ['class' => $class]);
+                $icon = data_get($item, 'menu_icon');
+                $menu->url(data_get($item, 'menu_link'), data_get($item, 'menu_name'),
+                    ['class' => $class, 'icon' => $icon]
+                );
             }
         });
     }

@@ -22,7 +22,6 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
 
 <body>
     <section class="container-fluid">
-
         @yield('content')
     </section>
 </body>
