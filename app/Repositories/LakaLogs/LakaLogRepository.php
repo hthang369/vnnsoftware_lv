@@ -27,13 +27,14 @@ class LakaLogRepository extends CoreRepository
     {
         parent::__construct();
 
-        $this->storage = Storage::disk('logs');
+        $this->storage = Storage::disk('s3');
     }
 
     public function formGenerate()
     {
         $pattern = '/laravel-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].log/';
-        $files = $this->storage->files(DIRECTORY_SEPARATOR);
+        $files = $this->storage->allFiles(DIRECTORY_SEPARATOR);
+        print_r($files);exit;
         return ['files' => array_filter($files, function($file) use($pattern) {
             preg_match($pattern, $file, $matchs);
             return $matchs[0];
