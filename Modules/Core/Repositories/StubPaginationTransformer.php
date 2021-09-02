@@ -13,6 +13,11 @@ class StubPaginationTransformer implements PaginationTransformer
      */
     public function transform($data)
     {
-        return $data;
+        return [
+            'rows'          => $data->items(),
+            'total'         => $data->total(),
+            'current_page'  => $data->currentPage(),
+            'pages'         => $data->lastPage()
+        ];
     }
 }

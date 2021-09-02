@@ -1,31 +1,21 @@
 <?php
 
-namespace Modules\Admin\Providers;
+namespace Modules\Api\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-use Modules\Admin\Console\CoreControllerMakeCommand;
-use Modules\Admin\Console\EntityMakeCommand;
-use Modules\Admin\Console\GenerateActionCommand;
-use Modules\Admin\Console\GridMakeCommand;
-use Modules\Admin\Console\RepositoryMakeCommand;
-use Modules\Admin\Console\ResponseMakeCommand;
-use Modules\Admin\Console\ValidatorMakeCommand;
 
-class AdminServiceProvider extends ServiceProvider
+class ApiServiceProvider extends ServiceProvider
 {
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'Admin';
+    protected $moduleName = 'Api';
 
     /**
      * @var string $moduleNameLower
      */
-    protected $moduleNameLower = 'admin';
-
-    protected $commands = [
-    ];
+    protected $moduleNameLower = 'api';
 
     /**
      * Boot the application events.
@@ -38,12 +28,6 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
-        $this->commands($this->commands);
-
-        view()->composer(
-            '*',
-            'Modules\Admin\Http\ViewComposers\MenuComposer'
-        );
     }
 
     /**
@@ -68,9 +52,6 @@ class AdminServiceProvider extends ServiceProvider
         ], 'config');
         $this->mergeConfigFrom(
             module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
-        );
-        $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/menus.php'), $this->moduleNameLower.'.menus'
         );
     }
 

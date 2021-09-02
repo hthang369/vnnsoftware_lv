@@ -1,0 +1,17 @@
+<?php
+
+namespace $CLASS_NAMESPACE$\Http\Controllers;
+
+use Modules\$MODULENAME$\Repositories\$CLASS_NAME$Criteria;
+use Modules\$MODULENAME$\Repositories\$CLASS_NAME$Repository;
+use Modules\$MODULENAME$\Responses\$CLASS_NAME$Response;
+use Modules\$MODULENAME$\Validators\$CLASS_NAME$Validator;
+use Modules\Core\Http\Controllers\BaseController;
+
+class $CLASS$ extends BaseController
+{
+    public function __construct($CLASS_NAME$Repository $repository, $CLASS_NAME$Validator $validator, $CLASS_NAME$Response $response, $CLASS_NAME$Criteria $criteria)
+    {
+        parent::__construct($repository, $validator, $response, $criteria);
+    }
+}

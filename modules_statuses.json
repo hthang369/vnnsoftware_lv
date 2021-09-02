@@ -3,5 +3,6 @@
     "Admin": true,
     "Home": true,
     "Setting": true,
-    "Demo": true
+    "Demo": true,
+    "Api": true
 }
