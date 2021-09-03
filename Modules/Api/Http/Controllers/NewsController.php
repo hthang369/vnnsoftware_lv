@@ -11,7 +11,8 @@ use Modules\Core\Http\Controllers\BaseController;
 class NewsController extends BaseController
 {
     protected $actionPermissionList = [
-        'listNews' => 'public'
+        'listNews' => 'public',
+        'showNews' => 'public'
     ];
 
     public function __construct(NewsRepository $repository, NewsValidator $validator, NewsResponse $response, NewsCriteria $criteria)
@@ -22,5 +23,10 @@ class NewsController extends BaseController
     public function listNews()
     {
         return parent::index();
+    }
+
+    public function showNews($id)
+    {
+        return parent::show($id);
     }
 }
