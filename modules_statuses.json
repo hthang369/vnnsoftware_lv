@@ -4,5 +4,6 @@
     "Home": true,
     "Setting": true,
     "Demo": true,
-    "Api": true
+    "Api": true,
+    "FileManager": true
 }

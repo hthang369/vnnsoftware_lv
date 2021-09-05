@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth:web', 'prefix' => 'admin'], function() {
 
     Route::resource('permission-role', 'PermissionRoleController')->names('role_has_permissions');
 
-    Route::resource('users', 'CategoriesController');
+    Route::resource('users', 'UsersController');
 
     Route::resource('media', 'MediaController');
 

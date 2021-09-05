@@ -52,9 +52,9 @@ class GenerateActionCommand extends Command
             $this->call('module:make-grid', ['name' => $name,'module' => $moduleName,'--model' => $moduleNamespace.'Entities'.'\\'.$name.'Model']);
             $this->call('make:form', ['name' => $name.'Form','--namespace' => $moduleNamespace.'Forms','--path' => $moduleNamespace.'Forms']);
         } else {
-            // $this->call('module:make-api-controller', ['name' => $name, 'module' => $moduleName]);
-            // $this->call('module:make-entity', ['name' => $name, 'module' => $moduleName]);
-            // $this->call('module:make-repository', ['name' => $name, 'module' => $moduleName]);
+            $this->call('module:make-api-controller', ['name' => $name, 'module' => $moduleName]);
+            $this->call('module:make-entity', ['name' => $name, 'module' => $moduleName]);
+            $this->call('module:make-repository', ['name' => $name, 'module' => $moduleName]);
             $this->call('module:make-validator', ['name' => $name.'Validator', 'module' => $moduleName]);
             $this->call('module:make-response', ['name' => $name.'Response', 'module' => $moduleName]);
         }

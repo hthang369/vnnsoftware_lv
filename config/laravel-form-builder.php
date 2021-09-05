@@ -48,5 +48,7 @@ return [
        'custom_file' => Modules\Admin\Forms\Fields\CustomFileType::class,
        'image_file' => Modules\Admin\Forms\Fields\ImageFileType::class,
        'maps' => Modules\Admin\Forms\Fields\MapFieldType::class,
+       'radio_group' => Modules\Admin\Forms\Fields\RadioGroupType::class,
+       'checkbox_group' => Modules\Admin\Forms\Fields\CheckBoxGroupType::class
     ]
 ];

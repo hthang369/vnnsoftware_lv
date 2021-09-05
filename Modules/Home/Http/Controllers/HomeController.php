@@ -18,7 +18,8 @@ class HomeController extends BaseController
         'index' => 'public',
         'show' => 'public',
         'showPost' => 'public',
-        'showPostDetail' => 'public'
+        'showPostDetail' => 'public',
+        'sendMail' => 'public'
     ];
 
     protected $data;

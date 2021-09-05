@@ -20,4 +20,6 @@ Route::middleware('auth:api')->get('/api', function (Request $request) {
 Route::group(['prefix' => 'v1'], function() {
     Route::get('list-news', 'NewsController@listNews');
     Route::get('detail-news/{id}', 'NewsController@showNews');
+
+    Route::post('send-mail', 'ContactsController@sendMail')->name('page.send-mail');
 });

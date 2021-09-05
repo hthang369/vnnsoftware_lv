@@ -2,15 +2,11 @@
 
 namespace Modules\Admin\Providers;
 
+use Illuminate\Console\Command;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
-use Modules\Admin\Console\CoreControllerMakeCommand;
-use Modules\Admin\Console\EntityMakeCommand;
-use Modules\Admin\Console\GenerateActionCommand;
-use Modules\Admin\Console\GridMakeCommand;
-use Modules\Admin\Console\RepositoryMakeCommand;
-use Modules\Admin\Console\ResponseMakeCommand;
-use Modules\Admin\Console\ValidatorMakeCommand;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use ReflectionClass;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -24,8 +20,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected $moduleNameLower = 'admin';
 
-    protected $commands = [
-    ];
+    protected $commands = 'Console';
 
     /**
      * Boot the application events.
@@ -38,7 +33,18 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
-        $this->commands($this->commands);
+        $listCommands = array_map(function ($fileInfo) {
+            $command = 'Modules\\Admin\\'.str_replace(
+                ['/', '.php'],
+                ['\\', ''],
+                Str::after($fileInfo->getRealPath(), realpath(module_path($this->moduleName)).DIRECTORY_SEPARATOR)
+            );
+            if (is_subclass_of($command, Command::class) &&
+                ! (new ReflectionClass($command))->isAbstract()) {
+                    return $command;
+                }
+        }, File::allFiles(module_path($this->moduleName, $this->commands)));
+        $this->commands($listCommands);
 
         view()->composer(
             '*',
@@ -67,10 +73,12 @@ class AdminServiceProvider extends ServiceProvider
             module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
+            module_path($this->moduleName, 'Config/config.php'),
+            $this->moduleNameLower
         );
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/menus.php'), $this->moduleNameLower.'.menus'
+            module_path($this->moduleName, 'Config/menus.php'),
+            $this->moduleNameLower . '.menus'
         );
     }
 
