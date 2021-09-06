@@ -4,14 +4,17 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        @include('home::partial.google')
         <title>@yield('header_title', $webName)</title>
-        <meta name="google-site-verification" content="EnLIFd3xNlu8lst-LwUTKQzjQsNBLxHORwSbtnyvi_M" />
         <link rel="shortcut icon" type="image/png" href="{{ asset("storage/images/$webFavicon") }}">
         <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('/css/font-awesome.min.css') }}" rel="stylesheet">
         <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+        @stack('script_gg')
     </head>
     <body>
+        @stack('no_script')
+        
         <section class="container-fluid">
             @include('home::partial.header')
 
