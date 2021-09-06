@@ -43,7 +43,7 @@ class GenerateActionCommand extends Command
         $apiOption = $this->option('api');
         $moduleName = $this->argument('module');
         if (!$apiOption) {
-            $moduleNamespace = str_replace('Grids', '', config('grid.generation.namespace'));
+            $moduleNamespace = str_replace('module_name', $moduleName, config('grid.generation.namespace'));
             $this->call('module:make-core-controller', ['name' => $name, 'module' => $moduleName]);
             $this->call('module:make-entity', ['name' => $name, 'module' => $moduleName]);
             $this->call('module:make-repository', ['name' => $name, 'module' => $moduleName]);
