@@ -43,7 +43,7 @@
         © Copyright <strong><span>VNNIT</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
-        Designed by <a href="http://webdesignvnnit.com/">VNN Computer</a>
+        Designed by <a href="http://webdesignvnnit.com/">VNNIT</a>
       </div>
     </div>
   </footer>
