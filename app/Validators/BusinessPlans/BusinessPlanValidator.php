@@ -2,7 +2,7 @@
 
 namespace App\Validators\BusinessPlans;
 
-use App\Core\Validators\BaseValidator;
+use Laka\Core\Validators\BaseValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 
 class BusinessPlanValidator extends BaseValidator

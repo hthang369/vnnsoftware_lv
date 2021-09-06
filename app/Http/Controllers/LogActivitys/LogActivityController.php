@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\LogActivitys;
 
-use App\Core\Http\Controllers\BaseController;
+use Laka\Core\Http\Controllers\BaseController;
 use App\Repositories\LogActivitys\LogActivityRepository;
 use App\Validators\LogActivitys\LogActivityValidator;
 

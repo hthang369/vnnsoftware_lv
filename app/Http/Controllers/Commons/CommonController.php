@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Commons;
 
-use App\Core\Http\Response\WebResponse;
+use Laka\Core\Http\Response\WebResponse;
 use App\Http\Controllers\Core\CoreController;
 use App\Repositories\Commons\CommonRepository;
 use App\Validators\Commons\CommonValidator;

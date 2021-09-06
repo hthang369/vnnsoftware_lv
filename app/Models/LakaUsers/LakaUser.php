@@ -2,7 +2,7 @@
 
 namespace App\Models\LakaUsers;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class LakaUser extends BaseModel
 {

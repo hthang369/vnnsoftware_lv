@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Filters;
 
-use App\Core\Repositories\FilterQueryString\Filters\BaseClause;
+use Laka\Core\Repositories\FilterQueryString\Filters\BaseClause;
 use Illuminate\Database\Eloquent\Builder;
 
 class WhereBetweenClause extends BaseClause {

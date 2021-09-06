@@ -2,7 +2,7 @@
 
 namespace App\Models\Companys;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class Company extends BaseModel
 {

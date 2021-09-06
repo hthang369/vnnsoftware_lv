@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Core\Support\QueryLogger;
+use Laka\Core\Support\QueryLogger;
 use App\Support\CommonHelper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;

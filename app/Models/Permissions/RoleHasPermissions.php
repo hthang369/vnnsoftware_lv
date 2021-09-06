@@ -2,7 +2,7 @@
 
 namespace App\Models\Permissions;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class RoleHasPermissions extends BaseModel
 {

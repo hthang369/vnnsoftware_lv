@@ -2,7 +2,7 @@
 
 namespace App\Validators\LakaUsers;
 
-use App\Core\Validators\BaseValidator;
+use Laka\Core\Validators\BaseValidator;
 
 class LakaUserValidator extends BaseValidator
 {

@@ -2,8 +2,8 @@
 
 namespace App\Repositories\LogActivitys;
 
-use App\Core\Repositories\BaseRepository;
-use App\Core\Repositories\FilterQueryString\Filters\WhereClause;
+use Laka\Core\Repositories\BaseRepository;
+use Laka\Core\Repositories\FilterQueryString\Filters\WhereClause;
 use App\Models\LogActivitys\LogActivity;
 
 class LogActivityRepository extends BaseRepository

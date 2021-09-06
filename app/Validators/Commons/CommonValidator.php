@@ -2,7 +2,7 @@
 
 namespace App\Validators\Commons;
 
-use App\Core\Validators\BaseValidator;
+use Laka\Core\Validators\BaseValidator;
 
 class CommonValidator extends BaseValidator
 {

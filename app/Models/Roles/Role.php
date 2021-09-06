@@ -2,7 +2,7 @@
 
 namespace App\Models\Roles;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class Role extends BaseModel
 {

@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use App\Core\Http\Response\WebResponse;
+use Laka\Core\Http\Response\WebResponse;
 use App\Facades\Common;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Prettus\Validator\Exceptions\ValidatorException;

@@ -2,7 +2,7 @@
 
 namespace App\Models\BusinessPlans;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class BusinessPlan extends BaseModel
 {

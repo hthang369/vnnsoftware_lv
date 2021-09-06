@@ -2,7 +2,7 @@
 
 namespace App\Models\$NAME$s;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class $NAME$ extends BaseModel
 {

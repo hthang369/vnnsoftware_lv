@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Core;
 
-use App\Core\Http\Controllers\BaseController;
-use App\Core\Http\Response\JsonResponse;
-use App\Core\Http\Response\WebResponse;
-use App\Core\Validators\BaseValidator;
+use Laka\Core\Http\Controllers\BaseController;
+use Laka\Core\Http\Response\JsonResponse;
+use Laka\Core\Http\Response\WebResponse;
+use Laka\Core\Validators\BaseValidator;
 use Illuminate\Support\Facades\View;
 
 /**

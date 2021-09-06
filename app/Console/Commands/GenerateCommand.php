@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Core\Support\Stub;
+use Laka\Core\Support\Stub;
 
 class GenerateCommand extends BaseCommand
 {

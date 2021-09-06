@@ -8,6 +8,7 @@ use App\Repositories\Core\CoreRepository;
 use App\Models\LakaLogs\LakaLog;
 use App\Presenters\LakaLogs\LakaLogGridPresenter;
 use App\Repositories\Filters\WhereBetweenClause;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 
@@ -34,17 +35,15 @@ class LakaLogRepository extends CoreRepository
     {
         $pattern = '/laravel-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].log/';
         $files = $this->storage->allFiles(DIRECTORY_SEPARATOR);
-        print_r($files);exit;
         return ['files' => array_filter($files, function($file) use($pattern) {
-            preg_match($pattern, $file, $matchs);
-            return $matchs[0];
+            return str_contains($file, 'laravel-') || str_contains($file, 'laka-');
         })];
     }
 
     public function create(array $attributes)
     {
         $files = $attributes['files'];
-        $dataFiles = $this->storage->files(DIRECTORY_SEPARATOR);
+        $dataFiles = $this->storage->allFiles(DIRECTORY_SEPARATOR);
         $dataLog = [];
         foreach ($dataFiles as $file) {
             if (in_array($file, $files)) {
@@ -65,15 +64,23 @@ class LakaLogRepository extends CoreRepository
                         ];
                     }, $data);
                 } else {
-                    $result = file(storage_path('logs'.DIRECTORY_SEPARATOR.$file), FILE_IGNORE_NEW_LINES);
+                    $result = explode('<br />', nl2br($this->storage->get(DIRECTORY_SEPARATOR.$file)));
+                    // $result = file(storage_path('logs'.DIRECTORY_SEPARATOR.$file), FILE_IGNORE_NEW_LINES);
                     foreach($result as $line) {
-                        array_push($data, HttpLogParser::parse($line));
+                        $envroment = starts_with($file, 'real') ? 'real' : 'stg';
+                        $item = array_merge(HttpLogParser::parse(trim($line)), [
+                            'log_level' => 'laka_'.$envroment, 
+                            'log_type' => 'apache', 
+                            'created_at' => now(),
+                            'updated_at' => now()
+                        ]);
+                        array_push($data, $item);
                     }
                 }
                 $dataLog = array_merge($dataLog, $data);
             }
         }
-
+        
         return $this->model::insert($dataLog);
     }
 }

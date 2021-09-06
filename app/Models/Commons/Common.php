@@ -2,7 +2,7 @@
 
 namespace App\Models\Commons;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class Common extends BaseModel
 {

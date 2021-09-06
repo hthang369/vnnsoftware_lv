@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Sections;
 
-use App\Core\Repositories\BaseRepository;
-use App\Core\Repositories\FilterQueryString\Filters\WhereClause;
+use Laka\Core\Repositories\BaseRepository;
+use Laka\Core\Repositories\FilterQueryString\Filters\WhereClause;
 use App\Models\Sections\Sections;
 use Illuminate\Support\Facades\DB;
 

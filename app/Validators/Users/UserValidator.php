@@ -2,7 +2,7 @@
 
 namespace App\Validators\Users;
 
-use App\Core\Validators\BaseValidator;
+use Laka\Core\Validators\BaseValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 
 class UserValidator extends BaseValidator

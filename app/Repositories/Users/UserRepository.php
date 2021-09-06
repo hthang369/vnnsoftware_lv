@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Users;
 
-use App\Core\Repositories\FilterQueryString\Filters\WhereClause;
+use Laka\Core\Repositories\FilterQueryString\Filters\WhereClause;
 use App\Repositories\Core\CoreRepository;
 use App\Models\Users\User;
 use App\Presenters\Users\UserGridPresenter;

@@ -2,7 +2,7 @@
 
 namespace App\Models\Menus;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class TopMenu extends BaseModel
 {

@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Menus;
 
-use App\Core\Repositories\BaseRepository;
+use Laka\Core\Repositories\BaseRepository;
 use App\Facades\Common;
 use App\Models\Menus\LeftMenu;
 use App\Models\Menus\TopMenu;

@@ -2,7 +2,7 @@
 
 namespace App\Models\LakaLogs;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class LakaLog extends BaseModel
 {

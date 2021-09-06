@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\LakaUsers;
 
-use App\Core\Http\Response\WebResponse;
+use Laka\Core\Http\Response\WebResponse;
 use App\Http\Controllers\Core\CoreController;
 use App\Repositories\LakaUsers\LakaUserRepository;
 use App\Validators\LakaUsers\LakaUserValidator;

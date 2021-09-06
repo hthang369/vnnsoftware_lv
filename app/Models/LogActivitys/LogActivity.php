@@ -2,7 +2,7 @@
 
 namespace App\Models\LogActivitys;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class LogActivity extends BaseModel
 {

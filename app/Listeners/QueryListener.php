@@ -1,7 +1,7 @@
 <?php
 namespace App\Listeners;
 
-use App\Core\Support\QueryLogger;
+use Laka\Core\Support\QueryLogger;
 use Illuminate\Database\Events\QueryExecuted;
 
 class QueryListener

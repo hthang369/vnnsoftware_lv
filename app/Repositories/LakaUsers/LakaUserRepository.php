@@ -2,7 +2,7 @@
 
 namespace App\Repositories\LakaUsers;
 
-use App\Core\Http\Response\WebResponse;
+use Laka\Core\Http\Response\WebResponse;
 use App\Facades\Common;
 use App\Models\Companys\Company;
 use App\Repositories\Core\CoreRepository;

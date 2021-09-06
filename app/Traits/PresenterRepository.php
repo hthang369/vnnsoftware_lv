@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Core\Exceptions\RepositoryException;
+use Laka\Core\Exceptions\RepositoryException;
 use Laka\Core\Contracts\PresenterInterface;
 
 trait PresenterRepository

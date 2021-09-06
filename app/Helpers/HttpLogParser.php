@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use Carbon\Carbon;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Support\Str;
 use Psr\Log\LogLevel;
@@ -23,7 +24,8 @@ class HttpLogParser
     const REGEX_DATETIME_PATTERN    = '(\d{2})\/(\S+)\/(\d{4})[:](\d{2})[:](\d{2})[:](\d{2}) [+|-](\d{2})(\d{2})';
     const REGEX_IP_ADDRESS_PATTERN  = '(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)';
     const REGEX_METHOD_PATH_PATTERN = '(GET|POST|PUT|PATCH|DELETE) (\S+) (\S+)';
-    const REGEX_USER_AGANT_PATTERN  = '(?=.*\bMozilla\b)(?!.*\bmobile\b).*';
+    // const REGEX_USER_AGANT_PATTERN  = '(?=.*\bMozilla\b)(?!.*\bmobile\b).*';
+    const REGEX_USER_AGANT_PATTERN  = '"(\S+) (\S+) (\S+)';
 
     /* -----------------------------------------------------------------
      |  Properties
@@ -57,9 +59,9 @@ class HttpLogParser
 
         static::$parsed = [
             'ip'    => $ipAddress,
-            'url'    => trim($url, '/').$arr[1],
-            'date_log'    => $dateTime,
-            'user_agent'    => $userAgant,
+            'url'    => $arr[1],
+            'date_log'    => Carbon::parse($dateTime),
+            'message'   => $methodPath.' '.$userAgant
         ];
 
         return array_reverse(static::$parsed);

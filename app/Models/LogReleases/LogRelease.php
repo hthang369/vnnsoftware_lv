@@ -2,7 +2,7 @@
 
 namespace App\Models\LogReleases;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class LogRelease extends BaseModel
 {

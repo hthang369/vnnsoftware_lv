@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Core\Support\Stub;
+use Laka\Core\Support\Stub;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileExistsException;
 
@@ -97,7 +97,7 @@ abstract class BaseCommand extends Command
 
     protected function getStubPath()
     {
-        return base_path($this->stubPath ?? 'app/Core/Stubs');
+        return base_path($this->stubPath ?? 'app/Console/Commands/Stubs');
     }
 
     protected function getFileStub($fileName)

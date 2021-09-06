@@ -2,7 +2,7 @@
 
 namespace App\Models\Versions;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 
 class Version extends BaseModel
 {

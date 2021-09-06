@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Core;
 
-use App\Core\Repositories\BaseRepository;
+use Laka\Core\Repositories\BaseRepository;
 use App\Traits\PresenterDataGrid;
 
 abstract class CoreRepository extends BaseRepository

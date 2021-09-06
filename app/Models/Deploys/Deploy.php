@@ -2,7 +2,7 @@
 
 namespace App\Models\Deploys;
 
-use App\Core\Entities\BaseModel;
+use Laka\Core\Entities\BaseModel;
 use Laka\Lib\Services\LakaDeploy;
 
 class Deploy extends BaseModel

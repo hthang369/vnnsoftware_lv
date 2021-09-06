@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ResearchLaravel;
 
-use App\Core\Http\Controllers\BaseController;
+use Laka\Core\Http\Controllers\BaseController;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Routing\Route;

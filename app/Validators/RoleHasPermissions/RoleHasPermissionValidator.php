@@ -2,7 +2,7 @@
 
 namespace App\Validators\RoleHasPermissions;
 
-use App\Core\Validators\BaseValidator;
+use Laka\Core\Validators\BaseValidator;
 
 class RoleHasPermissionValidator extends BaseValidator
 {

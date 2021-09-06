@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Core\Repositories\BaseRepository;
+use Laka\Core\Repositories\BaseRepository;
 use Illuminate\Http\Request;
 
 class MyRepository extends BaseRepository

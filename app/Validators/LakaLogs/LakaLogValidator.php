@@ -2,7 +2,7 @@
 
 namespace App\Validators\LakaLogs;
 
-use App\Core\Validators\BaseValidator;
+use Laka\Core\Validators\BaseValidator;
 
 class LakaLogValidator extends BaseValidator
 {

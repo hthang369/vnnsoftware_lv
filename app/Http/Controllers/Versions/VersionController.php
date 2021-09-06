@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Versions;
 
-use App\Core\Http\Controllers\BaseController;
+use Laka\Core\Http\Controllers\BaseController;
 use App\Repositories\Versions\VersionRepository;
 use App\Validators\Versions\VersionValidator;
 use Illuminate\Support\Facades\View;

@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Versions;
 
-use App\Core\Repositories\BaseRepository;
+use Laka\Core\Repositories\BaseRepository;
 use App\Models\Versions\Version;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 

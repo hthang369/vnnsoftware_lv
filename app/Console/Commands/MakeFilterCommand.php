@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Core\Support\Stub;
+use Laka\Core\Support\Stub;
 use Illuminate\Console\Command;
 
 class MakeFilterCommand extends BaseCommand

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\RoleHasPermissions;
 
-use App\Core\Http\Response\WebResponse;
+use Laka\Core\Http\Response\WebResponse;
 use App\Http\Controllers\Core\CoreController;
 use App\Models\Permissions\Role;
 use App\Repositories\RoleHasPermissions\RoleHasPermissionRepository;
