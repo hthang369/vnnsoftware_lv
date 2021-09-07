@@ -2,11 +2,12 @@
 
 namespace App\Repositories\Users;
 
-use Laka\Core\Repositories\FilterQueryString\Filters\WhereClause;
-use App\Repositories\Core\CoreRepository;
 use App\Models\Users\User;
 use App\Presenters\Users\UserGridPresenter;
+use App\Repositories\Core\CoreRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Laka\Core\Repositories\FilterQueryString\Filters\WhereClause;
 use Spatie\Permission\Models\Role;
 
 class UserRepository extends CoreRepository
@@ -36,8 +37,10 @@ class UserRepository extends CoreRepository
 
     public function update(array $attributes, $id)
     {
-        return DB::transaction(function () use($attributes, $id) {
+        $attributes['password'] = Hash::make($attributes['password']);
+        return DB::transaction(function () use ($attributes, $id) {
             $user = parent::update(array_filter($attributes), $id);
+
             $roles = array_keys($attributes['roles']);
             $user->syncRoles($roles);
             return $user;
@@ -46,7 +49,7 @@ class UserRepository extends CoreRepository
 
     public function create(array $attributes)
     {
-        return DB::transaction(function () use($attributes) {
+        return DB::transaction(function () use ($attributes) {
             $user = parent::create(array_filter($attributes));
             $roles = array_keys($attributes['roles']);
             $user->syncRoles($roles);
