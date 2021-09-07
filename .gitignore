@@ -51,6 +51,5 @@ Thumbs.db
 .env
 composer.lock
 vendor
-
 composer.lock
-
+/storage/framework/*
