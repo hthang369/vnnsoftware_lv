@@ -17,7 +17,10 @@ class CommonHelper
 
     public function callApi($method, $url, $params = [])
     {
-        $fullUrl = config('laka.api_address')."{$url}";
+        if (filter_var($url, FILTER_VALIDATE_URL))
+            $fullUrl = $url;
+        else
+            $fullUrl = config('laka.api_address') . "{$url}";
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             // 'Content-Type' => 'application/x-www-form-urlencoded',

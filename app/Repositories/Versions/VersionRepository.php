@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Versions;
 
+use App\Facades\Common;
 use Laka\Core\Repositories\BaseRepository;
 use App\Models\Versions\Version;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
@@ -21,7 +22,7 @@ class VersionRepository extends BaseRepository
 
     public function all($columns = [])
     {
-        $json = json_decode(file_get_contents('https://laka.lampart-vn.com:9443/api/v1/get-version'), true);
+        $json = Common::callApi('get', 'https://laka.lampart-vn.com:9443/api/v1/get-version');
         return ['versions' => $json['data']];
     }
 }
