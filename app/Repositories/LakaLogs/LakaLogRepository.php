@@ -11,6 +11,7 @@ use App\Repositories\Filters\WhereBetweenClause;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class LakaLogRepository extends CoreRepository
 {
@@ -35,9 +36,23 @@ class LakaLogRepository extends CoreRepository
     {
         $pattern = '/laravel-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].log/';
         $files = $this->storage->allFiles(DIRECTORY_SEPARATOR);
+
         return ['files' => array_filter($files, function($file) use($pattern) {
             return str_contains($file, 'laravel-') || str_contains($file, 'laka-');
         })];
+    }
+
+    public function filesPaginate($files, $page): LengthAwarePaginator
+    {
+        $onPage = config('constants.pagination.items_per_page');
+        $slice = $files->slice(($page-1)* $onPage, $onPage);
+        return new LengthAwarePaginator(
+            $slice,
+            $files->count(),
+            $onPage,
+            $page,
+            ['path' => route('laka-log.s3-log-list')],
+        );
     }
 
     public function create(array $attributes)
@@ -69,8 +84,8 @@ class LakaLogRepository extends CoreRepository
                     foreach($result as $line) {
                         $envroment = starts_with($file, 'real') ? 'real' : 'stg';
                         $item = array_merge(HttpLogParser::parse(trim($line)), [
-                            'log_level' => 'laka_'.$envroment, 
-                            'log_type' => 'apache', 
+                            'log_level' => 'laka_'.$envroment,
+                            'log_type' => 'apache',
                             'created_at' => now(),
                             'updated_at' => now()
                         ]);
@@ -80,7 +95,7 @@ class LakaLogRepository extends CoreRepository
                 $dataLog = array_merge($dataLog, $data);
             }
         }
-        
+
         return $this->model::insert($dataLog);
     }
 }
