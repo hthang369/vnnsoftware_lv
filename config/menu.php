@@ -39,6 +39,6 @@ return [
     [
         'code' => 'laka-log',
         'name' => 'index',
-        'children' => ['index']
+        'children' => ['index', 'create']
     ]
 ];
