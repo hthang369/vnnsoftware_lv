@@ -37,9 +37,10 @@ class MenuSeeder extends Seeder
                         'url'               => route("{$section['code']}.{$item}", [], false),
                         'lang'              => __('menu.'.str_replace('-', '_', $section['code']).'_'.str_replace('-', '_', $item))
                     ];
-                    LeftMenu::firstOrCreate([
+                    $data = LeftMenu::firstOrCreate([
                         'top_menu_id'   => $result->id,
-                        'group'         => $section['code']
+                        'group'         => $section['code'],
+                        'route_name'    => $dataItem['route_name']
                     ], $dataItem);
                 }
             }
