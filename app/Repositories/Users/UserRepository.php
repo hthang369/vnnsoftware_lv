@@ -40,7 +40,6 @@ class UserRepository extends CoreRepository
         $attributes['password'] = Hash::make($attributes['password']);
         return DB::transaction(function () use ($attributes, $id) {
             $user = parent::update(array_filter($attributes), $id);
-
             $roles = array_keys($attributes['roles']);
             $user->syncRoles($roles);
             return $user;
