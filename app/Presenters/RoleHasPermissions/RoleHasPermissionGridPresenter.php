@@ -18,7 +18,7 @@ class RoleHasPermissionGridPresenter extends BaseGridPresenter
             'section_name',
             [
                 'key' => 'permission',
-                'label' => __('permission'),
+                'label' => __('role.permission_role.permission'),
                 'cell' => 'roles.permission_role'
             ]
         ];
