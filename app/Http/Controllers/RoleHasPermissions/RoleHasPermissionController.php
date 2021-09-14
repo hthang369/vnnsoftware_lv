@@ -26,8 +26,8 @@ class RoleHasPermissionController extends CoreController
         parent::__construct($validator);
 
         $this->repository = $this->factory->makeRepository(RoleHasPermissionRepository::class);
-        View::share('titlePage', 'Cài đặt phân quyền');
-        View::share('headerPage', 'custom_title.set_permission_for_role');
+        View::share('titlePage', __('role.permission_role.page_title'));
+        View::share('headerPage', 'role.permission_role.page_header');
     }
 
     public function showByRole($id)

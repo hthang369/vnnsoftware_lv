@@ -82,13 +82,13 @@ var _grids = _grids || {};
               if (options.beforeSend) {
                 options.beforeSend.call(this);
               }
-              obj.attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>');
+              obj.addClass('disabled').attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>');
             },
             complete: function complete() {
               if (options.onComplete) {
                 options.onComplete.call(this);
               }
-              obj.html(originalRemoveBtn).removeAttr('disabled')
+              obj.html(originalRemoveBtn).removeAttr('disabled').removeClass('disabled')
             },
             success: function success(data) {
                 let toastsAlert = $('#liveToast');

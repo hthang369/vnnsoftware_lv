@@ -15,7 +15,7 @@ class RoleGridPresenter extends BaseGridPresenter
             'role_rank',
             [
                 'key'   => 'role_setting',
-                'label' => __('custom_label.role_setting'),
+                'label' => __('role.fields.role_setting'),
                 'cell'  => 'roles.permission'
             ]
         ];

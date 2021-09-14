@@ -32,7 +32,7 @@
         <div class="col-sm-10 form-row mx-0">
             @foreach ($data['roles_all'] as $role)
             <div class="custom-control custom-checkbox mr-2">
-                {!! Form::checkbox("check-{$role->level}", 1, false, ['class' => 'custom-control-input', 'id' => "check-{$role->level}"]) !!}
+                {!! Form::checkbox("roles[{$role->name}]", 1, false, ['class' => 'custom-control-input', 'id' => "check-{$role->level}"]) !!}
                 {!! Form::label("check-{$role->level}", $role->name, ['class' => 'custom-control-label']) !!}
             </div>
             @endforeach
