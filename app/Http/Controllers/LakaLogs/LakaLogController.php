@@ -49,6 +49,7 @@ class LakaLogController extends CoreController
         }
         View::share('dtFrom', $dtFrom);
         View::share('dtTo', $dtTo);
+        return parent::index();
     }
 
     public function s3LogList() {

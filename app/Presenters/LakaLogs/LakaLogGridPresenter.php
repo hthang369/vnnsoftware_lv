@@ -6,6 +6,8 @@ use App\Presenters\BaseGridPresenter;
 
 class LakaLogGridPresenter extends BaseGridPresenter
 {
+    protected $exceptQuery = ['date_log'];
+
     protected function setColumns()
     {
         return [
