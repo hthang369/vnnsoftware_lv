@@ -17,7 +17,7 @@
         @endif
     @show
     @section('caption_page')
-            <x-form route="laka-log.index">
+        <x-form route="laka-log.s3-log-list">
             <x-form-group :inline="true">
                 <div class="col-2">
                     <x-datepicker name="dtFrom" :value="$dtFrom" />
@@ -33,12 +33,27 @@
     <table class="table table-bordered table-striped table-hover">
         <thead>
         <tr scope="header">
-            <th scope="col">No.</th>
+            <th scope="col">@lang('custom_label.index')</th>
             <th scope="col">Name</th>
-            <th scope="col">Action</th>
+            <th scope="col">@lang('custom_label.action')</th>
         </tr>
         </thead>
         <tbody>
+
+        @if(empty($data['paginator']->items()))
+            <tr>
+                <td scope="col" colspan="7" class="">
+                    <div class="alert alert-warning">
+
+
+                        @lang('custom_message.no_item_found')
+
+
+                    </div>
+
+                </td>
+            </tr>
+        @endif
         @foreach($data['paginator']->items() as $key => $value)
             <tr scope="row">
                 <td>{{$key}}</td>
@@ -64,27 +79,21 @@
         @endforeach
         </tbody>
     </table>
-{{--        @if ($data->hasMorePages())--}}
-{{--            <li><a href="{{ $data->nextPageUrl() }}" rel="next">→</a></li>--}}
-{{--        @else--}}
-{{--            <li class="disabled"><span>→</span></li>--}}
-{{--        @endif--}}
-
-        @if ($data['paginator']->lastPage() > 1)
-            <ul class="pagination">
-                <li class="{{ ($data['paginator']->currentPage() == 1) ? ' disabled' : '' }} page-item">
-                    <a class="page-link" href="{{ $data['paginator']->url(1) }}">Previous</a>
+    @if ($data['paginator']->lastPage() > 1)
+        <ul class="pagination">
+            <li class="{{ ($data['paginator']->currentPage() == 1) ? ' disabled' : '' }} page-item">
+                <a class="page-link" href="{{ $data['paginator']->url(1) }}">Previous</a>
+            </li>
+            @for ($i = 1; $i <= $data['paginator']->lastPage(); $i++)
+                <li class="{{ ($data['paginator']->currentPage() == $i) ? ' active' : '' }} page-item">
+                    <a class="page-link" href="{{ $data['paginator']->url($i) }}">{{ $i }}</a>
                 </li>
-                @for ($i = 1; $i <= $data['paginator']->lastPage(); $i++)
-                    <li class="{{ ($data['paginator']->currentPage() == $i) ? ' active' : '' }} page-item">
-                        <a class="page-link" href="{{ $data['paginator']->url($i) }}">{{ $i }}</a>
-                    </li>
-                @endfor
-                <li class="{{ ($data['paginator']->currentPage() == $data['paginator']->lastPage()) ? ' disabled' : '' }} page-item">
-                    <a class="page-link" href="{{ $data['paginator']->url($data['paginator']->currentPage()+1) }}" >Next</a>
-                </li>
-            </ul>
-        @endif
+            @endfor
+            <li class="{{ ($data['paginator']->currentPage() == $data['paginator']->lastPage()) ? ' disabled' : '' }} page-item">
+                <a class="page-link" href="{{ $data['paginator']->url($data['paginator']->currentPage()+1) }}" >Next</a>
+            </li>
+        </ul>
+    @endif
 </div>
 
 @yield('footer_page')

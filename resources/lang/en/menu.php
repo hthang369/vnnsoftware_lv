@@ -48,4 +48,5 @@ return [
 
     'laka_log_index' => 'Laka log report',
     'laka_log_create' => 'Laka log parse',
+    'laka_log_s3_log_list' => 'Laka log S3',
 ];

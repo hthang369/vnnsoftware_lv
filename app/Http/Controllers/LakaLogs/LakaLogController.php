@@ -42,55 +42,21 @@ class LakaLogController extends CoreController
 
     public function index() {
         $now = today();
-        // if session for dtFrom and dtTo exist
-        if(session('dtFrom') || session('dtTo')) {
-            $dtFrom = session('dtFrom') != null ? request('dtFrom', session('dtFrom')) : request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
-            $dtTo = session('dtTo') != null ? request('dtTo', session('dtTo')) : request('dtTo', $now->clone()->firstOfMonth()->toDateString());
-        }
-        else {
-            $dtFrom = request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
-            $dtTo = request('dtTo', $now->clone()->lastOfMonth()->toDateString());
-        }
-
-        // handle variables
+        $dtFrom = request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
+        $dtTo = request('dtTo', $now->clone()->lastOfMonth()->toDateString());
         if ($dtFrom && $dtTo) {
             request()->merge(['date_log' => ['start' => $dtFrom, 'end' => $dtTo]]);
         }
         View::share('dtFrom', $dtFrom);
         View::share('dtTo', $dtTo);
-        session([
-            'dtFrom' => $dtFrom,
-            'dtTo' => $dtTo
-        ]);
-
-        // get files list
-        $files = collect($this->repository->formGenerate()['files']);
-
-        // filter files by date
-        $files = $this->lakaLogService->filesFilterByDate($files, $dtFrom, $dtTo);
-
-        // pagination
-        $paginator = $this->repository->filesPaginate($files, request('page'));
-
-        //check if user has already downloaded file
-        foreach ($paginator as $key => $value) {
-            $downloadLakaLog = $this->downloadLakaLogRepository->findByField('name', $value)->toArray()[0];
-
-            $paginator[$key] = [
-                'name' => $value,
-                'isDownloaded' => $downloadLakaLog != null,
-            ];
-        }
-
-        return WebResponse::success('laka-log.log-report', ['paginator' => $paginator]);
     }
 
     public function s3LogList() {
         $now = today();
         // if session for dtFrom and dtTo exist
-        if(session('dtFrom') || session('dtTo')) {
-            $dtFrom = session('dtFrom') != null ? request('dtFrom', session('dtFrom')) : request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
-            $dtTo = session('dtTo') != null ? request('dtTo', session('dtTo')) : request('dtTo', $now->clone()->firstOfMonth()->toDateString());
+        if(session('s3DtFrom') || session('s3DtTo')) {
+            $dtFrom = session('s3DtFrom') != null ? request('dtFrom', session('s3DtFrom')) : request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
+            $dtTo = session('s3DtTo') != null ? request('dtTo', session('s3DtTo')) : request('dtTo', $now->clone()->firstOfMonth()->toDateString());
         }
         else {
             $dtFrom = request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
@@ -104,8 +70,8 @@ class LakaLogController extends CoreController
         View::share('dtFrom', $dtFrom);
         View::share('dtTo', $dtTo);
         session([
-            'dtFrom' => $dtFrom,
-            'dtTo' => $dtTo
+            's3DtFrom' => $dtFrom,
+            's3DtTo' => $dtTo
         ]);
 
         // get files list
