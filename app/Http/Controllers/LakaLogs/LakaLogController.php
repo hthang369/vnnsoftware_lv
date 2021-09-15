@@ -81,9 +81,9 @@ class LakaLogController extends CoreController
         $files = $this->lakaLogService->filesFilterByDate($files, $dtFrom, $dtTo);
 
         // pagination
-        $paginator = $this->repository->filesPaginate($files, request('page'));
+        $paginator = $this->repository->filesPaginate($files, request('page')); 
 
-        //check if user has already downloaded file
+        // check if user has already downloaded file
         foreach ($paginator as $key => $value) {
             $downloadLakaLog = $this->downloadLakaLogRepository->findByField('name', $value)->toArray()[0];
 

@@ -80,7 +80,7 @@
         </tbody>
     </table>
     @if ($data['paginator']->lastPage() > 1)
-        <ul class="pagination">
+        {{-- <ul class="pagination">
             <li class="{{ ($data['paginator']->currentPage() == 1) ? ' disabled' : '' }} page-item">
                 <a class="page-link" href="{{ $data['paginator']->url(1) }}">Previous</a>
             </li>
@@ -92,7 +92,8 @@
             <li class="{{ ($data['paginator']->currentPage() == $data['paginator']->lastPage()) ? ' disabled' : '' }} page-item">
                 <a class="page-link" href="{{ $data['paginator']->url($data['paginator']->currentPage()+1) }}" >Next</a>
             </li>
-        </ul>
+        </ul> --}}
+        <x-pagination :total="$data['paginator']->total()" :current="$data['paginator']->currentPage()" :pages="$data['paginator']->lastPage()" />
     @endif
 </div>
 
