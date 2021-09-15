@@ -1,35 +1,23 @@
-@extends('layouts.system-admin')
+@extends('components.system-admin.form')
 
-@section('title', $titlePage)
-
-@section('content')
-    <!-- TITLE -->
-@section('header_page')
-    <h2 class="card-header px-0">
-        @lang($headerPage)
-    </h2>
-@show
-
-<div class="card-body px-0">
-    @section('message_content')
-        @if (session('message'))
-            <x-alert type="info" dismissible>{{session('message')}}</x-alert>
-        @endif
-    @show
-    @section('caption_page')
-        <x-form route="laka-log.s3-log-list">
-            <x-form-group :inline="true">
-                <div class="col-2">
-                    <x-datepicker name="dtFrom" :value="$dtFrom" />
-                </div>
-                <span>~</span>
-                <div class="col-2">
-                    <x-datepicker name="dtTo" :value="$dtTo" />
-                </div>
-                <x-button type="submit" variant="primary" text="Search" />
-            </x-form-group>
-        </x-form>
-    @show
+@section('message_content')
+    @if (session('message'))
+        <x-alert type="info" dismissible>{{session('message')}}</x-alert>
+    @endif
+@endsection
+    @section('body_content')
+    <x-form route="laka-log.s3-log-list">
+        <x-form-group :inline="true">
+            <div class="col-2">
+                <x-datepicker name="dtFrom" :value="$dtFrom" />
+            </div>
+            <span>~</span>
+            <div class="col-2">
+                <x-datepicker name="dtTo" :value="$dtTo" />
+            </div>
+            <x-button type="submit" variant="primary" text="Search" />
+        </x-form-group>
+    </x-form>
     <table class="table table-bordered table-striped table-hover">
         <thead>
         <tr scope="header">
@@ -44,19 +32,16 @@
             <tr>
                 <td scope="col" colspan="7" class="">
                     <div class="alert alert-warning">
-
-
                         @lang('custom_message.no_item_found')
-
-
                     </div>
-
                 </td>
             </tr>
         @endif
         @foreach($data['paginator']->items() as $key => $value)
             <tr scope="row">
-                <td>{{$key}}</td>
+                <td>
+                    {{ (($data['paginator']->currentPage() - 1 ) * $data['paginator']->perPage() ) + $loop->iteration }}
+                </td>
                 <td>{{$value['name']}}</td>
                 <td>
                     <div>
@@ -79,50 +64,13 @@
         @endforeach
         </tbody>
     </table>
+
     @if ($data['paginator']->lastPage() > 1)
-        {{-- <ul class="pagination">
-            <li class="{{ ($data['paginator']->currentPage() == 1) ? ' disabled' : '' }} page-item">
-                <a class="page-link" href="{{ $data['paginator']->url(1) }}">Previous</a>
-            </li>
-            @for ($i = 1; $i <= $data['paginator']->lastPage(); $i++)
-                <li class="{{ ($data['paginator']->currentPage() == $i) ? ' active' : '' }} page-item">
-                    <a class="page-link" href="{{ $data['paginator']->url($i) }}">{{ $i }}</a>
-                </li>
-            @endfor
-            <li class="{{ ($data['paginator']->currentPage() == $data['paginator']->lastPage()) ? ' disabled' : '' }} page-item">
-                <a class="page-link" href="{{ $data['paginator']->url($data['paginator']->currentPage()+1) }}" >Next</a>
-            </li>
-        </ul> --}}
-        <x-pagination :total="$data['paginator']->total()" :current="$data['paginator']->currentPage()" :pages="$data['paginator']->lastPage()" />
+    <x-pagination
+        :total="$data['paginator']->total()"
+        :current="$data['paginator']->currentPage()"
+        :pages="$data['paginator']->lastPage()"
+        :except="['date_log']" />
     @endif
 </div>
-
-@yield('footer_page')
 @endsection
-
-@push('scripts')
-    <script>
-        (function($) {
-            var grid = "#gridData";
-            var filterForm = "";
-            var searchForm = "";
-            _grids.grid.init({
-                id: grid,
-                filterForm: filterForm,
-                dateRangeSelector: '.date-range',
-                searchForm: searchForm,
-                pjax: {
-                    pjaxOptions: {
-                        scrollTo: false,
-                    },
-                    // what to do after a PJAX request. Js plugins have to be re-intialized
-                    afterPjax: function(e) {
-                        _grids.init();
-                    },
-                },
-            });
-            _grids.init()
-
-        })(jQuery);
-    </script>
-@endpush

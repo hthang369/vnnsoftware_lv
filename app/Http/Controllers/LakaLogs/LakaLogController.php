@@ -5,7 +5,7 @@ namespace App\Http\Controllers\LakaLogs;
 use App\Http\Controllers\Core\CoreController;
 use App\Repositories\LakaLogs\LakaLogRepository;
 use App\Repositories\DownloadLakaLogs\DownloadLakaLogRepository;
-use App\Services\LakaLogService;
+use App\Services\LakaLogs\LakaLogService;
 use App\Validators\LakaLogs\LakaLogValidator;
 use Illuminate\Support\Facades\View;
 use Laka\Core\Http\Response\WebResponse;
@@ -49,6 +49,7 @@ class LakaLogController extends CoreController
         }
         View::share('dtFrom', $dtFrom);
         View::share('dtTo', $dtTo);
+        return parent::index();
     }
 
     public function s3LogList() {
@@ -79,8 +80,8 @@ class LakaLogController extends CoreController
 
         // filter files by date
         $files = $this->lakaLogService->filesFilterByDate($files, $dtFrom, $dtTo);
-
-        // pagination
+       
+        // paginate
         $paginator = $this->repository->filesPaginate($files, request('page')); 
 
         // check if user has already downloaded file

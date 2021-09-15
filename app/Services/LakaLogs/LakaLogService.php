@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\LakaLogs;
 
 use phpDocumentor\Reflection\Types\Collection;
 

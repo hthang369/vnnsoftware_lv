@@ -43,10 +43,8 @@
                 'total' => data_get($data, 'total'),
                 'pages' => data_get($data, 'pages'),
                 'currentPage' => data_get($data, 'currentPage'),
-                'from' => data_get($data, 'from'),
-                'to' => data_get($data, 'to')
+                'except' => data_get($data, 'except')
             ]">
-            @yield('table_row')
         </x-table>
     </div>
 
