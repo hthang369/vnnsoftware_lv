@@ -15,11 +15,6 @@ abstract class BaseGridPresenter extends BaseDataGridPresenter
 
     protected $indexColumnOptions = [];
 
-    private function getSectionCode()
-    {
-        return Common::getSectionCode();
-    }
-
     private function getIndexOptions()
     {
         return array_merge(['sortable' => false], $this->indexColumnOptions);
