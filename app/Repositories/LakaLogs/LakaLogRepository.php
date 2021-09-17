@@ -7,6 +7,7 @@ use App\Helpers\LogParser;
 use App\Repositories\Core\CoreRepository;
 use App\Models\LakaLogs\LakaLog;
 use App\Presenters\LakaLogs\LakaLogGridPresenter;
+use App\Repositories\DownloadLakaLogs\DownloadLakaLogRepository;
 use App\Repositories\Filters\WhereBetweenClause;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -34,12 +35,9 @@ class LakaLogRepository extends CoreRepository
 
     public function formGenerate()
     {
-        $pattern = '/laravel-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].log/';
-        $files = $this->storage->allFiles(DIRECTORY_SEPARATOR);
-
-        return ['files' => array_filter($files, function($file) use($pattern) {
-            return str_contains($file, 'laravel-') || str_contains($file, 'laka-');
-        })];
+        $downLoadLogLakaRepository = new DownloadLakaLogRepository();
+        $data = $downLoadLogLakaRepository->paginate($limit = null, $columns = [], $method = "paginate");
+        return $data;
     }
 
     public function filesPaginate($files, $page): LengthAwarePaginator
@@ -56,6 +54,7 @@ class LakaLogRepository extends CoreRepository
 
     public function create(array $attributes)
     {
+        dd('create - laka repo');
         $files = $attributes['files'];
         $dataFiles = $this->storage->allFiles(DIRECTORY_SEPARATOR);
         $dataLog = [];
@@ -96,5 +95,15 @@ class LakaLogRepository extends CoreRepository
         }
 
         return $this->model::insert($dataLog);
+    }
+
+    public function getLogFromS3()
+    {
+        $pattern = '/laravel-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].log/';
+        $files = $this->storage->allFiles(DIRECTORY_SEPARATOR);
+
+        return ['files' => array_filter($files, function($file) use($pattern) {
+            return str_contains($file, 'laravel-') || str_contains($file, 'laka-');
+        })];
     }
 }

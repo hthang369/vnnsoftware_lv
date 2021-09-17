@@ -5,9 +5,9 @@
 <div class="row">
     <div class="col-3">
         <ul class="list-group">
-            @foreach ($data['files'] as $file)
-            <li class="list-group-item w-100">{{$file}}</li>
-            {!! Form::hidden('files[]', $file) !!}
+            @foreach (data_get($data,'rows') as $file)
+            <li class="list-group-item w-100">{{data_get($file,'name')}}</li>
+            {!! Form::hidden('files[]', data_get($file,'name')) !!}
             @endforeach
         </ul>
     </div>
@@ -16,4 +16,5 @@
     </div>
 </div>
 </x-form>
+
 @endsection

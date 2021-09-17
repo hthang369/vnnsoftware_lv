@@ -76,13 +76,13 @@ class LakaLogController extends CoreController
         ]);
 
         // get files list
-        $files = collect($this->repository->formGenerate()['files']);
+        $files = collect($this->repository->getLogFromS3()['files']);
 
         // filter files by date
         $files = $this->lakaLogService->filesFilterByDate($files, $dtFrom, $dtTo);
-       
+
         // paginate
-        $paginator = $this->repository->filesPaginate($files, request('page')); 
+        $paginator = $this->repository->filesPaginate($files, request('page'));
 
         // check if user has already downloaded file
         foreach ($paginator as $key => $value) {
