@@ -18,11 +18,9 @@ class CompanyController extends CoreController
         'index'     => 'company.list',
         'create'    => 'company.create',
         'edit'      => 'company.update',
-        //'update'    => 'company.index',
-        'update'    => 'company.update',
+        'update'    => 'company.index',
         'show'      => 'company.detail',
-        //'store'     => 'company.index',  
-        'store'     => 'company.create', 
+        'store'     => 'company.index',   
     ];
 
     public function __construct(CompanyValidator $validator) {
