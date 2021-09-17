@@ -11,12 +11,12 @@ class UserValidator extends BaseValidator
         ValidatorInterface::RULE_CREATE => [
             'name' => 'required',
             'password' => 'required|min:8',
-            'email' => 'required|email'
+            'email' => 'required|email|unique:users'
         ],
         ValidatorInterface::RULE_UPDATE => [
             'name' => 'required',
-            'password' => 'min:8',
-            'email' => 'required|email'
+            'password' => 'required|min:8',
+            'email' => 'required|email|unique:users'
         ],
     ];
 }
