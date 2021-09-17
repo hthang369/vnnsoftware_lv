@@ -10,6 +10,7 @@ return [
         'address'  => 'Address',
         'password'  => 'Password',
         'confirm_password'  => 'Password confirmation',
+        'roles' => 'Roles'
     ],
     'laka' => [
         'disable' => 'User has disable',

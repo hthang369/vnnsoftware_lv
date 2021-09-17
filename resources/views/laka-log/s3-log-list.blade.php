@@ -65,12 +65,6 @@
         </tbody>
     </table>
 
-    @if ($data['paginator']->lastPage() > 1)
-    <x-pagination
-        :total="$data['paginator']->total()"
-        :current="$data['paginator']->currentPage()"
-        :pages="$data['paginator']->lastPage()"
-        :except="['date_log']" />
-    @endif
+    {!! $data['paginator']->links() !!}
 </div>
 @endsection

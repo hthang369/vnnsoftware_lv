@@ -12,9 +12,14 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Lampart\Hito\Core\Repositories\FilterQueryString\Filters\WhereClause;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Laka\Core\Pagination\LakaPagination;
+use Laka\Core\Traits\BuildPaginator;
 
 class LakaLogRepository extends CoreRepository
 {
+    use BuildPaginator;
+
     protected $modelClass = LakaLog::class;
 
     protected $filters = [
@@ -24,6 +29,7 @@ class LakaLogRepository extends CoreRepository
 
     protected $presenterClass = LakaLogGridPresenter::class;
     protected $storage;
+    protected $except = ['date_log'];
 
     public function __construct()
     {
@@ -42,16 +48,10 @@ class LakaLogRepository extends CoreRepository
         })];
     }
 
-    public function filesPaginate($files, $page): LengthAwarePaginator
+    public function filesPaginate($files, $page)
     {
-        $onPage = config('constants.pagination.items_per_page');
-        return new LengthAwarePaginator(
-            $files->forPage($page, $onPage),
-            $files->count(),
-            $onPage,
-            $page,
-            ['path' => route('laka-log.s3-log-list')],
-        );
+        $onPage = $this->getLimitForPagination();
+        return $this->paginator($files->forPage($page, $onPage), $files->count(), $onPage, $page, []);
     }
 
     public function create(array $attributes)
