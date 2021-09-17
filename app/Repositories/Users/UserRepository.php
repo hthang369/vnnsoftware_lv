@@ -48,6 +48,7 @@ class UserRepository extends CoreRepository
 
     public function create(array $attributes)
     {
+        $attributes['password'] = Hash::make($attributes['password']);
         return DB::transaction(function () use ($attributes) {
             $user = parent::create(array_filter($attributes));
             $roles = array_keys($attributes['roles']);
