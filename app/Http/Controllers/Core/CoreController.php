@@ -7,6 +7,7 @@ use Laka\Core\Http\Response\JsonResponse;
 use Laka\Core\Http\Response\WebResponse;
 use Laka\Core\Validators\BaseValidator;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Class CoreController
@@ -22,15 +23,15 @@ abstract class CoreController extends BaseController
     }
 
     public function create()
-    {
-        $data = $this->repository->formGenerate();
+    {    
+        $data = $this->repository->formGenerate(); 
 
         return WebResponse::success($this->getViewName(__FUNCTION__), $data);
     }
 
     public function edit($id)
-    {
-        $data = $this->repository->show($id);
+    {  
+        $data = $this->repository->show($id); 
 
         return WebResponse::success($this->getViewName(__FUNCTION__), $data);
     }

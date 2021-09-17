@@ -38,7 +38,7 @@
     </x-form-group>
     <x-form-group :inline="true">
         <x-form-label class="col-sm-2 col-form-label">@lang('custom_label.business_plan')</x-form-label>
-        <x-form-select name="business_plan" :items="$data['listBusinessPlan']->pluck('name', 'id')" placeholder=" "
+        <x-form-select name="business_plan_id" :items="$data['listBusinessPlan']->pluck('name', 'id')" placeholder=" "
             groupClass="col-sm-10 form-row" selected="{{request('business_plan_id')}}" />
     </x-form-group>
 
