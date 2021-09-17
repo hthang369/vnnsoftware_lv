@@ -13,7 +13,7 @@
     <x-form-group :inline="true">
         <x-form-label class="col-sm-2 col-form-label required">@lang('custom_label.password')</x-form-label>
         <x-form-input type="password" name="password" groupClass="col-sm-10 form-row" value="{{request('password')}}"
-            placeholder="{{__('custom_label.password')}}" required autocomplete />
+            placeholder="{{__('custom_label.password')}}" autocomplete />
     </x-form-group>
     <x-form-group :inline="true">
         <x-form-label class="col-sm-2 col-form-label required">@lang('custom_label.email')</x-form-label>
