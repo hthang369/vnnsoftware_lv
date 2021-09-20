@@ -26,9 +26,7 @@ class UserController extends CoreController
     protected $errorRouteName = [
         'update'    => 'user-management.edit'
     ];
-    protected $errorRouteName =[
-        'update'=>'user-management.edit'
-    ];
+
     public function __construct(UserValidator $validator) {
         parent::__construct($validator);
 
