@@ -55,51 +55,60 @@ class LakaLogRepository extends CoreRepository
     public function create(array $attributes)
     {
         $files = $attributes['files'];
+        foreach ($files as  $file) {
 
-        $fileDownloaded = $this->downLoadLogLakaRepository->findByField('name', $files)[0];
+            // Get data of file from TABLE 'download_laka_log'
+            $fileDownloaded = $this->downLoadLogLakaRepository->findByField('name', $file)[0];
 
-        if ($fileDownloaded && $fileDownloaded->status == false) {
-            $dataFiles = $this->storage->allFiles(DIRECTORY_SEPARATOR);
-            $dataLog = [];
-            foreach ($dataFiles as $file) {
-                if (in_array($file, $files)) {
-                    $data = [];
-                    if (starts_with($file, 'laravel')) {
-                        $data = LogParser::parse($this->storage->get($file));
-                        $data = array_map(function ($item) {
-                            $item['date_log'] = LogParser::extractDateTime($item['header']);
-                            return [
-                                'ip' => request()->ip(),
-                                'url' => '',
-                                'date_log' => $item['date_log'],
-                                'message' => $item['header'],
-                                'log_level' => $item['level'],
-                                'log_type' => 'laravel',
-                                'created_at' => now(),
-                                'updated_at' => now()
-                            ];
-                        }, $data);
-                    } else {
-                        $result = explode('<br />', nl2br($this->storage->get(DIRECTORY_SEPARATOR . $file)));
-                        // $result = file(storage_path('logs'.DIRECTORY_SEPARATOR.$file), FILE_IGNORE_NEW_LINES);
-                        foreach ($result as $line) {
-                            $envroment = starts_with($file, 'real') ? 'real' : 'stg';
-                            $item = array_merge(HttpLogParser::parse(trim($line)), [
-                                'log_level' => 'laka_' . $envroment,
-                                'log_type' => 'apache',
-                                'created_at' => now(),
-                                'updated_at' => now()
-                            ]);
-                            array_push($data, $item);
-                        }
+            //Check file exist and file not parse
+            if ($fileDownloaded && $fileDownloaded->status == false) {
+                $dataLog = [];
+                $data = [];
+
+                if (starts_with($file, 'laravel')) {
+                    $data = LogParser::parse($this->storage->get($file));
+                    $data = array_map(function ($item) {
+                        $item['date_log'] = LogParser::extractDateTime($item['header']);
+                        return [
+                            'ip' => request()->ip(),
+                            'url' => '',
+                            'date_log' => $item['date_log'],
+                            'message' => $item['header'],
+                            'log_level' => $item['level'],
+                            'log_type' => 'laravel',
+                            'created_at' => now(),
+                            'updated_at' => now()
+                        ];
+                    }, $data);
+                } else {
+                    $result = explode('<br />', nl2br($this->storage->get(DIRECTORY_SEPARATOR . $file)));
+                    // $result = file(storage_path('logs'.DIRECTORY_SEPARATOR.$file), FILE_IGNORE_NEW_LINES);
+                    foreach ($result as $line) {
+                        $envroment = starts_with($file, 'real') ? 'real' : 'stg';
+                        $item = array_merge(HttpLogParser::parse(trim($line)), [
+                            'log_level' => 'laka_' . $envroment,
+                            'log_type' => 'apache',
+                            'created_at' => now(),
+                            'updated_at' => now()
+                        ]);
+                        array_push($data, $item);
                     }
                     $dataLog = array_merge($dataLog, $data);
                 }
             }
+
+            //Change status from not parse to parsed and save to DB of file
             $fileDownloaded->status = true;
             $fileDownloaded->save();
-            return $this->model::insert($dataLog);
-        }
+
+            //Save data log to TABLE 'laka-log'
+            if ($dataLog != null) {
+                $this->model::insert($dataLog);
+            }
+        };
+
+        return;
+
     }
 
     public function getLogFromS3()

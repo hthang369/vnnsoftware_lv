@@ -22,8 +22,12 @@ class LakaLogController extends CoreController
     public $lakaLogService;
 
     protected $messageResponse = [
-        'store'=>'Parse log success',
+        'store' => 'Parse log success',
     ];
+    protected $errorRouteName = [
+      'store' => 'laka-log.create'
+    ];
+
     protected $listViewName = [
         'index' => 'laka-log.list',
         'create' => 'laka-log.create',
