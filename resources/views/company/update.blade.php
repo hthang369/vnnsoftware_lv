@@ -5,11 +5,11 @@
 @endphp
 
 @section('message_content')
-    @if ($data['listBusinessPlan']->count() == 0)
+    @if (count($data['listBusinessPlan']) == 0)
         <x-alert type="warning">
             <strong>@lang('custom_message.alert_no_business_plan')</strong>
         </x-alert>
-        {!! link_to(route('business-plan.create'),
+        {!! link_to(route('bussiness-plan.create'),
             '+' . __('custom_label.add_new') .' '. __('custom_title.business_plan'),
             ['class' => 'my-2 btn btn-sm btn-primary']) !!}
     @endif
@@ -37,8 +37,8 @@
             placeholder="{{__('custom_label.address')}}" autocomplete />
     </x-form-group>
     <x-form-group :inline="true">
-        <x-form-label class="col-sm-2 col-form-label">@lang('custom_label.business_plan')</x-form-label>
-        <x-form-select name="business_plan" :items="$data['listBusinessPlan']->pluck('name', 'id')" placeholder=" "
+        <x-form-label class="col-sm-2 col-form-label required">@lang('custom_label.business_plan')</x-form-label>
+        <x-form-select name="business_plan_id" required :items="array_pluck($data['listBusinessPlan'], 'name', 'id')" placeholder=" "
             groupClass="col-sm-10 form-row" selected="{{request('business_plan_id')}}" />
     </x-form-group>
 

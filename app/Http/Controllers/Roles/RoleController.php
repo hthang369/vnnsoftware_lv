@@ -19,7 +19,13 @@ class RoleController extends CoreController
         'create'    => 'role.create',
         'edit'      => 'role.update',
         'show'      => 'role.detail',
-        'store'     => 'role.create',
+        'store'     => 'role-management.index',
+        'update'    => 'role-management.index',
+    ];
+
+    protected $errorRouteName = [
+        'store'     => 'role-management.create',
+        'update'    => 'role-management.edit'
     ];
 
     public function __construct(RoleValidator $validator) {

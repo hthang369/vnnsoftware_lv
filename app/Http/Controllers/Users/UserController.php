@@ -24,6 +24,7 @@ class UserController extends CoreController
     ];
 
     protected $errorRouteName = [
+        'store'     => 'user-management.create',
         'update'    => 'user-management.edit'
     ];
 

@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use GuzzleHttp\Client;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Request;
 
@@ -21,15 +22,20 @@ class CommonHelper
             $fullUrl = $url;
         else
             $fullUrl = config('laka.api_address') . "{$url}";
-        $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            // 'Content-Type' => 'application/x-www-form-urlencoded',
-            'token' => config('laka.api_token')
-        ])->{$method}($fullUrl, $params);
 
-        if ($response->ok())
-            return $response->collect();
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                // 'Content-Type' => 'application/x-www-form-urlencoded',
+                'token' => config('laka.api_token')
+            ])->{$method}($fullUrl, $params);
 
-        return $response->body();
+            if ($response->ok())
+                return $response->collect();
+
+            return $response->body();
+        } catch(ConnectionException $e) {
+            throw $e;
+        }
     }
 }

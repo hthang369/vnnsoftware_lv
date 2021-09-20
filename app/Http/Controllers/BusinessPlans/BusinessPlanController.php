@@ -22,6 +22,11 @@ class BusinessPlanController extends CoreController
         'store'     => 'business-plan.create',
     ];
 
+    protected $errorRouteName = [
+        'store'     => 'business-plan.create',
+        'update'    => 'business-plan.edit'
+    ];
+
     public function __construct(BusinessPlanValidator $validator) {
         parent::__construct($validator);
 

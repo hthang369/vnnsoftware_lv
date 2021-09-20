@@ -15,8 +15,8 @@ class BusinessPlanValidator extends BaseValidator
         ],
         ValidatorInterface::RULE_UPDATE => [
             'name' => 'required|max:190',
-            'maximum_storage_file' => 'required|max:10000000|numeric',
-            'description' => 'required|max:500',
+            'maximum_storage_file' => 'nullable|max:10000000|numeric',
+            'description' => 'nullable|max:500',
         ],
     ];
 }

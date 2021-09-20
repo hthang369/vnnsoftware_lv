@@ -20,7 +20,12 @@ class CompanyController extends CoreController
         'edit'      => 'company.update',
         'update'    => 'company.index',
         'show'      => 'company.detail',
+        'store'     => 'company.index',
+    ];
+
+    protected $errorRouteName = [
         'store'     => 'company.create',
+        'update'    => 'company.edit'
     ];
 
     public function __construct(CompanyValidator $validator) {
