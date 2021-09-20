@@ -14,11 +14,12 @@ class DownloadLakaLog extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name','status'
     ];
 
     protected $fillableColumns = [
         'id',
         'name',
+        'status'
     ];
 }
