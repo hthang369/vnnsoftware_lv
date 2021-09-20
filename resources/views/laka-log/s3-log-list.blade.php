@@ -39,7 +39,9 @@
         @endif
         @foreach($data['paginator']->items() as $key => $value)
             <tr scope="row">
-                <td>{{$key}}</td>
+                <td>
+                    {{ (($data['paginator']->currentPage() - 1 ) * $data['paginator']->perPage() ) + $loop->iteration }}
+                </td>
                 <td>{{$value['name']}}</td>
                 <td>
                     <div>

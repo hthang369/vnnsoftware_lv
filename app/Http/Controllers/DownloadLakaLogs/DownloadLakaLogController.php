@@ -6,6 +6,9 @@ use App\Http\Controllers\Core\CoreController;
 use App\Repositories\DownloadLakaLogs\DownloadLakaLogRepository;
 use App\Validators\DownloadLakaLogs\DownloadLakaLogValidator;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Class DownloadLakaLogController
@@ -23,15 +26,25 @@ class DownloadLakaLogController extends CoreController
     }
 
     public function downloadLog()  {
-
-        $downloadLakaLog = $this->repository->findByField('name', request('name'))->toArray()[0];
-
+        // find record
+        $downloadLakaLog = $this->repository->findByField('name', request('name'))[0];
+        // record exist
         if($downloadLakaLog) {
+            // update updated_at column
             $downloadLakaLog->updated_at = Carbon::now();
             $downloadLakaLog->save();
         }
-        else $this->repository->create(request()->except('_token'));
+        // record not exist
+        else
+        {
+            // create new record
+            $this->repository->create(request()->except('_token'));
+        }
 
-        return $this->repository->downloadLog(request('name'));
+        // download file to project folder
+        $this->repository->downloadLog(request('name'));
+
+        return redirect()->route('laka-log.s3-log-list');
+
     }
 }

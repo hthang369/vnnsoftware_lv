@@ -5,7 +5,7 @@ namespace App\Http\Controllers\LakaLogs;
 use App\Http\Controllers\Core\CoreController;
 use App\Repositories\LakaLogs\LakaLogRepository;
 use App\Repositories\DownloadLakaLogs\DownloadLakaLogRepository;
-use App\Services\LakaLogService;
+use App\Services\LakaLogs\LakaLogService;
 use App\Validators\LakaLogs\LakaLogValidator;
 use Illuminate\Support\Facades\View;
 use Laka\Core\Http\Response\WebResponse;
@@ -80,11 +80,11 @@ class LakaLogController extends CoreController
 
         // filter files by date
         $files = $this->lakaLogService->filesFilterByDate($files, $dtFrom, $dtTo);
+       
+        // paginate
+        $paginator = $this->repository->filesPaginate($files, request('page')); 
 
-        // pagination
-        $paginator = $this->repository->filesPaginate($files, request('page'));
-
-        //check if user has already downloaded file
+        // check if user has already downloaded file
         foreach ($paginator as $key => $value) {
             $downloadLakaLog = $this->downloadLakaLogRepository->findByField('name', $value)->toArray()[0];
 

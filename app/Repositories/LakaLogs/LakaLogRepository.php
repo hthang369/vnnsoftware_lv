@@ -45,9 +45,8 @@ class LakaLogRepository extends CoreRepository
     public function filesPaginate($files, $page): LengthAwarePaginator
     {
         $onPage = config('constants.pagination.items_per_page');
-        $slice = $files->slice(($page-1)* $onPage, $onPage);
         return new LengthAwarePaginator(
-            $slice,
+            $files->forPage($page, $onPage),
             $files->count(),
             $onPage,
             $page,
