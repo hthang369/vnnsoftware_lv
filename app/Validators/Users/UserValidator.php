@@ -15,7 +15,7 @@ class UserValidator extends BaseValidator
         ],
         ValidatorInterface::RULE_UPDATE => [
             'name' => 'required',
-            'password' => 'min:8',
+            'password' => 'nullable|min:8',
             'email' => 'required|email'
         ],
     ];
