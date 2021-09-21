@@ -16,7 +16,20 @@ class AwsS3LogGridPresenter extends BaseGridPresenter
             'name',
             [
                 'key' => 'isDownloaded',
-                'label' => __('table.action'),
+                'label' => __('laka_log.fields.status'),
+                'sortable' => false,
+                'cell' => function ($item) {
+                    if ($item['isDownloaded']) {
+                        $text = __('laka_log.downloaded');
+                        return '<span class="badge badge-info">' . $text . '</span>';
+                    } else {
+                        return '';
+                    }
+                }
+            ],
+            [
+                'key' => 'action',
+                'label' => translate('table.action'),
                 'sortable' => false,
                 'cell' => 'laka-log.button-download'
             ]

@@ -33,29 +33,27 @@ class AwsS3LogRepository extends CoreRepository
 
     public function getLogFromS3()
     {
+        $listDownloadFile = resolve(DownloadLakaLogRepository::class)->pluck('name');
         $pattern = '/laravel-[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].log/';
         $files = $this->storage->allFiles(DIRECTORY_SEPARATOR);
 
-        return array_filter($files, function ($file) use ($pattern) {
+        $fileAfterFilters = array_filter($files, function ($file) use ($pattern) {
             return str_contains($file, 'laravel-') || str_contains($file, 'laka-');
         });
+
+        // check if user has already downloaded file
+        return array_map(function($file) use($listDownloadFile) {
+            return [
+                'name' => $file,
+                'isDownloaded' => $listDownloadFile->search($file) > 0
+            ];
+        }, $fileAfterFilters);
     }
 
     public function filesPaginate($files, $page)
     {
-        $downloadLakaLogRepository = resolve(DownloadLakaLogRepository::class);
         $onPage = $this->getLimitForPagination();
         $results = $this->paginator($files->forPage($page, $onPage)->all(), $files->count(), $onPage, $page, []);
-        // check if user has already downloaded file
-        foreach ($results as $key => $value) {
-            $downloadLakaLog = $downloadLakaLogRepository->findByField('name', $value)->toArray()[0];
-
-            $results[$key] = [
-                'name' => $value,
-                'isDownloaded' => $downloadLakaLog != null,
-            ];
-        }
-
         return $this->parserResult($results);
     }
 }

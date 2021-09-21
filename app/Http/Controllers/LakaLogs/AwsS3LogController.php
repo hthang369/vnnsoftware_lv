@@ -60,6 +60,7 @@ class AwsS3LogController extends CoreController
 
         // filter files by date
         $files = $this->lakaLogService->filesFilterByDate($files, $dtFrom, $dtTo);
+        $files = $this->lakaLogService->filesSortByColumn($files, request('sort'), request('direction'));
 
         // paginate
         $paginator = $this->repository->filesPaginate($files, request('page'));

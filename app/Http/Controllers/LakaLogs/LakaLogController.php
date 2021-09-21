@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\View;
  */
 class LakaLogController extends CoreController
 {
+    protected $permissionActions = [
+        'create' => 'view'
+    ];
+
     protected $messageResponse = [
         'store' => 'Parse log success',
     ];
