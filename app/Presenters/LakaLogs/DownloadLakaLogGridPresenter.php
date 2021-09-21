@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presenters\DownloadLakaLogs;
+namespace App\Presenters\LakaLogs;
 
 use App\Presenters\BaseGridPresenter;
 

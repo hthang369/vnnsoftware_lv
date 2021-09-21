@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\DownloadLakaLogs;
+namespace App\Models\LakaLogs;
 
 use Laka\Core\Entities\BaseModel;
 

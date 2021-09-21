@@ -9,7 +9,8 @@ return [
         'phone'  => 'Phone',
         'address'  => 'Address',
     ],
-    'log-parsed'=>'Parsed',
-    'log-not-parsed'=>"Not parsed yet",
-    'btn-parse'=>"Parse"
+    'log-parsed' => 'Parsed',
+    'log-not-parsed' => "Not parsed yet",
+    'btn-parse' => "Parse",
+    'btn-parse-all' => "Parse All"
 ];
