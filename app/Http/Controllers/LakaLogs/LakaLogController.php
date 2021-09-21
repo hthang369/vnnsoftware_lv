@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\LakaLogs;
 
 use App\Http\Controllers\Core\CoreController;
-use App\Repositories\LakaLogs\LakaLogRepository;
 use App\Repositories\DownloadLakaLogs\DownloadLakaLogRepository;
+use App\Repositories\LakaLogs\LakaLogRepository;
 use App\Services\LakaLogs\LakaLogService;
 use App\Validators\LakaLogs\LakaLogValidator;
 use Illuminate\Support\Facades\View;
@@ -21,6 +21,13 @@ class LakaLogController extends CoreController
 
     public $lakaLogService;
 
+    protected $messageResponse = [
+        'store' => 'Parse log success',
+    ];
+    protected $errorRouteName = [
+      'store' => 'laka-log.create'
+    ];
+
     protected $listViewName = [
         'index' => 'laka-log.list',
         'create' => 'laka-log.create',
@@ -29,7 +36,8 @@ class LakaLogController extends CoreController
         's3LogList' => 'laka-log.s3-log-list'
     ];
 
-    public function __construct(LakaLogValidator $validator) {
+    public function __construct(LakaLogValidator $validator)
+    {
         parent::__construct($validator);
 
         $this->repository = $this->factory->makeRepository(LakaLogRepository::class);
@@ -40,7 +48,8 @@ class LakaLogController extends CoreController
         View::share('headerPage', 'laka_log.page_header');
     }
 
-    public function index() {
+    public function index()
+    {
         $now = today();
         $dtFrom = request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
         $dtTo = request('dtTo', $now->clone()->lastOfMonth()->toDateString());
@@ -52,14 +61,14 @@ class LakaLogController extends CoreController
         return parent::index();
     }
 
-    public function s3LogList() {
+    public function s3LogList()
+    {
         $now = today();
         // if session for dtFrom and dtTo exist
-        if(session('s3DtFrom') || session('s3DtTo')) {
+        if (session('s3DtFrom') || session('s3DtTo')) {
             $dtFrom = session('s3DtFrom') != null ? request('dtFrom', session('s3DtFrom')) : request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
             $dtTo = session('s3DtTo') != null ? request('dtTo', session('s3DtTo')) : request('dtTo', $now->clone()->firstOfMonth()->toDateString());
-        }
-        else {
+        } else {
             $dtFrom = request('dtFrom', $now->clone()->firstOfMonth()->toDateString());
             $dtTo = request('dtTo', $now->clone()->lastOfMonth()->toDateString());
         }
@@ -76,13 +85,13 @@ class LakaLogController extends CoreController
         ]);
 
         // get files list
-        $files = collect($this->repository->formGenerate()['files']);
+        $files = collect($this->repository->getLogFromS3()['files']);
 
         // filter files by date
         $files = $this->lakaLogService->filesFilterByDate($files, $dtFrom, $dtTo);
-       
+
         // paginate
-        $paginator = $this->repository->filesPaginate($files, request('page')); 
+        $paginator = $this->repository->filesPaginate($files, request('page'));
 
         // check if user has already downloaded file
         foreach ($paginator as $key => $value) {
