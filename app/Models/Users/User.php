@@ -57,8 +57,4 @@ class User extends Authenticatable
     {
         return $this->fillableColumns;
     }
-
-    public function logReleases(){
-        return $this->hasMany(LogRelease::class);
-    }
 }

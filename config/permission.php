@@ -1,19 +1,27 @@
 <?php
 
 return [
-    /*
+/*
      * Sections list screens
      */
     'sections' => [
-        ['name'=> 'company', 'code' => 'company', 'url' => '', 'api' => ''],
-        ['name'=> 'bussiness-plan', 'code' => 'bussiness-plan', 'url' => '', 'api' => ''],
-        ['name'=> 'user-management', 'code' => 'user-management', 'url' => '', 'api' => ''],
-        ['name'=> 'laka-user-management', 'code' => 'laka-user-management', 'url' => '', 'api' => ''],
-        ['name'=> 'role-management', 'code' => 'role-management', 'url' => '', 'api' => ''],
-        ['name'=> 'version', 'code' => 'version', 'url' => '', 'api' => ''],
-        ['name'=> 'version-deploy', 'code' => 'version-deploy', 'url' => '', 'api' => ''],
-        ['name'=> 'permission-role', 'code' => 'permission-role', 'url' => '', 'api' => ''],
-        ['name'=> 'laka-log', 'code' => 'laka-log', 'url' => '', 'api' => ''],
+        ['name'=> 'admin', 'code' => 'admin', 'url' => '', 'api' => 'admin'],
+        ['name'=> 'home', 'code' => 'home', 'url' => '', 'api' => 'home'],
+        ['name'=> 'setting', 'code' => 'setting', 'url' => '', 'api' => 'setting'],
+        ['name'=> 'menus', 'code' => 'menus', 'url' => '', 'api' => 'menus'],
+        ['name'=> 'categories', 'code' => 'categories', 'url' => '', 'api' => 'categoríes'],
+        ['name'=> 'posts', 'code' => 'posts', 'url' => '', 'api' => 'posts'],
+        ['name'=> 'news', 'code' => 'news', 'url' => '', 'api' => 'news'],
+        ['name'=> 'pages', 'code' => 'pages', 'url' => '', 'api' => 'pages'],
+        ['name'=> 'employee', 'code' => 'employee', 'url' => 'employee', 'api' => 'employees'],
+        ['name'=> 'slides', 'code' => 'slides', 'url' => '', 'api' => 'slides'],
+        ['name'=> 'advertises', 'code' => 'advertises', 'url' => '', 'api' => 'advertises'],
+        ['name'=> 'role', 'code' => 'role', 'url' => '', 'api' => 'api/v1/role'],
+        ['name'=> 'role has permissions', 'code' => 'role_has_permissions', 'parent' => 'role', 'url' => '', 'api' => 'api/v1/role_has_permissions'],
+        ['name'=> 'profile', 'code' => 'profile', 'url' => '', 'api' => 'api/v1/employee/profile'],
+        ['name'=> 'media', 'code' => 'media', 'url' => '', 'api' => 'media'],
+        ['name'=> 'users', 'code' => 'users', 'url' => '', 'api' => 'users'],
+        ['name'=> 'widget', 'code' => 'widget', 'url' => '', 'api' => 'widget'],
     ],
     /*
      * permission actions
@@ -24,15 +32,22 @@ return [
      * Some sections only have a few actions, list them here
      */
     'section_action' => [
-        'company'               => ['view', 'add', 'edit', 'delete'],
-        'bussiness-plan'        => ['view', 'add', 'edit', 'delete'],
-        'user-management'       => ['view', 'add', 'edit', 'delete'],
-        'laka-user-management'  => ['view', 'add', 'edit', 'delete'],
-        'role-management'       => ['view', 'add', 'edit', 'delete'],
-        'version'               => ['view', 'add', 'edit', 'delete'],
-        'version-deploy'        => ['view', 'add'],
-        'permission-role'       => ['view', 'edit'],
-        'laka-log'              => ['view', 'add', 'delete', 'download'],
+        'profile'                  => ['view', 'add'],
+        'admin'                    => ['view'],
+        'home'                     => ['view', 'add'],
+        'setting'                  => ['public', 'view', 'add', 'edit', 'delete'],
+        'menus'                    => ['public', 'view', 'add', 'edit', 'delete'],
+        'categories'               => ['public', 'view', 'add', 'edit', 'delete'],
+        'posts'                    => ['public', 'view', 'add', 'edit', 'delete'],
+        'news'                     => ['public', 'view', 'add', 'edit', 'delete'],
+        'pages'                    => ['public', 'view', 'add', 'edit', 'delete'],
+        'employee'                 => ['view', 'add', 'edit', 'delete'],
+        'slides'                   => ['public', 'view', 'add', 'edit', 'delete'],
+        'advertises'               => ['public', 'view', 'add', 'edit', 'delete'],
+        'role'                     => ['view', 'add', 'edit', 'delete'],
+        'role_has_permissions'     => ['view', 'add', 'edit', 'delete'],
+        'users'                    => ['view', 'add', 'edit', 'delete'],
+        'widget'                   => ['view', 'add', 'edit'],
     ],
 
     'custom_section_action' => [
@@ -51,18 +66,19 @@ return [
         'destroy'   => 'delete',
         'download'  => 'download',
         'upload'    => 'upload',
-        'print'     => 'print',
+        'print'     => 'print'
     ],
     /*
      * Roles default
-     * important !! index 0 need be System Admin, will set all permissions by default
      */
     'roles' => [
-        ['level' => 'L1', 'name' => 'System Admin', 'description' => 'Role For Set Permission', 'guard_name'=> 'web', 'role_rank' => 1],
-        ['level' => 'L2', 'name' => 'Admin', 'description' => 'Admin', 'guard_name'=> 'web', 'role_rank' => 2],
-        ['level' => 'L3', 'name' => 'Member', 'description' => 'Member', 'guard_name'=> 'web', 'role_rank' => 3],
-        ['level' => 'L4', 'name' => 'Staff', 'description' => 'System operator', 'guard_name'=> 'web', 'role_rank' => 4],
+        //important !! index 0 need be System Admin, will set all permissions by default
+        ['level' => 'L1', 'name' => 'System Admin', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
+        ['level' => 'L2', 'name' => 'Admin', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
+        ['level' => 'L3', 'name' => 'Manager', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
+        ['level' => 'L4', 'name' => 'Staff', 'description' => '', 'guard_name'=> 'web', 'roles_status_prop' => 1],
     ],
+
     'models' => [
 
         /*

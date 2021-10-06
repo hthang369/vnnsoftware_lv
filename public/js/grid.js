@@ -10,6 +10,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var _grids = _grids || {};
+var $api = $api || {};
 
 (function ($) {
 
@@ -33,6 +34,106 @@ var _grids = _grids || {};
     });
     return o;
   };
+
+  var toastr = {
+      renderTitle: function renderTitle(title) {
+        var $titleToast = $('<b />', {class: 'mr-auto toast-title'}).text(title);
+        return $titleToast;
+      },
+      renderHeader: function renderHeader(title, color) {
+        var $imgHeader = $('<img />', {class: 'rounded mr-2', src: 'https://via.placeholder.com/25/'+color+'/fff.png'});
+        var $toastHeader = $('<div />', { class: 'toast-header' });
+        var $btnClose = $('<button />', {
+            type: 'button',
+            class: 'ml-2 mb-1 close',
+            'data-dismiss': 'toast',
+            'aria-label': 'Close'
+        }).html('<span aria-hidden="true">&times;</span>')
+        $toastHeader.append($imgHeader).append(this.renderTitle(title)).append($btnClose);
+        return $toastHeader;
+      },
+      renderBody: function renderBody(content) {
+        var $bodyToast = $('<div />', {class: 'toast-body'});
+        $bodyToast.html(content);
+        return $bodyToast;
+      },
+      render: function render(title, content, color) {
+        var $toast = $('<div />', {
+            class: 'toast',
+            role: 'alert',
+            'aria-live': 'assertive',
+            'aria-atomic': 'true',
+            'data-delay': '5000'});
+        $toast.append(this.renderHeader(title, color)).append(this.renderBody(content));
+        $("#popupToast").html($toast);
+        return $toast;
+      },
+      showSuccess: function showSuccess(title, content) {
+        return this.render(title, content, '09f').toast('show');
+      },
+      showError: function showError(title, content) {
+        return this.render(title, content, 'c62332').toast('show');
+      }
+  };
+
+  $api = {
+      _callApi: function (apiMethod, apiUrl, apiData, options) {
+        let apiContentType = options.contentType || false;
+        $.ajax({
+            method: apiMethod,
+            url: apiUrl,
+            data: apiData,
+            contentType: apiContentType,
+            processData : false,
+            beforeSend: function beforeSend() {
+              if (options.beforeSend) {
+                options.beforeSend.call(this);
+              }
+            },
+            complete: function complete() {
+              if (options.onComplete) {
+                options.onComplete.call(this);
+              }
+            },
+            success: function success(data) {
+              if (options.pjaxContainer) {
+                $.pjax.reload({ container: options.pjaxContainer });
+              }
+            },
+            error: function error(data) {
+              if (typeof toastr !== 'undefined') {
+                let listErr = data.responseJSON.validation || {};
+                let err = _grids.formUtils.getValidationErrors(listErr);
+                toastr.showError('Message', '<ul>'+ err +'</ul>');
+              } else {
+                alert('An error occurred');
+              }
+            }
+        });
+      },
+      get: function get(url, params, options) {
+        if (url == '') return;
+        params = params || {};
+        var urlSearch = new URLSearchParams();
+        for (const [key, value] of Object.entries(params)) {
+            urlSearch.append(key, value);
+        }
+        this._callApi('GET', url + '?' + urlSearch.toString(), null, options)
+      },
+      post: function post(url, data, options) {
+        if (url == '') return;
+        this._callApi('POST', url, data, options);
+      },
+      put: function post(url, data, options) {
+        if (url == '') return;
+        options = Object.assign({contentType: 'application/json'}, options);
+        this._callApi('PUT', url, data, options);
+      },
+      delete: function post(url, data, options) {
+        if (url == '') return;
+        this._callApi('DELETE', url, data, options);
+      },
+  }
 
   /**
    * Shared utilities
@@ -65,7 +166,6 @@ var _grids = _grids || {};
         var ajaxMethod = isForm ? obj.attr('method') : obj.data('method') || 'POST';
         var ajaxUrl = isForm ? obj.attr('action') : obj.attr('href');
         var ajaxData = isForm ? obj.serialize() : (obj.data('form-id') ? $('#' + obj.data('form-id')).serialize() : null);
-        var originalRemoveBtn = obj.html()
 
         obj.on(event, function (e) {
           e.preventDefault();
@@ -82,18 +182,13 @@ var _grids = _grids || {};
               if (options.beforeSend) {
                 options.beforeSend.call(this);
               }
-              obj.addClass('disabled').attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>');
             },
             complete: function complete() {
               if (options.onComplete) {
                 options.onComplete.call(this);
               }
-              obj.html(originalRemoveBtn).removeAttr('disabled').removeClass('disabled')
             },
             success: function success(data) {
-                let toastsAlert = $('#liveToast');
-                toastsAlert.find('.toast-body').html(data.message);
-                toastsAlert.toast('show');
               if (pjaxContainer) {
                 $.pjax.reload({ container: pjaxContainer });
               }
@@ -102,10 +197,7 @@ var _grids = _grids || {};
               if (typeof toastr !== 'undefined') {
                 toastr.error('An error occurred', 'Whoops!');
               } else {
-                // alert('An error occurred');
-                let toastsAlert = $('#liveToast');
-                toastsAlert.find('.toast-body').html(data.responseJSON.message);
-                toastsAlert.toast('show');
+                alert('An error occurred');
               }
             }
           });
@@ -133,7 +225,6 @@ var _grids = _grids || {};
         });
       }
     };
-
   })(jQuery);
 
   /**
@@ -351,7 +442,8 @@ var _grids = _grids || {};
         } else {
           html += response.message || 'Please fix the following errors';
           html = '<strong>' + html + '</strong>';
-          var errs = this.getValidationErrors(response.errors || {});
+          var listErr = response.errors || response.validation || {}
+          var errs = this.getValidationErrors(listErr);
           return html + errs + '</div>';
         }
       } else {
@@ -565,17 +657,11 @@ var _grids = _grids || {};
     _grids.utils.tableLinks({ element: '.linkable', navigationDelay: 100 });
     // setup ajax listeners
     _grids.utils.handleAjaxRequest($('.data-remote'), 'click', {});
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
   };
 
   return _grids;
 })(jQuery);
 
-// _grids.init();
+_grids.init();
 
 //# sourceMappingURL=grid.js.map

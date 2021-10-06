@@ -175,8 +175,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        App\Providers\ComponentsScopedSlotsServiceProvider::class,
-        Laka\Core\LakaCoreServiceProvider::class,
     ],
 
     /*
@@ -227,7 +225,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Modal' => \Vnnit\Core\Facades\Modal::class
     ],
 
 ];

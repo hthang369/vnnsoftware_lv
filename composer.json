@@ -8,16 +8,11 @@
         "php": "^7.3|^8.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
-        "laka/core": "dev-main",
-        "laka/lib": "^1.20",
         "laravel/framework": "^8.40",
         "laravel/helpers": "^1.4",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "laravelcollective/html": "^6.2",
-        "league/flysystem-aws-s3-v3": "~1.0",
-        "prettus/laravel-validation": "^1.3",
-        "spatie/laravel-permission": "^4.2"
+        "vnnit/core": "dev-main"
     },
     "require-dev": {
         "andyabih/laravel-to-uml": "^1.0",
@@ -31,6 +26,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "Modules\\": "Modules/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         },
@@ -72,13 +68,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": {
-        "laka/lib-dev": {
+        "vnnit/core": {
             "type": "vcs",
-            "url": "https://Lampart_Vi_Hoang_Son@bitbucket.org/Lampart_Vi_Hoang_Son/laka-lib.git"
-        },
-        "laka/core": {
-            "type": "vcs",
-            "url": "https://Lampart_Tran_Hoang_Thang@bitbucket.org/Lampart_Tran_Hoang_Thang/laka-core.git"
+            "url": "https://github.com/hthang369/vnnit-core.git"
         }
     }
 }
