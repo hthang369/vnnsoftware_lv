@@ -9,7 +9,7 @@
         <link rel="shortcut icon" type="image/png" href="{{ asset("storage/images/$webFavicon") }}">
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('/css/font-awesome.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('/css/home_app.css') }}" rel="stylesheet">
         @stack('script_gg')
     </head>
     <body>

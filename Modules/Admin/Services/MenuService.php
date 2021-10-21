@@ -6,27 +6,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Modules\Admin\Entities\MenusModel;
 use Nwidart\Menus\Facades\Menu;
+use Vnnit\Core\Facades\Common;
 
 class MenuService
 {
     public function getHeaderMenus()
     {
         $dataTree = MenusModel::where('menu_type', 'main')->get()->toTree();
-        Menu::create('navbar', function($menu) use($dataTree) {
-            $menu->style('navbar_bt4');
-            $this->renderMenu($menu, $dataTree);
-        });
-        return Menu::get('navbar');
+        return $this->getHtmlMenus($dataTree, 'navbar', 'navbar_bt4');
     }
 
     public function getFooterMenus()
     {
         $dataTree = MenusModel::where('menu_type', 'footer')->get()->toTree();
-        Menu::create('navbar', function($menu) use($dataTree) {
-            // $menu->style('navbar_bt4');
-            $this->renderMenu($menu, $dataTree);
-        });
-        return Menu::get('navbar');
+        return $this->getHtmlMenus($dataTree, 'navbar');
     }
 
     public function getAdminSlidebars()
@@ -43,11 +36,22 @@ class MenuService
             return $item;
         }, $results);
 
-        Menu::create('slidebar', function($menu) use($dataTree) {
-            $menu->style('slidebar_bt4');
-            $this->renderMenu($menu, collect($dataTree));
+        return $this->getHtmlMenus(collect($dataTree), 'slidebar', 'slidebar_bt4');
+    }
+
+    public function getSortableMenus($dataTree)
+    {
+        return Common::renderMenus($dataTree, 'nestedSortable', 'nested_sortable_bt4', false);
+    }
+
+    protected function getHtmlMenus($dataTree, $name, $menuStyle = null)
+    {
+        Menu::create($name, function($menu) use($dataTree, $menuStyle) {
+            if (!is_null($menuStyle))
+                $menu->style($menuStyle);
+            $this->renderMenu($menu, $dataTree);
         });
-        return Menu::get('slidebar');
+        return Menu::get($name);
     }
 
     private function renderMenu(&$menu, $dataTree, $class = 'nav-link')

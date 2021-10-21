@@ -21,9 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone',
-        'address',
-        'status'
+        'username',
+        'employee_id'
     ];
 
     /**
@@ -49,8 +48,8 @@ class User extends Authenticatable
         'id',
         'name',
         'email',
-        'phone',
-        'address'
+        'username',
+        'employee_id'
     ];
 
     public function getFillableColumns()

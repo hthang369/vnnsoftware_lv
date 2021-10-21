@@ -2,11 +2,10 @@
 
 namespace Modules\Admin\Grids;
 
-use Closure;
-use Illuminate\Support\HtmlString;
-use Vnnit\Core\Grids\BaseGridPresenter;
+use Modules\Admin\Entities\CategoriesModel;
+use Modules\Admin\Facades\StatusType;
 
-class PostsGrid extends BaseGridPresenter
+class PostsGrid extends BaseGrid
 {
     /**
      * The name of the grid
@@ -24,7 +23,6 @@ class PostsGrid extends BaseGridPresenter
     public function setColumns()
     {
         return [
-            'id',
             [
                 'key' => 'post_title',
                 'label' => trans('admin::posts.post_title')
@@ -32,10 +30,21 @@ class PostsGrid extends BaseGridPresenter
             [
                 'key' => 'post_image',
                 'label' => trans('admin::posts.post_image'),
+                'cell' => function($itemData) {
+                    return sprintf(
+                        '<img src="%s" class="img-responsive" alt="alternative" width="80" />',
+                        asset('storage/images/'.$itemData['post_image'])
+                    );
+                }
             ],
             [
                 'key' => 'category_id',
                 'label' => trans('admin::posts.category_id'),
+                'lookup' => [
+                    'dataSource' => CategoriesModel::get(['category_name', 'id'])->toArray(),
+                    'valueExpr' => 'id',
+                    'displayExpr' => 'category_name'
+                ],
             ],
             [
                 'key' => 'post_excerpt',
@@ -48,13 +57,11 @@ class PostsGrid extends BaseGridPresenter
             [
                 'key' => 'post_status',
                 'label' => trans('admin::posts.post_status'),
+                'cell' => function($itemData) {
+                    return StatusType::getStatusType($itemData['post_status']);
+                }
             ],
         ];
-
-                // 'data' => function ($columnData, $columnName) {
-                //     // like for instance, displaying an image on the grid...
-                //     return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="80">', asset('storage/images/'.$columnData->{$columnName}), 'alternative'));
-                // },
     }
 
     /**
@@ -62,14 +69,14 @@ class PostsGrid extends BaseGridPresenter
     *
     * @return void
     */
-    public function configureButtons()
+    protected function configureButtons()
     {
-        // parent::configureButtons();
-		// $this->editToolbarButton('create', [
-        //     'dataAttributes' => ['modal-size' => 'modal-xl'],
-        // ]);
-        // $this->editRowButton('view', [
-        //     'dataAttributes' => ['modal-size' => 'modal-xl'],
-        // ]);
+        parent::configureButtons();
+		$this->editToolbarButton('create', [
+            'dataAttributes' => ['modal-size' => 'modal-xl'],
+        ]);
+        $this->editRowButton('edit', [
+            'dataAttributes' => ['modal-size' => 'modal-xl'],
+        ]);
     }
 }

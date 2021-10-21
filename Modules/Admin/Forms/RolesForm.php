@@ -11,13 +11,8 @@ class RolesForm extends Form
     public function buildForm()
     {
         $this
-            ->add('username', Field::TEXT)
-            ->add('password', Field::PASSWORD)
-            ->add('name', Field::TEXT);
-            // ->add('email', Field::EMAIL);
-            // ->add('role_list', 'checkbox_group', [
-            //     'label' => 'Roles',
-            //     'choices' => Role::pluck('name', 'level')->toArray()
-            // ]);
+            ->add('level', Field::TEXT)
+            ->add('name', Field::TEXT)
+            ->add('role_rank', Field::TEXT);
     }
 }

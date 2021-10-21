@@ -8,7 +8,7 @@
                 <h3 class="card-title">{{ trans('setting::configs.web_card_title') }}</h3>
             </div>
             <div class="card-body">
-                {!! form($form) !!}
+                {!! form($data['form']) !!}
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
                 <h3 class="card-title">{{ trans('setting::configs.web_card_home') }}</h3>
             </div>
             <div class="card-body">
-                {!! form($formHome) !!}
+                {!! form($data['formHome']) !!}
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                 <h3 class="card-title">{{ trans('setting::configs.web_card_map') }}</h3>
             </div>
             <div class="card-body">
-                {!! form($formMap) !!}
+                {!! form($data['formMap']) !!}
             </div>
         </div>
     </div>

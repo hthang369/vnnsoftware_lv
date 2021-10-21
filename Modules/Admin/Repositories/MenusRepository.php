@@ -3,6 +3,7 @@
 namespace Modules\Admin\Repositories;
 
 use Modules\Admin\Entities\MenusModel;
+use Modules\Admin\Facades\Menus;
 use Modules\Admin\Forms\MenusForm;
 use Modules\Admin\Grids\MenusGrid;
 
@@ -49,5 +50,11 @@ class MenusRepository extends AdminBaseRepository
         }
         $attributes['partial_id'] = data_get($attributes, $attributes['partial_table']);
         return parent::updateNestedTree($attributes, $id);
+    }
+
+    public function getMenus($menu)
+    {
+        $menus = $this->model->where('menu_type', $menu)->get()->toTree();
+        return Menus::getSortableMenus($menus);
     }
 }

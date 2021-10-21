@@ -2,8 +2,8 @@
 
 namespace Modules\Setting\Forms;
 
-use Kris\LaravelFormBuilder\Field;
-use Kris\LaravelFormBuilder\Form;
+use Vnnit\Core\Forms\Field;
+use Vnnit\Core\Forms\Form;
 
 class SettingsForm extends Form
 {

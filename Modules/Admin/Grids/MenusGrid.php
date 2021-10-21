@@ -3,10 +3,10 @@
 namespace Modules\Admin\Grids;
 
 use Collective\Html\FormFacade;
+use Modules\Admin\Entities\MenusModel;
 use Modules\Admin\Facades\Menus;
-use Vnnit\Core\Grids\BaseGridPresenter;
 
-class MenusGrid extends BaseGridPresenter
+class MenusGrid extends BaseGrid
 {
     /**
      * The name of the grid
@@ -25,34 +25,61 @@ class MenusGrid extends BaseGridPresenter
     */
     public function setColumns()
     {
-        $this->columns = [
-            "id" => [
-		        "label" => "ID",
-		    ],
-		    "menu_name" => [
+        return [
+            [
+                'key' => 'menu_name',
                 'label' => trans('admin::menus.menu_name'),
-		    ],
-            "parent_id" => [
+            ],
+            [
+                'key' => 'parent_id',
                 'label' => trans('admin::menus.parent_id'),
-		    ]
-		];
+                'lookup' => [
+                    'dataSource' => MenusModel::get(['menu_name', 'id'])->toArray(),
+                    'valueExpr' => 'id',
+                    'displayExpr' => 'menu_name'
+                ],
+            ],
+        ];
     }
 
     public function renderSearchForm()
     {
         $menu_type = Menus::getMenuTypes();
-        return '<div class="col-4">'.
+        return '<div class="menu-type mb-3">'.
             FormFacade::select('menu_type', $menu_type, request('type'), ['class' => 'custom-select', 'id' => 'menu_type'])
             .'</div>';
     }
 
-    protected function setSortUrl(string $key, string $direction): void
+    protected function getCreareUrl()
     {
-        $values = collect([
-            $this->getGridSortParam() => $key,
-            $this->getGridSortDirParam() => $direction
-        ])->toArray();
-        $params = array_merge(array_except(request()->query(), 'type'), $values);
-        $this->sortUrl = route($this->getIndexRouteName(), $params);
+        $menu_type = request('type');
+        return route($this->getSectionCode().'.create', $menu_type);
+    }
+
+    protected function getEditUrl($params)
+    {
+        $menu_type = request('type');
+        return parent::getEditUrl([$params, $menu_type]);
+    }
+
+    protected function configureButtons()
+    {
+        parent::configureButtons();
+        $this->addToolbarButton('sort-order', [
+            'key' => 'sort-order',
+            'name' => 'sort-order',
+            'title' => trans('admin::common.btn_sort_order'),
+            'label' => trans('admin::common.btn_sort_order'),
+            'variant' => 'success',
+            'size' => '',
+            'position' => 3,
+            'url' => function($item) {
+                return route('menus.sort', request('type'));
+            },
+            'icon' => 'fa-plus-circle',
+            'visible' => function($item) {
+                return true;
+            }
+        ]);
     }
 }

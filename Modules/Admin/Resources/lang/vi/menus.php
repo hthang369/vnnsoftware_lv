@@ -11,9 +11,12 @@ return [
     'advertises' => 'Advertises',
     'roles' => 'Roles',
     'users' => 'Users',
+    'media' => 'Media',
+    'widget' => 'Widget',
 
     'menu_name' => 'Tên menu',
     'menu_link' => 'Link menu',
+    'parent_id' => 'Menu cha',
 
     'main_menu' => 'Menu chính',
     'footer_menu' => 'Menu phụ',

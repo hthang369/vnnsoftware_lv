@@ -2,10 +2,9 @@
 
 namespace Modules\Admin\Grids;
 
-use Closure;
-use Vnnit\Core\Grids\BaseGridPresenter;
+use Modules\Admin\Facades\StatusType;
 
-class CategoriesGrid extends BaseGridPresenter
+class CategoriesGrid extends BaseGrid
 {
     /**
      * The name of the grid
@@ -23,10 +22,22 @@ class CategoriesGrid extends BaseGridPresenter
     public function setColumns()
     {
         return [
-		    "category_name",
             // "parent_name",
-		    "category_link",
-		    "category_status"
+            [
+                'key' => 'category_name',
+                'label' => trans('admin::categories.category_name')
+            ],
+            [
+                'key' => 'category_link',
+                'label' => trans('admin::categories.category_link')
+            ],
+            [
+                'key' => 'category_status',
+                'label' => trans('admin::categories.category_status'),
+                'cell' => function($itemData) {
+                    return StatusType::getStatusType($itemData['category_status']);
+                }
+            ]
 		];
     }
 }

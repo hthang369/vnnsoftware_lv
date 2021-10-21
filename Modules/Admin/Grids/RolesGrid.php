@@ -3,9 +3,8 @@
 namespace Modules\Admin\Grids;
 
 use Illuminate\Support\HtmlString;
-use Vnnit\Core\Grids\BaseGridPresenter;
 
-class RolesGrid extends BaseGridPresenter
+class RolesGrid extends BaseGrid
 {
     /**
      * The name of the grid

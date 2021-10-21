@@ -2,8 +2,8 @@
 
 namespace Modules\Setting\Forms;
 
-use Kris\LaravelFormBuilder\Field;
-use Kris\LaravelFormBuilder\Form;
+use Vnnit\Core\Forms\Field;
+use Vnnit\Core\Forms\Form;
 
 class SettingsMapForm extends Form
 {
@@ -22,7 +22,8 @@ class SettingsMapForm extends Form
                 'attr' => ['class' => 'btn btn-secondary', 'formaction' => route('setting.index'), 'formmethod' => 'get']
             ]);
         } else {
-            $this->add('web_map', 'maps', [
+            $this->add('web_map', Field::MAP, [
+                'tag' => 'div',
                 'label' => trans('setting::configs.web_map'),
             ]);
             $this->add('edit', Field::BUTTON_SUBMIT, [

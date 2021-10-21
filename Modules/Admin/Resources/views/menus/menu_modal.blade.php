@@ -1,9 +1,8 @@
-{!! Modal::start($modal) !!}
-    {!! $form !!}
+{!! Modal::start($data['modal']) !!}
+    {!! $data['form'] !!}
 {!! Modal::end() !!}
 
-
-@section('scripts')
+@push('scripts')
 <script>
 $(document).ready(function() {
     $('#tablist').change(function(e) {
@@ -11,5 +10,4 @@ $(document).ready(function() {
     });
 });
 </script>
-@endsection
-
+@endpush

@@ -21,7 +21,10 @@ class RolesController extends CoreController
         $this->setRouteName('role');
         $this->setPathView([
             'create' => 'admin::roles.role_modal',
-            'show' => 'admin::roles.role_modal'
+            'show' => 'admin::roles.role_modal',
+            'update' => 'role.update',
+            'store' => 'role.store',
+            'destroy' => 'role.destroy',
         ]);
     }
 

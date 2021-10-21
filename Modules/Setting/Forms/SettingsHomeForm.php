@@ -2,8 +2,8 @@
 
 namespace Modules\Setting\Forms;
 
-use Kris\LaravelFormBuilder\Field;
-use Kris\LaravelFormBuilder\Form;
+use Vnnit\Core\Forms\Field;
+use Vnnit\Core\Forms\Form;
 
 class SettingsHomeForm extends Form
 {
@@ -28,19 +28,19 @@ class SettingsHomeForm extends Form
                 'attr' => ['class' => 'btn btn-secondary', 'formaction' => route('setting.index'), 'formmethod' => 'get']
             ]);
         } else {
-            $this->add('web_favicon', 'image_file', [
+            $this->add('web_favicon', Field::PICTURE, [
                 'label' => trans('setting::configs.web_favicon'),
-                'src' => 'storage/images/',
+                'url' => 'storage/images/',
                 'width' => '150'
             ]);
-            $this->add('web_logo', 'image_file', [
+            $this->add('web_logo', Field::PICTURE, [
                 'label' => trans('setting::configs.web_logo'),
-                'src' => 'storage/images/',
+                'url' => 'storage/images/',
                 'width' => '150'
             ]);
-            $this->add('web_banner', 'image_file', [
+            $this->add('web_banner', Field::PICTURE, [
                 'label' => trans('setting::configs.web_banner'),
-                'src' => 'storage/images/',
+                'url' => 'storage/images/',
                 'width' => '150'
             ]);
             $this->add('edit', Field::BUTTON_SUBMIT, [

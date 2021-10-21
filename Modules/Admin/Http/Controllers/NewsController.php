@@ -17,7 +17,10 @@ class NewsController extends CoreController
         $this->setRouteName('news');
         $this->setPathView([
             'create' => 'admin::news.news_modal',
-            'show' => 'admin::news.news_modal'
+            'show' => 'admin::news.news_modal',
+            'update' => 'news.update',
+            'store' => 'news.store',
+            'destroy' => 'news.destroy',
         ]);
         Breadcrumb::add(__('admin::menus.news'), null);
     }

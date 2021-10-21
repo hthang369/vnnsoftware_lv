@@ -23,7 +23,10 @@ class CategoriesController extends CoreController
         $this->setRouteName('categories');
         $this->setPathView([
             'create' => 'admin::categories.category_modal',
-            'show' => 'admin::categories.category_modal'
+            'show' => 'admin::categories.category_modal',
+            'update' => 'categories.update',
+            'store' => 'categories.store',
+            'destroy' => 'categories.destroy',
         ]);
         Breadcrumb::add(__('admin::menus.categories'), null);
     }

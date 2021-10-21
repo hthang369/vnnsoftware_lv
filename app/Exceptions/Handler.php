@@ -2,11 +2,11 @@
 
 namespace App\Exceptions;
 
-use Laka\Core\Http\Response\WebResponse;
 use App\Facades\Common;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Throwable;
+use Vnnit\Core\Responses\BaseResponse;
 
 class Handler extends ExceptionHandler
 {
@@ -41,8 +41,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
+        $response = resolve(BaseResponse::class);
         if ($e instanceof ValidatorException) {
-            return WebResponse::exception(route(Common::getSectionCode().'.index'), null, $e->getMessageBag()->toArray());
+            return $response->validationError($request, $e->getMessageBag()->toArray(), route(Common::getSectionCode().'.index'));
         }
         return parent::render($request, $e);
     }

@@ -6,17 +6,16 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Modules\Setting\Entities\SettingBaseModel;
 use Modules\Setting\Entities\SettingDetailModel;
 use Modules\Setting\Entities\SettingModel;
-use Prettus\Repository\Events\RepositoryEntityUpdated;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection as SupportCollection;
-use Modules\Core\Facades\FileManagement;
-use Vnnit\Core\Repositories\BaseRepository;
+use Vnnit\Core\Facades\FileManagement;
+use Vnnit\Core\Repositories\CoreRepository;
 
 /**
  * @property SettingBaseModel model
  */
-abstract class SettingBaseRepository extends BaseRepository
+abstract class SettingBaseRepository extends CoreRepository
 {
     protected static $cache = [];
 

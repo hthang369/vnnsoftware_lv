@@ -9,6 +9,7 @@ use Modules\Admin\Entities\PostsModel;
 use Modules\Admin\Repositories\PostsRepository;
 use Modules\Admin\Repositories\SlidesRepository;
 use Modules\Home\Entities\HomeModel;
+use Modules\Home\Services\HomeServices;
 use Vnnit\Core\Repositories\BaseRepository;
 
 class HomeRepository extends BaseRepository
@@ -65,10 +66,7 @@ class HomeRepository extends BaseRepository
         return $results->groupBy('category_id')->map(function($item) {
             $categoryColumns = ['category_id', 'category_name', 'category_link', 'category_image'];
             $categoryInfo = $item->first()->only($categoryColumns);
-            $columns = array_diff(array_keys($item->first()->getAttributes()), $categoryColumns);
-            $categoryInfo['post_list'] = $item->map(function($product) use($columns) {
-                return $product->only($columns);
-            });
+            $categoryInfo['post_list'] = $this->generatePortfolio($item);
             return $categoryInfo;
         });
     }
@@ -76,19 +74,30 @@ class HomeRepository extends BaseRepository
     public function getHomeProducts()
     {
         $menu = CategoriesModel::where('category_link', 'thiet-ke-web')->first();
-        return resolve(PostsRepository::class)->getAllDataByCategoryParent($menu->id, 8);
+        return $this->generatePortfolio(resolve(PostsRepository::class)->getAllDataByCategoryParent($menu->id, 8));
     }
 
     public function findPostCategory($id)
     {
         $cat = CategoriesModel::where('category_link', $id)->first();
         $results = $cat->toArray();
-        $results['post_list'] = resolve(PostsRepository::class)->getAllDataByCategory($cat->id)->toArray();
+        $results['post_list'] = $this->getAllPosts($cat->id);
         return $results;
     }
 
     public function findPost($id)
     {
         return PostsModel::where('post_link', $id)->first()->toArray();
+    }
+
+    protected function getAllPosts($id, $type = 'post')
+    {
+        $data = resolve(PostsRepository::class)->getAllDataByCategory($id, $type);
+        return ['data' => $this->generatePortfolio($data->items()), 'pagination' => $data->links()];
+    }
+
+    protected function generatePortfolio($data)
+    {
+        return resolve(HomeServices::class)->generatePortfolio($data)->toArray();
     }
 }

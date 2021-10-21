@@ -2,10 +2,10 @@
 
 namespace Modules\Admin\Forms;
 
-use Kris\LaravelFormBuilder\Field;
-use Kris\LaravelFormBuilder\Form;
 use Modules\Admin\Entities\MenusModel;
 use Modules\Admin\Facades\Menus;
+use Vnnit\Core\Forms\Field;
+use Vnnit\Core\Forms\Form;
 
 class MenusForm extends Form
 {

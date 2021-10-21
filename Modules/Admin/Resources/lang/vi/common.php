@@ -4,5 +4,8 @@ return [
     'add'  => 'Thêm mới',
     'delete' => 'Xóa',
     'my_account' => 'Thông tin cá nhân',
-    'logout' => 'Thoát'
+    'logout' => 'Thoát',
+    'active' => 'Hoạt động',
+    'deactive' => 'Không hoạt động',
+    'login_header' => 'VNNIT Computer'
 ];

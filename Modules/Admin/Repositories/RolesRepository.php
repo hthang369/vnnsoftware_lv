@@ -29,10 +29,9 @@ class RolesRepository extends AdminBaseRepository
 
     public function newDataGrid()
     {
-        // $this->scopeQuery(function ($model) {
-        //     $model = $this->queryCountEmployee($model);
-        //     return $this->queryOrderByRank($model);
-        // });
+        $this->scopeQuery(function ($model) {
+            return $this->queryCountEmployee($model);
+        });
         $data = parent::paginate();
         return [$data, $this->presenterGrid];
     }
@@ -40,8 +39,7 @@ class RolesRepository extends AdminBaseRepository
     protected function getQuery()
     {
         $this->scopeQuery(function ($model) {
-            $model = $this->queryCountEmployee($model);
-            return $this->queryOrderByRank($model);
+            return $this->queryCountEmployee($model);
         });
         return parent::getQuery();
     }
@@ -49,11 +47,5 @@ class RolesRepository extends AdminBaseRepository
     protected function queryCountEmployee($model)
     {
         return $model->withCount('users');
-    }
-
-    protected function queryOrderByRank($model)
-    {
-        return $model->orderBy('role_rank')
-                     ->orderBy('id');
     }
 }

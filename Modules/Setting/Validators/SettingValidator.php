@@ -2,9 +2,7 @@
 
 namespace Modules\Setting\Validators;
 
-use Illuminate\Http\Request;
-use Modules\Core\Validators\BaseValidator;
-use Prettus\Validator\Contracts\ValidatorInterface;
+use Vnnit\Core\Validators\BaseValidator;
 
 class SettingValidator extends BaseValidator
 {

@@ -17,7 +17,10 @@ class PostsController extends CoreController
         $this->setRouteName('posts');
         $this->setPathView([
             'create' => 'admin::posts.post_modal',
-            'show' => 'admin::posts.post_modal'
+            'show' => 'admin::posts.post_modal',
+            'update' => 'posts.update',
+            'store' => 'posts.store',
+            'destroy' => 'posts.destroy',
         ]);
         Breadcrumb::add(__('admin::menus.posts'), null);
     }

@@ -11,7 +11,8 @@
 
        <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-
+       <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+        @stack('styles')
     </head>
     <body class="sidebar-mini control-sidebar-slide-open dark-mode">
         <section class="wrapper">

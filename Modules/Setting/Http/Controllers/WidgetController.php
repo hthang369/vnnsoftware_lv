@@ -6,9 +6,9 @@ use Modules\Setting\Repositories\WidgetCriteria;
 use Modules\Setting\Repositories\WidgetRepository;
 use Modules\Setting\Responses\WidgetResponse;
 use Modules\Setting\Validators\WidgetValidator;
-use Modules\Core\Http\Controllers\CoreController;
 use Modules\Setting\Forms\WidgetGroupForm;
 use Modules\Setting\Forms\WidgetTextForm;
+use Vnnit\Core\Http\Controllers\CoreController;
 
 class WidgetController extends CoreController
 {
@@ -18,7 +18,7 @@ class WidgetController extends CoreController
 
     public function __construct(WidgetRepository $repository, WidgetValidator $validator, WidgetResponse $response, WidgetCriteria $criteria)
     {
-        parent::__construct($repository, $validator, $response, $criteria);
+        parent::__construct($repository, $validator, $response);
         $this->setDefaultView('setting::');
         $this->setRouteName('widget');
         $this->setPathView([

@@ -2,10 +2,7 @@
 
 namespace Modules\Setting\Repositories;
 
-use Modules\Core\Repositories\BaseCriteriaEloquent;
-use Prettus\Repository\Contracts\CriteriaInterface;
-
-class SettingCriteria extends BaseCriteriaEloquent implements CriteriaInterface
+class SettingCriteria
 {
     protected function fullnameFilter($value)
     {

@@ -2,10 +2,7 @@
 
 namespace Modules\Admin\Grids;
 
-use Illuminate\Support\HtmlString;
-use Vnnit\Core\Grids\BaseGridPresenter;
-
-class AdvertisesGrid extends BaseGridPresenter
+class AdvertisesGrid extends BaseGrid
 {
     /**
      * The name of the grid
@@ -22,52 +19,22 @@ class AdvertisesGrid extends BaseGridPresenter
     */
     public function setColumns()
     {
-        $this->columns = [
-            "id" => [
-		        "label" => "ID",
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ],
-		        "styles" => [
-		            "column" => "grid-w-10"
-		        ]
-		    ],
-		    "advertise_name" => [
+        return [
+            [
+                'key' => 'advertise_name',
                 'label' => trans('admin::advertises.advertise_name'),
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "advertise_link" => [
+            ],
+            [
+                'key' => 'advertise_link',
                 'label' => trans('admin::advertises.advertise_link'),
-		        "search" => [
-		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "like"
-		        ]
-		    ],
-		    "advertise_image" => [
+            ],
+            [
+                'key' => 'advertise_image',
                 'label' => trans('admin::advertises.advertise_image'),
-		        "search" => [
-		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-                ],
-                'raw' => true,
-                'data' => function ($columnData, $columnName) {
-                    // like for instance, displaying an image on the grid...
-                    return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="40">', asset('storage/data/upload/images/'.$columnData->{$columnName}), 'alternative'));
-                },
-		    ],
-		];
+                'cell' => function($itemData) {
+                    return sprintf('<img src="%s" class="img-responsive" alt = "%s" width="80">', asset('storage/images/'.$itemData['advertise_image']), 'alternative');
+                }
+            ],
+        ];
     }
 }

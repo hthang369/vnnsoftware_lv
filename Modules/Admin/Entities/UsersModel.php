@@ -2,13 +2,15 @@
 
 namespace Modules\Admin\Entities;
 
-use App\Models\User\User;
-use Modules\Core\Traits\FullTextSearch;
+use App\Models\Users\User;
 use Spatie\Permission\Models\Role;
+use Vnnit\Core\Traits\Entities\FullTextSearch;
 
 class UsersModel extends User
 {
     use FullTextSearch;
+
+    protected $table = 'users';
 
     public function getRoles()
     {
@@ -17,6 +19,6 @@ class UsersModel extends User
 
     public function getRoleListAttribute()
     {
-        return $this->getRoles()->pluck('level');
+        return $this->getRoles()->pluck('name');
     }
 }

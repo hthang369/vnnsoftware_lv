@@ -17,7 +17,10 @@ class PagesController extends CoreController
         $this->setRouteName('pages');
         $this->setPathView([
             'create' => 'admin::pages.page_modal',
-            'show' => 'admin::pages.page_modal'
+            'show' => 'admin::pages.page_modal',
+            'update' => 'pages.update',
+            'store' => 'pages.store',
+            'destroy' => 'pages.destroy',
         ]);
         Breadcrumb::add(__('admin::menus.pages'), null);
     }

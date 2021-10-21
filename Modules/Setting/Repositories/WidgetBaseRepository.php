@@ -2,9 +2,9 @@
 
 namespace Modules\Setting\Repositories;
 
-use Modules\Core\Repositories\BaseRepositoryEloquent;
+use Vnnit\Core\Repositories\BaseRepository;
 
-abstract class WidgetBaseRepository extends BaseRepositoryEloquent
+abstract class WidgetBaseRepository extends BaseRepository
 {
 
 }

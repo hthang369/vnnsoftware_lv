@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
+@push('styles')
+<link href="{{ asset('css/login.css') }}" rel="stylesheet">
+@endpush
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-7">
-            <div class="login-wrap p-4 p-md-5">
-                <div class="icon d-flex align-items-center justify-content-center">
+        <div class="col-md-5">
+            <div class="login-wrap p-4">
+                <div class="icon mx-auto mb-2 bg-primary rounded-circle d-flex align-items-center justify-content-center">
                     <span class="fa fa-user-o"></span>
                 </div>
                 <h3 class="text-center mb-4">{{ __('Login') }}</h3>
@@ -17,10 +20,12 @@
                 <form method="POST" action="{{ route('login') }}" class="login-form">
                     @csrf
                     <div class="form-group row">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
+                        <div class="col">
+                            <input id="email" type="text"
+                                class="form-control @error('email') is-invalid @enderror"
+                                name="email" value="{{ old('email') }}"
+                                autocomplete="email" autofocus
+                                placeholder="{{ __('E-Mail Address') }}">
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -31,10 +36,11 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="current-password">
+                        <div class="col">
+                            <input id="password" type="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                name="password" autocomplete="current-password"
+                                placeholder="{{ __('Password') }}">
 
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -45,28 +51,27 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-6 offset-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                <label class="form-check-label" for="remember">
-                                    {{ __('Remember Me') }}
-                                </label>
-                            </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                {{ __('Login') }}
+                            </button>
                         </div>
                     </div>
 
                     <div class="form-group row mb-0">
-                        <div class="col-md-8 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('Login') }}
-                            </button>
+                        <div class="col">
+                            <div class="d-flex justify-content-between">
+                                <div class="custom-control custom-checkbox d-flex align-items-center">
+                                    <input type="checkbox" class="custom-control-input" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="remember">{{ __('Remember Me') }}</label>
+                                </div>
 
-                            @if (Route::has('password.request'))
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            @endif
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </form>

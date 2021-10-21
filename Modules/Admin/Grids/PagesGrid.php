@@ -2,10 +2,10 @@
 
 namespace Modules\Admin\Grids;
 
-use Closure;
-use Vnnit\Core\Grids\BaseGridPresenter;
+use Modules\Admin\Entities\CategoriesModel;
+use Modules\Admin\Facades\StatusType;
 
-class PagesGrid extends BaseGridPresenter
+class PagesGrid extends BaseGrid
 {
     /**
      * The name of the grid
@@ -22,68 +22,36 @@ class PagesGrid extends BaseGridPresenter
     */
     public function setColumns()
     {
-        $this->columns = [
-            "id" => [
-		        "label" => "ID",
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-		        ],
-		        "styles" => [
-		            "column" => "grid-w-10"
-		        ]
-		    ],
-		    "post_title" => [
-                'label' => trans('admin::posts.post_title'),
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-            "post_image" => [
-                'label' => trans('admin::posts.post_image'),
-		        "search" => [
-		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-		        ]
-		    ],
-		    "post_excerpt" => [
+        return [
+            [
+                'key' => 'post_title',
+                'label' => trans('admin::posts.post_title')
+            ],
+            [
+                'key' => 'category_id',
+                'label' => trans('admin::posts.category_id'),
+                'lookup' => [
+                    'dataSource' => CategoriesModel::get(['category_name', 'id'])->toArray(),
+                    'valueExpr' => 'id',
+                    'displayExpr' => 'category_name'
+                ],
+            ],
+            [
+                'key' => 'post_excerpt',
                 'label' => trans('admin::posts.post_excerpt'),
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "like"
-		        ]
-		    ],
-		    "post_date" => [
+            ],
+            [
+                'key' => 'post_date',
                 'label' => trans('admin::posts.post_date'),
-		        "search" => [
-		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-		        ]
-		    ],
-		    "post_status" => [
+            ],
+            [
+                'key' => 'post_status',
                 'label' => trans('admin::posts.post_status'),
-		        "search" => [
-		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-		        ]
-		    ]
-		];
+                'cell' => function($itemData) {
+                    return StatusType::getStatusType($itemData['post_status']);
+                }
+            ],
+        ];
     }
 
     /**

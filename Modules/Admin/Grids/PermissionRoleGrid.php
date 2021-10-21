@@ -3,10 +3,8 @@
 namespace Modules\Admin\Grids;
 
 use Collective\Html\FormFacade as Form;
-use Illuminate\Support\HtmlString;
-use Vnnit\Core\Grids\BaseGridPresenter;
 
-class PermissionRoleGrid extends BaseGridPresenter
+class PermissionRoleGrid extends BaseGrid
 {
     /**
      * The name of the grid
@@ -92,17 +90,17 @@ class PermissionRoleGrid extends BaseGridPresenter
     */
     public function configureButtons()
     {
-        $this->clearAllButtons();
+        // $this->clearAllButtons();
         parent::configureButtons();
-        $this->makeCustomButton([
-            'name' => 'Save',
-            'pjaxEnabled' => true,
-            'gridId' => 'frmPermissionRole',
-            'dataAttributes' => ['form-id' => 'frmPermissionRole'],
-            'class' => 'btn btn-info btn-save',
-            'renderIf' => function () {
-                return in_array('save', $this->buttonsToGenerate);
-            }
-        ], static::$TYPE_TOOLBAR);
+        // $this->makeCustomButton([
+        //     'name' => 'Save',
+        //     'pjaxEnabled' => true,
+        //     'gridId' => 'frmPermissionRole',
+        //     'dataAttributes' => ['form-id' => 'frmPermissionRole'],
+        //     'class' => 'btn btn-info btn-save',
+        //     'renderIf' => function () {
+        //         return in_array('save', $this->buttonsToGenerate);
+        //     }
+        // ], static::$TYPE_TOOLBAR);
     }
 }

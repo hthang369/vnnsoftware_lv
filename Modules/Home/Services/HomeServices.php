@@ -2,6 +2,7 @@
 
 namespace Modules\Home\Services;
 
+use Illuminate\Support\Collection;
 use Modules\Admin\Entities\MenusModel;
 use Nwidart\Menus\Facades\Menu;
 
@@ -47,6 +48,25 @@ class HomeServices
                     ['class' => $class, 'icon' => $icon]
                 );
             }
+        });
+    }
+
+    public function generatePortfolio($results)
+    {
+        if (!($results instanceof Collection)) {
+            $results = collect($results);
+        }
+        return $results->map(function($item) {
+            return [
+                'link' => route('page.show-detail', $item->post_link),
+                'images' => [
+                    'src' => asset("storage/images/$item->post_image"),
+                    'name' => $item->post_image,
+                    'class' => 'card-img-top'
+                ],
+                'title' => $item->post_title,
+                'excerpt' => $item->post_excerpt
+            ];
         });
     }
 }

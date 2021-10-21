@@ -5,6 +5,7 @@ namespace Modules\Admin\Providers;
 use Illuminate\Support\Facades\App;
 use Modules\Admin\Support\BreadcrumbSupport;
 use Modules\Admin\Support\MenusSupport;
+use Modules\Admin\Support\StatusTypeHelper;
 use Vnnit\Core\BaseServiceProvider;
 
 class AdminServiceProvider extends BaseServiceProvider
@@ -23,7 +24,8 @@ class AdminServiceProvider extends BaseServiceProvider
 
     protected $facades = [
         'menus-support' => MenusSupport::class,
-        'breadcrumb-support' => BreadcrumbSupport::class
+        'breadcrumb-support' => BreadcrumbSupport::class,
+        'status-type-helper' => StatusTypeHelper::class
     ];
 
     /**

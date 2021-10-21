@@ -16,7 +16,10 @@ class SlidesController extends CoreController
         $this->setRouteName('slides');
         $this->setPathView([
             'create' => 'admin::slides.slide_modal',
-            'show' => 'admin::slides.slide_modal'
+            'show' => 'admin::slides.slide_modal',
+            'update' => 'slides.update',
+            'store' => 'slides.store',
+            'destroy' => 'slides.destroy',
         ]);
     }
 

@@ -1,0 +1,7 @@
+.login-wrap .icon {
+    width: 5rem;
+    height: 5rem;
+}
+.login-wrap .icon span.fa {
+    font-size: 2rem;
+}

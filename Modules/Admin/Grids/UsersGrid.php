@@ -2,12 +2,7 @@
 
 namespace Modules\Admin\Grids;
 
-use Closure;
-use Illuminate\Support\HtmlString;
-use Spatie\Permission\Models\Role;
-use Vnnit\Core\Grids\BaseGridPresenter;
-
-class UsersGrid extends BaseGridPresenter
+class UsersGrid extends BaseGrid
 {
     /**
      * The name of the grid
@@ -24,59 +19,28 @@ class UsersGrid extends BaseGridPresenter
     */
     public function setColumns()
     {
-        $this->columns = [
-		    "id" => [
-		        "label" => "ID",
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ],
-		        "styles" => [
-		            "column" => "grid-w-10"
-		        ]
-		    ],
-		    "username" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-            "name" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "email" => [
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-		    "roles" => [
-		        "sort" => false,
-                'raw' => true,
-                'data' => function ($columnData, $columnName) {
-                    $data = $columnData->getRoles()->pluck('name')->map(function($item) {
+        return [
+            [
+                'key' => 'username',
+                'label' => trans('username'),
+            ],
+            [
+                'key' => 'name',
+                'label' => trans('name'),
+            ],
+            [
+                'key' => 'email',
+                'label' => trans('email'),
+            ],
+            [
+                'key' => 'roles',
+                'label' => trans('roles'),
+                'cell' => function($itemData) {
+                    return collect($itemData['role_list'])->map(function($item) {
                         return '<span class="badge badge-primary">'.$item.'</span>';
                     })->join(' ');
-                    return new HtmlString($data);
-                },
-		        "filter" => [
-		            "enabled" => true,
-		            "type" => "select",
-                    'data' => Role::pluck('name', 'id')
-		        ]
-		    ]
-		];
+                }
+            ],
+        ];
     }
 }

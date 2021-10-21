@@ -18,8 +18,11 @@ Route::group(['middleware' => 'auth:web', 'prefix' => 'admin'], function() {
     Route::resource('news', 'NewsController');
     Route::resource('pages', 'PagesController');
     Route::resource('categories', 'CategoriesController');
-    Route::resource('menus', 'MenusController', ['except' => ['index']]);
+    Route::resource('menus', 'MenusController', ['except' => ['index', 'create', 'edit']]);
     Route::get('view-menus/{menu?}', 'MenusController@view')->name('menus.index');
+    Route::get('menus/create/{menu?}', 'MenusController@create')->name('menus.create');
+    Route::get('menus/{id}/edit/{menu?}', 'MenusController@edit')->name('menus.edit');
+    Route::get('menus/sort-order/{menu?}', 'MenusController@sort')->name('menus.sort');
 
     Route::resource('slides', 'SlidesController', ['except' => ['update']]);
     Route::post('slides/{slides}', 'SlidesController@update')->name('slides.update');

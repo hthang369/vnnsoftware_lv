@@ -2,11 +2,10 @@
 
 namespace Modules\Admin\Grids;
 
-use Closure;
-use Illuminate\Support\HtmlString;
-use Vnnit\Core\Grids\BaseGridPresenter;
+use Modules\Admin\Entities\CategoriesModel;
+use Modules\Admin\Facades\StatusType;
 
-class NewsGrid extends BaseGridPresenter
+class NewsGrid extends BaseGrid
 {
     /**
      * The name of the grid
@@ -23,82 +22,45 @@ class NewsGrid extends BaseGridPresenter
     */
     public function setColumns()
     {
-        $this->columns = [
-		    "id" => [
-		        "label" => "ID",
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-		        ],
-		        "styles" => [
-		            "column" => "grid-w-10"
-		        ]
-		    ],
-		    "post_title" => [
+        return [
+            [
+                'key' => 'post_title',
                 'label' => trans('admin::posts.post_title'),
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "="
-		        ]
-		    ],
-            "post_image" => [
+            ],
+            [
+                'key' => 'post_image',
                 'label' => trans('admin::posts.post_image'),
-		        "search" => [
-		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-                ],
-                'raw' => true,
-                'data' => function ($columnData, $columnName) {
-                    // like for instance, displaying an image on the grid...
-                    return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="80">', asset('storage/images/'.$columnData->{$columnName}), 'alternative'));
-                },
-		    ],
-            "category_id" => [
+                'cell' => function($itemData) {
+                    return sprintf(
+                        '<img src="%s" class="img-responsive" alt="alternative" width="80" />',
+                        asset('storage/upload/images/'.$itemData['post_image'])
+                    );
+                }
+            ],
+            [
+                'key' => 'category_id',
                 'label' => trans('admin::posts.category_id'),
-		        "search" => [
-		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-		        ]
-		    ],
-		    "post_excerpt" => [
+                'lookup' => [
+                    'dataSource' => CategoriesModel::get(['category_name', 'id'])->toArray(),
+                    'valueExpr' => 'id',
+                    'displayExpr' => 'category_name'
+                ],
+            ],
+            [
+                'key' => 'post_excerpt',
                 'label' => trans('admin::posts.post_excerpt'),
-		        "search" => [
-		            "enabled" => true
-		        ],
-		        "filter" => [
-		            "enabled" => true,
-		            "operator" => "like"
-		        ]
-		    ],
-		    "post_date" => [
+            ],
+            [
+                'key' => 'post_date',
                 'label' => trans('admin::posts.post_date'),
-		        "search" => [
-		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-		        ]
-		    ],
-		    "post_status" => [
+            ],
+            [
+                'key' => 'post_status',
                 'label' => trans('admin::posts.post_status'),
-		        "search" => [
-		            "enabled" => false
-		        ],
-		        "filter" => [
-		            "enabled" => false,
-		            "operator" => "="
-		        ]
-		    ]
+                'cell' => function($itemData) {
+                    return StatusType::getStatusType($itemData['post_status']);
+                }
+            ],
 		];
     }
 

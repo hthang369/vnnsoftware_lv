@@ -1,3 +1,3 @@
 {!! Modal::start($data['modal']) !!}
-    {!! $data['form']->render() !!}
+    {!! $data['form'] !!}
 {!! Modal::end() !!}

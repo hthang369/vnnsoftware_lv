@@ -195,7 +195,7 @@ var $api = $api || {};
             },
             error: function error(data) {
               if (typeof toastr !== 'undefined') {
-                toastr.error('An error occurred', 'Whoops!');
+                toastr.showError('Whoops!', 'An error occurred');
               } else {
                 alert('An error occurred');
               }
@@ -495,7 +495,7 @@ var $api = $api || {};
         type: method,
         url: action,
         data: data,
-        // dataType: 'json',
+        dataType: 'json',
         contentType: false,
         processData : false,
         success: function success(response) {
@@ -657,6 +657,12 @@ var $api = $api || {};
     _grids.utils.tableLinks({ element: '.linkable', navigationDelay: 100 });
     // setup ajax listeners
     _grids.utils.handleAjaxRequest($('.data-remote'), 'click', {});
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
   };
 
   return _grids;

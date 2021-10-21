@@ -16,7 +16,10 @@ class AdvertisesController extends CoreController
         $this->setRouteName('advertises');
         $this->setPathView([
             'create' => 'admin::advertises.advertise_modal',
-            'show' => 'admin::advertises.advertise_modal'
+            'show' => 'admin::advertises.advertise_modal',
+            'update' => 'advertises.update',
+            'store' => 'advertises.store',
+            'destroy' => 'advertises.destroy',
         ]);
     }
 

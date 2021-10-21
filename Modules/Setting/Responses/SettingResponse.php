@@ -2,7 +2,7 @@
 
 namespace Modules\Setting\Responses;
 
-use Modules\Core\Responses\BaseResponse;
+use Vnnit\Core\Responses\BaseResponse;
 
 class SettingResponse extends BaseResponse
 {

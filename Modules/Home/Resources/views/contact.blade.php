@@ -10,19 +10,19 @@
         <div class="info-wrap mt-5">
             <div class="row">
               <div class="col-lg-4 info">
-                @icon('fa-map-marker');
+                @icon('fa fa-map-marker')
                 <h4>Location:</h4>
                 <p>{{ $webAddess }}</p>
               </div>
 
               <div class="col-lg-4 info mt-4 mt-lg-0">
-                @icon('fa-envelope-o');
+                @icon('fa fa-envelope-o')
                 <h4>Email:</h4>
                 <p>{{ $webEmail }}</p>
               </div>
 
               <div class="col-lg-4 info mt-4 mt-lg-0">
-                @icon('fa-phone');
+                @icon('fa fa-phone')
                 <h4>Call:</h4>
                 <p>{{ $webPhone }}</p>
               </div>
