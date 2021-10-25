@@ -28,5 +28,17 @@ return [
         'news_link' => 'News Link',
         'category_link' => 'Category Link',
         'external_link' => 'External Link'
+    ],
+    'page_title' => [
+        'posts' => 'Bài viết',
+        'news' => 'Tin tức',
+        'categories' => 'Danh mục',
+        'pages' => 'Pages',
+        'menus' => 'Menu',
+        'settings' => 'Cấu hình',
+        'slides' => 'Slide',
+        'advertises' => 'Advertises',
+        'roles' => 'Roles',
+        'users' => 'Users',
     ]
 ];

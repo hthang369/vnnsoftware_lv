@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use Illuminate\Support\Facades\View;
 use Modules\Admin\Facades\Breadcrumb;
 use Modules\Admin\Repositories\PostsRepository;
 use Modules\Admin\Validators\PostsValidator;
@@ -22,7 +23,6 @@ class PostsController extends CoreController
             'store' => 'posts.store',
             'destroy' => 'posts.destroy',
         ]);
-        Breadcrumb::add(__('admin::menus.posts'), null);
     }
 
 }

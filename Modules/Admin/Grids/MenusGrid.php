@@ -76,7 +76,7 @@ class MenusGrid extends BaseGrid
             'url' => function($item) {
                 return route('menus.sort', request('type'));
             },
-            'icon' => 'fa-plus-circle',
+            'icon' => 'fa-sort-amount-asc',
             'visible' => function($item) {
                 return true;
             }

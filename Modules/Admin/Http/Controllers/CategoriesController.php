@@ -28,6 +28,5 @@ class CategoriesController extends CoreController
             'store' => 'categories.store',
             'destroy' => 'categories.destroy',
         ]);
-        Breadcrumb::add(__('admin::menus.categories'), null);
     }
 }

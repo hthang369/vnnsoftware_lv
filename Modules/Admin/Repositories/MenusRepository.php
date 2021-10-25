@@ -44,6 +44,7 @@ class MenusRepository extends AdminBaseRepository
 
     public function update(array $attributes, $id)
     {
+        dd($attributes);
         $attributes = array_except($attributes, '_token');
         if (!isset($attributes['menu_link'])) {
             $attributes['menu_link'] = str_slug($attributes['menu_name']);

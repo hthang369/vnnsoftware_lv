@@ -41,7 +41,11 @@ class MenuService
 
     public function getSortableMenus($dataTree)
     {
-        return Common::renderMenus($dataTree, 'nestedSortable', 'nested_sortable_bt4', false);
+        return Common::renderMenus($dataTree, 'nestedSortable', 'nested_sortable_bt4', false, function($item) {
+            return [
+                'id' => 'item_'.data_get($item, 'id')
+            ];
+        });
     }
 
     protected function getHtmlMenus($dataTree, $name, $menuStyle = null)

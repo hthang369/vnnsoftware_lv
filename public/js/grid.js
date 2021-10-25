@@ -78,25 +78,26 @@ var $api = $api || {};
 
   $api = {
       _callApi: function (apiMethod, apiUrl, apiData, options) {
-        let apiContentType = options.contentType || false;
+        let apiContentType = _.get(options, 'contentType', false);
         $.ajax({
             method: apiMethod,
             url: apiUrl,
             data: apiData,
+            dataType: 'json',
             contentType: apiContentType,
             processData : false,
             beforeSend: function beforeSend() {
-              if (options.beforeSend) {
+              if (_.has(options, 'beforeSend')) {
                 options.beforeSend.call(this);
               }
             },
             complete: function complete() {
-              if (options.onComplete) {
+              if (_.has(options, 'onComplete')) {
                 options.onComplete.call(this);
               }
             },
             success: function success(data) {
-              if (options.pjaxContainer) {
+              if (_.has(options, 'pjaxContainer')) {
                 $.pjax.reload({ container: options.pjaxContainer });
               }
             },
@@ -111,7 +112,7 @@ var $api = $api || {};
             }
         });
       },
-      get: function get(url, params, options) {
+      get: function (url, params, options) {
         if (url == '') return;
         params = params || {};
         var urlSearch = new URLSearchParams();
@@ -120,16 +121,16 @@ var $api = $api || {};
         }
         this._callApi('GET', url + '?' + urlSearch.toString(), null, options)
       },
-      post: function post(url, data, options) {
+      post: function (url, data, options) {
         if (url == '') return;
         this._callApi('POST', url, data, options);
       },
-      put: function post(url, data, options) {
+      put: function (url, data, options) {
         if (url == '') return;
-        options = Object.assign({contentType: 'application/json'}, options);
+        // options = Object.assign({contentType: 'application/json'}, options);
         this._callApi('PUT', url, data, options);
       },
-      delete: function post(url, data, options) {
+      delete: function (url, data, options) {
         if (url == '') return;
         this._callApi('DELETE', url, data, options);
       },
@@ -487,6 +488,7 @@ var $api = $api || {};
       var action = form.attr('action');
       var method = form.attr('method') || 'POST';
       var originalButtonHtml = $(submitButton).html();
+      var loadingText = $(submitButton).data('loading');
       var pjaxTarget = form.data('pjax-target');
       var notification = form.data('notification-el') || 'modal-notification';
       var _this = this;
@@ -528,7 +530,7 @@ var $api = $api || {};
           }
         },
         beforeSend: function beforeSend() {
-          $(submitButton).attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;loading');
+          $(submitButton).attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;'+loadingText);
         },
         complete: function complete() {
           $(submitButton).html(originalButtonHtml).removeAttr('disabled');
@@ -581,10 +583,11 @@ var $api = $api || {};
             e.preventDefault();
             var btn = $(this);
             var btnHtml = btn.html();
+            var loadingText = btn.data('loading');
             var modalDialog = $('#bootstrap_modal');
             var modalSize = btn.data('modal-size');
             // show spinner as soon as user click is triggered
-            btn.attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;loading');
+            btn.attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;'+loadingText);
 
             // load the modal into the container put on the html
             $('.modal-content').load($(this).attr('href') || $(this).data('href'), function () {

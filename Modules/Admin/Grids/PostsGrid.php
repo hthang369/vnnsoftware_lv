@@ -4,6 +4,7 @@ namespace Modules\Admin\Grids;
 
 use Modules\Admin\Entities\CategoriesModel;
 use Modules\Admin\Facades\StatusType;
+use Vnnit\Core\Facades\Common;
 
 class PostsGrid extends BaseGrid
 {
@@ -31,10 +32,7 @@ class PostsGrid extends BaseGrid
                 'key' => 'post_image',
                 'label' => trans('admin::posts.post_image'),
                 'cell' => function($itemData) {
-                    return sprintf(
-                        '<img src="%s" class="img-responsive" alt="alternative" width="80" />',
-                        asset('storage/images/'.$itemData['post_image'])
-                    );
+                    return Common::getPictureImageFormPath($itemData['post_image'], 150);
                 }
             ],
             [
@@ -73,10 +71,16 @@ class PostsGrid extends BaseGrid
     {
         parent::configureButtons();
 		$this->editToolbarButton('create', [
-            'dataAttributes' => ['modal-size' => 'modal-xl'],
+            'dataAttributes' => [
+                'modal-size' => 'modal-xl',
+                'loading' => translate('table.loading_text')
+            ],
         ]);
         $this->editRowButton('edit', [
-            'dataAttributes' => ['modal-size' => 'modal-xl'],
+            'dataAttributes' => [
+                'modal-size' => 'modal-xl',
+                'loading' => translate('table.loading_text')
+            ],
         ]);
     }
 }

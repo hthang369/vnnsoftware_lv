@@ -53,6 +53,6 @@ class MenusController extends CoreController
     public function sort($menu = null)
     {
         $menus = $this->repository->getMenus($menu);
-        return $this->renderView([$menus, ''], __FUNCTION__);
+        return $this->renderView([$menus, $menu], __FUNCTION__);
     }
 }

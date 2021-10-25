@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 require('jquery-pjax');
+require('lodash');
 
 // window.Vue = require('vue');
 

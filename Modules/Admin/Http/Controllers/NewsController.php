@@ -22,6 +22,5 @@ class NewsController extends CoreController
             'store' => 'news.store',
             'destroy' => 'news.destroy',
         ]);
-        Breadcrumb::add(__('admin::menus.news'), null);
     }
 }

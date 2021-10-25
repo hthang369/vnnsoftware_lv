@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => 'auth:web', 'prefix' => 'admin'], function() {
+Route::group(['middleware' => ['auth:web', 'info-web'], 'prefix' => 'admin'], function() {
     Route::get('/', 'AdminController@index')->name('admin.index');
 
     Route::resource('posts', 'PostsController');

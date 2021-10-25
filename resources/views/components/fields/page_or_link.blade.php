@@ -7,7 +7,7 @@
     @if ($showField)
         <x-row>
             <x-col size="3">
-                {!! Form::btSelect($name, $options['list_type'], data_get($options, 'selected'), ['id' => 'tablist', 'role' => 'tablist'], ['data-toogle' => 'tab']) !!}
+                {!! Form::btSelect($name, data_get($options, 'list_type', []), data_get($options, 'selected'), ['id' => 'tablist', 'role' => 'tablist'], ['data-toogle' => 'tab']) !!}
             </x-col>
             <x-col size="9">
                 <div class="tab-content">

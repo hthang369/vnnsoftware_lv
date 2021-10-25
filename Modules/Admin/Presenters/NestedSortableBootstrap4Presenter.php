@@ -14,16 +14,16 @@ class NestedSortableBootstrap4Presenter extends BaseMenuPresenter
 {
     protected $wrapperTag = 'ol';
     protected $wrapperAttrs = [
-        'class' => 'nav flex-column sortable'
+        'class' => 'nav-menu sortable'
     ];
     /**
      * {@inheritdoc }.
      */
     public function getMenuWithoutDropdownWrapper($item)
     {
-        $attributes = preg_replace('/class="(\S+)"/', 'class="$1 '.$this->getActiveState($item, ' active').'"', $item->getAttributes());
+        $itemId = data_get($item->attributes, 'id');
         return
-            '<li class="nav-item" id="item_">
+            '<li class="nav-item" id="'.$itemId.'">
                 <div class="nav-link">
                     <span class="handle pr-2"><i class="fa fa-ellipsis-v"></i></span>
                     <span class="item_title">'.$item->title.'</span>
@@ -74,14 +74,16 @@ class NestedSortableBootstrap4Presenter extends BaseMenuPresenter
      */
     public function getMenuWithDropDownWrapper($item)
     {
-        return '<li class="nav-item' . $this->getActiveStateOnChild($item, ' active') . '">
-		          <a href="#" class="nav-link">
-					' . $item->getIcon() . ' ' . $item->title . '
-			      	<b class="caret"></b>
-			      </a>
-			      <ul class="nav flex-column">
-			      	' . $this->getChildMenuItems($item) . '
-			      </ul>
+        $itemId = data_get($item->attributes, 'id');
+        return '<li class="nav-item" id="'.$itemId.'">
+                    <div class="nav-link">
+                        <span class="handle pr-2"><i class="fa fa-ellipsis-v"></i></span>
+                        <span class="item_title">'.$item->title.'</span>
+                        <span class="lft" id=""></span>
+                    </div>
+                    <ol class="nav-menu">
+                        ' . $this->getChildMenuItems($item) . '
+                    </ol>
 		      	</li>'
         . PHP_EOL;
     }

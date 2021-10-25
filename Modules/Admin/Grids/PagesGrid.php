@@ -63,10 +63,16 @@ class PagesGrid extends BaseGrid
     {
         parent::configureButtons();
 		$this->editToolbarButton('create', [
-            'dataAttributes' => ['modal-size' => 'modal-xl'],
+            'dataAttributes' => [
+                'modal-size' => 'modal-xl',
+                'loading' => translate('table.loading_text')
+            ],
         ]);
-        $this->editRowButton('view', [
-            'dataAttributes' => ['modal-size' => 'modal-xl'],
+        $this->editRowButton('edit', [
+            'dataAttributes' => [
+                'modal-size' => 'modal-xl',
+                'loading' => translate('table.loading_text')
+            ],
         ]);
     }
 }

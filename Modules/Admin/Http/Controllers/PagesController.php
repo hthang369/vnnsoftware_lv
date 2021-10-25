@@ -22,7 +22,6 @@ class PagesController extends CoreController
             'store' => 'pages.store',
             'destroy' => 'pages.destroy',
         ]);
-        Breadcrumb::add(__('admin::menus.pages'), null);
     }
 
 }
