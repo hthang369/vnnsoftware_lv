@@ -29,8 +29,8 @@ $config['authentication'] = 'Modules\Admin\Http\Middleware\CustomCKFinderAuth';
 /*============================ License Key ============================================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_licenseKey
 
-$config['licenseName'] = 'vnnitsoft-new.com';
-$config['licenseKey']  = 'V5D5NCLRTFD76UTCEPT1BPAAJE3HG';
+$config['licenseName'] = env('CKE_NAME');
+$config['licenseKey']  = env('CKE_KEY');
 
 /*============================ CKFinder Internal Directory ============================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_privateDir
