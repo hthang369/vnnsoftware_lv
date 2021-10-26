@@ -15,7 +15,7 @@
 * --------------------------------------------------------------
 * # Back to top button
 * --------------------------------------------------------------
-*/.back-to-top{position:fixed;visibility:hidden;opacity:0;right:15px;bottom:15px;z-index:99999}.back-to-top .active{visibility:visible;opacity:1}.back-to-top i{display:flex;align-items:center;justify-content:center;font-size:24px;width:40px;height:40px;border-radius:4px;background:#01b1d7;color:#fff;transition:all .4s}.back-to-top i:hover{background:#03d1fe;color:#fff}
+*/.back-to-top{position:fixed;visibility:hidden;opacity:0;right:15px;bottom:15px;z-index:99999}.back-to-top.active{visibility:visible;opacity:1}.back-to-top i{display:flex;align-items:center;justify-content:center;font-size:24px;width:40px;height:40px;border-radius:4px;background:#01b1d7;color:#fff;transition:all .4s}.back-to-top i:hover{background:#03d1fe;color:#fff}
 
 /*!
 * --------------------------------------------------------------
@@ -27,7 +27,7 @@
 * --------------------------------------------------------------
 * # Header
 * --------------------------------------------------------------
-*/#header{min-height:70px;z-index:997;transition:all .5s;background:#fff}#header .header-scrolled{box-shadow:0 0 20px 0 rgba(0,0,0,.1)}#header .logo h1{font-size:28px;margin:0;line-height:1;font-weight:700;letter-spacing:1px}#header .logo h1 a,#header .logo h1:hover{color:#354144;text-decoration:none}#header .logo h1 a span,#header .logo h1:hover span{color:#01b1d7}#header .logo img{padding:0;margin:0;max-height:40px}
+*/#header{min-height:70px;z-index:997;transition:all .5s;background:#fff}#header .header-scrolled{box-shadow:0 0 20px 0 rgba(0,0,0,.1)}#header .logo h1{font-size:28px;margin:0;line-height:1;font-weight:700;letter-spacing:1px}#header .logo h1 a,#header .logo h1:hover{color:#354144;text-decoration:none}#header .logo h1 a span,#header .logo h1:hover span{color:#01b1d7}#header .logo img{padding:0;margin:0;max-height:40px}#header .nav-item.active a,#header .nav-item a:hover{color:#01b1d7}
 
 /*!
 * --------------------------------------------------------------
@@ -35,7 +35,7 @@
 * --------------------------------------------------------------
 */
 
-/*! Desktop Navigation */.nav-menu .drop-down ul a{padding:10px 20px;font-size:14px;font-weight:500;text-transform:none;color:#354144}#header .nav-item .active a,#header .nav-item a:hover{color:#01b1d7}@media (max-width:1366px){.nav-menu .drop-down .drop-down ul{left:-90%}.nav-menu .drop-down .drop-down:hover>ul{left:-100%}.nav-menu .drop-down .drop-down>a:after{content:"\EA9D"}}
+/*! Desktop Navigation */.nav-menu .drop-down ul a{padding:10px 20px;font-size:14px;font-weight:500;text-transform:none;color:#354144}@media (max-width:1366px){.nav-menu .drop-down .drop-down ul{left:-90%}.nav-menu .drop-down .drop-down:hover>ul{left:-100%}.nav-menu .drop-down .drop-down>a:after{content:"\EA9D"}}
 
 /*!
 * --------------------------------------------------------------
@@ -53,7 +53,7 @@
 * --------------------------------------------------------------
 * # About
 * --------------------------------------------------------------
-*/.about .content h2{font-weight:700;font-size:48px;line-height:60px;margin-bottom:20px;text-transform:uppercase}.about .content h3{font-weight:500;line-height:32px;font-size:24px}.about .content ul{list-style:none;padding:0}.about .content ul li{padding:10px 0 0 28px;position:relative}.about .content ul i{left:0;top:7px;position:absolute;font-size:20px;color:#01b1d7}.about .content p:last-child{margin-bottom:0}
+*/.about .content h2{font-weight:700;font-size:48px;line-height:60px;margin-bottom:20px;text-transform:uppercase}.about .content h3{font-weight:500;line-height:32px;font-size:24px}.about .content ul{list-style:none;padding:0}.about .content ul li{padding:10px 0 0 28px;position:relative}.about .content ul i{left:0;top:7px;position:absolute;font-size:20px;color:#01b1d7}.about .content p:last-child{margin-bottom:0}.about .section-body img{width:100%}
 
 /*!
 * --------------------------------------------------------------

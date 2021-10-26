@@ -1,6 +1,6 @@
 {
     "Admin": true,
     "Home": true,
-    "Api": false,
+    "Api": true,
     "Setting": true
 }

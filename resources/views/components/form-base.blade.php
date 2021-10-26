@@ -1,3 +1,4 @@
+@props([])
 <div>
     {!! Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'php-email-form', 'route' => 'page.send-mail']) !!}
     <div class="form-row">

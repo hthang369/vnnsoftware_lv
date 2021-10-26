@@ -36,7 +36,7 @@ a {
     right: 15px;
     bottom: 15px;
     z-index: 99999;
-    .active {
+    &.active {
         visibility: visible;
         opacity: 1;
     }
@@ -140,6 +140,18 @@ a {
             max-height: 40px;
         }
     }
+    .nav-item {
+        a {
+            &:hover {
+                color: #01b1d7;
+            }
+        }
+        &.active {
+            a {
+                color: #01b1d7;
+            }
+        }
+    }
 }
 
 /*!
@@ -157,20 +169,6 @@ a {
                 font-weight: 500;
                 text-transform: none;
                 color: #354144;
-            }
-        }
-    }
-}
-#header {
-    .nav-item {
-        a {
-            &:hover {
-                color: #01b1d7;
-            }
-        }
-        .active {
-            a {
-                color: #01b1d7;
             }
         }
     }
@@ -458,6 +456,11 @@ a {
             &:last-child {
                 margin-bottom: 0;
             }
+        }
+    }
+    .section-body {
+        img {
+            width: 100%;
         }
     }
 }

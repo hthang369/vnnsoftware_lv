@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => 'auth:web', 'prefix' => 'admin'], function() {
+Route::group(['middleware' => ['auth:web', 'info-web'], 'prefix' => 'admin'], function() {
     Route::resource('setting', 'SettingController');
     Route::resource('widget', 'WidgetController');
     Route::group(['prefix' => 'widget'], function() {

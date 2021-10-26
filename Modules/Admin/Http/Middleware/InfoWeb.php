@@ -21,7 +21,9 @@ class InfoWeb
     {
         $sectionCode = Common::getSectionCode();
         Breadcrumb::add('<i class="fa fa-home"></i>', route('admin.index'));
-        Breadcrumb::add(__("admin::menus.$sectionCode"), null);
+        if (!str_is($sectionCode, 'admin')) {
+            Breadcrumb::add(__("admin::menus.$sectionCode"), null);
+        }
         View::share('page_title', "admin::menus.page_title.$sectionCode");
         return $next($request);
     }

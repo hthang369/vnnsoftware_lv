@@ -4,7 +4,7 @@ return [
     [
         'menu_title' => 'admin::menus.dashboard',
         'menu_name' => 'admin',
-        'menu_link' => '',
+        'menu_link' => 'admin.index',
         'menu_icon' => 'nav-icon fa fa-tachometer',
         'actived' => '',
         'section' => 'admin',
