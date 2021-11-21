@@ -17,90 +17,71 @@ class PermissionRoleGrid extends BaseGrid
 
     protected $actionColumnOptions = ['visible' => false];
 
-    protected function getActionButtons()
-    {
-        return array_filter([
-            'save' => user_can('add_'.$this->sectionCode)
-        ]);
-    }
+    protected $buttonsToGenerate = [
+        'refresh'
+    ];
 
     /**
-    * Set the columns to be displayed.
-    *
-    * @return void
-    * @throws \Exception if an error occurs during parsing of the data
-    */
+     * Set the columns to be displayed.
+     *
+     * @return void
+     * @throws \Exception if an error occurs during parsing of the data
+     */
     public function setColumns()
     {
         return [
-		    // "no" => [
-		    //     "label" => "ID",
-		    //     "filter" => [
-		    //         "enabled" => false,
-		    //         "operator" => "="
-		    //     ],
-		    //     "styles" => [
-		    //         "column" => "grid-w-10"
-		    //     ]
-		    // ],
-		    // "section_code" => [
-		    //     "search" => [
-		    //         "enabled" => true
-		    //     ],
-		    //     "filter" => [
-		    //         "enabled" => false,
-		    //     ]
-		    // ],
-		    // "action" => [
-		    //     "filter" => [
-		    //         "enabled" => false,
-            //     ],
-            //     'raw' => true,
-            //     'data' => function ($columnData, $columnName) {
-            //         $permissions = json_decode($columnData['permission'], true);
-            //         $section_actions = config('permission.section_action');
-            //         $actions = config('permission.actions');
-            //         $listAction = [];
-            //         foreach($permissions as $key => $value) {
-            //             if (!in_array($key, data_get($section_actions, $columnData['section_code'], $actions))) continue;
-            //             $name = sprintf('%s_%s', $key, $columnData['section_code']);
-            //             $listAction[] = $this->getTemplateAction($name, $value, $key);
-            //         }
-            //         return new HtmlString(implode(' ', $listAction));
-            //         // like for instance, displaying an image on the grid...
-            //         // return new HtmlString(sprintf('<img src="%s" class="img-responsive" alt = "%s" width="40">', asset('storage/data/upload/images/'.$columnData->{$columnName}), 'alternative'));
-            //     },
-		    // ]
-
-		];
+            'section_code',
+            [
+                'key' => 'permission',
+                'cell' => function ($itemData) {
+                    $permissions = json_decode($itemData['permission'], true);
+                    $section_actions = config('permission.section_action');
+                    $actions = config('permission.actions');
+                    $listAction = [];
+                    foreach ($permissions as $key => $value) {
+                        if (!in_array($key, data_get($section_actions, $itemData['section_code'], $actions))) continue;
+                        $name = sprintf('%s_%s', $key, $itemData['section_code']);
+                        $listAction[] = $this->getTemplateAction($name, $value, $key);
+                    }
+                    return implode(' ', $listAction);
+                }
+            ]
+        ];
     }
 
     private function getTemplateAction($name, $value, $key)
     {
-        return '<div class="custom-control custom-checkbox custom-control-inline">'.
-            Form::checkbox($name, null, $value, ['id' => $name, 'class' => 'custom-control-input']).
+        return '<div class="custom-control custom-checkbox custom-control-inline">' .
+            Form::checkbox($name, null, $value, ['id' => $name, 'class' => 'custom-control-input']) .
             Form::label($name, $key, ['class' => 'custom-control-label'])
-            .'</div>';
+            . '</div>';
     }
 
     /**
-    * Configure rendered buttons, or add your own
-    *
-    * @return void
-    */
+     * Configure rendered buttons, or add your own
+     *
+     * @return void
+     */
     public function configureButtons()
     {
-        // $this->clearAllButtons();
         parent::configureButtons();
-        // $this->makeCustomButton([
-        //     'name' => 'Save',
-        //     'pjaxEnabled' => true,
-        //     'gridId' => 'frmPermissionRole',
-        //     'dataAttributes' => ['form-id' => 'frmPermissionRole'],
-        //     'class' => 'btn btn-info btn-save',
-        //     'renderIf' => function () {
-        //         return in_array('save', $this->buttonsToGenerate);
-        //     }
-        // ], static::$TYPE_TOOLBAR);
+        $this->addToolbarButton('save', [
+            'key' => 'save',
+            'name' => 'save',
+            'position' => 3,
+            'icon' => 'fa fa-floppy-o',
+            'size' => '',
+            'label' => trans('admin::common.btn_save'),
+            'title' => trans('admin::common.btn_save'),
+            'url' => function($item) {
+                return '';
+            },
+            'dataAttributes' => [
+                'loading' => translate('table.loading_text')
+            ],
+            'visible' => function($item) {
+                return true;
+            }
+        ]);
     }
 }

@@ -8,7 +8,7 @@ use Modules\Api\Entities\NewsModel;
 
 class NewsRepository extends NewsBaseRepository
 {
-
+    use NewsCriteria;
     /**
      * Specify Model class name
      *
@@ -19,7 +19,7 @@ class NewsRepository extends NewsBaseRepository
         return NewsModel::class;
     }
 
-    public function find($id, $columns = ['*'])
+    public function show($id, $columns = ['*'])
     {
         $this->applyCriteria();
         $this->applyScope();

@@ -21,6 +21,7 @@ return [
     'main_menu' => 'Menu chính',
     'footer_menu' => 'Menu phụ',
     'footer_our_menu' => 'Menu dịch vụ',
+    'menu_struct' => 'Cấu trúc menu',
 
     'partial' => [
         'page_link' => 'Page Link',
@@ -40,5 +41,6 @@ return [
         'advertises' => 'Advertises',
         'roles' => 'Roles',
         'users' => 'Users',
+        'dashboard' => 'Bảng điều khiển'
     ]
 ];

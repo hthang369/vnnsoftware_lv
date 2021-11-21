@@ -2,9 +2,9 @@
 
 namespace Modules\Api\Repositories;
 
-use Modules\Core\Repositories\BaseRepositoryEloquent;
+use Vnnit\Core\Repositories\BaseRepository;
 
-abstract class ContactsBaseRepository extends BaseRepositoryEloquent
+abstract class ContactsBaseRepository extends BaseRepository
 {
 
 }

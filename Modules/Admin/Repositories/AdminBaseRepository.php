@@ -30,8 +30,6 @@ abstract class AdminBaseRepository extends CoreRepository
     {
         $this->applyScope();
 
-        $temporarySkipPresenter = $this->skipPresenter;
-
         $model = $this->model->findOrFail($id);
 
         $model->fill($attributes);

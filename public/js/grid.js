@@ -79,6 +79,13 @@ var $api = $api || {};
   $api = {
       _callApi: function (apiMethod, apiUrl, apiData, options) {
         let apiContentType = _.get(options, 'contentType', false);
+        let targetLoading = _.get(options, 'targetLoading', null);
+        let loadingText = null;
+        let btnTarget = null;
+        if (targetLoading) {
+            loadingText = $(targetLoading).data('loading');
+            btnTarget = $(targetLoading).html();
+        }
         $.ajax({
             method: apiMethod,
             url: apiUrl,
@@ -90,20 +97,31 @@ var $api = $api || {};
               if (_.has(options, 'beforeSend')) {
                 options.beforeSend.call(this);
               }
+              if (targetLoading) {
+                $(targetLoading).attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;'+loadingText);
+              }
             },
             complete: function complete() {
               if (_.has(options, 'onComplete')) {
                 options.onComplete.call(this);
+              }
+              if (targetLoading) {
+                $(targetLoading).html(btnTarget).removeAttr('disabled');
               }
             },
             success: function success(data) {
               if (_.has(options, 'pjaxContainer')) {
                 $.pjax.reload({ container: options.pjaxContainer });
               }
+              if (typeof toastr !== 'undefined') {
+                if (_.get(data, 'success')) {
+                    toastr.showSuccess('Message', '<p>'+ _.get(data, 'message') +'</p>');
+                }
+              }
             },
             error: function error(data) {
               if (typeof toastr !== 'undefined') {
-                let listErr = data.responseJSON.validation || {};
+                let listErr = _.get(data.responseJSON, 'validation', _.get(data.responseJSON, 'errors', {}));
                 let err = _grids.formUtils.getValidationErrors(listErr);
                 toastr.showError('Message', '<ul>'+ err +'</ul>');
               } else {
@@ -127,7 +145,7 @@ var $api = $api || {};
       },
       put: function (url, data, options) {
         if (url == '') return;
-        // options = Object.assign({contentType: 'application/json'}, options);
+        options = Object.assign({contentType: 'application/json'}, options);
         this._callApi('PUT', url, data, options);
       },
       delete: function (url, data, options) {

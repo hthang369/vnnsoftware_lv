@@ -23,7 +23,14 @@ class UsersValidator extends BaseValidator
             'age'  => 'required|numeric'
         ],
         ValidatorInterface::RULE_UPDATE => [
-            'name' => 'required'
+            'name' => 'required|max:150',
+            'email' => 'required|email',
+            'roles' => 'required'
         ],
+        'change_password' => [
+            'current_password' => 'required|password',
+            'password' => 'required|current_password:api',
+            'password_confirmation' => 'required|confirmed',
+        ]
     ];
 }

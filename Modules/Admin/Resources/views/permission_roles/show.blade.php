@@ -1,9 +1,7 @@
 @extends('admin::layouts.master')
 
 @section('content')
-    {!! Form::open(['route' => ['role_has_permissions.update', $data['role_id']], 'method' => 'PUT', 'id' => 'frmPermissionRole']) !!}
-    {!! $data['grid']->render() !!}
-    {!! Form::close() !!}
+    {!! $data['grid'] !!}
 @endsection
 
 @section('scripts')

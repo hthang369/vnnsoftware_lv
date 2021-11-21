@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="d-flex justify-content-between">
-    <h4>@lang('admin::common.menu_struct')</h4>
-    <x-button id="btn-save-menu">@lang('admin::common.btn_save')</x-button>
+    <h4>@lang('admin::menus.menu_struct')</h4>
+    <x-button id="btn-save-menu" variant="primary" :data-loading="__('admin::common.loading')">@lang('admin::common.btn_save')</x-button>
 </div>
 <div class="menu-struct">
 {!! $data['grid'] !!}
@@ -26,7 +26,16 @@
 
         $('#btn-save-menu').click(function() {
             let data = JSON.stringify($('ol.sortable').nestedSortable('toHierarchy'))
-            $api.put('{{route("menus.update", $data["result"])}}', data);
+            let btnHtml = $(this).html();
+            let loadingText = $(this).data('loading');
+            $api.put('{{route("menus.sort-update", $data["result"])}}', data, {
+                beforeSend: function() {
+                    $('#btn-save-menu').attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;'+loadingText);
+                },
+                onComplete: function() {
+                    $('#btn-save-menu').removeAttr('disabled').html(btnHtml);
+                }
+            });
         });
     });
 </script>

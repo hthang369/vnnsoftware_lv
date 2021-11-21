@@ -6,7 +6,7 @@
       </span>
     </a>
     <div class="dropdown-menu dropdown-menu-right mr-4 pb-1 pt-1">
-      <a class="dropdown-item" href="{{ url('/') }}"><i class="fa fa-user-o mr-1"></i> {{ trans('admin::common.my_account') }}</a>
+      <a class="dropdown-item" href="{{ route('users.account-info') }}"><i class="fa fa-user-o mr-1"></i> {{ trans('admin::common.my_account') }}</a>
       <div class="dropdown-divider"></div>
       <div class="my_account">
         <form id="logout-form" action="{{ route('logout') }}" method="POST">

@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Modules\Admin\Repositories\MenusRepository;
 use Modules\Admin\Validators\MenusValidator;
 use Vnnit\Core\Http\Controllers\CoreController;
@@ -26,7 +27,8 @@ class MenusController extends CoreController
             'update' => 'menus.update',
             'store' => 'menus.store',
             'destroy' => 'menus.destroy',
-            'sort' => 'admin::menus.sort'
+            'sort' => 'admin::menus.sort',
+            'updateSort' => 'admin::menus.sort',
         ]);
     }
 
@@ -54,5 +56,19 @@ class MenusController extends CoreController
     {
         $menus = $this->repository->getMenus($menu);
         return $this->renderView([$menus, $menu], __FUNCTION__);
+    }
+
+    public function updateSort(Request $request, $id)
+    {
+        $this->validator->setId($id);
+        $this->validator($request->all(), 'update-sort');
+
+        $data = $this->repository->updateSort($request->all(), $id);
+
+        if (method_exists($data, 'toArray')) {
+            $data = $data->toArray();
+        }
+
+        return $this->responseAction($request, $data, 'updated', '');
     }
 }

@@ -20,11 +20,13 @@ class InfoWeb
     public function handle(Request $request, Closure $next)
     {
         $sectionCode = Common::getSectionCode();
+        $pageTitle = 'dashboard';
         Breadcrumb::add('<i class="fa fa-home"></i>', route('admin.index'));
         if (!str_is($sectionCode, 'admin')) {
             Breadcrumb::add(__("admin::menus.$sectionCode"), null);
+            $pageTitle = $sectionCode;
         }
-        View::share('page_title', "admin::menus.page_title.$sectionCode");
+        View::share('page_title', "admin::menus.page_title.$pageTitle");
         return $next($request);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Modules\Api\Validators;
 
-use Modules\Core\Validators\BaseValidator;
 use \Prettus\Validator\Contracts\ValidatorInterface;
+use Vnnit\Core\Validators\BaseValidator;
 
 /**
  * Class BaseValidator.

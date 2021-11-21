@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth:web', 'info-web'], 'prefix' => 'admin'], fu
     Route::get('menus/create/{menu?}', 'MenusController@create')->name('menus.create');
     Route::get('menus/{id}/edit/{menu?}', 'MenusController@edit')->name('menus.edit');
     Route::get('menus/sort-order/{menu?}', 'MenusController@sort')->name('menus.sort');
+    Route::put('menus/sort-order/{menu?}', 'MenusController@updateSort')->name('menus.sort-update');
 
     Route::resource('slides', 'SlidesController', ['except' => ['update']]);
     Route::post('slides/{slides}', 'SlidesController@update')->name('slides.update');
@@ -34,6 +35,11 @@ Route::group(['middleware' => ['auth:web', 'info-web'], 'prefix' => 'admin'], fu
 
     Route::resource('permission-role', 'PermissionRoleController')->names('role_has_permissions');
 
+    Route::group(['prefix' => 'users'], function() {
+        Route::get('account-info', 'UsersController@accountInfo')->name('users.account-info');
+        Route::put('account-info/{id}', 'UsersController@updateAccount')->name('users.update-account');
+        Route::put('change-pass/{id}', 'UsersController@updateChangePass')->name('users.update-pass');
+    });
     Route::resource('users', 'UsersController');
 
     Route::resource('media', 'MediaController');

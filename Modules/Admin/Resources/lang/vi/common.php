@@ -8,5 +8,7 @@ return [
     'active' => 'Hoạt động',
     'deactive' => 'Không hoạt động',
     'login_header' => 'VNNIT Computer',
-    'btn_sort_order' => 'Sắp xếp menu'
+    'btn_sort_order' => 'Sắp xếp menu',
+    'btn_save' => 'Lưu',
+    'loading' => 'Đang tải'
 ];

@@ -28,6 +28,7 @@ class MenusValidator extends BaseValidator
             'menu_link' => 'nullable|string|alpha_dash',
             'parent_id' => 'nullable|integer'
         ],
+        'update-sort' => []
     ];
 
 }

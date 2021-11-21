@@ -5,7 +5,7 @@ namespace Modules\Api\Repositories;
 use Modules\Core\Repositories\BaseCriteriaEloquent;
 use Prettus\Repository\Contracts\CriteriaInterface;
 
-class ContactsCriteria extends BaseCriteriaEloquent implements CriteriaInterface
+trait ContactsCriteria
 {
     protected function fullnameFilter($value)
     {

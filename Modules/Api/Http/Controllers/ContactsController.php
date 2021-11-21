@@ -7,8 +7,8 @@ use Modules\Api\Repositories\ContactsCriteria;
 use Modules\Api\Repositories\ContactsRepository;
 use Modules\Api\Responses\ContactsResponse;
 use Modules\Api\Validators\ContactsValidator;
-use Modules\Core\Http\Controllers\BaseController;
 use Prettus\Validator\Contracts\ValidatorInterface;
+use Vnnit\Core\Http\Controllers\BaseController;
 
 class ContactsController extends BaseController
 {
@@ -16,9 +16,9 @@ class ContactsController extends BaseController
         'sendMail' => 'public'
     ];
 
-    public function __construct(ContactsRepository $repository, ContactsValidator $validator, ContactsResponse $response, ContactsCriteria $criteria)
+    public function __construct(ContactsRepository $repository, ContactsValidator $validator, ContactsResponse $response)
     {
-        parent::__construct($repository, $validator, $response, $criteria);
+        parent::__construct($repository, $validator, $response);
     }
 
     public function sendMail(Request $request)

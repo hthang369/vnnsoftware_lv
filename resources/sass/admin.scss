@@ -65,3 +65,7 @@
         list-style: none;
     }
 }
+#popupToast {
+    left: inherit;
+    z-index: 9999;
+}

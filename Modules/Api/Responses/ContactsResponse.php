@@ -2,7 +2,7 @@
 
 namespace Modules\Api\Responses;
 
-use Modules\Core\Responses\BaseResponse;
+use Vnnit\Core\Responses\BaseResponse;
 
 class ContactsResponse extends BaseResponse
 {

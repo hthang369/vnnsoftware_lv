@@ -11,7 +11,7 @@
                 <div class="icon mx-auto mb-2 bg-primary rounded-circle d-flex align-items-center justify-content-center">
                     <span class="fa fa-user-o"></span>
                 </div>
-                <h3 class="text-center mb-4">{{ __('Login') }}</h3>
+                <h3 class="text-center text-white mb-4">{{ __('Login') }}</h3>
                 @if(session('notice'))
                 <p style="color:red">
                     {{session('notice')}}
@@ -63,7 +63,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="custom-control custom-checkbox d-flex align-items-center">
                                     <input type="checkbox" class="custom-control-input" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="remember">{{ __('Remember Me') }}</label>
+                                    <label class="custom-control-label text-white" for="remember">{{ __('Remember Me') }}</label>
                                 </div>
 
                                 @if (Route::has('password.request'))

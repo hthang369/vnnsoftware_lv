@@ -16,6 +16,8 @@
     </head>
     <body class="sidebar-mini control-sidebar-slide-open dark-mode">
         <section class="wrapper">
+            <div class="fixed-top w-25 mt-3" id="popupToast"></div>
+
             @include('admin::partial.header')
 
             @include('admin::partial.sidebar')
