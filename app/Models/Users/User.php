@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->fillableColumns;
     }
+
+    public function getRoleListAttribute()
+    {
+        return $this->roles()->pluck('name');
+    }
 }

@@ -5,8 +5,10 @@
     <h4>@lang('admin::menus.menu_struct')</h4>
     <x-button id="btn-save-menu" variant="primary" :data-loading="__('admin::common.loading')">@lang('admin::common.btn_save')</x-button>
 </div>
-<div class="menu-struct">
-{!! $data['grid'] !!}
+<div class="menu-struct row">
+    <div class="col-6">
+        {!! $data['grid'] !!}
+    </div>
 </div>
 @endsection
 
@@ -19,22 +21,16 @@
             forcePlaceholderSize: true,
             items: 'li',
             handle: 'span',
-            placeholder: 'menu-highlight',
+            placeholder: 'highlight',
             maxLevels: 3,
             opacity: .6,
         });
 
         $('#btn-save-menu').click(function() {
-            let data = JSON.stringify($('ol.sortable').nestedSortable('toHierarchy'))
-            let btnHtml = $(this).html();
-            let loadingText = $(this).data('loading');
+            let data = JSON.stringify($('ol.sortable').nestedSortable('toArray', {startDepthCount: 0}))
             $api.put('{{route("menus.sort-update", $data["result"])}}', data, {
-                beforeSend: function() {
-                    $('#btn-save-menu').attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;'+loadingText);
-                },
-                onComplete: function() {
-                    $('#btn-save-menu').removeAttr('disabled').html(btnHtml);
-                }
+                'targetLoading': '#btn-save-menu',
+                'pjaxContainer': '.ui-sortable'
             });
         });
     });

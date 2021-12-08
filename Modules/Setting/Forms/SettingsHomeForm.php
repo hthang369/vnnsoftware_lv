@@ -31,17 +31,26 @@ class SettingsHomeForm extends Form
             $this->add('web_favicon', Field::PICTURE, [
                 'label' => trans('setting::configs.web_favicon'),
                 'url' => 'storage/images/',
-                'width' => '150'
+                'width' => '150',
+                'wrapper' => ['inline' => true],
+                'label_attr' => ['class' => ['col-4']],
+                'field_attr' => ['class' => ['col-8']]
             ]);
             $this->add('web_logo', Field::PICTURE, [
                 'label' => trans('setting::configs.web_logo'),
                 'url' => 'storage/images/',
-                'width' => '150'
+                'width' => '150',
+                'wrapper' => ['inline' => true],
+                'label_attr' => ['class' => ['col-4']],
+                'field_attr' => ['class' => ['col-8']]
             ]);
             $this->add('web_banner', Field::PICTURE, [
                 'label' => trans('setting::configs.web_banner'),
                 'url' => 'storage/images/',
-                'width' => '150'
+                'width' => '150',
+                'wrapper' => ['inline' => true],
+                'label_attr' => ['class' => ['col-4']],
+                'field_attr' => ['class' => ['col-8']]
             ]);
             $this->add('edit', Field::BUTTON_SUBMIT, [
                 'label' => trans('admin::common.edit'),

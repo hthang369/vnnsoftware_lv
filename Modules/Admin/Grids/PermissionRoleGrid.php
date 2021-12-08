@@ -70,11 +70,13 @@ class PermissionRoleGrid extends BaseGrid
             'name' => 'save',
             'position' => 3,
             'icon' => 'fa fa-floppy-o',
+            'class' => 'btn-save',
+            'id' => 'btn-save',
             'size' => '',
             'label' => trans('admin::common.btn_save'),
             'title' => trans('admin::common.btn_save'),
             'url' => function($item) {
-                return '';
+                return 'javascript:;';
             },
             'dataAttributes' => [
                 'loading' => translate('table.loading_text')

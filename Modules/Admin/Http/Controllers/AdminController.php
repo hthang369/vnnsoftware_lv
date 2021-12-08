@@ -22,7 +22,8 @@ class AdminController extends BaseController
      */
     public function index()
     {
-        return view('admin::index');
+        $data = $this->repository->getWatherInfo();
+        return $this->responseView(request(), $data, 'admin::index');
     }
 
     /**

@@ -25,7 +25,7 @@ class HomeServices
 
     private function getNavbarMenus($type, $menu_style = '')
     {
-        $dataTree = MenusModel::where('menu_type', $type)->get()->toTree();
+        $dataTree = MenusModel::where('menu_type', $type)->defaultOrder()->get()->toTree();
         Menu::create('navbar', function($menu) use($dataTree, $menu_style) {
             if (!blank($menu_style))
                 $menu->style($menu_style);

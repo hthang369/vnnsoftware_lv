@@ -26,12 +26,8 @@
           </div>
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-
+            <h4>@widget('text_ournews', 'title')</h4>
+            <div class="widget_content">@widget('text_ournews')</div>
           </div>
 
         </div>
@@ -40,10 +36,10 @@
 
     <div class="container text-center">
       <div class="copyright">
-        © Copyright <strong><span>VNNIT</span></strong>. All Rights Reserved
+        @widget('text_copyright')
       </div>
       <div class="credits">
-        Designed by <a href="http://webdesignvnnit.com/">VNNIT</a>
+          @widget('text_footer')
       </div>
     </div>
   </footer>

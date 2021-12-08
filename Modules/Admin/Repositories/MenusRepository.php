@@ -39,6 +39,7 @@ class MenusRepository extends AdminBaseRepository
             $attributes['menu_link'] = str_slug($attributes['menu_name']);
         }
         $attributes['partial_id'] = data_get($attributes, $attributes['partial_table']);
+        $attributes['menu_title'] = $attributes['menu_name'];
         return parent::createNestedTree($attributes);
     }
 
@@ -49,6 +50,7 @@ class MenusRepository extends AdminBaseRepository
             $attributes['menu_link'] = str_slug($attributes['menu_name']);
         }
         $attributes['partial_id'] = data_get($attributes, $attributes['partial_table']);
+        $attributes['menu_title'] = $attributes['menu_name'];
         return parent::updateNestedTree($attributes, $id);
     }
 
@@ -60,22 +62,15 @@ class MenusRepository extends AdminBaseRepository
 
     public function updateSort(array $attributes, $id)
     {
-        // $menus = $this->model->where('menu_type', $id)
-        //     ->select(['id', 'parent_id', 'menu_lft', 'menu_rgt'])
-        //     ->defaultOrder()->get()->toList(['id', 'children']);
-        foreach ($attributes as $number => $item) {
-            if (isset($item['children'])) {
-                foreach ($item['children'] as $num => $itemChildren) {
-                    $model = $this->model->find($itemChildren['id']);
-                    if (data_get($model, 'parent_id', 0) != $item['id']) {
-                        $model->parent_id = $item['id'];
-                        parent::updateNestedTree($model->toArray(), $model->id);
-                    }
-                    list($lft, $rgt) = $this->model->getPlainNodeData($itemChildren['id']);
-                    $this->moveNodeUpdate($itemChildren['id'], $lft - ($num + 1));
-                }
-            }
-            $model = $this->moveNodeUpdate($item['id'], $number + 1);
+        foreach ($attributes as $item) {
+            if (is_null($item['item_id'])) continue;
+            $data = [
+                'parent_id'  => $item['parent_id'],
+                'menu_lft'   => $item['left'] - 1,
+                'menu_rgt'   => $item['right'] - 1,
+                'menu_depth' => $item['depth']
+            ];
+            parent::update($data, $item['item_id']);
         }
         return true;
     }

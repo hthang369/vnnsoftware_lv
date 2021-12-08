@@ -62,7 +62,7 @@ return [
         'children' => []
     ],
     [
-        'menu_title' => 'admin::menus.settings',
+        'menu_title' => 'admin::menus.setting',
         'menu_name' => 'setting.*',
         'menu_link' => 'setting.index',
         'menu_icon' => 'nav-icon fa fa-cogs',
@@ -92,7 +92,7 @@ return [
         'children' => []
     ],
     [
-        'menu_title' => 'admin::menus.roles',
+        'menu_title' => 'admin::menus.role',
         'menu_name' => 'role.*',
         'menu_link' => 'role.index',
         'menu_icon' => 'nav-icon fa fa-user-md',

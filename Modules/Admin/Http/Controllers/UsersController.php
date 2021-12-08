@@ -25,7 +25,8 @@ class UsersController extends CoreController
         $this->setPathView([
             'create' => 'admin::users.user_modal',
             'show' => 'admin::users.user_modal',
-            'accountInfo' => 'admin::users.account_info'
+            'accountInfo' => 'admin::users.account_info',
+            'update'    => 'users.update'
         ]);
     }
 

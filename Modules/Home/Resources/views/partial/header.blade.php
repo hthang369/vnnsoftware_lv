@@ -1,16 +1,16 @@
 <section id="topbar" class="d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
         <div class="contact-info d-flex align-items-center">
-            {!! $topHeader->text !!}
+            @widget('text_top_herder')
         </div>
 
         <div class="social-links d-none d-md-flex">
-            {!! $headerSocial->text !!}
+            @widget('text_header_social')
         </div>
     </div>
 </section>
 
-<header id="header" class="d-flex align-items-center">
+<header id="header" class="d-flex align-items-center sticky-top">
     <div class="container d-flex align-items-center justify-content-between">
         <div class="logo">
             <h1><a href="/"><img src="{{ asset("storage/images/$webLogo") }}" /></a></h1>

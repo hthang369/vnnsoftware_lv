@@ -53,6 +53,7 @@ class PagesRepository extends BasePostsRepository
         if (blank($attributes['post_link']))
             $attributes['post_link'] = str_slug($attributes['post_title']);
         $attributes['post_status'] = 1;
+        $attributes['post_author'] = user_get('name');
 
         return DB::transaction(function () use($attributes) {
             $result = parent::create($attributes);

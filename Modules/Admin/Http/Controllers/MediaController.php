@@ -7,6 +7,7 @@ use Modules\Admin\Repositories\MediaCriteria;
 use Modules\Admin\Repositories\MediaRepository;
 use Modules\Admin\Responses\MediaResponse;
 use Modules\Admin\Validators\MediaValidator;
+use Vnnit\Core\Plugins\FileManager\Lfm;
 
 class MediaController extends CKFinderController
 {
@@ -17,6 +18,6 @@ class MediaController extends CKFinderController
 
     public function index()
     {
-        return view('admin::media.index');
+        return view('admin::media.index')->withHelper(resolve(Lfm::class));
     }
 }

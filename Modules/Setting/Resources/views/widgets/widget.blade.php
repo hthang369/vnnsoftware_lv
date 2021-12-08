@@ -7,11 +7,15 @@
 </div>
 @endsection
 @section('content')
-@php($dataGroup = $data['text']->keyBy('key'))
+@php
+    $widgetText = data_get($data, 'data.text');
+    $widgetGroup = data_get($data, 'data.group');
+    $dataGroup = $widgetText->keyBy('key');
+@endphp
 <div class="card">
     <h4 class="card-header bg-primary">Preview</h4>
     <div class="card-body px-1">
-        @foreach ($data['group'] as $item)
+        @foreach ($widgetGroup as $item)
         <div class="card">
             <h5 class="card-header bg-info">{{$item->header}}</h5>
             <div class="card-body">
@@ -37,9 +41,9 @@
     </div>
 </div>
 <x-card-group size="md" size-cols="3">
-    @foreach ($data['text'] as $header => $item)
+    @foreach ($widgetText as $header => $item)
     <div class="col">
-    <div class="card">
+    <div class="card widgets-group-card">
         <form method="POST" action="{{route('widget.update', $item->key)}}" id="{{$item->key}}">
         <h4 class="card-header">
             <div class="d-flex justify-content-between">
@@ -50,8 +54,8 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                         <a class="dropdown-item btn-select" href="#" data-key="group">Group</a>
-                        @foreach ($data['group'] as $group)
-                        <a class="dropdown-item btn-select" href="#" data-key="{{$group->key}}">{{$group->header}}</a>
+                        @foreach ($widgetGroup as $group)
+                        <a class="dropdown-item btn-select {{in_array($item->key, json_decode($group->value, true)) ? 'active' : ''}}" href="#" data-key="{{$group->key}}">{{$group->header}}</a>
                         @endforeach
                     </div>
                 </div>
@@ -70,7 +74,7 @@
             </div>
         </div>
         <div class="card-footer">
-            {!! Form::button('Save', ['class' => 'btn btn-primary btn-sm btn-save']) !!}
+            {!! Form::button('Save', ['class' => 'btn btn-primary btn-sm btn-save', 'data-loading' => __('admin::common.loading')]) !!}
         </div>
         </form>
     </div>
@@ -79,11 +83,18 @@
 </x-card-group>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script>
     $(document).ready(function() {
+        _.forEach($('.dropdown-menu'), function(item) {
+            let itemActive = _.head($(item).find('a.active'));
+            let itemText = _.isNil(itemActive) ? 'Group' : $(itemActive).text();
+            let itemKey = _.isNil(itemActive) ? 'Group' : $(itemActive).data('key');
+            $(item).parents('.btn-group').find('button').text(itemText);
+            $(item).parents('.widgets-group-card').find('.widget_group').val(itemKey)
+        });
         $('.btn-select').click(function(e) {
             e.preventDefault();
             let text = $(this).text()
@@ -92,21 +103,10 @@
             $(this).parents('.btn-group').find('button').text(text)
         });
         $('.btn-save').click(function(e) {
-            let form = $(this).parents('form');
-            // var data = new FormData(form[0])
-            // for(var pair of data.entries()) {
-            //     console.log(pair[0]+ ', '+ pair[1]);
-            // }
-            var submitButton = $(this);
-            var originalButtonHtml = $(submitButton).html();
-            $api.put(form.attr('action'), JSON.stringify(form.serializeObject()), {
-                pjaxContainer: form.id,
-                beforeSend: function() {
-                    $(submitButton).attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;loading');
-                },
-                onComplete: function() {
-                    $(submitButton).html(originalButtonHtml).removeAttr('disabled');
-                }
+            let form = _.head($(this).parents('form'));
+            $api.put($(form).attr('action'), JSON.stringify($(form).serializeObject()), {
+                pjaxContainer: '#'+form.id,
+                targetLoading: this
             })
         });
         // $('.card-widgets textarea').each(function(item) {
@@ -147,4 +147,4 @@
 
 
 </script>
-@endsection
+@endpush

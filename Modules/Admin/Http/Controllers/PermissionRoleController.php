@@ -5,6 +5,7 @@ namespace Modules\Admin\Http\Controllers;
 use Modules\Admin\Repositories\PermissionRoleRepository;
 use Modules\Admin\Validators\PermissionRoleValidator;
 use Vnnit\Core\Http\Controllers\CoreController;
+use Vnnit\Core\Permissions\Role;
 use Vnnit\Core\Responses\BaseResponse;
 
 class PermissionRoleController extends CoreController
@@ -14,6 +15,9 @@ class PermissionRoleController extends CoreController
         parent::__construct($repository, $validator, $response);
         $this->setDefaultView('admin::permission_roles');
         $this->setRouteName('role_has_permissions');
+        $this->setPathView([
+            'update' => 'role_has_permissions.update',
+        ]);
     }
 
     /**
@@ -26,6 +30,7 @@ class PermissionRoleController extends CoreController
         $this->repository->role_id = $id;
         list($grid, $data) = $this->repository->allDataGrid();
         $role_id = $id;
-        return $this->renderViewData(compact('data', 'grid', 'role_id'), __FUNCTION__);
+        $name = Role::find($id, ['name'])->name;
+        return $this->renderViewData(compact('data', 'grid', 'role_id', 'name'), __FUNCTION__);
     }
 }

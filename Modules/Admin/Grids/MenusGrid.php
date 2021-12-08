@@ -53,13 +53,15 @@ class MenusGrid extends BaseGrid
     protected function getCreareUrl()
     {
         $menu_type = request('type');
-        return route($this->getSectionCode().'.create', $menu_type);
+        return route($this->getSectionCode().'.create', [$menu_type, 'ref' => $this->getId()]);
     }
 
     protected function getEditUrl($params)
     {
         $menu_type = request('type');
-        return parent::getEditUrl([$params, $menu_type]);
+        $params = array_merge($params, [$menu_type]);
+        ksort($params, SORT_NATURAL);
+        return parent::getEditUrl($params);
     }
 
     protected function configureButtons()

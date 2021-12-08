@@ -15,8 +15,11 @@ class UsersForm extends Form
             ->add('password', Field::PASSWORD)
             ->add('name', Field::TEXT)
             ->add('email', Field::EMAIL)
-            ->add('role_list', Field::CHECKBOX_GROUP, [
+            ->add('roles[]', Field::CHECKBOX_GROUP, [
                 'label' => 'Roles',
+                'value' => function($form, $value) {
+                    return $value->pluck('level')->toArray();
+                },
                 'choices' => Role::pluck('name', 'level')->toArray()
             ]);
     }

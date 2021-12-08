@@ -64,8 +64,31 @@
     ol {
         list-style: none;
     }
+    .ui-sortable {
+        padding-left: 2rem;
+        .nav-link {
+            border: 1px solid #898989;
+            background-color: rgba($color: #333839, $alpha: 0.5);
+            span {
+                cursor: move;
+            }
+        }
+        .highlight {
+            outline: 1px dashed #898989;
+        }
+    }
 }
 #popupToast {
     left: inherit;
     z-index: 9999;
 }
+.wather {
+    background: url('/storage/images/tp-ho-chi-minh.jpg');
+    background-size: contain;
+    height: 225px;
+    color: #000 !important;
+    .avatar {
+        width: 35px;
+    }
+}
+

@@ -20,4 +20,4 @@
 
 /*!
 * Common
-*/.menu-struct ol{list-style:none}#popupToast{left:inherit;z-index:9999}
+*/.menu-struct ol{list-style:none}.menu-struct .ui-sortable{padding-left:2rem}.menu-struct .ui-sortable .nav-link{border:1px solid #898989;background-color:rgba(51,56,57,.5)}.menu-struct .ui-sortable .nav-link span{cursor:move}.menu-struct .ui-sortable .highlight{outline:1px dashed #898989}#popupToast{left:inherit;z-index:9999}.wather{background:url(/storage/images/tp-ho-chi-minh.jpg);background-size:contain;height:225px;color:#000!important}.wather .avatar{width:35px}

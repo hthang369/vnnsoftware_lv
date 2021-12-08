@@ -12,7 +12,6 @@ class SettingsForm extends Form
         if ($this->getData('action') == 'edit') {
             $this->add('web_name', Field::TEXT, [
                 'label' => trans('setting::configs.web_name'),
-                'wrapper_class' => 'form-group form-row',
             ]);
             $this->add('web_address', Field::TEXT);
             $this->add('web_phone', Field::TEXT);
@@ -29,12 +28,36 @@ class SettingsForm extends Form
                 'attr' => ['class' => 'btn btn-secondary', 'formaction' => route('setting.index'), 'formmethod' => 'get']
             ]);
         } else {
-            $this->add('web_name', Field::STATIC);
-            $this->add('web_phone', Field::STATIC);
-            $this->add('web_email', Field::STATIC);
-            $this->add('ob_title', Field::STATIC);
-            $this->add('ob_desception', Field::STATIC);
-            $this->add('ob_keyword', Field::STATIC);
+            $this->add('web_name', Field::STATIC, [
+                'wrapper' => ['inline' => true],
+                'label_attr' => ['class' => ['col-3']],
+                'attr' => ['class' => ['col-9', 'text-white']]
+            ]);
+            $this->add('web_phone', Field::STATIC, [
+                'wrapper' => ['inline' => true],
+                'label_attr' => ['class' => ['col-3']],
+                'attr' => ['class' => ['col-9', 'text-white']]
+            ]);
+            $this->add('web_email', Field::STATIC, [
+                'wrapper' => ['inline' => true],
+                'label_attr' => ['class' => ['col-3']],
+                'attr' => ['class' => ['col-9', 'text-white']]
+            ]);
+            $this->add('ob_title', Field::STATIC, [
+                'wrapper' => ['inline' => true],
+                'label_attr' => ['class' => ['col-3']],
+                'attr' => ['class' => ['col-9', 'text-white']]
+            ]);
+            $this->add('ob_desception', Field::STATIC, [
+                'wrapper' => ['inline' => true],
+                'label_attr' => ['class' => ['col-3']],
+                'attr' => ['class' => ['col-9', 'text-white']]
+            ]);
+            $this->add('ob_keyword', Field::STATIC, [
+                'wrapper' => ['inline' => true],
+                'label_attr' => ['class' => ['col-3']],
+                'attr' => ['class' => ['col-9', 'text-white']]
+            ]);
             $this->add('edit', Field::BUTTON_SUBMIT, [
                 'label' => trans('admin::common.edit'),
                 'attr' => ['class' => 'btn btn-primary']

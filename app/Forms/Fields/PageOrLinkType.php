@@ -10,7 +10,7 @@ class PageOrLinkType extends FormField
         return 'page_or_link';
     }
 
-    protected function getAttributes()
+    protected function getAttributes(array $options = [])
     {
         return [
             'class' => 'form-control',

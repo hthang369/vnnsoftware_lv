@@ -1,31 +1,33 @@
 @extends('admin::layouts.master')
 
+@section('content_header')
+    <h4 class="d-inline-block border-bottom border-primary m-0 pm-3">
+        @lang($page_title):
+        {{$data['name']}}
+    </h4>
+@endsection
+
 @section('content')
     {!! $data['grid'] !!}
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
 $(document).ready(function() {
     $('.btn-save').on('click', function(e) {
         e.preventDefault();
-        let frm = $('#frmPermissionRole');
-        $.ajax({
-            method: frm.attr('method'),
-            url: frm.attr('action'),
-            data: frm.serializeObject(),
-            success: function success(data) {
-                $.pjax.reload({ container: '#frmPermissionRole' });
-            },
-            error: function error(data) {
-                if (typeof toastr !== 'undefined') {
-                    toastr.error('An error occurred', 'Whoops!');
-                } else {
-                    alert('An error occurred');
-                }
-            }
+        let props = [];
+        let values = [];
+        _.forEach($('#permissionRole-grid').find('input[type=checkbox]'), function(item) {
+            props.push($(item).attr('name'));
+            values.push($(item).is(':checked'));
+        });
+        let data = JSON.stringify(_.zipObject(props, values))
+        $api.put('{{route("role_has_permissions.update", $data["role_id"])}}', data, {
+            'targetLoading': '#btn-save',
+            'pjaxContainer': '#permissionRole-grid'
         });
     });
 });
 </script>
-@endsection
+@endpush

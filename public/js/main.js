@@ -9,12 +9,12 @@
 
     // Back to top button
     $(window).scroll(function() {
-      if ($(window).scrollTop() > 100) {
-        $('#header').addClass('fixed-top');
-      }
-      else {
-        $('#header').removeClass('fixed-top');
-      }
+    //   if ($(window).scrollTop() > 100) {
+    //     $('#header').addClass('fixed-top');
+    //   }
+    //   else {
+    //     $('#header').removeClass('fixed-top');
+    //   }
       if ($(this).scrollTop() > 100) {
         $('.back-to-top').addClass('active');
       } else {

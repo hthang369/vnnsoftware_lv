@@ -35,7 +35,7 @@ class PermissionRoleRepository extends AdminBaseRepository
 
     public function update(array $attributes, $id)
     {
-        $attributes = array_diff_key($attributes, array_flip(['_method', '_token', 'q']));
+        $attributes = array_filter(array_except($attributes, ['_method', '_token', 'q']));
         if (count($attributes) == 0) return;
         $result = Permission::whereIn('name', array_keys($attributes))->pluck('id')->sort();
         return DB::transaction(function () use($id, $result) {

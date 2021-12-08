@@ -1,9 +1,7 @@
 @extends('admin::layouts.master')
 
 @section('content')
-@include('ckfinder::setup')
-
-<script>
-	CKFinder.start();
-</script>
+<div class="file-manager">
+    @include('bootstrap::components.file-manager.index')
+</div>
 @endsection
